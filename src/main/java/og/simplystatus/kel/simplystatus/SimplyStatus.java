@@ -81,6 +81,59 @@ public class SimplyStatus implements ModInitializer {
             presence.largeImageKey = "logo";
             presence.largeImageText = "SimplyStatus";
             presence.instance = 1;
+            var worldPlayer = mc.world.getTimeOfDay();
+            if(worldPlayer > 24000){
+                var mcdays = worldPlayer / 24000;
+                var tipotime = mcdays * 24000;
+                var mctime = worldPlayer - tipotime;
+                /*
+                * System.out.println(worldPlayer);
+                * System.out.println(tipotime);
+                * System.out.println(mcdays);
+                * System.out.println(mctime);
+                 */
+                if(mctime < 0 && mctime > 22500){
+                    presence.smallImageKey = "morning";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: Утро";
+                } else if(mctime < 6000 && mctime > 0){
+                    presence.smallImageKey = "morning";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: Утро";
+                } else if( mctime < 12000 && mctime > 6000){
+                    presence.smallImageKey = "day";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: День";
+
+                } else if(mctime < 15000 && mctime > 12000){
+                    presence.smallImageKey = "evening";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: Вечер";
+
+                } else if(mctime < 22500 && mctime > 15000){
+                    presence.smallImageKey = "night";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: Ночь";
+                }
+
+            } else {
+                var mctime = worldPlayer;
+                var mcdays = "0";
+                if(mctime < 0 && mctime > 22500){
+                    presence.smallImageKey = "morning";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: Утро";
+                } else if(mctime < 6000 && mctime > 0){
+                    presence.smallImageKey = "morning";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: Утро";
+                } else if( mctime < 12000 && mctime > 6000){
+                    presence.smallImageKey = "day";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: День";
+
+                } else if(mctime < 15000 && mctime > 12000){
+                    presence.smallImageKey = "evening";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: Вечер";
+
+                } else if(mctime < 22500 && mctime > 15000){
+                    presence.smallImageKey = "night";
+                    presence.smallImageText = "День: " + mcdays + ". Время суток: Ночь";
+                }
+            }
+
             if (!issinglePlayer) {
                 String serverip = "";
                 if (mc.getCurrentServerEntry() != null) {
@@ -90,8 +143,6 @@ public class SimplyStatus implements ModInitializer {
                 presence.state = "В записи ReplayMod [Возможно]";
                 } else {
                     presence.state = "Мултиплеер: " + serverip;
-                    presence.smallImageKey = "logo";
-                    presence.smallImageText = "Мод сделан Not_Simply_Kel";
                 }
             } else {
                 presence.state = "Одиночный мир";
