@@ -73,15 +73,22 @@ public class SimplyStatus implements ModInitializer {
                 ItemStack held_item = mc.player.getStackInHand(Hand.MAIN_HAND);
                 String item = held_item.getItem().toString();
                 if (!item.equals("air")) {
-                    presence.details = "Держит \"" + held_item.getName().getString() + "\"";
+                    presence.details = "Держит «" + held_item.getName().getString() + "»";
                 } else {
                     var playerHealth = mc.player.getHealth() / 2;
                     var playerHealthMax = mc.player.getMaxHealth() / 2;
                     var playerArmor = mc.player.getArmor() / 2;
-                    if(playerHealth <= 0.0) {
-                        presence.details = "Игрок умер :(";
+                    if(mc.player.isDead()) {
+                        var randomNumber = Math.floor(Math.random() * 2);
+                        if(randomNumber == 0){
+                            presence.details = "Игрок нет живых :(";
+                        }else if(randomNumber == 1){
+                            presence.details = "Игрок умер :(";
+                        }else if(randomNumber == 2){
+                            presence.details = "Сидит отдыхает от мира...";
+                        }
                     } else {
-                        presence.details = Math.ceil(playerHealth) + "/" + Math.ceil(playerHealthMax) + "❤️ | " + Math.ceil(playerArmor) + "🛡️";
+                        presence.details = Math.ceil(playerHealth) + "/" + Math.ceil(playerHealthMax) + "❤ | " + Math.ceil(playerArmor) + "🛡️";
                     }
                 }
             }
@@ -148,13 +155,13 @@ public class SimplyStatus implements ModInitializer {
                 presence.state = mc.player.getName().getString() + " | Одиночный мир";
                 if (DimensionType.THE_END_ID.equals(dimKey)) {
                     presence.smallImageKey = "end";
-                    presence.smallImageText = "Находится в \"Эндер мире\"";
+                    presence.smallImageText = "Эндер мире";
                 } else if (DimensionType.THE_NETHER_ID.equals(dimKey)) {
                     presence.smallImageKey = "nether";
-                    presence.smallImageText = "Находится в \"Нижнем мире\"";
+                    presence.smallImageText = "Нижнем мире";
                 } else {
                     presence.smallImageKey = "overworld";
-                    presence.smallImageText = "Находится в \"Верхнем мире\"";
+                    presence.smallImageText = "Верхнем мире";
                     if(worldTime > 24000){
                         var mcdays = worldTime / 24000;
                         var tipotime = mcdays * 24000;
