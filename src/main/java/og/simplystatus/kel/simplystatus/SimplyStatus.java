@@ -26,7 +26,8 @@ public class SimplyStatus implements ModInitializer {
     Timer timer = new Timer();
     @Override
     public void onInitialize() {
-
+        SimplyStatusConfig cfg = new SimplyStatusConfig();
+        cfg.load();
         handlers.ready = (user) -> System.out.println("Ready!");
 
         lib.Discord_Initialize(applicationId, handlers, true, steamId);
@@ -75,21 +76,27 @@ public class SimplyStatus implements ModInitializer {
                 if (!item.equals("air")) {
                     presence.details = "Держит «" + held_item.getName().getString() + "»";
                 } else {
-                    var playerHealth = mc.player.getHealth() / 2;
-                    var playerHealthMax = mc.player.getMaxHealth() / 2;
-                    var playerArmor = mc.player.getArmor() / 2;
-                    if(mc.player.isDead()) {
-                        var randomNumber = Math.floor(Math.random() * 2);
-                        if(randomNumber == 0){
-                            presence.details = "Игрок нет живых :(";
-                        }else if(randomNumber == 1){
-                            presence.details = "Игрок умер :(";
-                        }else if(randomNumber == 2){
-                            presence.details = "Сидит отдыхает от мира...";
+                        var playerHealth = mc.player.getHealth() / 2;
+                        var playerHealthMax = mc.player.getMaxHealth() / 2;
+                        var playerArmor = mc.player.getArmor() / 2;
+                        if(mc.player.isDead()) {
+                            var randomNumber = Math.floor(Math.random() * 2);
+                            if(randomNumber == 0){
+                                presence.details = "Игрок нет живых :(";
+                            }else if(randomNumber == 1){
+                                presence.details = "Игрок умер :(";
+                            }else if(randomNumber == 2){
+                                presence.details = "Сидит отдыхает от мира...";
+                            }
+                        } else {
+                            if(SimplyStatusClient.ViewStatic == true){
+                            presence.details = Math.ceil(playerHealth) + "/" + Math.ceil(playerHealthMax) + "❤ | " + Math.ceil(playerArmor) + "🛡️";
+                        } else {
+                            presence.details = "Держит хорошое настроение :3";
                         }
-                    } else {
-                        presence.details = Math.ceil(playerHealth) + "/" + Math.ceil(playerHealthMax) + "❤ | " + Math.ceil(playerArmor) + "🛡️";
-                    }
+                        }
+
+
                 }
             }
             presence.startTimestamp = start_time;
@@ -104,9 +111,13 @@ public class SimplyStatus implements ModInitializer {
                     serverip = mc.getCurrentServerEntry().address;
                 }
                 if(serverip.equals("")) {
-                presence.state = "Неизвестный мультимлеер ¯\\_(ツ)_/¯";
+                    presence.state = "Неизвестный мультимлеер ¯\\_(ツ)_/¯";
                 } else {
-                    presence.state = mc.player.getName().getString() + " | " + serverip;
+                    if(SimplyStatusClient.ViewIP == true){
+                        presence.state = mc.player.getName().getString() + " | " + serverip;
+                    } else {
+                        presence.state = mc.player.getName().getString() + " | *IP адрес скрыт*";
+                    }
                     if(worldTime > 24000){
                         var mcdays = worldTime / 24000;
                         var tipotime = mcdays * 24000;
