@@ -21,11 +21,13 @@ public class SimplyStatus implements ModInitializer {
     Long start_time = System.currentTimeMillis() / 1000;
 
     MinecraftClient mc = MinecraftClient.getInstance();
+    SimplyStatusTranslate Translate = new SimplyStatusTranslate();
 
     Integer times = 0;
     Timer timer = new Timer();
     @Override
     public void onInitialize() {
+        Translate.selectedLang();
         SimplyStatusConfig cfg = new SimplyStatusConfig();
         cfg.load();
         handlers.ready = (user) -> System.out.println("Ready!");
@@ -53,10 +55,10 @@ public class SimplyStatus implements ModInitializer {
     }
 
     private void basicPresence() {
-
+        Translate.selectedLang();
         DiscordRichPresence presence = new DiscordRichPresence();
         presence.startTimestamp = start_time; // epoch second
-        presence.details = "В главном меню.";
+        presence.details = Translate.textMainMenu;
         presence.state = "Minecraft " + mc.getGame().getVersion().getName() + "/" + mc.getVersionType();
         presence.largeImageKey = "logo";
         presence.instance = 1;
@@ -64,6 +66,7 @@ public class SimplyStatus implements ModInitializer {
 
     }
     private void updatePresence() {
+        Translate.selectedLang();
         if (mc.world != null) {
             times++;
             boolean issinglePlayer = mc.isInSingleplayer();
@@ -74,7 +77,7 @@ public class SimplyStatus implements ModInitializer {
                 ItemStack held_item = mc.player.getStackInHand(Hand.MAIN_HAND);
                 String item = held_item.getItem().toString();
                 if (!item.equals("air")) {
-                    presence.details = "Держит «" + held_item.getName().getString() + "»";
+                    presence.details = Translate.textItem + "«" + held_item.getName().getString() + "»";
                 } else {
                         var playerHealth = mc.player.getHealth() / 2;
                         var playerHealthMax = mc.player.getMaxHealth() / 2;
@@ -82,17 +85,17 @@ public class SimplyStatus implements ModInitializer {
                         if(mc.player.isDead()) {
                             var randomNumber = Math.floor(Math.random() * 2);
                             if(randomNumber == 0){
-                                presence.details = "Игрок нет живых :(";
+                                presence.details = Translate.textDeathOne;
                             }else if(randomNumber == 1){
-                                presence.details = "Игрок умер :(";
+                                presence.details = Translate.textDeathTwo;
                             }else if(randomNumber == 2){
-                                presence.details = "Сидит отдыхает от мира...";
+                                presence.details = Translate.textDeathThree;
                             }
                         } else {
                             if(SimplyStatusClient.ViewStatic == true){
                             presence.details = Math.ceil(playerHealth) + "/" + Math.ceil(playerHealthMax) + "❤ | " + Math.ceil(playerArmor) + "🛡️";
                         } else {
-                            presence.details = "Держит хорошое настроение :3";
+                            presence.details = Translate.textAir;
                         }
                         }
 
@@ -111,12 +114,12 @@ public class SimplyStatus implements ModInitializer {
                     serverip = mc.getCurrentServerEntry().address;
                 }
                 if(serverip.equals("")) {
-                    presence.state = "Неизвестный мультимлеер ¯\\_(ツ)_/¯";
+                    presence.state = Translate.textUnknownServer;
                 } else {
                     if(SimplyStatusClient.ViewIP == true){
                         presence.state = mc.player.getName().getString() + " | " + serverip;
                     } else {
-                        presence.state = mc.player.getName().getString() + " | *IP адрес скрыт*";
+                        presence.state = mc.player.getName().getString() + " | " + Translate.textHideIP;
                     }
                     if(worldTime > 24000){
                         var mcdays = worldTime / 24000;
@@ -124,46 +127,46 @@ public class SimplyStatus implements ModInitializer {
                         var mctime = worldTime - tipotime;
                         if(mctime < 0 && mctime > 23000){
                             presence.smallImageKey = "morning";
-                            presence.smallImageText = "Утро";
+                            presence.largeImageText = Translate.text_morning;
                         } else if(mctime < 6000 && mctime > 0){
                             presence.smallImageKey = "morning";
-                            presence.smallImageText = "Утро";
+                            presence.largeImageText = Translate.text_morning;
                         } else if( mctime < 12000 && mctime > 6000){
                             presence.smallImageKey = "day";
-                            presence.smallImageText = "День";
+                            presence.largeImageText = Translate.text_day;
 
                         } else if(mctime < 16500 && mctime > 12000){
                             presence.smallImageKey = "evening";
-                            presence.smallImageText = "Вечер";
+                            presence.largeImageText = Translate.text_evening;
 
                         } else if(mctime < 23000 && mctime > 16500){
                             presence.smallImageKey = "night";
-                            presence.smallImageText = "Ночь";
+                            presence.largeImageText = Translate.text_night;
                         }
                     }else{
                         var mctime = worldTime;
                         if(mctime < 0 && mctime > 23000){
                             presence.smallImageKey = "morning";
-                            presence.smallImageText = "Утро";
+                            presence.largeImageText = Translate.text_morning;
                         } else if(mctime < 6000 && mctime > 0){
                             presence.smallImageKey = "morning";
-                            presence.smallImageText = "Утро";
+                            presence.largeImageText = Translate.text_morning;
                         } else if( mctime < 12000 && mctime > 6000){
                             presence.smallImageKey = "day";
-                            presence.smallImageText = "День";
+                            presence.largeImageText = Translate.text_day;
 
                         } else if(mctime < 16500 && mctime > 12000){
                             presence.smallImageKey = "evening";
-                            presence.smallImageText = "Вечер";
+                            presence.largeImageText = Translate.text_evening;
 
                         } else if(mctime < 23000 && mctime > 16500){
                             presence.smallImageKey = "night";
-                            presence.smallImageText = "Ночь";
+                            presence.largeImageText = Translate.text_night;
                         }
                     }
                 }
             } else {
-                presence.state = mc.player.getName().getString() + " | Одиночный мир";
+                presence.state = mc.player.getName().getString() + " | " + Translate.text_isInSingleplayer;
                 if (DimensionType.THE_END_ID.equals(dimKey)) {
                     presence.smallImageKey = "end";
                     presence.smallImageText = "Эндер мире";
@@ -179,27 +182,27 @@ public class SimplyStatus implements ModInitializer {
                         var mctime = worldTime - tipotime;
                         if(mctime < 0 && mctime > 23000){
                             presence.largeImageKey = "morning";
-                            presence.largeImageText = "Утро | Верхний мир";
+                            presence.largeImageText = Translate.text_morning + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         } else if(mctime < 6000 && mctime > 0){
                             presence.largeImageKey = "morning";
-                            presence.largeImageText = "Утро | Верхний мир";
+                            presence.largeImageText = Translate.text_morning + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         } else if( mctime < 12000 && mctime > 6000){
                             presence.largeImageKey = "day";
-                            presence.largeImageText = "День | Верхний мир";
+                            presence.largeImageText = Translate.text_day + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         } else if(mctime < 16500 && mctime > 12000){
                             presence.largeImageKey = "evening";
-                            presence.largeImageText = "Вечер | Верхний мир";
+                            presence.largeImageText = Translate.text_evening + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         } else if(mctime < 23000 && mctime > 16500){
                             presence.largeImageKey = "night";
-                            presence.largeImageText = "Ночь | Верхний мир";
+                            presence.largeImageText = Translate.text_night + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         }
@@ -207,27 +210,27 @@ public class SimplyStatus implements ModInitializer {
                         var mctime = worldTime;
                         if(mctime < 0 && mctime > 23000){
                             presence.largeImageKey = "morning";
-                            presence.largeImageText = "Утро | Верхний мир";
+                            presence.largeImageText = Translate.text_morning + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         } else if(mctime < 6000 && mctime > 0){
                             presence.largeImageKey = "morning";
-                            presence.largeImageText = "Утро | Верхний мир";
+                            presence.largeImageText = Translate.text_morning + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         } else if( mctime < 12000 && mctime > 6000){
                             presence.largeImageKey = "day";
-                            presence.largeImageText = "День | Верхний мир";
+                            presence.largeImageText = Translate.text_day + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         } else if(mctime < 16500 && mctime > 12000){
                             presence.largeImageKey = "evening";
-                            presence.largeImageText = "Вечер | Верхний мир";
+                            presence.largeImageText = Translate.text_evening + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         } else if(mctime < 23000 && mctime > 16500){
                             presence.largeImageKey = "night";
-                            presence.largeImageText = "Ночь | Верхний мир";
+                            presence.largeImageText = Translate.text_night + " | " + Translate.world_overworld;
                             presence.smallImageKey = "overworld";
                             presence.smallImageText = "SimplyStatus";
                         }

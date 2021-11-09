@@ -9,6 +9,7 @@ import net.minecraft.text.LiteralText;
 import org.lwjgl.glfw.GLFW;
 
 public class SimplyStatusClient implements ClientModInitializer {
+    SimplyStatusTranslate Translate = new SimplyStatusTranslate();
 
     // The KeyBinding declaration and registration are commonly executed here statically
     public static boolean ViewIP = false;
@@ -33,15 +34,16 @@ public class SimplyStatusClient implements ClientModInitializer {
                 "category.simplystatus.name" // The translation key of the keybinding's category.
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            Translate.selectedLang();
             while (keyBindingViewIP.wasPressed()) {
                 if(ViewIP == false){
                     ViewIP = true;
                     root.setViewIP(ViewIP);
-                    client.player.sendMessage(new LiteralText("[§6SimplyStatus§r] IP адрес сервера теперь виден!"), false);
+                    client.player.sendMessage(new LiteralText(Translate.messageViewIPtrue), false);
                 } else{
                     ViewIP = false;
                     root.setViewIP(ViewIP);
-                    client.player.sendMessage(new LiteralText("[§6SimplyStatus§r] IP адрес сервера теперь скрыт!"), false);
+                    client.player.sendMessage(new LiteralText(Translate.messageViewIPfalse), false);
                 }
                 cfg.save();
             }
@@ -49,11 +51,11 @@ public class SimplyStatusClient implements ClientModInitializer {
                 if(ViewStatic == false){
                     ViewStatic = true;
                     root.setViewStatic(ViewStatic);
-                    client.player.sendMessage(new LiteralText("[§6SimplyStatus§r] Ваша статистика теперь видна!"), false);
+                    client.player.sendMessage(new LiteralText(Translate.messageViewStatictrue), false);
                 } else{
                     ViewStatic = false;
                     root.setViewStatic(ViewStatic);
-                    client.player.sendMessage(new LiteralText("[§6SimplyStatus§r] Ваша статистика теперь скрыта!"), false);
+                    client.player.sendMessage(new LiteralText(Translate.messageViewStaticfalse), false);
                 }
                 cfg.save();
             }
