@@ -26,6 +26,7 @@
 >    "text_night": "Night",
 >    "text_morning" :"Morning",
 >    "text_evening": "Evening"
+>    "isInSingleplayer": "Single Player"
 > }
 > ```
 
@@ -49,3 +50,4 @@
 * text_night - Ночь
 * text_morning - Утро
 * text_evening - Вечер
+* isInSingleplayer - Одиночный мир
