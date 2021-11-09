@@ -18,7 +18,14 @@
 >    "textAir": "Keeps a good mood",
 >    "textItem": "Holding a ",
 >    "textUnknownServer": "Unknown multiplayer ¯\\_(ツ)_/¯",
->    "textHideIP": "*IP address is hidden*"
+>    "textHideIP": "*IP address is hidden*",
+>    "world_overworld": "The overworld",
+>    "world_nether": "The nether",
+>    "world_end": "The end",
+>    "text_day": "Day",
+>    "text_night": "Night",
+>    "text_morning" :"Morning",
+>    "text_evening": "Evening"
 > }
 > ```
 
@@ -35,3 +42,10 @@
 * textItem - Текст о том что держит
 * textUnknownServer - Текст неизвестного сервера
 * textHideIP - Текст о скрытия IP адрес сервера
+* world_overworld - Верхний мир
+* world_nether - Нижний мир
+* world_end - Эндер мир
+* text_day - День
+* text_night - Ночь
+* text_morning - Утро
+* text_evening - Вечер
