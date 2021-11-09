@@ -2,7 +2,7 @@
 > Если вы желаете свой текст, или в модификации нет для вас локализации. Вы можете сделать сами :)
 > <br> Ниже будет краткая инструкция.
 ### Шаблон
-> Файл локализации в формате [locale code](https://minecraft.fandom.com/wiki/Language#Languages) .json 
+> Файл локализации в формате \`[locale code](https://minecraft.fandom.com/wiki/Language#Languages) .json\`
 > <br> Все файлы локализации находятся `.minecraft/config/simplystatus/`
 
 > ```json
