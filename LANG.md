@@ -37,8 +37,8 @@
 * messageViewStaticfalse - Сообщения об выключения показа статистики
 * textMainMenu - Текст статус в главном меню
 * textDeathOne - Текст о смерти #1
-* textDeathTwoe - Текст о смерти #2
-* textDeathThreee - Текст о смерти #3
+* textDeathTwo - Текст о смерти #2
+* textDeathThree - Текст о смерти #3
 * textAir - Текст скрытия статистики
 * textItem - Текст о том что держит
 * textUnknownServer - Текст неизвестного сервера
