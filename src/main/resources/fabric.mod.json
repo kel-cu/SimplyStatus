@@ -7,7 +7,7 @@
   "authors": [
     "Not_Simply_Kel"
   ],
-  "icon": "assets/SimplyStatus/logo.png",
+  "icon": "assets/simplystatus/logo.png",
   "license": "MIT",
   "environment": "*",
   "entrypoints": {

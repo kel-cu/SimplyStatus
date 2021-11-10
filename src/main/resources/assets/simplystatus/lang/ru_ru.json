@@ -1,0 +1,5 @@
+{
+  "category.simplystatus.name":"SimplyStatus",
+  "key.simplystatus.viewIP": "Показывать/Скрыть IP адрес сервера",
+  "key.simplystatus.viewStatic": "Показывать/Скрыть статистику игрока"
+}
