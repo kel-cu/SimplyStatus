@@ -25,7 +25,7 @@
 >    "text_day": "Day",
 >    "text_night": "Night",
 >    "text_morning" :"Morning",
->    "text_evening": "Evening"
+>    "text_evening": "Evening",
 >    "isInSingleplayer": "Single Player"
 > }
 > ```
