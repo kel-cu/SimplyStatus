@@ -1,9 +1,8 @@
 # SimplyStatus
-> Тестовый: [1.18-pre1](https://github.com/not-simply-kel/SimplyStatus-fabric/tree/1.18)<br>
 > Это мод предозначен для игрового статуса **Minecraft** в **[Discord](https://discord.com/)**, где показывает ваши статистику. Например: В каком вы измерении находитесь, сколько у вас здоровья и брони, так же показывает ваше время `[Утро, день, вечер, ночь]`. Так же может показать на каком вы сервере играете
 ## Требования
-> Minecraft **1.17-1.17.1** <br>
-> [Fabric Loader 0.12.3 и выше](https://fabricmc.net/use)
+> Minecraft **1.17.x** | **1.18**<br>
+> [Fabric Loader 0.12.3 и выше[1.17]](https://fabricmc.net/use) | [Fabric Loader 0.12.6 и выше[1.18]](https://fabricmc.net/use)
 ## Как установить
 * Скачиваем .jar файл из [Releases](https://github.com/not-simply-kel/SimplyStatus-fabric/releases 'GitHub'), рекомендую использовать релизы `[не pre-release]`<br>
 * Ищем папку Майнкрафта. По умолчанию в `%appdata%/.minecraft` **\[Windows\]**, и ищем папку `/mods`
