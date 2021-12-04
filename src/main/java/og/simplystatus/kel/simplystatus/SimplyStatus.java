@@ -30,11 +30,11 @@ public class SimplyStatus implements ModInitializer {
         Translate.selectedLang();
         SimplyStatusConfig cfg = new SimplyStatusConfig();
         cfg.load();
-        handlers.ready = (user) -> System.out.println("Ready!");
+        handlers.ready = (user) -> System.out.println("SimplyStatus running");
 
         lib.Discord_Initialize(applicationId, handlers, true, steamId);
 
-        basicPresence();
+        MainPresenceBasic();
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 lib.Discord_RunCallbacks();
@@ -54,193 +54,208 @@ public class SimplyStatus implements ModInitializer {
         }, 5000, 5000);
     }
 
-    private void basicPresence() {
+    private void MainPresenceBasic() {
         Translate.selectedLang();
-        DiscordRichPresence presence = new DiscordRichPresence();
-        presence.startTimestamp = start_time; // epoch second
-        presence.details = Translate.textMainMenu;
-        presence.state = "Minecraft " + mc.getGame().getVersion().getName() + "/" + mc.getVersionType();
-        presence.largeImageKey = "logo";
-        presence.instance = 1;
-        lib.Discord_UpdatePresence(presence);
-
+        DiscordRichPresence MainPresence = new DiscordRichPresence();
+        MainPresence.startTimestamp = start_time;
+        MainPresence.state = "Minecraft " + mc.getGame().getVersion().getName() + "/" + mc.getVersionType();
+        MainPresence.details = Translate.textMainMenu;
+        MainPresence.largeImageKey = "logo";
+        MainPresence.largeImageText = Translate.text_goodPlayer;
+        lib.Discord_UpdatePresence(MainPresence);
     }
     private void updatePresence() {
         Translate.selectedLang();
-        if (mc.world != null) {
+        if(mc.world == null){
+            MainPresenceBasic();
+        } else {
             times++;
             boolean issinglePlayer = mc.isInSingleplayer();
             DimensionType dimtype = mc.world.getDimension();
             Identifier dimKey = mc.world.getRegistryManager().get(Registry.DIMENSION_TYPE_KEY).getId(dimtype);
             DiscordRichPresence presence = new DiscordRichPresence();
+            presence.startTimestamp = start_time;
+            presence.largeImageKey = "logo";
+            presence.largeImageText = Translate.text_goodPlayer;
             if(mc.player!=null){
-                ItemStack held_item = mc.player.getStackInHand(Hand.MAIN_HAND);
-                String item = held_item.getItem().toString();
-                if (!item.equals("air")) {
-                    presence.details = Translate.textItem + "«" + held_item.getName().getString() + "»";
+                ItemStack main_item = mc.player.getStackInHand(Hand.MAIN_HAND);
+                ItemStack off_item = mc.player.getStackInHand(Hand.OFF_HAND);
+                String mitem = main_item.getItem().toString();
+                String oitem = off_item.getItem().toString();
+                if (!mitem.equals("air")) {
+                    presence.details = Translate.textItem + "«" + main_item.getName().getString() + "»";
                 } else {
-                        var playerHealth = mc.player.getHealth() / 2;
-                        var playerHealthMax = mc.player.getMaxHealth() / 2;
-                        var playerArmor = mc.player.getArmor() / 2;
-                        if(mc.player.isDead()) {
-                            var randomNumber = Math.floor(Math.random() * 2);
-                            if(randomNumber == 0){
-                                presence.details = Translate.textDeathOne;
-                            }else if(randomNumber == 1){
-                                presence.details = Translate.textDeathTwo;
-                            }else if(randomNumber == 2){
-                                presence.details = Translate.textDeathThree;
-                            }
+                    if(SimplyStatusClient.ViewOffHand == true){
+                        if (!oitem.equals("air")) {
+                            presence.details = Translate.textItem + "«" + off_item.getName().getString() + "»";
                         } else {
                             if(SimplyStatusClient.ViewStatic == true){
-                            presence.details = Math.ceil(playerHealth) + "/" + Math.ceil(playerHealthMax) + "❤ | " + Math.ceil(playerArmor) + "🛡️";
+                                if(mc.player.isDead()) {
+                                    var randomNumber = Math.floor(Math.random() * 2);
+                                    if(randomNumber == 0){
+                                        presence.details = Translate.textDeathOne;
+                                    }else if(randomNumber == 1){
+                                        presence.details = Translate.textDeathTwo;
+                                    }else if(randomNumber == 2){
+                                        presence.details = Translate.textDeathThree;
+                                    }
+                                } else {
+                                    var playerHealth = mc.player.getHealth() / 2;
+                                    var playerHealthMax = mc.player.getMaxHealth() / 2;
+                                    var playerArmor = mc.player.getArmor() / 2;
+                                    presence.details = Math.ceil(playerHealth) + "/" + Math.ceil(playerHealthMax) + "❤ | " + Math.ceil(playerArmor) + "🛡️";
+                                }
+                            } else {
+                                presence.details = Translate.textAir;
+                            }
+                        }
+                    } else {
+                        if(SimplyStatusClient.ViewStatic == true){
+                            if(mc.player.isDead()) {
+                                var randomNumber = Math.floor(Math.random() * 2);
+                                if(randomNumber == 0){
+                                    presence.details = Translate.textDeathOne;
+                                }else if(randomNumber == 1){
+                                    presence.details = Translate.textDeathTwo;
+                                }else if(randomNumber == 2){
+                                    presence.details = Translate.textDeathThree;
+                                }
+                            } else {
+                                var playerHealth = mc.player.getHealth() / 2;
+                                var playerHealthMax = mc.player.getMaxHealth() / 2;
+                                var playerArmor = mc.player.getArmor() / 2;
+                                presence.details = Math.ceil(playerHealth) + "/" + Math.ceil(playerHealthMax) + "❤ | " + Math.ceil(playerArmor) + "🛡️";
+                            }
                         } else {
                             presence.details = Translate.textAir;
                         }
-                        }
-
-
+                    }
                 }
             }
-            presence.startTimestamp = start_time;
-            presence.largeImageKey = "logo";
-            presence.largeImageText = "SimplyStatus";
-            presence.instance = 1;
+
             var worldTime = mc.world.getLunarTime();
 
             if (!issinglePlayer) {
-                String serverip = "";
-                if (mc.getCurrentServerEntry() != null) {
-                    serverip = mc.getCurrentServerEntry().address;
+                String server_string = "";
+                if (SimplyStatusClient.ViewName == true) {
+                    server_string = mc.getCurrentServerEntry().name;
+                } else {
+                    server_string = mc.getCurrentServerEntry().address;
                 }
-                if(serverip.equals("")) {
+                if (server_string.equals("")) {
                     presence.state = Translate.textUnknownServer;
                 } else {
-                    if(SimplyStatusClient.ViewIP == true){
-                        presence.state = mc.player.getName().getString() + " | " + serverip;
+                    if (SimplyStatusClient.ViewIP == true) {
+                        presence.state = mc.player.getDisplayName().getString() + " | " + server_string;
                     } else {
-                        presence.state = mc.player.getName().getString() + " | " + Translate.textHideIP;
+                        presence.state = mc.player.getDisplayName().getString() + " | " + Translate.textHideIP;
                     }
+                    presence.smallImageKey = "logo";
+                    presence.smallImageText = "Minecraft " + mc.getGame().getVersion().getName() + "/" + mc.getVersionType();
+
+                    // time
                     if(worldTime > 24000){
                         var mcdays = worldTime / 24000;
                         var tipotime = mcdays * 24000;
                         var mctime = worldTime - tipotime;
                         if(mctime < 0 && mctime > 23000){
-                            presence.smallImageKey = "morning";
+                            presence.largeImageKey = "morning";
                             presence.largeImageText = Translate.text_morning;
                         } else if(mctime < 6000 && mctime > 0){
-                            presence.smallImageKey = "morning";
+                            presence.largeImageKey = "morning";
                             presence.largeImageText = Translate.text_morning;
                         } else if( mctime < 12000 && mctime > 6000){
-                            presence.smallImageKey = "day";
+                            presence.largeImageKey = "day";
                             presence.largeImageText = Translate.text_day;
 
                         } else if(mctime < 16500 && mctime > 12000){
-                            presence.smallImageKey = "evening";
+                            presence.largeImageKey = "evening";
                             presence.largeImageText = Translate.text_evening;
 
                         } else if(mctime < 23000 && mctime > 16500){
-                            presence.smallImageKey = "night";
+                            presence.largeImageKey = "night";
                             presence.largeImageText = Translate.text_night;
                         }
                     }else{
                         var mctime = worldTime;
                         if(mctime < 0 && mctime > 23000){
-                            presence.smallImageKey = "morning";
+                            presence.largeImageKey = "morning";
                             presence.largeImageText = Translate.text_morning;
                         } else if(mctime < 6000 && mctime > 0){
-                            presence.smallImageKey = "morning";
+                            presence.largeImageKey = "morning";
                             presence.largeImageText = Translate.text_morning;
                         } else if( mctime < 12000 && mctime > 6000){
-                            presence.smallImageKey = "day";
+                            presence.largeImageKey = "day";
                             presence.largeImageText = Translate.text_day;
 
                         } else if(mctime < 16500 && mctime > 12000){
-                            presence.smallImageKey = "evening";
+                            presence.largeImageKey = "evening";
                             presence.largeImageText = Translate.text_evening;
 
                         } else if(mctime < 23000 && mctime > 16500){
-                            presence.smallImageKey = "night";
+                            presence.largeImageKey = "night";
                             presence.largeImageText = Translate.text_night;
                         }
                     }
                 }
             } else {
-                presence.state = mc.player.getName().getString() + " | " + Translate.text_isInSingleplayer;
+                presence.state = mc.player.getDisplayName().getString() + " | " + Translate.text_isInSingleplayer;
                 if (DimensionType.THE_END_ID.equals(dimKey)) {
-                    presence.smallImageKey = "end";
-                    presence.smallImageText = "Эндер мире";
+                    presence.largeImageKey = "end";
+                    presence.largeImageText = Translate.world_end;
                 } else if (DimensionType.THE_NETHER_ID.equals(dimKey)) {
-                    presence.smallImageKey = "nether";
-                    presence.smallImageText = "Нижнем мире";
+                    presence.largeImageKey = "nether";
+                    presence.largeImageText = Translate.world_nether;
                 } else {
                     presence.smallImageKey = "overworld";
-                    presence.smallImageText = "Верхнем мире";
+                    presence.smallImageText = Translate.world_overworld;
                     if(worldTime > 24000){
                         var mcdays = worldTime / 24000;
                         var tipotime = mcdays * 24000;
                         var mctime = worldTime - tipotime;
                         if(mctime < 0 && mctime > 23000){
                             presence.largeImageKey = "morning";
-                            presence.largeImageText = Translate.text_morning + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_morning;
                         } else if(mctime < 6000 && mctime > 0){
                             presence.largeImageKey = "morning";
-                            presence.largeImageText = Translate.text_morning + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_morning;
                         } else if( mctime < 12000 && mctime > 6000){
                             presence.largeImageKey = "day";
-                            presence.largeImageText = Translate.text_day + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_day;
+
                         } else if(mctime < 16500 && mctime > 12000){
                             presence.largeImageKey = "evening";
-                            presence.largeImageText = Translate.text_evening + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_evening;
+
                         } else if(mctime < 23000 && mctime > 16500){
                             presence.largeImageKey = "night";
-                            presence.largeImageText = Translate.text_night + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_night;
                         }
                     }else{
                         var mctime = worldTime;
                         if(mctime < 0 && mctime > 23000){
                             presence.largeImageKey = "morning";
-                            presence.largeImageText = Translate.text_morning + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_morning;
                         } else if(mctime < 6000 && mctime > 0){
                             presence.largeImageKey = "morning";
-                            presence.largeImageText = Translate.text_morning + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_morning;
                         } else if( mctime < 12000 && mctime > 6000){
                             presence.largeImageKey = "day";
-                            presence.largeImageText = Translate.text_day + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_day;
+
                         } else if(mctime < 16500 && mctime > 12000){
                             presence.largeImageKey = "evening";
-                            presence.largeImageText = Translate.text_evening + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_evening;
+
                         } else if(mctime < 23000 && mctime > 16500){
                             presence.largeImageKey = "night";
-                            presence.largeImageText = Translate.text_night + " | " + Translate.world_overworld;
-                            presence.smallImageKey = "overworld";
-                            presence.smallImageText = "SimplyStatus";
+                            presence.largeImageText = Translate.text_night;
                         }
                     }
                 }
             }
-            lib.Discord_UpdatePresence(presence);
 
-        } else {
-            basicPresence();
+            lib.Discord_UpdatePresence(presence);
         }
     }
 }

@@ -6,19 +6,41 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.TranslatableText;
 import org.lwjgl.glfw.GLFW;
 
 public class SimplyStatusClient implements ClientModInitializer {
-    SimplyStatusTranslate Translate = new SimplyStatusTranslate();
-
     // The KeyBinding declaration and registration are commonly executed here statically
     public static boolean ViewIP = false;
     public static boolean ViewStatic = true;
+    public static boolean ViewName = false;
+    public static boolean ViewOffHand = false;
     @Override
     public void onInitializeClient() {
         SimplyStatusRoot root = new SimplyStatusRoot();
         SimplyStatusConfig cfg = new SimplyStatusConfig();
         // Event registration will be executed inside this method
+        KeyBinding keyBindingOffHand;
+        keyBindingOffHand = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.simplystatus.OffHand", // The translation key of the keybinding's name
+                InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
+                GLFW.GLFW_KEY_F6, // The keycode of the key
+                "category.simplystatus.name" // The translation key of the keybinding's category.
+        ));
+        KeyBinding keyBindingShowSettings;
+        keyBindingShowSettings = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.simplystatus.ShowSettings", // The translation key of the keybinding's name
+                InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
+                GLFW.GLFW_KEY_F7, // The keycode of the key
+                "category.simplystatus.name" // The translation key of the keybinding's category.
+        ));
+        KeyBinding keyBindingViewNameServer;
+        keyBindingViewNameServer = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.simplystatus.viewNameServer", // The translation key of the keybinding's name
+                InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
+                GLFW.GLFW_KEY_F8, // The keycode of the key
+                "category.simplystatus.name" // The translation key of the keybinding's category.
+        ));
         KeyBinding keyBindingViewIP;
         keyBindingViewIP = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.simplystatus.viewIP", // The translation key of the keybinding's name
@@ -34,16 +56,15 @@ public class SimplyStatusClient implements ClientModInitializer {
                 "category.simplystatus.name" // The translation key of the keybinding's category.
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            Translate.selectedLang();
             while (keyBindingViewIP.wasPressed()) {
                 if(ViewIP == false){
                     ViewIP = true;
                     root.setViewIP(ViewIP);
-                    client.player.sendMessage(new LiteralText(Translate.messageViewIPtrue), false);
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.ViewIPTrue"), false);
                 } else{
                     ViewIP = false;
                     root.setViewIP(ViewIP);
-                    client.player.sendMessage(new LiteralText(Translate.messageViewIPfalse), false);
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.ViewIPFalse"), false);
                 }
                 cfg.save();
             }
@@ -51,13 +72,61 @@ public class SimplyStatusClient implements ClientModInitializer {
                 if(ViewStatic == false){
                     ViewStatic = true;
                     root.setViewStatic(ViewStatic);
-                    client.player.sendMessage(new LiteralText(Translate.messageViewStatictrue), false);
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.ViewStaticTrue"), false);
                 } else{
                     ViewStatic = false;
                     root.setViewStatic(ViewStatic);
-                    client.player.sendMessage(new LiteralText(Translate.messageViewStaticfalse), false);
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.ViewStaticFalse"), false);
                 }
                 cfg.save();
+            }
+            while (keyBindingViewNameServer.wasPressed()) {
+                if(ViewName == false){
+                    ViewName = true;
+                    root.setViewName(ViewName);
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.ViewNameTrue"), false);
+                } else{
+                    ViewName = false;
+                    root.setViewName(ViewName);
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.ViewNameFalse"), false);
+                }
+                cfg.save();
+            }
+            while (keyBindingOffHand.wasPressed()) {
+                if(ViewOffHand == false){
+                    ViewOffHand = true;
+                    root.setViewOffHand(ViewOffHand);
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.ViewOffHandTrue"), false);
+                } else{
+                    ViewOffHand = false;
+                    root.setViewOffHand(ViewOffHand);
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.ViewOffHandFalse"), false);
+                }
+                cfg.save();
+            }
+            while (keyBindingShowSettings.wasPressed()) {
+                String SettingsText = new TranslatableText("message.simplystatus.SettingsText").getString();
+                if(ViewIP == false){
+                    SettingsText = SettingsText.replace("%ip%", String.valueOf(new TranslatableText("settings.simplystatus.false").getString()));
+                } else{
+                    SettingsText = SettingsText.replace("%ip%", String.valueOf(new TranslatableText("settings.simplystatus.true").getString()));
+                }
+                if(ViewStatic == false){
+                    SettingsText = SettingsText.replace("%static%", String.valueOf(new TranslatableText("settings.simplystatus.false").getString()));
+                } else{
+                    SettingsText = SettingsText.replace("%static%", String.valueOf(new TranslatableText("settings.simplystatus.true").getString()));
+                }
+                if(ViewName == false){
+                    SettingsText = SettingsText.replace("%name%", String.valueOf(new TranslatableText("settings.simplystatus.false").getString()));
+                } else{
+                    SettingsText = SettingsText.replace("%name%", String.valueOf(new TranslatableText("settings.simplystatus.true").getString()));
+                }
+                if(ViewOffHand == false){
+                    SettingsText = SettingsText.replace("%offhand%", String.valueOf(new TranslatableText("settings.simplystatus.false").getString()));
+                } else{
+                    SettingsText = SettingsText.replace("%offhand%", String.valueOf(new TranslatableText("settings.simplystatus.true").getString()));
+                }
+                client.player.sendMessage(new LiteralText(SettingsText), true);
             }
         });
     }

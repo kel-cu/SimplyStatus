@@ -1,5 +1,18 @@
 {
   "category.simplystatus.name":"SimplyStatus",
-  "key.simplystatus.viewIP": "Show/Hide server IP address",
-  "key.simplystatus.viewStatic": "Show/Hide player statistics"
+  "key.simplystatus.viewIP": "Show / Hide server IP address",
+  "key.simplystatus.viewStatic": "Show / Hide player statistics",
+  "key.simplystatus.viewNameServer": "Show / hide server name",
+  "key.simplystatus.ShowSettings": "Show settings",
+  "message.simplystatus.ViewIPTrue": "[§6SimplyStatus§r] Server IP is now visible!",
+  "message.simplystatus.ViewIPFalse": "[§6SimplyStatus§r] Server IP address is now hidden!",
+  "message.simplystatus.ViewStaticTrue": "[§6SimplyStatus§r] Your stats are now visible!",
+  "message.simplystatus.ViewStaticFalse": "[§6SimplyStatus§r] Your stats are now hidden!",
+  "message.simplystatus.ViewNameTrue": "[§6SimplyStatus§r] The server name is now visible",
+  "message.simplystatus.ViewNameFalse": "[§6SimplyStatus§r] The server address is now visible",
+  "message.simplystatus.ViewOffHandTrue": "[§6SimplyStatus§r] The item in the second hand is now visible",
+  "message.simplystatus.ViewOffHandFalse": "[§6SimplyStatus§r] The item in the second hand is now hidden",
+  "message.simplystatus.SettingsText": "Address: %ip% | Statistics: %static% | Name: %name% | Second hand: %offhand%",
+  "settings.simplystatus.true": "§2True§r",
+  "settings.simplystatus.false": "§4False§r"
 }

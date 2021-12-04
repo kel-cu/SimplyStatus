@@ -1,5 +1,18 @@
 {
   "category.simplystatus.name":"SimplyStatus",
-  "key.simplystatus.viewIP": "Показывать/Скрыть IP адрес сервера",
-  "key.simplystatus.viewStatic": "Показывать/Скрыть статистику игрока"
+  "key.simplystatus.viewIP": "Показывать / Скрыть IP адрес сервера",
+  "key.simplystatus.viewStatic": "Показывать / Скрыть статистику игрока",
+  "key.simplystatus.viewNameServer": "Показать / скрыть имя сервера",
+  "key.simplystatus.ShowSettings": "Показать настройки",
+  "message.simplystatus.ViewIPTrue": "[§6SimplyStatus§r] IP адрес сервера теперь виден!",
+  "message.simplystatus.ViewIPFalse": "[§6SimplyStatus§r] IP адрес сервера теперь скрыт!",
+  "message.simplystatus.ViewStaticTrue": "[§6SimplyStatus§r] Ваша статистика теперь видна!",
+  "message.simplystatus.ViewStaticFalse": "[§6SimplyStatus§r] Ваша статистика теперь скрыта!",
+  "message.simplystatus.ViewNameTrue": "[§6SimplyStatus§r] Теперь видна имя сервера",
+  "message.simplystatus.ViewNameFalse": "[§6SimplyStatus§r] Теперь виден адрес сервера",
+  "message.simplystatus.ViewOffHandTrue": "[§6SimplyStatus§r] Теперь виден предмет во второй руке",
+  "message.simplystatus.ViewOffHandFalse": "[§6SimplyStatus§r] Теперь скрыт предмет во второй руке",
+  "message.simplystatus.SettingsText": "Адрес: %ip% | Статистика: %static% | Имя: %name% | Вторая рука: %offhand%",
+  "settings.simplystatus.true": "§2Включено§r",
+  "settings.simplystatus.false": "§4Выключено§r"
 }

@@ -7,10 +7,6 @@ import java.io.FileReader;
 
 public class SimplyStatusTranslate{
 
-    public String messageViewIPtrue;
-    public String messageViewIPfalse;
-    public String messageViewStatictrue;
-    public String messageViewStaticfalse;
     public String textMainMenu;
     public String textDeathOne;
     public String textDeathTwo;
@@ -27,6 +23,7 @@ public class SimplyStatusTranslate{
     public String world_nether;
     public String world_end;
     public String text_isInSingleplayer;
+    public String text_goodPlayer;
 
     MinecraftClient mc = MinecraftClient.getInstance();
     String SelectedLang;
@@ -43,10 +40,6 @@ public class SimplyStatusTranslate{
         Gson gson = new Gson();
         try (FileReader reader = new FileReader(mc.runDirectory + "/config/simplystatus/" + lang + ".json")) {
             SimplyStatusLang root = gson.fromJson(reader, SimplyStatusLang.class);
-            messageViewIPfalse = root.getMessageViewIPfalse();
-            messageViewIPtrue = root.getMessageViewIPtrue();
-            messageViewStaticfalse = root.getMessageViewStaticfalse();
-            messageViewStatictrue = root.getMessageViewStatictrue();
             textMainMenu = root.getTextMainMenu();
             textDeathOne = root.getTextDeathOne();
             textDeathTwo = root.getTextDeathTwo();
@@ -63,6 +56,7 @@ public class SimplyStatusTranslate{
             world_nether = root.getWorld_nether();
             world_end = root.getWorld_end();
             text_isInSingleplayer = root.getText_isInSingleplayer();
+            text_goodPlayer = root.getText_goodPlayer();
         } catch (Exception e) {
             if (lang.equals("ru_ru")) {
                 ruLoad();
@@ -74,10 +68,6 @@ public class SimplyStatusTranslate{
         }
     }
     private void ruLoad() {
-        messageViewIPtrue =  "[§6SimplyStatus§r] IP адрес сервера теперь виден!";
-        messageViewIPfalse = "[§6SimplyStatus§r] IP адрес сервера теперь скрыт!";
-        messageViewStatictrue = "[§6SimplyStatus§r] Ваша статистика теперь видна!";
-        messageViewStaticfalse = "[§6SimplyStatus§r] Ваша статистика теперь скрыта!";
         textMainMenu = "В главном меню";
         textDeathOne =  "Игрока нет живых :(";
         textDeathTwo = "Игрок умер :(";
@@ -94,13 +84,10 @@ public class SimplyStatusTranslate{
         world_nether = "Нижний мир";
         world_end = "Эндер мир";
         text_isInSingleplayer = "Одиночный мир";
+        text_goodPlayer = "Этот игрок очень хороший :3";
     }
 
     private void en_usLoad() {
-        messageViewIPtrue =  "[§6SimplyStatus§r] Server IP is now visible!";
-        messageViewIPfalse = "[§6SimplyStatus§r] Server IP address is now hidden!";
-        messageViewStatictrue = "[§6SimplyStatus§r] Your stats are now visible!";
-        messageViewStaticfalse = "[§6SimplyStatus§r] Your stats are now hidden!";
         textMainMenu = "In the main menu";
         textDeathOne =  "The player died :(";
         textDeathTwo = "The player is no longer alive :(";
@@ -117,5 +104,44 @@ public class SimplyStatusTranslate{
         world_nether = "The Nether";
         world_end = "The End";
         text_isInSingleplayer = "Single Player";
+        text_goodPlayer = "This player is very good :3";
     }
+}
+
+class SimplyStatusLang {
+    public String getTextMainMenu() { return textMainMenu;}
+    public String getTextDeathOne() { return textDeathOne;}
+    public String getTextDeathTwo() { return textDeathTwo;}
+    public String getTextDeathThree() { return textDeathThree;}
+    public String getTextAir() { return textAir;}
+    public String getTextItem() { return textItem;}
+    public String getTextUnknownServer() { return textUnknownServer;}
+    public String getTextHideIP() { return textHideIP;}
+    public String getText_day() { return text_day;}
+    public String getText_night() {return text_night;}
+    public String getText_morning() {return text_morning;}
+    public String getText_evening() {return text_evening;}
+    public String getWorld_overworld(){return world_overworld;}
+    public String getWorld_nether(){return world_nether;}
+    public String getWorld_end(){return world_end;}
+    public String getText_isInSingleplayer(){return text_isInSingleplayer;}
+    public String getText_goodPlayer(){return text_goodPlayer;}
+
+    private String textMainMenu;
+    private String textDeathOne;
+    private String textDeathTwo;
+    private String textDeathThree;
+    private String textAir;
+    private String textItem;
+    private String textUnknownServer;
+    private String textHideIP;
+    private String text_day;
+    private String text_night;
+    private String text_evening;
+    private String text_morning;
+    private String world_overworld;
+    private String world_nether;
+    private String world_end;
+    private String text_isInSingleplayer;
+    private String text_goodPlayer;
 }
