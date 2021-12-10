@@ -8,8 +8,9 @@
 * Скрывать IP сервера и свою статистику
 * И ещё что-то, я не помню :\
 ## Требования
-Minecraft **1.17.x** | **1.18**<br>
-[Fabric Loader 0.12.3 и выше[1.17]](https://fabricmc.net/use) | [Fabric Loader 0.12.6 и выше[1.18]](https://fabricmc.net/use)
+Minecraft **1.18** и выше<br>
+Fabric API<br>
+[Fabric Loader 0.12.9 и выше](https://fabricmc.net/use)
 ## Как установить
 * Скачиваем .jar файл из [Releases](https://github.com/not-simply-kel/SimplyStatus-fabric/releases 'GitHub'), рекомендую использовать релизы `[не pre-release]`<br>
 * Ищем папку Майнкрафта. По умолчанию в `%appdata%/.minecraft` **\[Windows\]**, и ищем папку `/mods`
