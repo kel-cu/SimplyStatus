@@ -4,6 +4,7 @@
   "key.simplystatus.viewStatic": "Показывать / Скрыть статистику игрока",
   "key.simplystatus.viewNameServer": "Показать / скрыть имя сервера",
   "key.simplystatus.ShowSettings": "Показать настройки",
+  "key.simplystatus.OffHand": "Показать / Скрыть предмет второй руки",
   "message.simplystatus.ViewIPTrue": "[§6SimplyStatus§r] IP адрес сервера теперь виден!",
   "message.simplystatus.ViewIPFalse": "[§6SimplyStatus§r] IP адрес сервера теперь скрыт!",
   "message.simplystatus.ViewStaticTrue": "[§6SimplyStatus§r] Ваша статистика теперь видна!",

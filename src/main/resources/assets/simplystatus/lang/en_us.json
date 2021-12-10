@@ -4,6 +4,7 @@
   "key.simplystatus.viewStatic": "Show / Hide player statistics",
   "key.simplystatus.viewNameServer": "Show / hide server name",
   "key.simplystatus.ShowSettings": "Show settings",
+  "key.simplystatus.OffHand": "Show / Hide second hand item",
   "message.simplystatus.ViewIPTrue": "[§6SimplyStatus§r] Server IP is now visible!",
   "message.simplystatus.ViewIPFalse": "[§6SimplyStatus§r] Server IP address is now hidden!",
   "message.simplystatus.ViewStaticTrue": "[§6SimplyStatus§r] Your stats are now visible!",
