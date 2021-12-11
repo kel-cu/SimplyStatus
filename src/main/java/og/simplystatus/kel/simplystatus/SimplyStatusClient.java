@@ -3,6 +3,7 @@ package og.simplystatus.kel.simplystatus;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.LiteralText;
@@ -13,23 +14,24 @@ public class SimplyStatusClient implements ClientModInitializer {
     // The KeyBinding declaration and registration are commonly executed here statically
     public static boolean ViewIP = false;
     public static boolean ViewStatic = true;
-    public static boolean ViewName = false;
+    public static boolean ViewName = true;
     public static boolean ViewOffHand = false;
     @Override
     public void onInitializeClient() {
         SimplyStatusRoot root = new SimplyStatusRoot();
+        ServerConfig SRoot = new ServerConfig();
         SimplyStatusConfig cfg = new SimplyStatusConfig();
         // Event registration will be executed inside this method
-        KeyBinding keyBindingOffHand;
-        keyBindingOffHand = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.simplystatus.OffHand", // The translation key of the keybinding's name
+        KeyBinding keyBindingShowSettings;
+        keyBindingShowSettings = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.simplystatus.ShowSettings", // The translation key of the keybinding's name
                 InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
                 GLFW.GLFW_KEY_F6, // The keycode of the key
                 "category.simplystatus.name" // The translation key of the keybinding's category.
         ));
-        KeyBinding keyBindingShowSettings;
-        keyBindingShowSettings = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "key.simplystatus.ShowSettings", // The translation key of the keybinding's name
+        KeyBinding keyBindingOffHand;
+        keyBindingOffHand = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.simplystatus.OffHand", // The translation key of the keybinding's name
                 InputUtil.Type.KEYSYM, // The type of the keybinding, KEYSYM for keyboard, MOUSE for mouse.
                 GLFW.GLFW_KEY_F7, // The keycode of the key
                 "category.simplystatus.name" // The translation key of the keybinding's category.
@@ -56,17 +58,23 @@ public class SimplyStatusClient implements ClientModInitializer {
                 "category.simplystatus.name" // The translation key of the keybinding's category.
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            MinecraftClient mc = MinecraftClient.getInstance();
+            boolean issinglePlayer = mc.isInSingleplayer();
             while (keyBindingViewIP.wasPressed()) {
+                if(issinglePlayer){
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.errorIsSinglePlayer"), false);
+                    return;
+                }
                 if(ViewIP == false){
                     ViewIP = true;
-                    root.setViewIP(ViewIP);
+                    SRoot.setViewIP(ViewIP);
                     client.player.sendMessage(new TranslatableText("message.simplystatus.ViewIPTrue"), false);
                 } else{
                     ViewIP = false;
-                    root.setViewIP(ViewIP);
+                    SRoot.setViewIP(ViewIP);
                     client.player.sendMessage(new TranslatableText("message.simplystatus.ViewIPFalse"), false);
                 }
-                cfg.save();
+                cfg.save(mc.getCurrentServerEntry().address);
             }
             while (keyBindingViewStatic.wasPressed()) {
                 if(ViewStatic == false){
@@ -81,16 +89,20 @@ public class SimplyStatusClient implements ClientModInitializer {
                 cfg.save();
             }
             while (keyBindingViewNameServer.wasPressed()) {
+                if(issinglePlayer){
+                    client.player.sendMessage(new TranslatableText("message.simplystatus.errorIsSinglePlayer"), false);
+                    return;
+                }
                 if(ViewName == false){
                     ViewName = true;
-                    root.setViewName(ViewName);
+                    SRoot.setViewName(ViewName);
                     client.player.sendMessage(new TranslatableText("message.simplystatus.ViewNameTrue"), false);
                 } else{
                     ViewName = false;
-                    root.setViewName(ViewName);
+                    SRoot.setViewName(ViewName);
                     client.player.sendMessage(new TranslatableText("message.simplystatus.ViewNameFalse"), false);
                 }
-                cfg.save();
+                cfg.save(mc.getCurrentServerEntry().address);
             }
             while (keyBindingOffHand.wasPressed()) {
                 if(ViewOffHand == false){
@@ -106,6 +118,7 @@ public class SimplyStatusClient implements ClientModInitializer {
             }
             while (keyBindingShowSettings.wasPressed()) {
                 String SettingsText = new TranslatableText("message.simplystatus.SettingsText").getString();
+                String MessagePrefix = new TranslatableText("message.simplystatus.SettingState").getString();
                 if(ViewIP == false){
                     SettingsText = SettingsText.replace("%ip%", String.valueOf(new TranslatableText("settings.simplystatus.false").getString()));
                 } else{
@@ -126,7 +139,7 @@ public class SimplyStatusClient implements ClientModInitializer {
                 } else{
                     SettingsText = SettingsText.replace("%offhand%", String.valueOf(new TranslatableText("settings.simplystatus.true").getString()));
                 }
-                client.player.sendMessage(new LiteralText(SettingsText), true);
+                client.player.sendMessage(new LiteralText(MessagePrefix + SettingsText), false);
             }
         });
     }

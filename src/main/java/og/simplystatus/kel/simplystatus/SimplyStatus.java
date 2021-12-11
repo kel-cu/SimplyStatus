@@ -69,6 +69,7 @@ public class SimplyStatus implements ModInitializer {
         if(mc.world == null){
             MainPresenceBasic();
         } else {
+            SimplyStatusConfig cfg = new SimplyStatusConfig();
             times++;
             boolean issinglePlayer = mc.isInSingleplayer();
             DimensionType dimtype = mc.world.getDimension();
@@ -137,6 +138,7 @@ public class SimplyStatus implements ModInitializer {
 
             if (!issinglePlayer) {
                 String server_string = "";
+                cfg.load(mc.getCurrentServerEntry().address);
                 if (SimplyStatusClient.ViewName == true) {
                     server_string = mc.getCurrentServerEntry().name;
                 } else {
