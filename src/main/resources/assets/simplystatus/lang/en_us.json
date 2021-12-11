@@ -13,7 +13,8 @@
   "message.simplystatus.ViewNameFalse": "[§6SimplyStatus§r] The server address is now visible",
   "message.simplystatus.ViewOffHandTrue": "[§6SimplyStatus§r] The item in the second hand is now visible",
   "message.simplystatus.ViewOffHandFalse": "[§6SimplyStatus§r] The item in the second hand is now hidden",
-  "message.simplystatus.SettingsText": "Address: %ip% | Statistics: %static% | Name: %name% | Second hand: %offhand%",
+  "message.simplystatus.SettingState": "[§6SimplyStatus§r] Settings state:\n",
+  "message.simplystatus.SettingsText": "| Address: %ip%\n| Statistics: %static%\n| Name: %name%\n| Second hand: %offhand%",
   "settings.simplystatus.true": "§2True§r",
   "settings.simplystatus.false": "§4False§r"
 }

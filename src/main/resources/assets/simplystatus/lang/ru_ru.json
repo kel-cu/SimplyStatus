@@ -13,7 +13,8 @@
   "message.simplystatus.ViewNameFalse": "[§6SimplyStatus§r] Теперь виден адрес сервера",
   "message.simplystatus.ViewOffHandTrue": "[§6SimplyStatus§r] Теперь виден предмет во второй руке",
   "message.simplystatus.ViewOffHandFalse": "[§6SimplyStatus§r] Теперь скрыт предмет во второй руке",
-  "message.simplystatus.SettingsText": "Адрес: %ip% | Статистика: %static% | Имя: %name% | Вторая рука: %offhand%",
+  "message.simplystatus.SettingState": "[§6SimplyStatus§r] Состояние настроек:\n",
+  "message.simplystatus.SettingsText": "| Адрес: %ip%\n| Статистика: %static%\n| Имя: %name%\n| Вторая рука: %offhand%",
   "settings.simplystatus.true": "§2Включено§r",
   "settings.simplystatus.false": "§4Выключено§r"
 }
