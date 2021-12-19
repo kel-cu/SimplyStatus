@@ -24,6 +24,7 @@ public class SimplyStatusTranslate{
     public String world_end;
     public String text_isInSingleplayer;
     public String text_goodPlayer;
+    public String text_isSleep;
 
     MinecraftClient mc = MinecraftClient.getInstance();
     String SelectedLang;
@@ -57,6 +58,7 @@ public class SimplyStatusTranslate{
             world_end = root.getWorld_end();
             text_isInSingleplayer = root.getText_isInSingleplayer();
             text_goodPlayer = root.getText_goodPlayer();
+            text_isSleep = root.getText_isSleep();
         } catch (Exception e) {
             if (lang.equals("ru_ru")) {
                 ruLoad();
@@ -85,6 +87,7 @@ public class SimplyStatusTranslate{
         world_end = "Эндер мир";
         text_isInSingleplayer = "Одиночная игра";
         text_goodPlayer = "Этот игрок очень хороший :3";
+        text_isSleep = "Игрок спит 😪";
     }
 
     private void en_usLoad() {
@@ -105,27 +108,137 @@ public class SimplyStatusTranslate{
         world_end = "The End";
         text_isInSingleplayer = "Single Player";
         text_goodPlayer = "This player is very good :3";
+        text_isSleep = "Player a sleep 😪";
     }
 }
 
 class SimplyStatusLang {
-    public String getTextMainMenu() { return textMainMenu;}
-    public String getTextDeathOne() { return textDeathOne;}
-    public String getTextDeathTwo() { return textDeathTwo;}
-    public String getTextDeathThree() { return textDeathThree;}
-    public String getTextAir() { return textAir;}
-    public String getTextItem() { return textItem;}
-    public String getTextUnknownServer() { return textUnknownServer;}
-    public String getTextHideIP() { return textHideIP;}
-    public String getText_day() { return text_day;}
-    public String getText_night() {return text_night;}
-    public String getText_morning() {return text_morning;}
-    public String getText_evening() {return text_evening;}
-    public String getWorld_overworld(){return world_overworld;}
-    public String getWorld_nether(){return world_nether;}
-    public String getWorld_end(){return world_end;}
-    public String getText_isInSingleplayer(){return text_isInSingleplayer;}
-    public String getText_goodPlayer(){return text_goodPlayer;}
+    public String getTextMainMenu(){
+        if(textMainMenu != null){
+            return textMainMenu;
+        } else {
+            return "Text a type textMainMenu not found";
+        }
+    }
+    public String getTextDeathOne(){
+        if(textDeathOne != null){
+            return textDeathOne;
+        } else {
+            return "Text a type textDeathOne not found";
+        }
+    }
+    public String getTextDeathTwo(){
+        if(textDeathTwo != null){
+            return textDeathTwo;
+        } else {
+            return "Text a type textDeathTwo not found";
+        }
+    }
+    public String getTextDeathThree(){
+        if(textDeathThree != null){
+            return textDeathThree;
+        } else {
+            return "Text a type textDeathThree not found";
+        }
+    }
+    public String getTextAir(){
+        if(textAir != null){
+            return textAir;
+        } else {
+            return "Text a type textAir not found";
+        }
+    }
+    public String getTextItem(){
+        if(textItem != null){
+            return textItem;
+        } else {
+            return "Text a type textItem not found";
+        }
+    }
+    public String getTextUnknownServer(){
+        if(textUnknownServer != null){
+            return textUnknownServer;
+        } else {
+            return "Text a type textUnknownServer not found";
+        }
+    }
+    public String getTextHideIP(){
+        if(textHideIP != null){
+            return textHideIP;
+        } else {
+            return "Text a type textHideIP not found";
+        }
+    }
+    public String getText_day(){
+        if(text_day != null){
+            return text_day;
+        } else {
+            return "Text a type text_day not found";
+        }
+    }
+    public String getText_night(){
+        if(text_night != null){
+            return text_night;
+        } else {
+            return "Text a type text_night not found";
+        }
+    }
+    public String getText_morning(){
+        if(text_morning != null){
+            return text_morning;
+        } else {
+            return "Text a type text_morning not found";
+        }
+    }
+    public String getText_evening(){
+        if(text_isSleep != null){
+            return text_isSleep;
+        } else {
+            return "Text a type text_evening not found";
+        }
+    }
+    public String getWorld_overworld(){
+        if(world_overworld != null){
+            return world_overworld;
+        } else {
+            return "Text a type world_overworld not found";
+        }
+    }
+    public String getWorld_nether(){
+        if(world_nether != null){
+            return world_nether;
+        } else {
+            return "Text a type world_nether not found";
+        }
+    }
+    public String getWorld_end(){
+        if(world_end != null){
+            return world_end;
+        } else {
+            return "Text a type world_end not found";
+        }
+    }
+    public String getText_isInSingleplayer(){
+        if(text_isInSingleplayer != null){
+            return text_isInSingleplayer;
+        } else {
+            return "Text a type text_isInSingleplayer not found";
+        }
+    }
+    public String getText_goodPlayer(){
+        if(text_goodPlayer != null){
+            return text_goodPlayer;
+        } else {
+            return "Text a type text_goodPlayer not found";
+        }
+    }
+    public String getText_isSleep(){
+        if(text_isSleep != null){
+            return text_isSleep;
+        } else {
+            return "Text a type text_isSleep not found";
+        }
+    }
 
     private String textMainMenu;
     private String textDeathOne;
@@ -144,4 +257,5 @@ class SimplyStatusLang {
     private String world_end;
     private String text_isInSingleplayer;
     private String text_goodPlayer;
+    private String text_isSleep;
 }

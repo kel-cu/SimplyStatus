@@ -89,6 +89,7 @@ public class SimplyStatusMain implements ModInitializer {
             presence.startTimestamp = start_time;
             presence.largeImageKey = "logo";
             presence.largeImageText = Translate.text_goodPlayer;
+
             if(mc.player!=null){
                 if(mc.player.getDisplayName() != null){
                     PlayerName = mc.player.getDisplayName().getString();
@@ -99,7 +100,9 @@ public class SimplyStatusMain implements ModInitializer {
                 ItemStack off_item = mc.player.getStackInHand(Hand.OFF_HAND);
                 String mitem = main_item.getItem().toString();
                 String oitem = off_item.getItem().toString();
-                if (!mitem.equals("air")) {
+                if(mc.player.isSleeping()){
+                    presence.details = Translate.text_isSleep;
+                }else if (!mitem.equals("air")) {
                     presence.details = Translate.textItem + "«" + main_item.getName().getString() + "»";
                 } else {
                     if(SimplyStatusClient.ViewOffHand == true){
