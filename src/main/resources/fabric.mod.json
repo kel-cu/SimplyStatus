@@ -5,39 +5,37 @@
   "name": "SimplyStatus",
   "description": "\\u041f\\u0440\\u043e\\u0441\\u0442\\u043e\\u0439 \\u043c\\u043e\\u0434 Minecraft \\u043d\\u0430 \\u0438\\u0433\\u0440\\u043e\\u0432\\u043e\\u0439 \\u0441\\u0442\\u0430\\u0442\\u0443\\u0441 Discord",
   "authors": [
-    "Not_Simply_Kel"
+    "__Kel_"
   ],
   "icon": "assets/simplystatus/logo.png",
   "license": "MIT",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "og.simplystatus.kel.simplystatus.SimplyStatusMain"
+      "og.__kel_.simplystatus.SimplyStatusMain"
     ],
     "client": [
-      "og.simplystatus.kel.simplystatus.SimplyStatusClient"
+      "og.__kel_.simplystatus.SimplyStatusClient"
     ]
   },
   "mixins": [
-    "SimplyStatus.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.12.9",
     "minecraft": ["^1.16","^1.17","^1.18"]
   },
-  "conflicts": {
-  },
+  "conflicts": {},
   "breaks": {
     "amrpcf": "*"
   },
   "contact": {
-    "issues": "https://github.com/not-simply-kel/SimplyStatus-fabric/issues",
+    "issues": "https://github.com/simply-kel/SimplyStatus-fabric/issues",
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/simplystatus"
   },
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.github": "https://github.com/not-simply-kel/SimplyStatus-fabric",
+        "modmenu.github": "https://github.com/simply-kel/SimplyStatus-fabric",
         "modmeny.curseforge": "https://www.curseforge.com/minecraft/mc-mods/simplystatus"
       },
       "parent": {
