@@ -9,13 +9,16 @@
   ],
   "icon": "assets/simplystatus/logo.png",
   "license": "MIT",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "main": [
       "og.__kel_.simplystatus.SimplyStatusMain"
     ],
     "client": [
       "og.__kel_.simplystatus.SimplyStatusClient"
+    ],
+    "modmenu": [
+      "og.__kel_.simplystatus.configs.ModMenuIntegration"
     ]
   },
   "mixins": [

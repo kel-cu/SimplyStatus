@@ -19,6 +19,7 @@ public class SimplyStatusConfig {
             SimplyStatusClient.ViewStatic = root.getViewStatic();
             SimplyStatusClient.ViewOffHand = root.getViewOffHand();
             SimplyStatusClient.ViewRPC = root.getViewRPC();
+            SimplyStatusClient.ViewUsername = root.getViewUsername();
             save();
         } catch (Exception e) {
             load_old();
@@ -31,6 +32,7 @@ public class SimplyStatusConfig {
             SimplyStatusClient.ViewStatic = root.getViewStatic();
             SimplyStatusClient.ViewOffHand = root.getViewOffHand();
             SimplyStatusClient.ViewRPC = true;
+            SimplyStatusClient.ViewUsername = true;
             save();
         } catch (Exception e) {
             save();
@@ -55,6 +57,7 @@ public class SimplyStatusConfig {
         root.addProperty("viewStatic", SimplyStatusClient.ViewStatic);
         root.addProperty("viewOffHand", SimplyStatusClient.ViewOffHand);
         root.addProperty("viewRPC", SimplyStatusClient.ViewRPC);
+        root.addProperty("viewUsername", SimplyStatusClient.ViewUsername);
         String config = gson.toJson(root);
         try {
             Files.createDirectories(configFile.getParent());
@@ -85,10 +88,12 @@ class ClientConfig {
     private boolean viewStatic;
     private boolean viewOffHand;
     private boolean viewRPC;
+    private boolean viewUsername;
 
     public boolean getViewStatic() { return viewStatic; }
     public boolean getViewOffHand() { return viewOffHand; }
     public boolean getViewRPC() {return viewRPC;}
+    public boolean getViewUsername() {return viewUsername;}
 
     public void setViewStatic(boolean stat) {
         this.viewStatic = stat;
@@ -97,6 +102,7 @@ class ClientConfig {
         this.viewOffHand = stat;
     }
     public void setViewRPC(boolean stat) { this.viewRPC = stat;}
+    public void setViewUsername(boolean stat) { this.viewUsername = stat;}
 }
 
 class ServerConfig {

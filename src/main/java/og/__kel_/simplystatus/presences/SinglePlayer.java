@@ -77,28 +77,28 @@ public class SinglePlayer {
                     mctime = (int) worldTime;
                 }
                 if (mctime < 0 && mctime > 24000) {
-                    presence.largeImageKey = "morning";
-                    presence.largeImageText = Translate.text_morning;
+                    presence.largeImageKey = "nigth_update_2";
+                    presence.largeImageText = Translate.text_night;
                 } else if (mctime < 6000 && mctime > 0) {
                     presence.largeImageKey = "morning";
                     presence.largeImageText = Translate.text_morning;
                 } else if (mctime < 12000 && mctime > 6000) {
-                    presence.largeImageKey = "day";
+                    presence.largeImageKey = "day_update_2";
                     presence.largeImageText = Translate.text_day;
                 } else if (mctime < 16500 && mctime > 12000) {
                     presence.largeImageKey = "evening";
                     presence.largeImageText = Translate.text_evening;
                 } else if (mctime < 24000 && mctime > 16500) {
-                    presence.largeImageKey = "night";
+                    presence.largeImageKey = "nigth_update_2";
                     presence.largeImageText = Translate.text_night;
                 }
             }
 
         //presence.state = PlayerName + " | " + Translate.text_isInSingleplayer;
         if(SimplyStatusClient.ViewUsername) {
-            presence.state = Translate.text_information.replace("%username%", PlayerName).replace("%scene%", Translate.text_UnknownServer);
+            presence.state = Translate.text_information.replace("%username%", PlayerName).replace("%scene%", Translate.text_isInSingleplayer);
         } else {
-            presence.state = Translate.text_information.replace("%username%", SimplyStatusMain.DiscordName).replace("%scene%", Translate.text_UnknownServer);
+            presence.state = Translate.text_information.replace("%username%", SimplyStatusMain.DiscordName).replace("%scene%", Translate.text_isInSingleplayer);
         }
         presence.startTimestamp = start_time;
         lib.Discord_UpdatePresence(presence);

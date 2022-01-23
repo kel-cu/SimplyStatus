@@ -5,6 +5,20 @@
   "key.simplystatus.viewNameServer": "Показать / Скрыть имя сервера",
   "key.simplystatus.ShowSettings": "Показать настройки",
   "key.simplystatus.OffHand": "Показать / Скрыть предмет второй руки",
+  "key.simplystatus.ViewUsername": "Показать / Скрыть игровой ник",
+  "key.simplystatus.ViewRPC": "Показать / Скрыть игровой статус",
+
+  "config.simplystatus.viewIP": "Показывать IP-Адрес сервера",
+  "config.simplystatus.viewStatic": "Показывать статистику игрока",
+  "config.simplystatus.viewNameServer": "Показывать имя сервера",
+  "config.simplystatus.OffHand": "Показывать предмет второй руки",
+  "config.simplystatus.ViewUsername": "Показывать игровой ник",
+  "config.simplystatus.ViewRPC": "Показывать игровой статус",
+
+  "config.simplystatus.client": "Клиент",
+  "config.simplystatus.localization": "Локализация",
+  "config.simplystatus.thisServer": "Этот сервер",
+
   "message.simplystatus.ViewIPTrue": "§6§lSimplyStatus§r » IP-Адрес сервера теперь виден!",
   "message.simplystatus.ViewIPFalse": "§6§lSimplyStatus§r » IP-Адрес сервера теперь скрыт!",
   "message.simplystatus.ViewStaticTrue": "§6§lSimplyStatus§r » Ваша статистика теперь видна!",
@@ -14,9 +28,13 @@
   "message.simplystatus.ViewOffHandTrue": "§6§lSimplyStatus§r » Теперь в статусе будет виден предмет который вы будете держать во второй руке",
   "message.simplystatus.ViewOffHandFalse": "§6§lSimplyStatus§r » Теперь в статусе не будет виден предмет который вы будете держать во второй руке",
   "message.simplystatus.SettingState": "§6§lSimplyStatus§r » Состояние настроек:\n",
-  "message.simplystatus.SettingsTextClient": "§6Клиент§r »\n| Statistics: %static%\n| Second hand: %offhand%",
+  "message.simplystatus.SettingsTextClient": "§6Клиент§r »\n| Statistics: %static%\n| Second hand: %offhand%\n| Show game username: %username%\n| Show game status: %status%",
   "message.simplystatus.SettingsTextMultiplayer": "\n§6Этот сервер§r »\n| Server name: %name%\n| IP-Server's: %ip%",
   "message.simplystatus.errorIsSinglePlayer": "§6§lSimplyStatus§r » Вы не можете использовать эту комбинацию в одиночной игре!",
+
+  "message.simplystatus.showUsername": "§6§lSimplyStatus§r » Ваш игровой никнейм виден!",
+  "message.simplystatus.hideUsername": "§6§lSimplyStatus§r » Ваш игровой ник скрыт!",
+
   "message.simplystatus.help": "§6§lSimplyStatus§r » Список команд\n§2help§r » ну хз шо за команда ¯\\_(ツ)_/¯",
   "message.simplystatus.hideRPC": "§6SimplyStatus§r » Ваш игровой статус теперь скрыт для пользователей!",
   "message.simplystatus.showRPC": "§6SimplyStatus§r » Ваш игровой статус теперь виден!",
@@ -50,5 +68,12 @@
   "status.simplystatus.text_isInSingleplayer": "Одиночная игра",
   "status.simplystatus.text_goodPlayer": "%username% возможно хороший игрок",
   "status.simplystatus.text_isSleep": "%username% спит \uD83D\uDE2A",
-  "status.simplystatus.text_isSneaking": "%username% крадётся"
+  "status.simplystatus.text_isSneaking": "%username% крадётся",
+
+  "tooltip.simplystatus.item": "%item% > Имя предмета",
+  "tooltip.simplystatus.onlyDiscordName": "%username% > Discord ник",
+  "tooltip.simplystatus.allReplaceName": "%username% > Игровой ник или Discord ник",
+  "tooltip.simplystatus.count": "%count% > Кол-во предметов или стаков",
+  "tooltip.simplystatus.information": "%username% > Игровой ник или Discord ник\n%scene% > Место где вы играете",
+  "config.simplystatus.descriptionLang": "Если вы не понимаете что и где тут, вы можете посетить вики в GitHub:\nhttps://github.com/simply-kel/SimplyStatus-fabric/wiki"
 }

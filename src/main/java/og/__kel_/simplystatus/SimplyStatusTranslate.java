@@ -35,10 +35,12 @@ public class SimplyStatusTranslate{
 
     public String stacks;
     public String pieces;
+    //pieces-ru-2-4
+    public String pieces_ru_2_4;
     public String text_information;
 
     MinecraftClient mc = MinecraftClient.getInstance();
-    String SelectedLang;
+    public static String SelectedLang;
 
     public void selectedLang() {
         try {
@@ -74,6 +76,9 @@ public class SimplyStatusTranslate{
             stacks = root.getStacks();
             pieces = root.getPieces();
             text_information = root.getText_information();
+            if(lang.equals("ru_ru")){
+                pieces_ru_2_4 = root.getPieces_ru_2_4();
+            }
             SaveJSONLang(lang);
         } catch (Exception e) {
             try (FileReader reader = new FileReader(mc.runDirectory + "/config/simplystatus/" + lang + ".json")) {
@@ -100,6 +105,9 @@ public class SimplyStatusTranslate{
                 stacks = root.getStacks();
                 pieces = root.getPieces();
                 text_information = root.getText_information();
+                if(lang.equals("ru_ru")){
+                    pieces_ru_2_4 = root.getPieces_ru_2_4();
+                }
                 SaveJSONLang(lang);
             } catch (Exception er) {
                 loadDefault(lang);
@@ -132,6 +140,10 @@ public class SimplyStatusTranslate{
         root.addProperty("pieces", pieces);
         root.addProperty("stacks", stacks);
         root.addProperty("text_information", text_information);
+        if(Lang.equals("ru_ru")){
+            //pieces-ru-2-4
+            root.addProperty("pieces_ru_2_4", pieces_ru_2_4);
+        }
         String config = gson.toJson(root);
         try {
             Files.createDirectories(configFile.getParent());
@@ -163,6 +175,9 @@ public class SimplyStatusTranslate{
         stacks = new TranslatableText("status.simplystatus.stacks").getString();
         pieces = new TranslatableText("status.simplystatus.pieces").getString();
         text_information = new TranslatableText("status.simplystatus.information").getString();
+        if(Lang.equals("ru_ru")){
+            pieces_ru_2_4 = new TranslatableText("status.simplystatus.pieces-ru-2-4").getString();
+        }
         SaveJSONLang(Lang);
     }
 }
@@ -246,10 +261,10 @@ class SimplyStatusLang {
         }
     }
     public String getText_evening(){
-        if(text_isSleep != null){
-            return text_isSleep;
+        if(text_evening != null){
+            return text_evening;
         } else {
-            return new TranslatableText("status.simplystatus.text_isSleep").getString();
+            return new TranslatableText("status.simplystatus.text_evening").getString();
         }
     }
     public String getWorld_overworld(){
@@ -309,6 +324,13 @@ class SimplyStatusLang {
             return new TranslatableText("status.simplystatus.pieces").getString();
         }
     }
+    public String getPieces_ru_2_4(){
+        if(pieces_ru_2_4 != null){
+            return pieces_ru_2_4;
+        } else {
+            return new TranslatableText("status.simplystatus.pieces-ru-2-4").getString();
+        }
+    }
     public String getStacks(){
         if(stacks != null){
             return stacks;
@@ -346,5 +368,6 @@ class SimplyStatusLang {
     private String text_information;
 
     private String pieces;
+    private String pieces_ru_2_4;
     private String stacks;
 }

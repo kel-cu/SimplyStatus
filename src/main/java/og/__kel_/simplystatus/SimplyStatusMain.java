@@ -23,8 +23,8 @@ public class SimplyStatusMain implements ModInitializer {
     Long start_time = System.currentTimeMillis() / 1000;
 
     static MinecraftClient mc = MinecraftClient.getInstance();
-    SimplyStatusTranslate Translate = new SimplyStatusTranslate();
-
+    static SimplyStatusTranslate Translate = new SimplyStatusTranslate();
+    public static SimplyStatusTranslate localization = Translate;
     Integer times = 0;
     Timer timer = new Timer();
     public static String DiscordName = "<unknown>";

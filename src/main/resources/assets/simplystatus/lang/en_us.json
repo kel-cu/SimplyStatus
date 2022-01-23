@@ -5,6 +5,20 @@
   "key.simplystatus.viewNameServer": "Show / Hide server name",
   "key.simplystatus.ShowSettings": "Show settings",
   "key.simplystatus.OffHand": "Show / Hide second hand item",
+  "key.simplystatus.ViewUsername": "Show / Hide game username",
+  "key.simplystatus.ViewRPC": "Show / Hide game status",
+
+  "config.simplystatus.viewIP": "Show server address",
+  "config.simplystatus.viewNameServer": "Show server name",
+  "config.simplystatus.viewStatic": "Show player statistics",
+  "config.simplystatus.OffHand": "Show second hand item",
+  "config.simplystatus.ViewUsername": "Show game username",
+  "config.simplystatus.ViewRPC": "Show game status",
+
+  "config.simplystatus.client": "Client",
+  "config.simplystatus.localization": "Localization",
+  "config.simplystatus.thisServer": "This server",
+
   "message.simplystatus.ViewIPTrue": "§6§lSimplyStatus§r » Server IP is now visible!",
   "message.simplystatus.ViewIPFalse": "§6§lSimplyStatus§r » Server IP address is now hidden!",
   "message.simplystatus.ViewStaticTrue": "§6§lSimplyStatus§r » Your stats are now visible!",
@@ -14,19 +28,25 @@
   "message.simplystatus.ViewOffHandTrue": "§6§lSimplyStatus§r » The item in the second hand is now visible",
   "message.simplystatus.ViewOffHandFalse": "§6§lSimplyStatus§r » The item in the second hand is now hidden",
   "message.simplystatus.SettingState": "§6§lSimplyStatus§r » Settings state:\n",
-  "message.simplystatus.SettingsTextClient": "§6Client§r »\n| Statistics: %static%\n| Second hand: %offhand%",
+  "message.simplystatus.SettingsTextClient": "§6Client§r »\n| Statistics: %static%\n| Second hand: %offhand%\n| Show game username: %username%\n| Show game status: %status%",
   "message.simplystatus.SettingsTextMultiplayer": "\n§6This server§r »\n| Server name: %name%\n| IP-Server's: %ip%",
   "message.simplystatus.errorIsSinglePlayer": "§6§lSimplyStatus§r » You cannot use this key in a single player!",
+
+  "message.simplystatus.showUsername": "§6§lSimplyStatus§r » Your game nickname is visible!",
+  "message.simplystatus.hideUsername": "§6§lSimplyStatus§r » Your game nickname is hidden!",
+
   "message.simplystatus.help": "§6§lSimplyStatus§r » ",
   "message.simplystatus.hideRPC": "§6§lSimplyStatus§r » Your game status is now hidden from users!",
   "message.simplystatus.showRPC": "§6§lSimplyStatus§r » Your game status is now visible!",
   "settings.simplystatus.true": "§2True§r",
   "settings.simplystatus.false": "§4False§r",
-  "status.simplystatus.unknownNameServer": "Unknown name a server",
-  "status.simplystatus.unknownNamePlayer": "Name not found",
+
   "modmenu.descriptionTranslation.simplystatus": "Simple mod for game status Discord",
   "modmenu.github": "GitHub",
   "modmeny.curseforge": "CurseForge",
+
+  "status.simplystatus.unknownNameServer": "Unknown name a server",
+  "status.simplystatus.unknownNamePlayer": "Name not found",
 
   "status.simplystatus.text_MainMenu": "%username% is in the main menu",
   "status.simplystatus.text_DeathOne": "%username% is not alive :(",
@@ -49,5 +69,12 @@
   "status.simplystatus.text_isSleep": "%username% is sleeping",
   "status.simplystatus.text_isSneaking": "%username% is sneaking",
   "status.simplystatus.pieces": " | %count% items",
-  "status.simplystatus.stacks": " | %count% stacks"
+  "status.simplystatus.stacks": " | %count% stacks",
+
+  "tooltip.simplystatus.item": "%item% > Item Name",
+  "tooltip.simplystatus.onlyDiscordName": "%username% > Discord nick",
+  "tooltip.simplystatus.allReplaceName": "%username% > Gamer Nickname or Discord Nickname",
+  "tooltip.simplystatus.count": "%count% > Number of items or stacks",
+  "tooltip.simplystatus.information": "%username% > Game Nickname or Discord Nickname\n%scene% > Where you play",
+  "config.simplystatus.descriptionLang": "If you do not understand what and where is located here, you can visit the wiki on GitHub:\nhttps://github.com/simply-kel/SimplyStatus-fabric/wiki\n§oSorry, the wiki is only in Russian§r"
 }

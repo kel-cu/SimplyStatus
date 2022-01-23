@@ -13,14 +13,16 @@ import org.lwjgl.glfw.GLFW;
 public class SimplyStatusClient implements ClientModInitializer {
     // The KeyBinding declaration and registration are commonly executed here statically
     public static boolean ViewIPAddress = false;
-    public static boolean ViewStatic = true;
     public static boolean ViewName = true;
+    public static boolean ViewStatic = true;
     public static boolean ViewOffHand = false;
     public static boolean ViewRPC = true;
     public static boolean ViewUsername = true;
+    public static SimplyStatusConfig configs = new SimplyStatusConfig();
     @Override
     public void onInitializeClient() {
         SimplyStatusConfig cfg = new SimplyStatusConfig();
+        configs = cfg;
         cfg.load();
         KeyBinding keyBindingViewUsername;
         keyBindingViewUsername = KeyBindingHelper.registerKeyBinding(new KeyBinding(
@@ -155,6 +157,16 @@ public class SimplyStatusClient implements ClientModInitializer {
                     message = message.replace("%offhand%", String.valueOf(new TranslatableText("settings.simplystatus.false").getString()));
                 } else{
                     message = message.replace("%offhand%", String.valueOf(new TranslatableText("settings.simplystatus.true").getString()));
+                }
+                if(ViewUsername == false){
+                    message = message.replace("%username%", String.valueOf(new TranslatableText("settings.simplystatus.false").getString()));
+                } else{
+                    message = message.replace("%username%", String.valueOf(new TranslatableText("settings.simplystatus.true").getString()));
+                }
+                if(ViewRPC == false){
+                    message = message.replace("%status%", String.valueOf(new TranslatableText("settings.simplystatus.false").getString()));
+                } else{
+                    message = message.replace("%status%", String.valueOf(new TranslatableText("settings.simplystatus.true").getString()));
                 }
                 //servers
                 if(!issinglePlayer){
