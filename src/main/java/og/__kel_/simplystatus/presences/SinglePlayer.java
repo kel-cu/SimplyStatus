@@ -80,13 +80,13 @@ public class SinglePlayer {
                     presence.largeImageKey = "nigth_update_2";
                     presence.largeImageText = Translate.text_night;
                 } else if (mctime < 6000 && mctime > 0) {
-                    presence.largeImageKey = "morning";
+                    presence.largeImageKey = "morning_update_2";
                     presence.largeImageText = Translate.text_morning;
                 } else if (mctime < 12000 && mctime > 6000) {
                     presence.largeImageKey = "day_update_2";
                     presence.largeImageText = Translate.text_day;
                 } else if (mctime < 16500 && mctime > 12000) {
-                    presence.largeImageKey = "evening";
+                    presence.largeImageKey = "evening_update_2";
                     presence.largeImageText = Translate.text_evening;
                 } else if (mctime < 24000 && mctime > 16500) {
                     presence.largeImageKey = "nigth_update_2";

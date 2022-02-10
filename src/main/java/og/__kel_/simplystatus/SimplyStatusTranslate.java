@@ -1,15 +1,10 @@
 package og.__kel_.simplystatus;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.TranslatableText;
 
 import java.io.FileReader;
-import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class SimplyStatusTranslate{
 
@@ -79,7 +74,6 @@ public class SimplyStatusTranslate{
             if(lang.equals("ru_ru")){
                 pieces_ru_2_4 = root.getPieces_ru_2_4();
             }
-            SaveJSONLang(lang);
         } catch (Exception e) {
             try (FileReader reader = new FileReader(mc.runDirectory + "/config/simplystatus/" + lang + ".json")) {
                 SimplyStatusLang root = gson.fromJson(reader, SimplyStatusLang.class);
@@ -108,48 +102,9 @@ public class SimplyStatusTranslate{
                 if(lang.equals("ru_ru")){
                     pieces_ru_2_4 = root.getPieces_ru_2_4();
                 }
-                SaveJSONLang(lang);
             } catch (Exception er) {
                 loadDefault(lang);
             }
-        }
-    }
-    public void SaveJSONLang(String Lang){
-        final Path configFile = mc.runDirectory.toPath().resolve("config/SimplyStatus-Configs/"+Lang+".json");
-        Gson gson = new Gson();
-        JsonObject root = new JsonObject();
-        root.addProperty("text_MainMenu", text_MainMenu);
-        root.addProperty("text_DeathOne", text_DeathOne);
-        root.addProperty("text_DeathTwo", text_DeathTwo);
-        root.addProperty("text_DeathThree", text_DeathThree);
-        root.addProperty("text_Air", text_Air);
-        root.addProperty("text_Item", text_Item);
-        root.addProperty("text_UnknownServer", text_UnknownServer);
-        root.addProperty("text_HideIP", text_HideIP);
-        root.addProperty("text_day", text_day);
-        root.addProperty("text_night", text_night);
-        root.addProperty("text_morning", text_morning);
-        root.addProperty("text_evening", text_evening);
-        root.addProperty("world_overworld", world_overworld);
-        root.addProperty("world_nether", world_nether);
-        root.addProperty("world_end", world_end);
-        root.addProperty("text_goodPlayer", text_goodPlayer);
-        root.addProperty("text_isInSingleplayer", text_isInSingleplayer);
-        root.addProperty("text_isSleep", text_isSleep);
-        root.addProperty("text_isSneaking", text_isSneaking);
-        root.addProperty("pieces", pieces);
-        root.addProperty("stacks", stacks);
-        root.addProperty("text_information", text_information);
-        if(Lang.equals("ru_ru")){
-            //pieces-ru-2-4
-            root.addProperty("pieces_ru_2_4", pieces_ru_2_4);
-        }
-        String config = gson.toJson(root);
-        try {
-            Files.createDirectories(configFile.getParent());
-            Files.write(configFile, config.getBytes(StandardCharsets.UTF_8));
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
     private void loadDefault(String Lang) {
@@ -174,11 +129,10 @@ public class SimplyStatusTranslate{
         text_isSneaking = new TranslatableText("status.simplystatus.text_isSneaking").getString();
         stacks = new TranslatableText("status.simplystatus.stacks").getString();
         pieces = new TranslatableText("status.simplystatus.pieces").getString();
-        text_information = new TranslatableText("status.simplystatus.information").getString();
+        text_information = new TranslatableText("status.simplystatus.text_information").getString();
         if(Lang.equals("ru_ru")){
             pieces_ru_2_4 = new TranslatableText("status.simplystatus.pieces-ru-2-4").getString();
         }
-        SaveJSONLang(Lang);
     }
 }
 
@@ -342,7 +296,7 @@ class SimplyStatusLang {
         if(text_information != null){
             return text_information;
         } else {
-            return new TranslatableText("status.simplystatus.information").getString();
+            return new TranslatableText("status.simplystatus.text_information").getString();
         }
     }
 

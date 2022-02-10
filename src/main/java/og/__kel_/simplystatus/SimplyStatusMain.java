@@ -1,27 +1,25 @@
 package og.__kel_.simplystatus;
 
 import club.minnced.discord.rpc.*;
-import net.fabricmc.api.ModInitializer;
 
-import java.io.IOException;
+import net.fabricmc.api.ModInitializer;
+//
 import java.util.Timer;
 import java.util.TimerTask;
 
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.network.MessageType;
-import net.minecraft.text.LiteralText;
 // Presences
 import og.__kel_.simplystatus.presences.Menu;
 import og.__kel_.simplystatus.presences.MultiPlayer;
 import og.__kel_.simplystatus.presences.SinglePlayer;
+import og.__kel_.simplystatus.presences.UnknownScene;
 
 public class SimplyStatusMain implements ModInitializer {
-    DiscordRPC lib = DiscordRPC.INSTANCE;
+    static DiscordRPC lib = DiscordRPC.INSTANCE;
     String applicationId = "903288390072557648";
     String steamId = "";
     DiscordEventHandlers handlers = new DiscordEventHandlers();
     Long start_time = System.currentTimeMillis() / 1000;
-
     static MinecraftClient mc = MinecraftClient.getInstance();
     static SimplyStatusTranslate Translate = new SimplyStatusTranslate();
     public static SimplyStatusTranslate localization = Translate;
@@ -38,10 +36,7 @@ public class SimplyStatusMain implements ModInitializer {
             System.out.println("SimplyStatus running");
             DiscordName = user.username;
         };
-
         lib.Discord_Initialize(applicationId, handlers, true, steamId);
-
-        MainPresenceBasic();
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {
                 lib.Discord_RunCallbacks();
@@ -51,7 +46,7 @@ public class SimplyStatusMain implements ModInitializer {
                 }
             }
         }, "RPC-Callback-Handler").start();
-    startUpdate();
+        startUpdate();
     }
     private void startUpdate(){
             timer.scheduleAtFixedRate(new TimerTask() {
@@ -66,23 +61,32 @@ public class SimplyStatusMain implements ModInitializer {
         new Menu(lib, mc, Translate, start_time);
     }
     private void updatePresence() {
-        if(SimplyStatusClient.ViewRPC) {
-            SimplyStatusConfig cfg = new SimplyStatusConfig();
-            Translate.selectedLang();
-            if (mc.world == null) {
-                MainPresenceBasic();
-            } else {
-                boolean isSinglePlayer = mc.isInSingleplayer();
-                if (isSinglePlayer) {
-                    new SinglePlayer(lib, mc, Translate, start_time, cfg);
+        try{
+            if(SimplyStatusClient.ViewRPC) {
+                SimplyStatusConfig cfg = new SimplyStatusConfig();
+                Translate.selectedLang();
+                if (mc.world == null) {
+                    MainPresenceBasic();
                 } else {
-
-                    new MultiPlayer(lib, mc, Translate, start_time, cfg);
+                    boolean isSinglePlayer = mc.isInSingleplayer();
+                    if (isSinglePlayer) {
+                        new SinglePlayer(lib, mc, Translate, start_time, cfg);
+                    } else {
+                        new MultiPlayer(lib, mc, Translate, start_time, cfg);
+                    }
                 }
+            } else {
+                lib.Discord_UpdatePresence(null);
             }
-        } else {
-            lib.Discord_UpdatePresence(null);
+        } catch(NullPointerException err){
+            if(SimplyStatusClient.ViewRPC) {
+                new UnknownScene(lib, mc, Translate, start_time);
+            } else {
+                lib.Discord_UpdatePresence(null);
+            }
+            System.out.println("Error!\n"+err.toString());
         }
+
     }
     public static String[] OhNoCringe =  {
             "§4",

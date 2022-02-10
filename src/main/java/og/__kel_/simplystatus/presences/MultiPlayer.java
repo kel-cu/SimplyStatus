@@ -2,21 +2,13 @@ package og.__kel_.simplystatus.presences;
 
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import com.pequla.server.ping.ServerPing;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.item.ItemStack;
-import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
-import net.minecraft.util.Hand;
 import og.__kel_.simplystatus.SimplyStatusClient;
 import og.__kel_.simplystatus.SimplyStatusConfig;
 import og.__kel_.simplystatus.SimplyStatusMain;
 import og.__kel_.simplystatus.SimplyStatusTranslate;
 import og.__kel_.simplystatus.info.Game;
-
-import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.util.Objects;
 
 public class MultiPlayer {
     public MultiPlayer(DiscordRPC lib, MinecraftClient mc, SimplyStatusTranslate Translate, Long start_time, SimplyStatusConfig cfg){
@@ -107,14 +99,14 @@ public class MultiPlayer {
                 presence.largeImageKey = "nigth_update_2";
                 presence.largeImageText = Translate.text_night;
             } else if(mctime < 6000 && mctime > 0){
-                presence.largeImageKey = "morning";
+                presence.largeImageKey = "morning_update_2";
                 presence.largeImageText = Translate.text_morning;
             } else if( mctime < 12000 && mctime > 6000){
                 presence.largeImageKey = "day_update_2";
                 presence.largeImageText = Translate.text_day;
 
             } else if(mctime < 16500 && mctime > 12000){
-                presence.largeImageKey = "evening";
+                presence.largeImageKey = "evening_update_2";
                 presence.largeImageText = Translate.text_evening;
 
             } else if(mctime < 24000 && mctime > 16500){
@@ -123,6 +115,7 @@ public class MultiPlayer {
             }
         }
         presence.startTimestamp = start_time;
+        presence.partySize = mc.getNetworkHandler().getPlayerList().size();
 
         lib.Discord_UpdatePresence(presence);
     }

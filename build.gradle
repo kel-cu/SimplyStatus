@@ -32,7 +32,7 @@ dependencies {
     include(implementation ('club.minnced:discord-rpc-release:v3.4.0'))
     include(implementation("com.github.MinnDevelopment:java-discord-rpc:v2.0.2"))
     implementation 'com.google.code.gson:gson:2.8.9'
-    include(implementation('com.github.Pequla:ServerPing:v1.0'))
+    implementation 'org.json:json:20211205'
 }
 
 processResources {

@@ -16,7 +16,6 @@
   "config.simplystatus.ViewRPC": "Show game status",
 
   "config.simplystatus.client": "Client",
-  "config.simplystatus.localization": "Localization",
   "config.simplystatus.thisServer": "This server",
 
   "message.simplystatus.ViewIPTrue": "§6§lSimplyStatus§r » Server IP is now visible!",
@@ -53,10 +52,10 @@
   "status.simplystatus.text_DeathTwo": "Player died :(",
   "status.simplystatus.text_DeathThree": "%username% takes a break from the game",
   "status.simplystatus.text_Air": "%username% is having a good time",
-  "status.simplystatus.text_Item": "holding a %item%",
+  "status.simplystatus.text_Item": "holding a \"%item%\"",
   "status.simplystatus.text_UnknownServer": "This server is unknown to us",
   "status.simplystatus.text_HideIP": "*Server address hidden*",
-  "status.simplystatus.information": "%username% | %scene%",
+  "status.simplystatus.text_information": "%username% | %scene%",
   "status.simplystatus.text_day": "Day",
   "status.simplystatus.text_night": "Night",
   "status.simplystatus.text_evening": "Evening",
@@ -70,11 +69,5 @@
   "status.simplystatus.text_isSneaking": "%username% is sneaking",
   "status.simplystatus.pieces": " | %count% items",
   "status.simplystatus.stacks": " | %count% stacks",
-
-  "tooltip.simplystatus.item": "%item% > Item Name",
-  "tooltip.simplystatus.onlyDiscordName": "%username% > Discord nick",
-  "tooltip.simplystatus.allReplaceName": "%username% > Gamer Nickname or Discord Nickname",
-  "tooltip.simplystatus.count": "%count% > Number of items or stacks",
-  "tooltip.simplystatus.information": "%username% > Game Nickname or Discord Nickname\n%scene% > Where you play",
-  "config.simplystatus.descriptionLang": "If you do not understand what and where is located here, you can visit the wiki on GitHub:\nhttps://github.com/simply-kel/SimplyStatus-fabric/wiki\n§oSorry, the wiki is only in Russian§r"
+  "status.simplystatus.replaymod": "Maybe the player is in ReplayMod"
 }

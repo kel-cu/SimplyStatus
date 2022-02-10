@@ -16,7 +16,6 @@
   "config.simplystatus.ViewRPC": "Показывать игровой статус",
 
   "config.simplystatus.client": "Клиент",
-  "config.simplystatus.localization": "Локализация",
   "config.simplystatus.thisServer": "Этот сервер",
 
   "message.simplystatus.ViewIPTrue": "§6§lSimplyStatus§r » IP-Адрес сервера теперь виден!",
@@ -54,10 +53,10 @@
   "status.simplystatus.pieces": " | %count% предметов",
   "status.simplystatus.pieces-ru-2-4": " | %count% предметa",
   "status.simplystatus.stacks": " | %count% стак(ов)",
-  "status.simplystatus.text_Item": "Держит %item%",
+  "status.simplystatus.text_Item": "Держит \"%item%\"",
   "status.simplystatus.text_UnknownServer": "Неизвестный сервер ¯\\_(ツ)_/¯",
   "status.simplystatus.text_HideIP": "*Адрес сервера скрыт*",
-  "status.simplystatus.information": "%username% | %scene%",
+  "status.simplystatus.text_information": "%username% | %scene%",
   "status.simplystatus.text_day": "День",
   "status.simplystatus.text_night": "Ночь",
   "status.simplystatus.text_evening": "Вечер",
@@ -69,11 +68,5 @@
   "status.simplystatus.text_goodPlayer": "%username% возможно хороший игрок",
   "status.simplystatus.text_isSleep": "%username% спит \uD83D\uDE2A",
   "status.simplystatus.text_isSneaking": "%username% крадётся",
-
-  "tooltip.simplystatus.item": "%item% > Имя предмета",
-  "tooltip.simplystatus.onlyDiscordName": "%username% > Discord ник",
-  "tooltip.simplystatus.allReplaceName": "%username% > Игровой ник или Discord ник",
-  "tooltip.simplystatus.count": "%count% > Кол-во предметов или стаков",
-  "tooltip.simplystatus.information": "%username% > Игровой ник или Discord ник\n%scene% > Место где вы играете",
-  "config.simplystatus.descriptionLang": "Если вы не понимаете что и где тут, вы можете посетить вики в GitHub:\nhttps://github.com/simply-kel/SimplyStatus-fabric/wiki"
+  "status.simplystatus.replaymod": "Возможно игрок находится в ReplayMod"
 }
