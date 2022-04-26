@@ -31,8 +31,11 @@ dependencies {
     // Прочея херня для работы с конфигами и Discord RPC
     include(implementation ('club.minnced:discord-rpc-release:v3.4.0'))
     include(implementation("com.github.MinnDevelopment:java-discord-rpc:v2.0.2"))
-    implementation 'com.google.code.gson:gson:2.8.9'
-    implementation 'org.json:json:20211205'
+    // Для библиотеки org.json внутри самого мода
+    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'com.jayway.jsonpath:json-path:2.1.0'
+    testImplementation 'org.mockito:mockito-core:1.9.5'
+
 }
 
 processResources {
