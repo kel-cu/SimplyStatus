@@ -1,38 +1,18 @@
 ---
-name: Bug report
-about: Create a report to help us improve
+name: Найден баг
+about: Создай отчёт, чтобы помочь нам стать лучше
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Опишите кратко и понятно ошибку**
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+Например: Я нажал на кнопку и вылетела игра; Локализация неправильно работает; и многое
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Что нужно дополнить?**
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
-
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+OS | Лаунчер | Ошибка
+--- | --- | --- |
+Windows / Linux / Mac OS / Android 🤨 | Официальный, MultiMC, и т.д. | Лог ошибки или описание ошибки
