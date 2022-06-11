@@ -12,17 +12,15 @@
   "environment": "client",
   "entrypoints": {
     "main": [
-      "og.__kel_.simplystatus.SimplyStatusMain"
+      "og.__kel_.simplystatus.Main"
     ],
     "client": [
-      "og.__kel_.simplystatus.SimplyStatusClient"
+      "og.__kel_.simplystatus.Client"
     ],
     "modmenu": [
       "og.__kel_.simplystatus.configs.ModMenuIntegration"
     ]
   },
-  "mixins": [
-  ],
   "depends": {
     "fabricloader": ">=0.12.9",
     "minecraft": ["^1.18", "^1.19"]
@@ -35,14 +33,14 @@
     "issues": "https://github.com/simply-kel/SimplyStatus-fabric/issues",
     "homepage": "https://www.curseforge.com/minecraft/mc-mods/simplystatus"
   },
+  "mixins": [
+    "simplystatus.mixins.json"
+  ],
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.github": "https://github.com/simply-kel/SimplyStatus-fabric",
-        "modmeny.curseforge": "https://www.curseforge.com/minecraft/mc-mods/simplystatus"
-      },
-      "parent": {
-        "id": "simplystatus"
+        "modmenu.simplystatus.github": "https://github.com/simply-kel/SimplyStatus-fabric",
+        "modmenu.simplystatus.curseforge": "https://www.curseforge.com/minecraft/mc-mods/simplystatus"
       }
     }
   }

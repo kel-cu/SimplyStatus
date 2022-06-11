@@ -3,75 +3,97 @@ package og.__kel_.simplystatus.configs;
 import me.shedaniel.clothconfig2.api.*;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.TranslatableText;
-import og.__kel_.simplystatus.SimplyStatusClient;
-import og.__kel_.simplystatus.SimplyStatusConfig;
-import og.__kel_.simplystatus.SimplyStatusTranslate;
+import net.minecraft.text.MutableText;
+import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.text.LiteralTextContent;
+//LiteralText
+import net.minecraft.util.Identifier;
+import og.__kel_.simplystatus.Client;
+import og.__kel_.simplystatus.Config;
+import og.__kel_.simplystatus.Main;
+import og.__kel_.simplystatus.Translate;
+import og.__kel_.simplystatus.info.Game;
 
 
 public class ConfigScreen {
     public static ConfigCategory mainCategory;
     public static ConfigCategory servCategory;
     public static ConfigEntryBuilder entryBuilder;
-    public static SimplyStatusTranslate translate = new SimplyStatusTranslate();
+    public static Translate translate = new Translate();
     public static Screen buildScreen (Screen currentScreen) {
         MinecraftClient mc = MinecraftClient.getInstance();
         translate.selectedLang();
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(currentScreen)
-                .setTitle(new TranslatableText("category.simplystatus.name"))
+                .setTitle(MutableText.of(new TranslatableTextContent("category.simplystatus.name")))
                 .setTransparentBackground(true)
                 .setSavingRunnable(() -> {
-                    System.out.println("SimplyStatus saves configurations!");
-                    SimplyStatusConfig config = new SimplyStatusConfig();
+                    Main.log.info("Saves configurations!");
+                    Config config = new Config();
                     config.save();
                     if(mc.world != null){
                         if(!mc.isInSingleplayer()){
-                            System.out.println("Server saves configurations!");
+                            Main.log.info(mc.getCurrentServerEntry().address + " saves configurations!");
                             config.save(mc.getCurrentServerEntry().address);
                         }
                     }
                 });
         // mainCategory - Это экран
-        mainCategory = builder.getOrCreateCategory(new TranslatableText("config.simplystatus.client"));
+        mainCategory = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.simplystatus.client")));
         // entryBuilder - это билдер значения в точке
         entryBuilder = builder.entryBuilder();
         // Основные настройки
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("config.simplystatus.ViewRPC"), SimplyStatusClient.ViewRPC)
+        if(!Main.discordConnected){
+            mainCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("config.simplystatus.notConnected"))).build());
+            if(System.getProperty("os.name").toLowerCase().startsWith("linux")){
+                mainCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("config.simplystatus.notConnectedLinux"))).build());
+            }
+        }
+        mainCategory.setBackground(Identifier.of("stone.png", "assets/minecraft/textures/gui/advancements/backgrounds"));
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.ViewRPC")), Client.ViewRPC)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> SimplyStatusClient.ViewRPC = newValue)
+                .setSaveConsumer(newValue -> Client.ViewRPC = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("config.simplystatus.ViewUsername"), SimplyStatusClient.ViewUsername)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.ViewUsername")), Client.ViewUsername)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> SimplyStatusClient.ViewUsername = newValue)
+                .setSaveConsumer(newValue -> Client.ViewUsername = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("config.simplystatus.viewStatic"), SimplyStatusClient.ViewStatic)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.viewStatic")), Client.ViewStatic)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> SimplyStatusClient.ViewStatic = newValue)
+                .setSaveConsumer(newValue -> Client.ViewStatic = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("config.simplystatus.OffHand"), SimplyStatusClient.ViewOffHand)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.OffHand")), Client.ViewOffHand)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> SimplyStatusClient.ViewOffHand = newValue)
+                .setSaveConsumer(newValue -> Client.ViewOffHand = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("config.simplystatus.bedrock"), SimplyStatusClient.Bedrock)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.bedrock")), Client.Bedrock)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> SimplyStatusClient.Bedrock = newValue)
+                .setSaveConsumer(newValue -> Client.Bedrock = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("config.simplystatus.cringe"), SimplyStatusClient.CringeIcons)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.cringe")), Client.CringeIcons)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> SimplyStatusClient.CringeIcons = newValue)
+                .setSaveConsumer(newValue -> Client.CringeIcons = newValue)
                 .build());
         // Сервер
+        Game game = new Game();
         if(mc.world != null){
             if(!mc.isInSingleplayer()){
-                servCategory = builder.getOrCreateCategory(new TranslatableText("config.simplystatus.thisServer"));
-                servCategory.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("key.simplystatus.viewIP"), SimplyStatusClient.ViewIPAddress)
+                servCategory = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.simplystatus.thisServer")));
+                servCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.viewIP")), Client.ViewIPAddress)
                         .setDefaultValue(false)
-                        .setSaveConsumer(newValue -> SimplyStatusClient.ViewIPAddress = newValue)
+                        .setSaveConsumer(newValue -> Client.ViewIPAddress = newValue)
                         .build());
-                servCategory.addEntry(entryBuilder.startBooleanToggle(new TranslatableText("key.simplystatus.viewNameServer"), SimplyStatusClient.ViewName)
+                servCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.viewNameServer")), Client.ViewName)
                         .setDefaultValue(true)
-                        .setSaveConsumer(newValue -> SimplyStatusClient.ViewName = newValue)
+                        .setSaveConsumer(newValue -> Client.ViewName = newValue)
+                        .build());
+                servCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.enableCustomName")), Client.customNameEnable)
+                        .setDefaultValue(false)
+                        .setSaveConsumer(newValue -> Client.customNameEnable = newValue)
+                        .build());
+                servCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.CustomName")), Client.customName)
+                        .setDefaultValue("")
+                        .setSaveConsumer(newValue -> Client.customName = newValue)
                         .build());
             }
         }
