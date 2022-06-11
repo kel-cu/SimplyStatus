@@ -49,7 +49,6 @@ public class ConfigScreen {
                 mainCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("config.simplystatus.notConnectedLinux"))).build());
             }
         }
-        mainCategory.setBackground(Identifier.of("stone.png", "assets/minecraft/textures/gui/advancements/backgrounds"));
         mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.ViewRPC")), Client.ViewRPC)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> Client.ViewRPC = newValue)
@@ -69,6 +68,10 @@ public class ConfigScreen {
         mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.bedrock")), Client.Bedrock)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> Client.Bedrock = newValue)
+                .build());
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.showTime")), Client.showTime)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> Client.showTime = newValue)
                 .build());
         mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.cringe")), Client.CringeIcons)
                 .setDefaultValue(false)

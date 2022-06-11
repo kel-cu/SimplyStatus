@@ -50,6 +50,7 @@ public class Main implements ModInitializer {
             discordConnected = true;
         };
         handlers.disconnected = (err, user) -> {
+            log.info("Discord Disconnected");
             log.error(user);
             discordConnected = false;
         };

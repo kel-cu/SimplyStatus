@@ -21,6 +21,7 @@
   "config.simplystatus.ViewUsername": "Show game username",
   "config.simplystatus.ViewRPC": "Show game status",
   "config.simplystatus.bedrock": "Change icons to Bedrock icons",
+  "config.simplystatus.showTime": "Show time gaming",
   "config.simplystatus.cringe": "oh.no.§l§ccringe§r.icons",
   
   "status.simplystatus.static": "%hp% • %hpMax%❤ • %armor%🛡️",

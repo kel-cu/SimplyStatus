@@ -20,6 +20,7 @@
   "config.simplystatus.OffHand": "Показывать предмет второй руки",
   "config.simplystatus.ViewUsername": "Показывать игровой ник",
   "config.simplystatus.ViewRPC": "Показывать игровой статус",
+  "config.simplystatus.showTime": "Показывать время игры",
   "config.simplystatus.bedrock": "Изменить иконки на иконки Bedrock",
   "config.simplystatus.client": "Клиент",
   "config.simplystatus.thisServer": "Этот сервер",
