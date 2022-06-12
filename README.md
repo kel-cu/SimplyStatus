@@ -5,9 +5,9 @@
 <hr>
 
 ### Требования `[* - желательно]`
-* Minecraft **1.18.x** и выше
+* Minecraft **1.19.x** и выше
 * [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
-* [Fabric Loader 0.12.9 и выше](https://fabricmc.net/use)
+* [Fabric Loader 0.14.x и выше](https://fabricmc.net/use)
 * [*Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
 ### Как установить
 * Скачиваем мод из [Releases](https://github.com/not-simply-kel/SimplyStatus-fabric/releases 'GitHub мода')
