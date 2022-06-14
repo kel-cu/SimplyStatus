@@ -9,6 +9,7 @@
 * [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 * [Fabric Loader 0.14.x и выше](https://fabricmc.net/use)
 * [*Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
+* [*Cloth Config API (Fabric)](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 ### Как установить
 * Скачиваем мод из [Releases](https://github.com/not-simply-kel/SimplyStatus-fabric/releases 'GitHub мода')
 * Заходим в папку Майнкрафта и потом в папку с модами
