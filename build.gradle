@@ -1,5 +1,6 @@
 plugins {
     id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'io.github.juuxel.loom-quiltflower' version '1.7.+'
     id 'maven-publish'
 }
 
@@ -35,6 +36,10 @@ dependencies {
     // Прочея херня для работы с конфигами и Discord RPC
     include(implementation ('club.minnced:discord-rpc-release:v3.4.0'))
     include(implementation("com.github.MinnDevelopment:java-discord-rpc:v2.0.2"))
+    //ReplayMod
+    modImplementation files('libs/replaymod-1.19-2.6.6.jar')
+    //Plasmo Voice
+    modImplementation files('libs/plasmovoice-fabric-1.19-1.2.17.jar')
     // Для библиотеки org.json внутри самого мода
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'com.jayway.jsonpath:json-path:2.1.0'
@@ -47,6 +52,9 @@ processResources {
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version
+    }
+    filesMatching('quilt.mod.json') {
+        expand "version": version
     }
 }
 
