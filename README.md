@@ -16,6 +16,8 @@
 * Перекидываем наш мод в папку с модами
 * Запускаем игру и готово **:3**
 
+<a href="https://modrinth.com/mod/simplystatus"><image src="https://raw.githubusercontent.com/modrinth/art/main/Branding/Badge/badge-dark.svg"></image><a>
+
 <hr>
 
 ### Поддержка версий майнкрафта
