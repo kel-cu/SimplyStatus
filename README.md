@@ -5,9 +5,9 @@
 <hr>
 
 ### Требования `[* - желательно]`
-* Minecraft **1.19.x** и выше
-* [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
+* Minecraft **1.19.x**
 * [Fabric Loader 0.14.x и выше](https://fabricmc.net/use)
+* [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 * [*Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
 * [*Cloth Config API (Fabric)](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 ### Как установить
