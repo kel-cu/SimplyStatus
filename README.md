@@ -5,9 +5,9 @@
 <hr>
 
 ### Требования `[* - желательно]`
-* Minecraft **1.19.x**
-* [Fabric Loader 0.14.x и выше](https://fabricmc.net/use)
+* Minecraft **1.19.x** и выше
 * [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
+* [Fabric Loader 0.14.x и выше](https://fabricmc.net/use)
 * [*Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu)
 * [*Cloth Config API (Fabric)](https://www.curseforge.com/minecraft/mc-mods/cloth-config)
 ### Как установить
@@ -16,24 +16,28 @@
 * Перекидываем наш мод в папку с модами
 * Запускаем игру и готово **:3**
 
-<a href="https://modrinth.com/mod/simplystatus"><image src="https://raw.githubusercontent.com/modrinth/art/main/Branding/Badge/badge-dark.svg"></image><a>
-
 <hr>
 
-# Техническая часть
+### Поддержка версий майнкрафта
+Версия | Поддержка
+--- | ---
+1.19 | Активно
+1.18 | 1.4.0
+1.17 | 1.2.2
+1.16 | -
+
 ### Тестируемые системы
 OS | Код | Локализация
 --- | --- | ---
 Microsoft Windows 10-11 | Работает стабильно | Исправлен UTF-8 с 1.4.0
 Linux Ubuntu | Работает стабильно | Проблем не наблюдалось
 Kali Linux | Работает стабильно | Проблем тоже не наблюдались
+Mac OS | ? | ?
+<hr>
+
 ### Исходный код
-> Мод является Open Source, и вы можете его редактировать под себя и т.д. <br>
-> **Проверить:**
-```
-./gradlew runClient
-```
-> **Скомпилировать:**
-```
-./gradlew build
-```
+> Исходный код можно настроить под себя, например сменить ID приложения, изменить текст, исправить какие-то ошибки автора и т.д.<br>
+> Чтобы, скомпилировать код, вам нужно в терминал прописать следующее `[в папке исходника]`:
+> ```
+> gradlew build
+> ```
