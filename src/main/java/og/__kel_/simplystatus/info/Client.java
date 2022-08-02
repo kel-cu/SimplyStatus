@@ -93,6 +93,7 @@ public class Client {
             presence.largeImageKey = assets.Unknown;
             presence.largeImageText = "What?";
         }
+        presence.largeImageText = Translate.replaceText(presence.largeImageText, false,false,!mc.isInSingleplayer(), this);
     }
     public void item(MinecraftClient mc, ItemStack item, DiscordRichPresence presence, Translate Translate){
         if(item.getCount() == 1){
