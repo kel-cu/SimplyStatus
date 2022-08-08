@@ -6,6 +6,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableTextContent;
 //LiteralText
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.Translate;
@@ -29,6 +30,19 @@ public class ConfigScreen {
                     MainClient.log.info("Saves configurations!");
                     Config config = new Config();
                     config.save();
+                    if(HotKeys.lastTitle != HotKeys.changeStatusNameInMinecraft){
+                        HotKeys.lastTitle = HotKeys.changeStatusNameInMinecraft;
+                        if(HotKeys.changeStatusNameInMinecraft){
+                            MainClient.lib.Discord_ClearPresence();
+                            MainClient.lib.Discord_Shutdown();
+                            MainClient.applicationId = "1004398909810016276";
+                        } else {
+                            MainClient.lib.Discord_ClearPresence();
+                            MainClient.lib.Discord_Shutdown();
+                            MainClient.applicationId = "903288390072557648";
+                        }
+                    }
+                    MainClient.lib.Discord_Initialize(MainClient.applicationId, MainClient.handlers, true, "");
                     translate.save();
                     if(mc.world != null){
                         if(!mc.isInSingleplayer()){
@@ -48,6 +62,10 @@ public class ConfigScreen {
                 mainCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("config.simplystatus.notConnectedLinux"))).build());
             }
         }
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.changeStatusNameInMinecraft")), HotKeys.changeStatusNameInMinecraft)
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> HotKeys.changeStatusNameInMinecraft = newValue)
+                .build());
         mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.ViewRPC")), HotKeys.viewRPC)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> HotKeys.viewRPC = newValue)

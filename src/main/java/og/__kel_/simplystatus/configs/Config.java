@@ -27,6 +27,8 @@ public class Config {
             HotKeys.cringeIcons = clientConfig.cringe;
             HotKeys.showTime = clientConfig.showTime;
             HotKeys.viewPlasmoVoice = clientConfig.viewPlasmoVoice;
+            HotKeys.changeStatusNameInMinecraft = clientConfig.changeStatusNameInMinecraft;
+            HotKeys.lastTitle = clientConfig.changeStatusNameInMinecraft;
         } catch (Exception e) {
             save();
         }
@@ -43,7 +45,8 @@ public class Config {
                     .put("bedrock", HotKeys.bedrock)
                     .put("cringe", HotKeys.cringeIcons)
                     .put("showTime", HotKeys.showTime)
-                    .put("voice", HotKeys.viewPlasmoVoice);
+                    .put("voice", HotKeys.viewPlasmoVoice)
+                    .put("title", HotKeys.changeStatusNameInMinecraft);
         } catch (JSONException ej){
             System.out.println(ej.getMessage());
         }

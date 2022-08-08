@@ -24,6 +24,8 @@ public class HotKeys implements ClientModInitializer {
     public static boolean viewPlasmoVoice = false;
     public static boolean viewUsername = true;
     public static boolean bedrock = false;
+    public static boolean changeStatusNameInMinecraft = false;
+    public static boolean lastTitle = false;
     public static boolean cringeIcons = false;
     public static boolean showTime = true;
     public static boolean modMessageInChat = false;
@@ -119,22 +121,22 @@ public class HotKeys implements ClientModInitializer {
                     return;
                 }
                 viewIPAddress = !viewIPAddress;
-                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewIPAddress ? "message.simplystatus.ViewIPFalse" : "message.simplystatus.ViewIPTrue"))), modMessageInChat);
+                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewIPAddress ? "message.simplystatus.viewIP.false" : "message.simplystatus.viewIP.true"))), modMessageInChat);
                 config.save(mc.getCurrentServerEntry().address);
             }
             while (keyBindingViewStatic.wasPressed()) {
                 viewStatic = !viewStatic;
-                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewStatic ? "message.simplystatus.ViewStaticFalse" : "message.simplystatus.ViewStaticTrue"))), modMessageInChat);
+                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewStatic ? "message.simplystatus.viewStatic.false" : "message.simplystatus.viewStatic.true"))), modMessageInChat);
                 config.save();
             }
             while (keyBindingBedrock.wasPressed()) {
                 bedrock = !bedrock;
-                client.player.sendMessage(MutableText.of(new TranslatableTextContent((bedrock ? "message.simplystatus.bedrockFalse" : "message.simplystatus.bedrockTrue"))), modMessageInChat);
+                client.player.sendMessage(MutableText.of(new TranslatableTextContent((bedrock ? "message.simplystatus.bedrock.false" : "message.simplystatus.bedrock.true"))), modMessageInChat);
                 config.save();
             }
             while (keyBindingShowTime.wasPressed()) {
                 showTime = !showTime;
-                client.player.sendMessage(MutableText.of(new TranslatableTextContent((showTime ? "message.simplystatus.showTimeFalse" : "message.simplystatus.showTimeTrue"))), modMessageInChat);
+                client.player.sendMessage(MutableText.of(new TranslatableTextContent((showTime ? "message.simplystatus.showTime.false" : "message.simplystatus.showTime.true"))), modMessageInChat);
                 config.save();
             }
             while (keyBindingViewNameServer.wasPressed()) {
@@ -143,23 +145,23 @@ public class HotKeys implements ClientModInitializer {
                     return;
                 }
                 viewName = !viewName;
-                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewName ? "message.simplystatus.ViewNameFalse" : "message.simplystatus.ViewNameTrue"))), modMessageInChat);
+                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewName ? "message.simplystatus.ViewName.false" : "message.simplystatus.ViewName.true"))), modMessageInChat);
                 config.save(mc.getCurrentServerEntry().address);
             }
             while (keyBindingOffHand.wasPressed()) {
                 viewOffHand = !viewOffHand;
-                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewOffHand ? "message.simplystatus.ViewOffHandFalse" : "message.simplystatus.ViewOffHandTrue"))), modMessageInChat);
+                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewOffHand ? "message.simplystatus.viewOffHand.false" : "message.simplystatus.viewOffHand.true"))), modMessageInChat);
 
                 config.save();
             }
             while (keyBindingViewRPC.wasPressed()) {
                 viewRPC = !viewRPC;
-                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewRPC ? "message.simplystatus.hideRPC" : "message.simplystatus.showRPC"))), modMessageInChat);
+                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewRPC ? "message.simplystatus.rpc.false" : "message.simplystatus.rpc.true"))), modMessageInChat);
                 config.save();
             }
             while (keyBindingViewUsername.wasPressed()) {
                 viewUsername = !viewUsername;
-                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewUsername ? "message.simplystatus.hideUsername" : "message.simplystatus.showUsername"))), modMessageInChat);
+                client.player.sendMessage(MutableText.of(new TranslatableTextContent((viewUsername ? "message.simplystatus.username.false" : "message.simplystatus.username.true"))), modMessageInChat);
                 config.save();
             }
         });

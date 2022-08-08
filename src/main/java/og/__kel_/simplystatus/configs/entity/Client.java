@@ -13,6 +13,7 @@ public class Client {
     public boolean cringe;
     public boolean showTime;
     public boolean viewPlasmoVoice;
+    public boolean changeStatusNameInMinecraft;
     public Client(String jsonContent) throws JSONException {
         JSONObject json = new JSONObject(jsonContent);
         this.viewStatic = json.getBoolean("static");
@@ -23,5 +24,6 @@ public class Client {
         this.cringe = json.getBoolean("cringe");
         this.showTime = json.getBoolean("showTime");
         this.viewPlasmoVoice = json.getBoolean("voice");
+        this.changeStatusNameInMinecraft = json.getBoolean("title");
     }
 }

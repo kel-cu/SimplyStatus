@@ -22,10 +22,13 @@ import net.minecraft.client.MinecraftClient;
 
 public class MainClient implements ClientModInitializer {
     public static final Logger log = LogManager.getLogger("SimplyStatus");
-    static DiscordRPC lib = DiscordRPC.INSTANCE;
-    String applicationId = "903288390072557648";
+    public static DiscordRPC lib = DiscordRPC.INSTANCE;
+    public static String applicationId = "903288390072557648";
+    // SimplyStatus = 903288390072557648
+    // Minecraft = 1004398909810016276
+    //String applicationId = "1004398909810016276";
     String steamId = "";
-    DiscordEventHandlers handlers = new DiscordEventHandlers();
+    public static DiscordEventHandlers handlers = new DiscordEventHandlers();
     Long startTime = System.currentTimeMillis() / 1000;
     MinecraftClient client = MinecraftClient.getInstance();
     static Translate Translate = new Translate();
@@ -45,7 +48,10 @@ public class MainClient implements ClientModInitializer {
         Translate.selectedLang();
         Config config = new Config();
         config.load();
-
+        if(HotKeys.changeStatusNameInMinecraft){
+            applicationId = "1004398909810016276";
+            log.info("[SimplyStatus] The app has been changed to an app called \"Minecraft\"");
+        }
         handlers.ready = (user) -> {
             log.info("The mod has been connected to Discord");
             player = user;

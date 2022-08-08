@@ -33,6 +33,7 @@ public class UnknownScene {
                     presence.state =ReplayModReplay.instance.getReplayHandler().getReplayFile().getMetaData().getCustomServerName();
                     DateFormat dateFormat = new SimpleDateFormat("MM/dd/yy, hh:mm");
                     String strDate = dateFormat.format(ReplayModReplay.instance.getReplayHandler().getReplayFile().getMetaData().getDate());
+                    MainClient.log.warn("[replay]: " + dateFormat.getNumberFormat().toString());
                     presence.details = "Replay from: " + strDate+"(am/pm)";
                 }catch (Exception error){
                     error.printStackTrace();
