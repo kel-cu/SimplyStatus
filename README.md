@@ -1,5 +1,5 @@
 ## SimplyStatus
-> Это мод предазначен для игрового статуса **Minecraft** в **[Discord](https://discord.com/company)** <br>
+> Это мод предназначен для игрового статуса **Minecraft** в **[Discord](https://discord.com/company)** <br>
 > Все фишки и функции мода можете глянут в [Wiki](https://github.com/not-simply-kel/SimplyStatus-fabric/wiki)
 
 <hr>
