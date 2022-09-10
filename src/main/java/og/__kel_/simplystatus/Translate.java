@@ -1,12 +1,14 @@
 package og.__kel_.simplystatus;
 
+import net.minecraft.SharedConstants;
+import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableTextContent;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.info.Client;
-import og.__kel_.simplystatus.mixin.MinecraftClientMixin;
+import og.__kel_.simplystatus.mixin.MinecraftClientAccess;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -15,6 +17,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
+
+import oshi.SystemInfo;
+import oshi.hardware.CentralProcessor;
 
 public class Translate{
     public String mainMenu;
@@ -40,13 +45,16 @@ public class Translate{
 
     public String stacks;
     public String pieces;
-    //pieces-ru-2-4
     public String pieces_ru_2_4;
     public String information;
     public String voice;
     public String voice_one;
     public String voice_two;
     public String onFire;
+    public String connect;
+    public String disconnect;
+    public String worldLoading;
+    public String stats;
 
     MinecraftClient mc = MinecraftClient.getInstance();
     public String SelectedLang;
@@ -67,10 +75,9 @@ public class Translate{
         }
     }
     public void loadLang(String lang) {
-        //String s = Files.readString(path, StandardCharsets.UTF_8);
         try {
             String jsonContent = Files.readString(new File(mc.runDirectory + "/SimplyStatus/lang/"+lang+".json").toPath(), StandardCharsets.UTF_8);
-            SimplyStatusLang langConfig = new SimplyStatusLang(jsonContent);
+            TranslateParse langConfig = new TranslateParse(jsonContent);
             mainMenu = langConfig.text_MainMenu;
             mainMenu_state = langConfig.text_MainMenu_state;
             deathOne = langConfig.text_DeathOne;
@@ -98,6 +105,10 @@ public class Translate{
             voice_one = langConfig.voice_one;
             voice_two = langConfig.voice_two;
             onFire = langConfig.onFire;
+            connect = langConfig.connect;
+            disconnect = langConfig.disconnect;
+            worldLoading = langConfig.loadWorld;
+            stats = langConfig.stats;
             if(lang.equals("ru_ru")){
                 pieces_ru_2_4 = langConfig.pieces_ru_2_4;
             }
@@ -133,6 +144,10 @@ public class Translate{
         voice_one = MutableText.of(new TranslatableTextContent("status.simplystatus.voice_one")).getString();
         voice_two = MutableText.of(new TranslatableTextContent("status.simplystatus.voice_two")).getString();
         onFire = MutableText.of(new TranslatableTextContent("status.simplystatus.onFire")).getString();
+        connect = MutableText.of(new TranslatableTextContent("status.simplystatus.connect")).getString();
+        disconnect = MutableText.of(new TranslatableTextContent("status.simplystatus.disconnect")).getString();
+        worldLoading = MutableText.of(new TranslatableTextContent("status.simplystatus.loadWorld")).getString();
+        stats = MutableText.of(new TranslatableTextContent("status.simplystatus.stats")).getString();
         if(Lang.equals("ru_ru")){
             pieces_ru_2_4 = MutableText.of(new TranslatableTextContent("status.simplystatus.pieces-ru")).getString();
         }
@@ -140,6 +155,10 @@ public class Translate{
     public String replaceText(String text, Boolean menu, Boolean error, Boolean multiplayer, Client client){
         DecimalFormat df = new DecimalFormat("#.#");
         text = text.replace("%version%", client.getVersion(mc));
+        text = text.replace("%game_version%", SharedConstants.getGameVersion().getName());
+        text = text.replace("%modded%", ClientBrandRetriever.getClientModName());
+        text = text.replace("%version_type%", ("release".equalsIgnoreCase(mc.getVersionType()) ? "" : mc.getVersionType()));
+
         text = text.replace("%username%", client.getName(mc));
         text = text.replace("%discord%", MainClient.player.username);
         text = text.replace("%discordTag%", MainClient.player.username+"#"+ MainClient.player.discriminator);
@@ -147,6 +166,7 @@ public class Translate{
         text = text.replace("%siscord%", MainClient.player.username);
         text = text.replace("%siscordTag%", MainClient.player.username+"#"+ MainClient.player.discriminator);
         text = text.replace("%siscriminator%", MainClient.player.discriminator);
+
         if(menu || error){
             return text;
         }
@@ -176,8 +196,10 @@ public class Translate{
             } else {
                 text = text.replace("%scene%", this.hideIP);
             }
+            text = text.replace("%ping%", mc.player.networkHandler.getPlayerListEntry(mc.player.getUuid()).getLatency()+"ms");
         } else {
             text = text.replace("%scene%", this.singlePlayer);
+            text = text.replace("%ping%", "");
         }
         if(mc.player != null){
             text = text.replace("%x%", df.format(mc.player.capeX));
@@ -190,14 +212,27 @@ public class Translate{
             } else {
                 text = text.replace("%gamemode%",MutableText.of(new TranslatableTextContent("gameMode.survival")).getString());
             }
+            String playerHealth = df.format(mc.player.getHealth() / 2);
+            String playerHealthMax = df.format(mc.player.getMaxHealth() / 2);
+            String playerArmor = df.format(mc.player.getArmor() / 2);
+            text = text.replace("%health%", playerHealth);
+            text = text.replace("%health_max%", playerHealthMax);
+            text = text.replace("%armor%", playerArmor);
         } else {
             text = text.replace("%x%", "•-•");
             text = text.replace("%y%","•~•");
             text = text.replace("%z%","=~=");
             text = text.replace("%gamemode%","0w0");
+            text = text.replace("%health%", "-w-");
+            text = text.replace("%health_max%", "v-v");
+            text = text.replace("%armor%", "T-T");
         }
-        text = text.replace("%fps%",((MinecraftClientMixin) mc).getCurrentFPS() + "FPS");
-        text = text.replace("%sps%",((MinecraftClientMixin) mc).getCurrentFPS() + "FPS");
+        try{
+            text = text.replace("%fps%", MinecraftClientAccess.getCurrentFps()+"FPS");
+            text = text.replace("%sps%",MinecraftClientAccess.getCurrentFps()+"FPS");
+        } catch(Exception err){
+            err.printStackTrace();
+        }
         text = text.replace("%minecraft%", client.getVersion(mc));
 
         return text;
@@ -235,6 +270,10 @@ public class Translate{
             langJSON.put("voice_one", this.voice_one);
             langJSON.put("voice_two", this.voice_two);
             langJSON.put("onFire", this.onFire);
+            langJSON.put("connect", this.connect);
+            langJSON.put("disconnect", this.disconnect);
+            langJSON.put("load_world", this.worldLoading);
+            langJSON.put("stats", this.stats);
 
             Files.createDirectories(langFile.getParent());
             Files.writeString(langFile, langJSON.toString());
@@ -244,7 +283,7 @@ public class Translate{
     }
 }
 
-class SimplyStatusLang {
+class TranslateParse {
     public String text_MainMenu = MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu")).getString();
     public String text_MainMenu_state = MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state")).getString();
     public String text_DeathOne = MutableText.of(new TranslatableTextContent("status.simplystatus.text_DeathOne")).getString();
@@ -273,7 +312,11 @@ class SimplyStatusLang {
     public String voice_one = MutableText.of(new TranslatableTextContent("status.simplystatus.voice_one")).getString();
     public String voice_two = MutableText.of(new TranslatableTextContent("status.simplystatus.voice_two")).getString();
     public String onFire = MutableText.of(new TranslatableTextContent("status.simplystatus.onFire")).getString();
-    public SimplyStatusLang(String jsonContent){
+    public String connect = MutableText.of(new TranslatableTextContent("status.simplystatus.connect")).getString();
+    public String disconnect = MutableText.of(new TranslatableTextContent("status.simplystatus.disconnect")).getString();
+    public String loadWorld = MutableText.of(new TranslatableTextContent("status.simplystatus.loadWorld")).getString();
+    public String stats = MutableText.of(new TranslatableTextContent("status.simplystatus.stats")).getString();
+    public TranslateParse(String jsonContent){
         JSONObject json = null;
         try{
              json = new JSONObject(jsonContent);
@@ -287,6 +330,30 @@ class SimplyStatusLang {
         }
         try{
             this.text_MainMenu_state = json.getString("main_menu_state");
+        } catch(Exception e){
+            //System.out.println(e.getMessage());
+        }
+        //
+
+        try{
+            this.connect = json.getString("connect");
+        } catch(Exception e){
+            //System.out.println(e.getMessage());
+        }
+
+        try{
+            this.disconnect = json.getString("disconnect");
+        } catch(Exception e){
+            //System.out.println(e.getMessage());
+        }
+        try{
+            this.loadWorld = json.getString("load_world");
+        } catch(Exception e){
+            //System.out.println(e.getMessage());
+        }
+        //
+        try{
+            this.stats = json.getString("stats");
         } catch(Exception e){
             //System.out.println(e.getMessage());
         }

@@ -9,9 +9,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import net.fabricmc.loader.api.FabricLoader;
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.configs.Config;
 import og.__kel_.simplystatus.Translate;
 import og.__kel_.simplystatus.presences.*;
+import og.__kel_.simplystatus.presences.multi.Connect;
+import og.__kel_.simplystatus.presences.multi.Disconnect;
+import og.__kel_.simplystatus.presences.multi.MultiPlayer;
+import og.__kel_.simplystatus.presences.single.ProgressScreenPresence;
+import og.__kel_.simplystatus.presences.single.SinglePlayer;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -103,7 +109,15 @@ public class MainClient implements ClientModInitializer {
                         HotKeys.customName = "";
                         HotKeys.customNameEnable = false;
                     }
-                    MainPresenceBasic();
+                    if(Main.getGameState() == 1){
+                        new ProgressScreenPresence(lib, client, Translate, startTime);
+                    } else if(Main.getGameState() == 2){
+                        new Connect(lib, client, Translate, startTime, cfg);
+                    } else if(Main.getGameState() == 3){
+                        new Disconnect(lib, client, Translate, startTime, cfg);
+                    } else {
+                        MainPresenceBasic();
+                    }
                 } else {
                     boolean isSinglePlayer = client.isInSingleplayer();
                     if (isSinglePlayer) {
@@ -120,9 +134,7 @@ public class MainClient implements ClientModInitializer {
                 lib.Discord_UpdatePresence(null);
             }
         } catch(NullPointerException err){
-            if(err.toString().contains("Cannot read field \"username\" because \"og.__kel_.simplystatus.client.Main.player\" is null")){
-                return;
-            }else if(HotKeys.viewRPC) {
+            if(HotKeys.viewRPC) {
                 new UnknownScene(lib, client, Translate, startTime, err);
             } else {
                 lib.Discord_UpdatePresence(null);

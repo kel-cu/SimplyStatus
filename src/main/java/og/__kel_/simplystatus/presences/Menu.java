@@ -22,6 +22,7 @@ public class Menu {
         MainPresence.state = Translate.replaceText(Translate.mainMenu_state, true, false,false, client);
         Assets assets = new Assets(HotKeys.bedrock, false);
         if(Objects.equals(MainPresence.details, "status.simplystatus.text_MainMenu")) {
+            MainPresence.state = null;
             MainPresence.largeImageText = null;
             MainPresence.details = "Game loading...";
         };

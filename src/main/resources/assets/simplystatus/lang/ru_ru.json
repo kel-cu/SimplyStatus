@@ -60,6 +60,11 @@
   "config.simplystatus.translate.onFire": "This is fine",
   "config.simplystatus.translate.onFire.tooltip": "Хотите чашечку кофе?)",
 
+  "config.simplystatus.translate.connect": "Подключение к серверу",
+  "config.simplystatus.translate.disconnect": "Вы были отключены сервером",
+  "config.simplystatus.translate.loadWorld": "Загрузка мира",
+  "config.simplystatus.translate.stats": "Статистика игрока",
+
   "config.simplystatus.addonsPresences": "Дополнения",
   "config.simplystatus.addonsPresences.music": "Покажите, что вы слушаете",
   "config.simplystatus.addonsPresences.voice": "Покажите, что вы с войсом",
@@ -120,5 +125,11 @@
   "status.simplystatus.voice_two": "Разговаривает с %pl2%",
   "config.simplystatus.voice": "PlasmoVoice",
   "status.simplystatus.static": "%hp% • %hpMax%❤ • %armor%\uD83D\uDEE1️",
-  "status.simplystatus.onFire": "%discord% в огне"
+  "status.simplystatus.onFire": "%discord% в огне",
+
+  "status.simplystatus.connect": "%username% подключается к серверу",
+  "status.simplystatus.disconnect": "%username% был отключён",
+  "status.simplystatus.loadWorld": "Загрузка мира...",
+
+  "status.simplystatus.stats": "%health% • %health_max%❤ %armor%🛡️"
 }

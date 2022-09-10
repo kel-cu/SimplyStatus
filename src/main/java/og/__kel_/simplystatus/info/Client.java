@@ -1,14 +1,8 @@
 package og.__kel_.simplystatus.info;
 
 import club.minnced.discord.rpc.DiscordRichPresence;
-import de.maxhenkel.voicechat.api.VoicechatClientApi;
-import de.maxhenkel.voicechat.api.VoicechatConnection;
 import de.maxhenkel.voicechat.plugins.impl.VoicechatClientApiImpl;
-import de.maxhenkel.voicechat.plugins.impl.VoicechatConnectionImpl;
 import de.maxhenkel.voicechat.voice.client.ClientManager;
-import de.maxhenkel.voicechat.voice.client.ClientPlayerStateManager;
-import de.maxhenkel.voicechat.voice.client.MicrophoneActivationType;
-import de.maxhenkel.voicechat.voice.client.microphone.Microphone;
 import net.minecraft.SharedConstants;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
@@ -100,7 +94,7 @@ public class Client {
             presence.largeImageKey = assets.Unknown;
             presence.largeImageText = "What?";
         }
-        presence.largeImageText = Translate.replaceText(presence.largeImageText, false,false,!mc.isInSingleplayer(), this);
+        presence.largeImageText = Translate.replaceText(presence.largeImageText, false,false,(!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null), this);
     }
     public void item(MinecraftClient mc, ItemStack item, DiscordRichPresence presence, Translate Translate){
         if(item.getCount() == 1){
@@ -134,11 +128,11 @@ public class Client {
                 var randomNumber = Math.floor(Math.random() * 2);
                 if(!MainClient.lastMessageDeath){
                     if(randomNumber == 0){
-                        presence.details = Translate.replaceText(Translate.deathOne, false,false,!mc.isInSingleplayer(), new Client());
+                        presence.details = Translate.replaceText(Translate.deathOne, false,false,(!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null), new Client());
                     }else if(randomNumber == 1){
-                        presence.details = Translate.replaceText(Translate.deathTwo, false,false,!mc.isInSingleplayer(), new Client());
+                        presence.details = Translate.replaceText(Translate.deathTwo, false,false,(!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null), new Client());
                     }else if(randomNumber == 2){
-                        presence.details = Translate.replaceText(Translate.deathThree, false,false,!mc.isInSingleplayer(), new Client());
+                        presence.details = Translate.replaceText(Translate.deathThree, false,false,(!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null), new Client());
                     }
                     MainClient.lastTextDeath = presence.details;
                     MainClient.lastMessageDeath = true;
@@ -149,20 +143,16 @@ public class Client {
                 if(MainClient.lastMessageDeath) {
                     MainClient.lastMessageDeath = false;
                 }
-                DecimalFormat df = new DecimalFormat("#.#");
-                String playerHealth = df.format(mc.player.getHealth() / 2);
-                String playerHealthMax = df.format(mc.player.getMaxHealth() / 2);
-                String playerArmor = df.format(mc.player.getArmor() / 2);
                 if(voiceSpeaking(presence, mc, Translate)){
                     return;
                 };
-                presence.details = playerHealth + " • " + playerHealthMax + "❤ • " + playerArmor + "🛡️";
+                presence.details = Translate.replaceText(Translate.stats, false, false, (!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null), this);
             }
         } else {
             if(voiceSpeaking(presence, mc, Translate)){
                 return;
             };
-            presence.details = Translate.replaceText(Translate.air, false,false,false, this);
+            presence.details = Translate.replaceText(Translate.air, false,false,(!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null), this);
         }
     }
     public boolean voiceSpeaking(DiscordRichPresence presence, MinecraftClient mc, Translate Translate){
@@ -194,11 +184,8 @@ public class Client {
                     return false;
                 }
             } else if(MainClient.svc){
-//                VoicechatClientApiImpl.instance().
                 if(!VoicechatClientApiImpl.instance().isDisconnected()){
                     try{
-                        final ClientPlayerStateManager stateManager = new ClientPlayerStateManager();
-
                         if(ClientManager.getClient().getMicThread().isTalking()){
                             if (mc.world.getPlayers().size() == 1) {
                                 presence.details = Translate.replaceText(Translate.voice_one, false, false, false, this);
@@ -226,9 +213,6 @@ public class Client {
                 } else {
                     return false;
                 }
-//                VoiceChatClient
-//                MainClient.log.error("aboba");
-//                return true;
             } else {
                 return false;
             }

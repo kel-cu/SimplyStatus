@@ -58,6 +58,10 @@
   "config.simplystatus.translate.voice_two": "You talk to the player next to you",
   "config.simplystatus.translate.onFire": "This is fine",
   "config.simplystatus.translate.onFire.tooltip": "Would you like a cup of coffee?)",
+  "config.simplystatus.translate.connect": "Connecting to a server",
+  "config.simplystatus.translate.disconnect": "You have been disabled by the server",
+  "config.simplystatus.translate.loadWorld": "Loading the World",
+  "config.simplystatus.translate.stats": "Player stats",
 
   "config.simplystatus.translate": "Localizing",
   "config.simplystatus.changeStatusNameInMinecraft": "Change the status name on Minecraft",
@@ -122,5 +126,11 @@
   "status.simplystatus.voice": "%discord% is talking to someone",
   "status.simplystatus.voice_one": "%discord% talks to himself",
   "status.simplystatus.voice_two": "%discord% talks to %pl2%",
-  "status.simplystatus.onFire": "%discord% on Fire"
+  "status.simplystatus.onFire": "%discord% on Fire",
+
+  "status.simplystatus.connect": "%username% connects to the server",
+  "status.simplystatus.disconnect": "%username% was disconnected",
+  "status.simplystatus.loadWorld": "Loading the World...",
+
+  "status.simplystatus.stats": "%health% • %health_max%❤ %armor%🛡️"
 }

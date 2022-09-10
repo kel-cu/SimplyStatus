@@ -151,10 +151,26 @@ public class ConfigScreen {
         localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.mainMenu.state")), translate.mainMenu_state)
                 .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state")).getString())
                 .setSaveConsumer(newValue -> translate.mainMenu_state = newValue).build());
+        // Подключение к серверу
+        localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.connect")), translate.connect)
+                .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.connect")).getString())
+                .setSaveConsumer(newValue -> translate.connect = newValue).build());
+        // Отключен от сервера
+        localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.disconnect")), translate.disconnect)
+                .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.disconnect")).getString())
+                .setSaveConsumer(newValue -> translate.disconnect = newValue).build());
+        // Загрузка мира
+        localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.loadWorld")), translate.worldLoading)
+                .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.loadWorld")).getString())
+                .setSaveConsumer(newValue -> translate.worldLoading = newValue).build());
         // Информация
         localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.information")), translate.information)
                 .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.text_information")).getString())
                 .setSaveConsumer(newValue -> translate.information = newValue).build());
+        // Статистика
+        localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.stats")), translate.stats)
+                .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.stats")).getString())
+                .setSaveConsumer(newValue -> translate.stats = newValue).build());
         // Неизвестный сервер
         localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.unknownServer")), translate.unknownServer)
                 .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.text_UnknownServer")).getString())
