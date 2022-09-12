@@ -89,7 +89,7 @@ public class ConfigScreen {
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> HotKeys.showTime = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("simplystatus.special.thanks"))).build());
+        // mainCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("simplystatus.special.thanks"))).build());
         // Сервер
         if(mc.world != null){
             if(!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null){

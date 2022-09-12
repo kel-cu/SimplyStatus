@@ -98,7 +98,7 @@
   "status.simplystatus.unknownNamePlayer": "Имя не найдено",
   "status.simplystatus.text_MainMenu": "%discord% сидит в главном меню",
   "status.simplystatus.text_MainMenu.state": "%version%",
-  "status.simplystatus.text_DeathOne": "%discord%'а нет живых :(",
+  "status.simplystatus.text_DeathOne": "%discord% нет живых :(",
   "status.simplystatus.text_DeathTwo": "Игрок не выжил в этом жёстоком мире D:",
   "status.simplystatus.text_DeathThree": "%discord% куда-то пропал :<",
   "status.simplystatus.text_Air": "%username% держит хорошое настроение :3",

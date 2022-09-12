@@ -30,7 +30,7 @@ dependencies {
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+    // modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
 
     // Прочея херня для работы с конфигами и Discord RPC
     include(implementation ('club.minnced:discord-rpc-release:v3.4.0'))
@@ -44,6 +44,8 @@ dependencies {
     modImplementation files('libs/voicechat-fabric-1.19.2-2.3.8.jar')
     //Music Player
     modImplementation files('libs/music_player-fabric-1.19.2-2.4.1.9.jar')
+    //ModMenu
+    modImplementation files('libs/modmenu-4.0.6.jar')
     // Для библиотеки org.json внутри самого мода
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'com.jayway.jsonpath:json-path:2.1.0'

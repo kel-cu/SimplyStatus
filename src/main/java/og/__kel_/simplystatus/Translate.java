@@ -196,7 +196,8 @@ public class Translate{
             } else {
                 text = text.replace("%scene%", this.hideIP);
             }
-            text = text.replace("%ping%", mc.player.networkHandler.getPlayerListEntry(mc.player.getUuid()).getLatency()+"ms");
+            if(mc.player != null && Main.getGameState() == 0) text = text.replace("%ping%", mc.player.networkHandler.getPlayerListEntry(mc.player.getUuid()).getLatency()+"ms");
+            else text = text.replace("%ping%", "");
         } else {
             text = text.replace("%scene%", this.singlePlayer);
             text = text.replace("%ping%", "");
