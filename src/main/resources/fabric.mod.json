@@ -3,11 +3,11 @@
   "id": "simplystatus",
   "version": "${version}",
   "name": "SimplyStatus",
-  "description": "\\u041f\\u0440\\u043e\\u0441\\u0442\\u043e\\u0439 \\u043c\\u043e\\u0434 Minecraft \\u043d\\u0430 \\u0438\\u0433\\u0440\\u043e\\u0432\\u043e\\u0439 \\u0441\\u0442\\u0430\\u0442\\u0443\\u0441 Discord",
+  "description": "Simple, customizable Discord game status",
   "authors": [
     "Simply_Kel"
   ],
-  "icon": "assets/simplystatus/logo.png",
+  "icon": "assets/simplystatus/logo-beta.png",
   "license": "MIT",
   "environment": "client",
   "entrypoints": {
@@ -26,7 +26,7 @@
     ]
   },
   "depends": {
-    "fabricloader": ">=0.14.0",
+    "fabricloader": ">=0.14.8",
     "minecraft": "^1.19"
   },
   "conflicts": {},

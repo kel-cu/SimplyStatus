@@ -52,6 +52,9 @@ public class MultiPlayer {
         if(HotKeys.showTime){
             presence.startTimestamp = start_time;
         }
+        if(HotKeys.showAvatar){
+            client.avatar(mc, presence);
+        }
         if(HotKeys.viewMusicListening && MainClient.musicPlayer){
             Music music = new Music();
             if(!music.isPaused()) {

@@ -2,9 +2,14 @@ package og.__kel_.simplystatus.client;
 
 import club.minnced.discord.rpc.*;
 
+import com.jagrosh.discordipc.IPCClient;
+import com.jagrosh.discordipc.IPCListener;
+import com.jagrosh.discordipc.entities.RichPresence;
+import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import net.fabricmc.api.ClientModInitializer;
 
 //
+import java.time.OffsetDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -74,6 +79,10 @@ public class MainClient implements ClientModInitializer {
 
             discordConnected = false;
         };
+        handlers.joinRequest = (user) -> {
+            log.info("JOIN REQUEST: "+user.userId);
+        };
+
         lib.Discord_Initialize(applicationId, handlers, true, steamId);
         new Thread(() -> {
             while (!Thread.currentThread().isInterrupted()) {

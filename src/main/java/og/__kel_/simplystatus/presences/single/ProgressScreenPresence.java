@@ -22,20 +22,8 @@ public class ProgressScreenPresence {
 
         presence.details = Translate.replaceText(Translate.worldLoading, true, false, false, client);
         presence.largeImageKey = assets.Unknown;
-
         if(HotKeys.showTime){
             presence.startTimestamp = start_time;
-        }
-        if(HotKeys.viewMusicListening && MainClient.musicPlayer){
-            Music music = new Music();
-            if(!music.isPaused()) {
-                presence.smallImageKey = assets.music;
-                if (music.isAuthorEnable()) {
-                    presence.smallImageText = music.getAuthor() + " - " + music.getTrack();
-                } else {
-                    presence.smallImageText = music.getTrack();
-                }
-            }
         }
         lib.Discord_UpdatePresence(presence);
     }

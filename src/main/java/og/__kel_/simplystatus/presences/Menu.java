@@ -30,18 +30,29 @@ public class Menu {
         if(HotKeys.showTime){
             MainPresence.startTimestamp = start_time;
         }
+        if(HotKeys.showAvatar){
+            client.avatar(mc, MainPresence);
+        }
         if(HotKeys.viewMusicListening && MainClient.musicPlayer){
 
             Music music = new Music();
             if(!music.isPaused()) {
-                MainPresence.smallImageKey = assets.music;
-                if (music.isAuthorEnable()) {
-                    MainPresence.smallImageText = music.getAuthor() + " - " + music.getTrack();
-                } else {
-                    MainPresence.smallImageText = music.getTrack();
+//                MainPresence.smallImageKey = assets.music;
+//                if (music.isAuthorEnable()) {
+//                    MainPresence.smallImageText = music.getAuthor() + " - " + music.getTrack();
+//                } else {
+//                    MainPresence.smallImageText = music.getTrack();
+//                }
+//                music.getManager().
+                long startListening = (System.currentTimeMillis() / 1000) - (music.getManager().getCurrentTrack().getPosition() / 1000);
+                MainPresence.startTimestamp = startListening;
+                if(!music.getManager().getCurrentTrack().getInfo().isStream()){
+                    MainPresence.endTimestamp = startListening + (music.getManager().getCurrentTrack().getDuration() / 1000);
                 }
+                MainPresence.state = Translate.replaceText(Translate.mainMenu_state_music, true, false,false, client);
             }
         }
+
         lib.Discord_UpdatePresence(MainPresence);
     }
 }

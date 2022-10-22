@@ -5,7 +5,7 @@ import info.u_team.music_player.lavaplayer.api.queue.ITrackManager;
 import info.u_team.music_player.musicplayer.MusicPlayerManager;
 import og.__kel_.simplystatus.client.MainClient;
 
-public class Music {
+public class  Music {
     private final ITrackManager manager;
     private boolean paused = false;
     private String author = "";
@@ -44,5 +44,9 @@ public class Music {
 
     public boolean isPaused() {
         return paused;
+    }
+
+    public ITrackManager getManager() {
+        return manager;
     }
 }

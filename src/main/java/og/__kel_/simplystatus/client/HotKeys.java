@@ -31,6 +31,8 @@ public class HotKeys implements ClientModInitializer {
     public static boolean customNameEnable = false;
     public static String customName = "";
 
+    public static boolean showAvatar = false;
+
 
     public static boolean viewVoice = false;
     public static boolean viewMusicListening = false;

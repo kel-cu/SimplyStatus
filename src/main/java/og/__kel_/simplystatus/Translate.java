@@ -8,6 +8,7 @@ import net.minecraft.text.TranslatableTextContent;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.info.Client;
+import og.__kel_.simplystatus.info.Music;
 import og.__kel_.simplystatus.mixin.MinecraftClientAccess;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +25,7 @@ import oshi.hardware.CentralProcessor;
 public class Translate{
     public String mainMenu;
     public String mainMenu_state;
+    public String mainMenu_state_music;
     public String deathOne;
     public String deathTwo;
     public String deathThree;
@@ -80,6 +82,7 @@ public class Translate{
             TranslateParse langConfig = new TranslateParse(jsonContent);
             mainMenu = langConfig.text_MainMenu;
             mainMenu_state = langConfig.text_MainMenu_state;
+            mainMenu_state_music = langConfig.text_MainMenu_state_music;
             deathOne = langConfig.text_DeathOne;
             deathTwo = langConfig.text_DeathTwo;
             deathThree = langConfig.text_DeathThree;
@@ -119,6 +122,7 @@ public class Translate{
     private void loadDefault(String Lang) {
         mainMenu = MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu")).getString();
         mainMenu_state = MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state")).getString();
+        mainMenu_state_music = MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state.music")).getString();
         deathOne =  MutableText.of(new TranslatableTextContent("status.simplystatus.text_DeathOne")).getString();
         deathTwo = MutableText.of(new TranslatableTextContent("status.simplystatus.text_DeathTwo")).getString();
         deathThree = MutableText.of(new TranslatableTextContent("status.simplystatus.text_DeathThree")).getString();
@@ -166,7 +170,20 @@ public class Translate{
         text = text.replace("%siscord%", MainClient.player.username);
         text = text.replace("%siscordTag%", MainClient.player.username+"#"+ MainClient.player.discriminator);
         text = text.replace("%siscriminator%", MainClient.player.discriminator);
-
+        if(MainClient.musicPlayer && HotKeys.viewMusicListening){
+            Music music = new Music();
+            if(!music.isPaused()){
+                if(music.isAuthorEnable()){
+                    text = text.replace("%music%", music.getAuthor()+" - "+music.getTrack());
+                } else {
+                    text = text.replace("%music%", music.getTrack());
+                }
+            } else {
+                text = text.replace("%music%", "");
+            }
+        }else {
+            text = text.replace("%music%", "");
+        }
         if(menu || error){
             return text;
         }
@@ -245,6 +262,7 @@ public class Translate{
             JSONObject langJSON = new JSONObject();
             langJSON.put("main_menu", this.mainMenu);
             langJSON.put("main_menu_state", this.mainMenu_state);
+            langJSON.put("main_menu_state_music", this.mainMenu_state_music);
             langJSON.put("deathOne", this.deathOne);
             langJSON.put("deathTwo", this.deathTwo);
             langJSON.put("deathThree", this.deathThree);
@@ -287,6 +305,7 @@ public class Translate{
 class TranslateParse {
     public String text_MainMenu = MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu")).getString();
     public String text_MainMenu_state = MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state")).getString();
+    public String text_MainMenu_state_music = MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state.music")).getString();
     public String text_DeathOne = MutableText.of(new TranslatableTextContent("status.simplystatus.text_DeathOne")).getString();
     public String text_DeathTwo = MutableText.of(new TranslatableTextContent("status.simplystatus.text_DeathTwo")).getString();
     public String text_DeathThree = MutableText.of(new TranslatableTextContent("status.simplystatus.text_DeathThree")).getString();
@@ -331,6 +350,11 @@ class TranslateParse {
         }
         try{
             this.text_MainMenu_state = json.getString("main_menu_state");
+        } catch(Exception e){
+            //System.out.println(e.getMessage());
+        }
+        try{
+            this.text_MainMenu_state_music = json.getString("main_menu_state_music");
         } catch(Exception e){
             //System.out.println(e.getMessage());
         }

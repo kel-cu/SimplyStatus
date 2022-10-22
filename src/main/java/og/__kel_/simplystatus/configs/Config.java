@@ -31,6 +31,7 @@ public class Config {
             HotKeys.viewVoice = clientConfig.viewVoice;
             HotKeys.viewReplayMod = clientConfig.viewReplayMod;
             HotKeys.viewMusicListening = clientConfig.viewMusicListening;
+            HotKeys.showAvatar = clientConfig.showAvatar;
         } catch (Exception e) {
             save();
         }
@@ -50,7 +51,8 @@ public class Config {
                     .put("title", HotKeys.changeStatusNameInMinecraft)
                     .put("voice", HotKeys.viewVoice)
                     .put("replay", HotKeys.viewReplayMod)
-                    .put("music", HotKeys.viewMusicListening);
+                    .put("music", HotKeys.viewMusicListening)
+                    .put("avatar", HotKeys.showAvatar);
         } catch (JSONException ej){
             System.out.println(ej.getMessage());
         }

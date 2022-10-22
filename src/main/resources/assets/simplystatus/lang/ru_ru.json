@@ -10,8 +10,6 @@
   "key.simplystatus.bedrock": "Изменить иконки на иконки Bedrock",
   "key.simplystatus.showTime": "Показать/скрыть время игры",
   "key.simplystatus.configScreen": "Открыть меню настроек",
-  "simplystatus.special.thanks": "Большое спасибо тем кто помогает проекту!\n§l§9GRUI_72§r: Поиск ошибок, подкидывание идей\n§9§lТы§r: Спасибо что ты скачал данный мод, ты тоже можешь помогать проекту. Находить ошибки и так далее, удачной игры :3",
-
   "config.simplystatus.notConnected": "Вы не подключены к Discord!\nПроверьте, наличие интернет соединение и наличии Discord на компьетере",
   "config.simplystatus.notConnectedLinux": "Если у вас установлен Discord через стороний магазин приложений, по типу Flatpak, Snap и т.д. То посмотрите решения RPC в интернете, желательно про ваш магазин приложений и системы",
 
@@ -32,6 +30,7 @@
   "config.simplystatus.translate": "Локализация",
   "config.simplystatus.translate.mainMenu": "Главное меню",
   "config.simplystatus.translate.mainMenu.state": "Вторая строка главного меню",
+  "config.simplystatus.translate.mainMenu.state.music": "Вторая строка главного меню, но с музыкой",
   "config.simplystatus.translate.deathOne": "Сообщение смерти #1",
   "config.simplystatus.translate.deathTwo": "Сообщение смерти #2",
   "config.simplystatus.translate.deathThree": "Сообщение смерти #3",
@@ -69,6 +68,10 @@
   "config.simplystatus.addonsPresences.music": "Покажите, что вы слушаете",
   "config.simplystatus.addonsPresences.voice": "Покажите, что вы с войсом",
   "config.simplystatus.addonsPresences.replay": "Показать, что вы находитесь в ReplayMod",
+  "config.simplystatus.addonsPresences.music.tooltip": "Music Player by HyCraftHD",
+  "config.simplystatus.addonsPresences.voice.tooltip": "PlasmoVoice & Simple Voice Chat",
+  "config.simplystatus.addonsPresences.replay.tooltip": "ReplayMod",
+  "config.simplystatus.addonsPresences.avatar": "Показать аватарку",
   "config.simplystatus.addonsPresences.cringe": "oh.no.§l§ccringe§r.icons",
 
   "message.simplystatus.viewIP.true": "§7SimplyStatus§r » Отображение адреса данного сервера было включено",
@@ -89,8 +92,8 @@
   "message.simplystatus.rpc.false": "§7SimplyStatus§r » Отображение игровой активности было выключено",
   "message.simplystatus.rpc.true": "§7SimplyStatus§r » Отображение игровой активности было включено",
 
-  "modmenu.descriptionTranslation.simplystatus": "Простой мод Minecraft на игровой статус Discord",
-  "modmenu.simplystatus.github": "Открытый исходный код",
+  "modmenu.descriptionTranslation.simplystatus": "Простой, настраиваемый игровой статус в Discord",
+  "modmenu.simplystatus.github": "GitHub",
   "modmenu.simplystatus.curseforge": "CurseForge",
   "modmenu.simplystatus.modrinth": "Modrinth",
 
@@ -98,6 +101,7 @@
   "status.simplystatus.unknownNamePlayer": "Имя не найдено",
   "status.simplystatus.text_MainMenu": "%discord% сидит в главном меню",
   "status.simplystatus.text_MainMenu.state": "%version%",
+  "status.simplystatus.text_MainMenu.state.music": "🔊 %music%",
   "status.simplystatus.text_DeathOne": "%discord% нет живых :(",
   "status.simplystatus.text_DeathTwo": "Игрок не выжил в этом жёстоком мире D:",
   "status.simplystatus.text_DeathThree": "%discord% куда-то пропал :<",

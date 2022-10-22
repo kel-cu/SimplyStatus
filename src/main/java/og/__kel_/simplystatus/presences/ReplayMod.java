@@ -37,6 +37,9 @@ public class ReplayMod {
                 presence.largeImageKey = assets.replay;
                 presence.largeImageText = "ReplayMod v"+ com.replaymod.core.ReplayMod.instance.getVersion();
             }
+            if(HotKeys.showAvatar){
+                client.avatar(mc, presence);
+            }
             lib.Discord_UpdatePresence(presence);
         } else {
             new Menu(lib, mc, Translate, start_time);

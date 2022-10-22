@@ -28,6 +28,14 @@ public class Client {
             return MainClient.player.username;
         }
     }
+    public void avatar(MinecraftClient mc, DiscordRichPresence presence){
+        presence.smallImageText = this.getName(mc);
+        if(mc.getSession().getAccountType().getName().equals("msa")){
+            presence.smallImageKey = "https://crafthead.net/helm/"+mc.getSession().getUuid()+"/512";
+        } else {
+            presence.smallImageKey = "https://crafthead.net/helm/Steve/512";
+        }
+    }
     public void info(MinecraftClient mc, DiscordRichPresence presence, Translate Translate){
         ItemStack main_item = mc.player.getStackInHand(Hand.MAIN_HAND);
         ItemStack off_item = mc.player.getStackInHand(Hand.OFF_HAND);
@@ -160,22 +168,7 @@ public class Client {
             if (MainClient.plasmoVoice) {
                 if (VoiceClient.isConnected()) {
                     if (VoiceClient.isSpeaking()) {
-                        //MainClient.log.info("Players: %c", mc.world.getPlayers().size());
-                        if (mc.world.getPlayers().size() == 1) {
-                            presence.details = Translate.replaceText(Translate.voice_one, false, false, false, this);
-                        } else if (mc.world.getPlayers().size() == 2) {
-                            if (mc.world.getPlayers().get(0).getDisplayName().equals(mc.world.getPlayers().get(1).getDisplayName())) {
-                                presence.details = Translate.replaceText(Translate.voice_one, false, false, false, this);
-                            } else {
-                                PlayerEntity player = mc.world.getPlayers().get(0);
-                                if (player.getName() == mc.player.getName()) {
-                                    player = mc.world.getPlayers().get(1);
-                                }
-                                presence.details = Translate.replaceText(Translate.voice_two.replace("%pl2%", player.getDisplayName().getString()), false, false, false, this);
-                            }
-                        } else {
-                            presence.details = Translate.replaceText(Translate.voice, false, false, false, this);
-                        }
+                        this.getPlayersListening(presence,mc,Translate);
                         return true;
                     } else {
                         return false;
@@ -187,21 +180,7 @@ public class Client {
                 if(!VoicechatClientApiImpl.instance().isDisconnected()){
                     try{
                         if(ClientManager.getClient().getMicThread().isTalking()){
-                            if (mc.world.getPlayers().size() == 1) {
-                                presence.details = Translate.replaceText(Translate.voice_one, false, false, false, this);
-                            } else if (mc.world.getPlayers().size() == 2) {
-                                if (mc.world.getPlayers().get(0).getDisplayName().equals(mc.world.getPlayers().get(1).getDisplayName())) {
-                                    presence.details = Translate.replaceText(Translate.voice_one, false, false, false, this);
-                                } else {
-                                    PlayerEntity player = mc.world.getPlayers().get(0);
-                                    if (player.getName() == mc.player.getName()) {
-                                        player = mc.world.getPlayers().get(1);
-                                    }
-                                    presence.details = Translate.replaceText(Translate.voice_two.replace("%pl2%", player.getDisplayName().getString()), false, false, false, this);
-                                }
-                            } else {
-                                presence.details = Translate.replaceText(Translate.voice, false, false, false, this);
-                            }
+                            this.getPlayersListening(presence,mc,Translate);
                             return true;
                         } else {
                             return false;
@@ -218,6 +197,23 @@ public class Client {
             }
         } else {
             return false;
+        }
+    }
+    private void getPlayersListening(DiscordRichPresence presence, MinecraftClient mc, Translate Translate){
+        if (mc.world.getPlayers().size() == 1) {
+            presence.details = Translate.replaceText(Translate.voice_one, false, false, false, this);
+        } else if (mc.world.getPlayers().size() == 2) {
+            if (mc.world.getPlayers().get(0).getName().equals(mc.world.getPlayers().get(1).getName())) {
+                presence.details = Translate.replaceText(Translate.voice_one, false, false, false, this);
+            } else {
+                PlayerEntity player = mc.world.getPlayers().get(0);
+                if (player.getName().equals(mc.player.getName())) {
+                    player = mc.world.getPlayers().get(1);
+                }
+                presence.details = Translate.replaceText(Translate.voice_two.replace("%pl2%", player.getDisplayName().getString()), false, false, false, this);
+            }
+        } else {
+            presence.details = Translate.replaceText(Translate.voice, false, false, false, this);
         }
     }
 }

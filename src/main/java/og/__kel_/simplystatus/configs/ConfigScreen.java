@@ -1,14 +1,20 @@
 package og.__kel_.simplystatus.configs;
 
 import me.shedaniel.clothconfig2.api.*;
+import net.minecraft.SharedConstants;
+import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableTextContent;
 //LiteralText
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.Translate;
+
+import java.util.ArrayList;
 
 
 public class ConfigScreen {
@@ -16,6 +22,7 @@ public class ConfigScreen {
     public static ConfigCategory servCategory;
     public static ConfigCategory localizationCategory;
     public static ConfigCategory addonsPresencesCategory;
+    public static ConfigCategory devCategory;
     public static ConfigEntryBuilder entryBuilder;
     public static Translate translate = new Translate();
     public static Screen buildScreen (Screen currentScreen) {
@@ -117,25 +124,34 @@ public class ConfigScreen {
         //
         addonsPresencesCategory = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences")));
 
-        //addonsPresencesCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.warning"))).build());
         if(MainClient.musicPlayer){
             addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.music")), HotKeys.viewMusicListening)
+                    .setTooltip(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.music.tooltip")))
                     .setDefaultValue(false)
-                    .setSaveConsumer(newValue -> HotKeys.viewMusicListening = newValue).build());
+                    .setSaveConsumer(newValue -> HotKeys.viewMusicListening = newValue)
+                    .build());
         }
         if(MainClient.plasmoVoice || MainClient.svc){
             addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.voice")), HotKeys.viewVoice)
+                    .setTooltip(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.voice.tooltip")))
                     .setDefaultValue(false)
                     .setSaveConsumer(newValue -> HotKeys.viewVoice = newValue)
                     .build());
         }
         if(MainClient.replayMod){
             addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.replay")), HotKeys.viewReplayMod)
+                    .setTooltip(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.replay.tooltip")))
                     .setDefaultValue(false)
                     .setSaveConsumer(newValue -> HotKeys.viewReplayMod = newValue)
                     .build());
         }
-        addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.cringe")), HotKeys.cringeIcons)
+        addonsPresencesCategory.addEntry(
+                entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.avatar")), HotKeys.showAvatar)
+                        .setDefaultValue(false)
+                        .setSaveConsumer(newValue -> HotKeys.showAvatar = newValue)
+                        .build());
+        addonsPresencesCategory.addEntry(
+                entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.cringe")), HotKeys.cringeIcons)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> HotKeys.cringeIcons = newValue)
                 .build());
@@ -151,6 +167,13 @@ public class ConfigScreen {
         localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.mainMenu.state")), translate.mainMenu_state)
                 .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state")).getString())
                 .setSaveConsumer(newValue -> translate.mainMenu_state = newValue).build());
+        // Главное меню [State/Music]
+        if(MainClient.musicPlayer && HotKeys.viewMusicListening){
+            localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.mainMenu.state.music")), translate.mainMenu_state_music)
+                    .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state.music")).getString())
+                    .setSaveConsumer(newValue -> translate.mainMenu_state_music = newValue)
+                    .build());
+        }
         // Подключение к серверу
         localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.connect")), translate.connect)
                 .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.connect")).getString())
@@ -268,6 +291,32 @@ public class ConfigScreen {
                 .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.onFire")).getString())
                 .setTooltip(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.onFire.tooltip")))
                 .setSaveConsumer(newValue -> translate.onFire = newValue).build());
+        if(Main.isDevBuild){
+            devCategory = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.simplystatus.dev")));
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("# §7Software information"))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("System: "+System.getProperty("os.name")))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("System Version: "+System.getProperty("os.version")))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("System Arch.: "+System.getProperty("os.arch")))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("Java: "+System.getProperty("java.version")))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("Java Vendor: "+System.getProperty("java.vendor")+" "+System.getProperty("java.vendor.url")))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("User started game: "+System.getProperty("user.name")))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("# §7Minecraft information"))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("Version: "+ SharedConstants.getGameVersion().getName() +
+                    " (" + mc.getGameVersion() + "/" + ClientBrandRetriever.getClientModName() + ("release".equalsIgnoreCase(mc.getVersionType()) ? "" : "/" + mc.getVersionType()) + ")"))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("# §7Minecraft session information"))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("Username: "+mc.getSession().getUsername()))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("UUID: "+mc.getSession().getUuid()))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("Type: "+mc.getSession().getAccountType().getName()))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("# §7Discord information"))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("App. ID: "+MainClient.applicationId))).build());
+            devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("Connected: "+MainClient.discordConnected))).build());
+            if(MainClient.discordConnected){
+                devCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new LiteralTextContent("Tag: "+MainClient.player.username+"#"+ MainClient.player.discriminator))).build());
+            }
+
+
+        }
+
         Screen screen = builder.build();
 
         return screen;

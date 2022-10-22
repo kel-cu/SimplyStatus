@@ -1,10 +1,8 @@
 package og.__kel_.simplystatus.info;
 
-import com.ibm.icu.text.CaseMap;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.*;
 import og.__kel_.simplystatus.Main;
-import og.__kel_.simplystatus.client.MainClient;
 
 public class GameStateHandler {
     private static final MinecraftClient mc = MinecraftClient.getInstance();
