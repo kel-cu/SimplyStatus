@@ -1,6 +1,6 @@
 ## SimplyStatus
-> Это мод предназначен для игрового статуса **Minecraft** в **[Discord](https://discord.com/company)** <br>
-> Все фишки и функции мода можете глянут в [Wiki](https://github.com/not-simply-kel/SimplyStatus-fabric/wiki)
+Это мод предназначен для игрового статуса **Minecraft** в **[Discord](https://discord.com/company)** <br>
+Все фишки и функции мода можете глянут в [Wiki](https://github.com/not-simply-kel/SimplyStatus-fabric/wiki)
 
 <hr>
 
@@ -33,11 +33,3 @@ OS | Код | Локализация
 Microsoft Windows 7-11 | Работает стабильно | Исправлен UTF-8 с 1.4.0
 Дистрибутивы Linux на базе Debian/Ubuntu | Работает стабильно | Проблем не наблюдалось
 Apple MacOS | Неизвестно :(
-<hr>
-
-### Исходный код
-> Исходный код можно настроить под себя, например сменить ID приложения, изменить текст, исправить какие-то ошибки автора и т.д.<br>
-> Чтобы, скомпилировать код, вам нужно в терминал прописать следующее `[в папке исходника]`:
-> ```
-> gradlew build
-> ```
