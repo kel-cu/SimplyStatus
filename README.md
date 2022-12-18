@@ -5,7 +5,7 @@
 <hr>
 
 ### Что нужно для стабильной работы мода?
-* Minecraft **1.19 - 22w43a**
+* Minecraft **1.19 - 1.19.3**
 * [Fabric API](https://www.curseforge.com/minecraft/mc-mods/fabric-api)
 * [Fabric Loader 0.14.x и выше](https://fabricmc.net/use)
 
@@ -23,7 +23,7 @@
 ### Поддержка версий майнкрафта
 Версия | Поддержка
 --- | ---
-Snapshot 1.19.3/1.20 | Актуальная версия
+1.20 Snapshots | Актуальная версия
 1.19 | Актуальная версия
 1.18 | 1.4.0
 
