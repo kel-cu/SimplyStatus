@@ -5,6 +5,7 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableTextContent;
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.configs.Config;
@@ -16,7 +17,7 @@ import og.__kel_.simplystatus.info.Music;
 public class MultiPlayer {
     public MultiPlayer(DiscordRPC lib, MinecraftClient mc, Translate Translate, Long start_time, Config cfg){
         Client client = new Client();
-        Assets assets = new Assets(HotKeys.bedrock, HotKeys.cringeIcons);
+        Assets assets = new Assets(Main.useCustomAssets, Main.bedrock, Main.cringeIcons);
         DiscordRichPresence presence = new DiscordRichPresence();
         if(mc.player!=null){
             if(mc.player.isSleeping()){
@@ -49,13 +50,13 @@ public class MultiPlayer {
         } else {
             presence.state = Translate.replaceText(Translate.information, false, false,true, client);
         }
-        if(HotKeys.showTime){
+        if(Main.showTime){
             presence.startTimestamp = start_time;
         }
-        if(HotKeys.showAvatar){
+        if(Main.showAvatar){
             client.avatar(mc, presence);
         }
-        if(HotKeys.viewMusicListening && MainClient.musicPlayer){
+        if(Main.viewMusicListening && MainClient.musicPlayer){
             Music music = new Music();
             if(!music.isPaused()) {
                 presence.smallImageKey = assets.music;

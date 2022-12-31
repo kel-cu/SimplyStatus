@@ -5,6 +5,7 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableTextContent;
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.Translate;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
@@ -18,11 +19,11 @@ public class ProgressScreenPresence {
     public ProgressScreenPresence(DiscordRPC lib, MinecraftClient mc, Translate Translate, Long start_time){
         Client client = new Client();
         DiscordRichPresence presence = new DiscordRichPresence();
-        Assets assets = new Assets(HotKeys.bedrock, false);
+        Assets assets = new Assets(Main.useCustomAssets, Main.bedrock, false);
 
         presence.details = Translate.replaceText(Translate.worldLoading, true, false, false, client);
         presence.largeImageKey = assets.Unknown;
-        if(HotKeys.showTime){
+        if(Main.showTime){
             presence.startTimestamp = start_time;
         }
         lib.Discord_UpdatePresence(presence);

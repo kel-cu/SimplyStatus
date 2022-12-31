@@ -26,6 +26,10 @@ public class  Music {
                 authorEnable = true;
             }
             track = manager.getCurrentTrack().getInfo().getTitle();
+            if(track.startsWith(author)){
+                author = "";
+                authorEnable = false;
+            }
         }
 
     }

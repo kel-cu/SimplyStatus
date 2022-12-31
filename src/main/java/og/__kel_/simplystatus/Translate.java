@@ -170,7 +170,7 @@ public class Translate{
         text = text.replace("%siscord%", MainClient.player.username);
         text = text.replace("%siscordTag%", MainClient.player.username+"#"+ MainClient.player.discriminator);
         text = text.replace("%siscriminator%", MainClient.player.discriminator);
-        if(MainClient.musicPlayer && HotKeys.viewMusicListening){
+        if(MainClient.musicPlayer && Main.viewMusicListening){
             Music music = new Music();
             if(!music.isPaused()){
                 if(music.isAuthorEnable()){

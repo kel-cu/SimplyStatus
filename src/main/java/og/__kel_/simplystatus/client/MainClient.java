@@ -1,22 +1,16 @@
 package og.__kel_.simplystatus.client;
 
 import club.minnced.discord.rpc.*;
-
-import com.jagrosh.discordipc.IPCClient;
-import com.jagrosh.discordipc.IPCListener;
-import com.jagrosh.discordipc.entities.RichPresence;
-import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import net.fabricmc.api.ClientModInitializer;
-
-//
-import java.time.OffsetDateTime;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import net.fabricmc.loader.api.FabricLoader;
 import og.__kel_.simplystatus.Main;
+import og.__kel_.simplystatus.api.entity.addonEntity;
+import og.__kel_.simplystatus.configs.AssetsConfig;
 import og.__kel_.simplystatus.configs.Config;
 import og.__kel_.simplystatus.Translate;
+import og.__kel_.simplystatus.info.Assets;
 import og.__kel_.simplystatus.presences.*;
 import og.__kel_.simplystatus.presences.multi.Connect;
 import og.__kel_.simplystatus.presences.multi.Disconnect;
@@ -25,10 +19,7 @@ import og.__kel_.simplystatus.presences.single.ProgressScreenPresence;
 import og.__kel_.simplystatus.presences.single.SinglePlayer;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
-
 import net.minecraft.client.MinecraftClient;
-// Presences
-
 
 public class MainClient implements ClientModInitializer {
     public static final Logger log = LogManager.getLogger("SimplyStatus");
@@ -36,20 +27,18 @@ public class MainClient implements ClientModInitializer {
     public static String applicationId = "903288390072557648";
     // SimplyStatus = 903288390072557648
     // Minecraft = 1004398909810016276
-    //String applicationId = "1004398909810016276";
     String steamId = "";
     public static DiscordEventHandlers handlers = new DiscordEventHandlers();
     Long startTime = System.currentTimeMillis() / 1000;
     MinecraftClient client = MinecraftClient.getInstance();
     static Translate Translate = new Translate();
-    public static Translate localization = Translate;
     public static DiscordUser player;
-    Integer times = 0;
     Timer timer = new Timer();
     public static String DiscordName = "";
     public static Boolean lastMessageDeath = false;
     public static String lastTextDeath = "";
     public static Boolean discordConnected = false;
+    public static Boolean clothConfig = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
     public static Boolean musicPlayer = FabricLoader.getInstance().getModContainer("musicplayer").isPresent();
     public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
     public static Boolean plasmoVoice = FabricLoader.getInstance().getModContainer("plasmo_voice").isPresent();
@@ -63,7 +52,9 @@ public class MainClient implements ClientModInitializer {
         Translate.selectedLang();
         Config config = new Config();
         config.load();
-        if(HotKeys.changeStatusNameInMinecraft){
+        AssetsConfig assets = new AssetsConfig();
+        assets.load();
+        if(Main.changeStatusNameInMinecraft){
             applicationId = "1004398909810016276";
             log.info("[SimplyStatus] The app has been changed to an app called \"Minecraft\"");
         }
@@ -110,7 +101,7 @@ public class MainClient implements ClientModInitializer {
     private void updatePresence() {
         try{
             if(!discordConnected) return;
-            if(HotKeys.viewRPC) {
+            if(Main.viewRPC) {
                 Config cfg = new Config();
                 Translate.selectedLang();
                 if (client.world == null) {
@@ -125,6 +116,10 @@ public class MainClient implements ClientModInitializer {
                     } else if(Main.getGameState() == 3){
                         new Disconnect(lib, client, Translate, startTime, cfg);
                     } else {
+                        HotKeys.customName = "";
+                        HotKeys.customNameEnable = false;
+                        HotKeys.viewIPAddress = false;
+                        HotKeys.viewName = true;
                         MainPresenceBasic();
                     }
                 } else {
@@ -132,7 +127,12 @@ public class MainClient implements ClientModInitializer {
                     if (isSinglePlayer) {
                         new SinglePlayer(lib, client, Translate, startTime, cfg);
                     } else if(client.getCurrentServerEntry() != null){
-                        new MultiPlayer(lib, client, Translate, startTime, cfg);
+                        if(Main.addonsServers.get(client.getCurrentServerEntry().address) != null){
+                            addonEntity addon = Main.addonsServers.get(client.getCurrentServerEntry().address);
+                            lib.Discord_UpdatePresence(addon.getExecute().getPresences());
+                        } else {
+                            new MultiPlayer(lib, client, Translate, startTime, cfg);
+                        }
                     } else if(replayMod){
                         new ReplayMod(lib, client, Translate, startTime, cfg);
                     } else {
@@ -143,7 +143,7 @@ public class MainClient implements ClientModInitializer {
                 lib.Discord_UpdatePresence(null);
             }
         } catch(NullPointerException err){
-            if(HotKeys.viewRPC) {
+            if(Main.viewRPC) {
                 new UnknownScene(lib, client, Translate, startTime, err);
             } else {
                 lib.Discord_UpdatePresence(null);

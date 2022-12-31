@@ -7,56 +7,37 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.LiteralTextContent;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 //LiteralText
 import og.__kel_.simplystatus.Main;
+import og.__kel_.simplystatus.api.entity.addonEntity;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.Translate;
-
-import java.util.ArrayList;
+import org.jetbrains.annotations.NotNull;
 
 
 public class ConfigScreen {
     public static ConfigCategory mainCategory;
     public static ConfigCategory servCategory;
+    public static ConfigCategory assetsCategory;
     public static ConfigCategory localizationCategory;
     public static ConfigCategory addonsPresencesCategory;
     public static ConfigCategory devCategory;
     public static ConfigEntryBuilder entryBuilder;
     public static Translate translate = new Translate();
+    public static AssetsConfig assetsConfig = new AssetsConfig();
+    public static Config config = new Config();
     public static Screen buildScreen (Screen currentScreen) {
         MinecraftClient mc = MinecraftClient.getInstance();
         translate.selectedLang();
+
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(currentScreen)
                 .setTitle(MutableText.of(new TranslatableTextContent("category.simplystatus.name")))
                 .setTransparentBackground(true)
-                .setSavingRunnable(() -> {
-                    MainClient.log.info("Saves configurations!");
-                    Config config = new Config();
-                    config.save();
-                    if(HotKeys.lastTitle != HotKeys.changeStatusNameInMinecraft){
-                        HotKeys.lastTitle = HotKeys.changeStatusNameInMinecraft;
-                        if(HotKeys.changeStatusNameInMinecraft){
-                            MainClient.lib.Discord_ClearPresence();
-                            MainClient.lib.Discord_Shutdown();
-                            MainClient.applicationId = "1004398909810016276";
-                        } else {
-                            MainClient.lib.Discord_ClearPresence();
-                            MainClient.lib.Discord_Shutdown();
-                            MainClient.applicationId = "903288390072557648";
-                        }
-                    }
-                    MainClient.lib.Discord_Initialize(MainClient.applicationId, MainClient.handlers, true, "");
-                    translate.save();
-                    if(mc.world != null){
-                        if(!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null){
-                            MainClient.log.info(mc.getCurrentServerEntry().address + " saves configurations!");
-                            config.save(mc.getCurrentServerEntry().address);
-                        }
-                    }
-                });
+                .setSavingRunnable(Config::saveGUI);
         // mainCategory - Это экран
         mainCategory = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.simplystatus.client")));
         // entryBuilder - это билдер значения в точке
@@ -68,33 +49,33 @@ public class ConfigScreen {
                 mainCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("config.simplystatus.notConnectedLinux"))).build());
             }
         }
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.changeStatusNameInMinecraft")), HotKeys.changeStatusNameInMinecraft)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.changeStatusNameInMinecraft")), Main.changeStatusNameInMinecraft)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> HotKeys.changeStatusNameInMinecraft = newValue)
+                .setSaveConsumer(newValue -> Main.changeStatusNameInMinecraft = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.ViewRPC")), HotKeys.viewRPC)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.ViewRPC")), Main.viewRPC)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> HotKeys.viewRPC = newValue)
+                .setSaveConsumer(newValue -> Main.viewRPC = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.ViewUsername")), HotKeys.viewUsername)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.ViewUsername")), Main.viewUsername)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> HotKeys.viewUsername = newValue)
+                .setSaveConsumer(newValue -> Main.viewUsername = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.viewStatic")), HotKeys.viewStatic)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.viewStatic")), Main.viewStatic)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> HotKeys.viewStatic = newValue)
+                .setSaveConsumer(newValue -> Main.viewStatic = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.OffHand")), HotKeys.viewOffHand)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.OffHand")), Main.viewOffHand)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> HotKeys.viewOffHand = newValue)
+                .setSaveConsumer(newValue -> Main.viewOffHand = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.bedrock")), HotKeys.bedrock)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.bedrock")), Main.bedrock)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> HotKeys.bedrock = newValue)
+                .setSaveConsumer(newValue -> Main.bedrock = newValue)
                 .build());
-        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.showTime")), HotKeys.showTime)
+        mainCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.showTime")), Main.showTime)
                 .setDefaultValue(true)
-                .setSaveConsumer(newValue -> HotKeys.showTime = newValue)
+                .setSaveConsumer(newValue -> Main.showTime = newValue)
                 .build());
         // mainCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("simplystatus.special.thanks"))).build());
         // Сервер
@@ -113,6 +94,14 @@ public class ConfigScreen {
                         .setDefaultValue(false)
                         .setSaveConsumer(newValue -> HotKeys.customNameEnable = newValue)
                         .build());
+                if(Main.addonsServers.get(mc.getCurrentServerEntry().address) != null){
+                    addonEntity addon = Main.addonsServers.get(mc.getCurrentServerEntry().address);
+                    servCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.useAddon")), HotKeys.useAddon)
+                            .setDefaultValue(true)
+                            .setTooltip(MutableText.of(new LiteralTextContent(addon.getName()+"\n"+addon.getDescription())))
+                            .setSaveConsumer(newValue -> HotKeys.useAddon = newValue)
+                            .build());
+                }
                 servCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.CustomName")), HotKeys.customName)
                         .setDefaultValue("")
                         .setSaveConsumer(newValue -> HotKeys.customName = newValue)
@@ -125,36 +114,81 @@ public class ConfigScreen {
         addonsPresencesCategory = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences")));
 
         if(MainClient.musicPlayer){
-            addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.music")), HotKeys.viewMusicListening)
+            addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.music")), Main.viewMusicListening)
                     .setTooltip(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.music.tooltip")))
                     .setDefaultValue(false)
-                    .setSaveConsumer(newValue -> HotKeys.viewMusicListening = newValue)
+                    .setSaveConsumer(newValue -> Main.viewMusicListening = newValue)
                     .build());
         }
         if(MainClient.plasmoVoice || MainClient.svc){
-            addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.voice")), HotKeys.viewVoice)
+            addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.voice")), Main.viewVoice)
                     .setTooltip(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.voice.tooltip")))
                     .setDefaultValue(false)
-                    .setSaveConsumer(newValue -> HotKeys.viewVoice = newValue)
+                    .setSaveConsumer(newValue -> Main.viewVoice = newValue)
                     .build());
         }
         if(MainClient.replayMod){
-            addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.replay")), HotKeys.viewReplayMod)
+            addonsPresencesCategory.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.replay")), Main.viewReplayMod)
                     .setTooltip(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.replay.tooltip")))
                     .setDefaultValue(false)
-                    .setSaveConsumer(newValue -> HotKeys.viewReplayMod = newValue)
+                    .setSaveConsumer(newValue -> Main.viewReplayMod = newValue)
                     .build());
         }
         addonsPresencesCategory.addEntry(
-                entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.avatar")), HotKeys.showAvatar)
+                entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.avatar")), Main.showAvatar)
                         .setDefaultValue(false)
-                        .setSaveConsumer(newValue -> HotKeys.showAvatar = newValue)
+                        .setSaveConsumer(newValue -> Main.showAvatar = newValue)
                         .build());
         addonsPresencesCategory.addEntry(
-                entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.cringe")), HotKeys.cringeIcons)
+                entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.customAssets")), Main.useCustomAssets)
+                        .setDefaultValue(false)
+                        .setTooltip(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.customAssets.tooltip")))
+                        .setSaveConsumer(newValue -> Main.useCustomAssets = newValue)
+                        .build());
+        addonsPresencesCategory.addEntry(
+                entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.cringe")), Main.cringeIcons)
                 .setDefaultValue(false)
-                .setSaveConsumer(newValue -> HotKeys.cringeIcons = newValue)
+                .setSaveConsumer(newValue -> Main.cringeIcons = newValue)
                 .build());
+        //
+        // Иконки
+        //
+        assetsCategory = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("config.simplystatus.assets")));
+        assetsCategory.addEntry(entryBuilder.startTextDescription(MutableText.of(new TranslatableTextContent("config.simplystatus.addonsPresences.customAssets.tooltip"))).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.logo")), assetsConfig.logo)
+                .setDefaultValue("logo")
+                .setSaveConsumer(newValue -> assetsConfig.logo = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.Unknown")), assetsConfig.Unknown)
+                .setDefaultValue("unknown_world")
+                .setSaveConsumer(newValue -> assetsConfig.Unknown = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.replay")), assetsConfig.replay)
+                .setDefaultValue("replaymod_logo")
+                .setSaveConsumer(newValue -> assetsConfig.replay = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.music")), assetsConfig.music)
+                .setDefaultValue("music")
+                .setSaveConsumer(newValue -> assetsConfig.music = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.day")), assetsConfig.day)
+                .setDefaultValue("day_update_2")
+                .setSaveConsumer(newValue -> assetsConfig.day = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.night")), assetsConfig.night)
+                .setDefaultValue("nigth_update_2")
+                .setSaveConsumer(newValue -> assetsConfig.night = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.morning")), assetsConfig.morning)
+                .setDefaultValue("morning_update_2")
+                .setSaveConsumer(newValue -> assetsConfig.morning = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.evening")), assetsConfig.evening)
+                .setDefaultValue("evening_update_2")
+                .setSaveConsumer(newValue -> assetsConfig.evening = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.overworld")), assetsConfig.overworld)
+                .setDefaultValue("overworld")
+                .setSaveConsumer(newValue -> assetsConfig.overworld = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.nether")), assetsConfig.nether)
+                .setDefaultValue("nether")
+                .setSaveConsumer(newValue -> assetsConfig.nether = newValue).build());
+        assetsCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.assets.end")), assetsConfig.end)
+                .setDefaultValue("end")
+                .setSaveConsumer(newValue -> assetsConfig.end = newValue).build());
+
         //
         // Локализация
         //
@@ -168,7 +202,7 @@ public class ConfigScreen {
                 .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state")).getString())
                 .setSaveConsumer(newValue -> translate.mainMenu_state = newValue).build());
         // Главное меню [State/Music]
-        if(MainClient.musicPlayer && HotKeys.viewMusicListening){
+        if(MainClient.musicPlayer && Main.viewMusicListening){
             localizationCategory.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("config.simplystatus.translate.mainMenu.state.music")), translate.mainMenu_state_music)
                     .setDefaultValue(MutableText.of(new TranslatableTextContent("status.simplystatus.text_MainMenu.state.music")).getString())
                     .setSaveConsumer(newValue -> translate.mainMenu_state_music = newValue)

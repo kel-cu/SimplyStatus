@@ -1,7 +1,10 @@
 package og.__kel_.simplystatus.configs;
 
 import net.minecraft.client.MinecraftClient;
+import og.__kel_.simplystatus.Main;
+import og.__kel_.simplystatus.Translate;
 import og.__kel_.simplystatus.client.HotKeys;
+import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.configs.entity.Client;
 import og.__kel_.simplystatus.configs.entity.Server;
 import org.json.JSONException;
@@ -19,19 +22,20 @@ public class Config {
         try {
             String jsonContent = Files.readString(new File(mc.runDirectory + "/SimplyStatus/config.json").toPath());
             Client clientConfig = new Client(jsonContent);
-            HotKeys.viewStatic = clientConfig.viewStatic;
-            HotKeys.viewOffHand = clientConfig.viewOffHand;
-            HotKeys.viewRPC = clientConfig.viewRPC;
-            HotKeys.viewUsername = clientConfig.viewUsername;
-            HotKeys.bedrock = clientConfig.bedrock;
-            HotKeys.cringeIcons = clientConfig.cringe;
-            HotKeys.showTime = clientConfig.showTime;
-            HotKeys.changeStatusNameInMinecraft = clientConfig.changeStatusNameInMinecraft;
-            HotKeys.lastTitle = clientConfig.changeStatusNameInMinecraft;
-            HotKeys.viewVoice = clientConfig.viewVoice;
-            HotKeys.viewReplayMod = clientConfig.viewReplayMod;
-            HotKeys.viewMusicListening = clientConfig.viewMusicListening;
-            HotKeys.showAvatar = clientConfig.showAvatar;
+            Main.viewStatic = clientConfig.viewStatic;
+            Main.viewOffHand = clientConfig.viewOffHand;
+            Main.viewRPC = clientConfig.viewRPC;
+            Main.viewUsername = clientConfig.viewUsername;
+            Main.bedrock = clientConfig.bedrock;
+            Main.cringeIcons = clientConfig.cringe;
+            Main.showTime = clientConfig.showTime;
+            Main.changeStatusNameInMinecraft = clientConfig.changeStatusNameInMinecraft;
+            Main.lastTitle = clientConfig.changeStatusNameInMinecraft;
+            Main.viewVoice = clientConfig.viewVoice;
+            Main.viewReplayMod = clientConfig.viewReplayMod;
+            Main.viewMusicListening = clientConfig.viewMusicListening;
+            Main.showAvatar = clientConfig.showAvatar;
+            Main.useCustomAssets = clientConfig.useCustomAssets;
         } catch (Exception e) {
             save();
         }
@@ -41,18 +45,19 @@ public class Config {
         final Path configFile = mc.runDirectory.toPath().resolve("SimplyStatus/config.json");
         JSONObject jsonConfig = new JSONObject();
         try{
-            jsonConfig.put("static", HotKeys.viewStatic)
-                    .put("offhand", HotKeys.viewOffHand)
-                    .put("rpc", HotKeys.viewRPC)
-                    .put("username", HotKeys.viewUsername)
-                    .put("bedrock", HotKeys.bedrock)
-                    .put("cringe", HotKeys.cringeIcons)
-                    .put("showTime", HotKeys.showTime)
-                    .put("title", HotKeys.changeStatusNameInMinecraft)
-                    .put("voice", HotKeys.viewVoice)
-                    .put("replay", HotKeys.viewReplayMod)
-                    .put("music", HotKeys.viewMusicListening)
-                    .put("avatar", HotKeys.showAvatar);
+            jsonConfig.put("static", Main.viewStatic)
+                    .put("offhand", Main.viewOffHand)
+                    .put("rpc", Main.viewRPC)
+                    .put("username", Main.viewUsername)
+                    .put("bedrock", Main.bedrock)
+                    .put("cringe", Main.cringeIcons)
+                    .put("showTime", Main.showTime)
+                    .put("title", Main.changeStatusNameInMinecraft)
+                    .put("voice", Main.viewVoice)
+                    .put("replay", Main.viewReplayMod)
+                    .put("music", Main.viewMusicListening)
+                    .put("avatar", Main.showAvatar)
+                    .put("customAssets", Main.useCustomAssets);
         } catch (JSONException ej){
             System.out.println(ej.getMessage());
         }
@@ -74,6 +79,7 @@ public class Config {
             HotKeys.viewName = serverConfig.viewName;
             HotKeys.customName = serverConfig.customName;
             HotKeys.customNameEnable = serverConfig.customNameEnable;
+            HotKeys.useAddon = serverConfig.useAddon;
         } catch (Exception e) {
             save(serverAddress);
         }
@@ -88,7 +94,8 @@ public class Config {
             serverConfig.put("ip", HotKeys.viewIPAddress)
                     .put("name", HotKeys.viewName)
                     .put("customName", HotKeys.customName)
-                    .put("customNameEnable", HotKeys.customNameEnable);
+                    .put("customNameEnable", HotKeys.customNameEnable)
+                    .put("useAddon", HotKeys.useAddon);
         } catch (JSONException ej){
             System.out.println(ej.getMessage());
         }
@@ -99,4 +106,31 @@ public class Config {
             e.printStackTrace();
         }
     }
+    public static void saveGUI(){
+        MainClient.log.info("Saves configurations!");
+        MinecraftClient mc = MinecraftClient.getInstance();
+        ConfigScreen.config.save();
+        ConfigScreen.assetsConfig.save();
+        if(Main.lastTitle != Main.changeStatusNameInMinecraft){
+            Main.lastTitle = Main.changeStatusNameInMinecraft;
+            if(Main.changeStatusNameInMinecraft){
+                MainClient.lib.Discord_ClearPresence();
+                MainClient.lib.Discord_Shutdown();
+                MainClient.applicationId = "1004398909810016276";
+            } else {
+                MainClient.lib.Discord_ClearPresence();
+                MainClient.lib.Discord_Shutdown();
+                MainClient.applicationId = "903288390072557648";
+            }
+        }
+        MainClient.lib.Discord_Initialize(MainClient.applicationId, MainClient.handlers, true, "");
+        ConfigScreen.translate.save();
+        if(mc.world != null){
+            if(!mc.isInSingleplayer() && mc.getCurrentServerEntry() != null){
+                MainClient.log.info(mc.getCurrentServerEntry().address + " saves configurations!");
+                ConfigScreen.config.save(mc.getCurrentServerEntry().address);
+            }
+        }
+    }
+
 }

@@ -1,5 +1,7 @@
 package og.__kel_.simplystatus.info;
 
+import og.__kel_.simplystatus.configs.AssetsConfig;
+
 public class Assets {
     public String music = "music";
     public String day = "day_update_2";
@@ -12,7 +14,22 @@ public class Assets {
     public String overworld = "overworld";
     public String nether = "nether";
     public String end = "end";
-    public Assets(Boolean Bedrock, Boolean Cringe){
+    public Assets(Boolean Custom, Boolean Bedrock, Boolean Cringe){
+        if(Custom){
+            AssetsConfig config = new AssetsConfig();
+            this.day = config.day;
+            this.night = config.night;
+            this.morning = config.morning;
+            this.evening = config.evening;
+            this.logo = config.logo;
+            this.overworld = config.overworld;
+            this.nether = config.nether;
+            this.end = config.end;
+            this.music = config.music;
+            this.replay = config.replay;
+            this.Unknown = config.Unknown;
+            return;
+        }
         if(Bedrock){
             this.day = "day_be";
             this.night = "night_be";

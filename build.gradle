@@ -16,6 +16,18 @@ repositories {
     maven {
         url = "https://jitpack.io/"
     }
+    maven { url = "https://maven.isxander.dev/releases" }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = "Modrinth"
+                url = "https://api.modrinth.com/maven"
+            }
+        }
+        filter {
+            includeGroup "maven.modrinth"
+        }
+    }
 }
 
 dependencies {
@@ -30,27 +42,20 @@ dependencies {
     modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    // modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
-
     // Прочея херня для работы с конфигами и Discord RPC
-    include(implementation ('club.minnced:discord-rpc-release:v3.4.0'))
+    include(implementation('club.minnced:discord-rpc-release:v3.4.0'))
     include(implementation("com.github.MinnDevelopment:java-discord-rpc:v2.0.2"))
-    include(implementation('com.jagrosh:DiscordIPC:0.4'))
-    //include(implementation("com.jagrosh:DiscordIPC:e18542f"))
-    //ReplayMod
-    include(implementation(files('libs/replaymod-1.19-2.6.6.jar')))
-    //Plasmo Voice
-    include(implementation(files('libs/plasmovoice-fabric-1.19-1.2.17.jar')))
-    //Simple Voice Chat
-    include(implementation(files('libs/voicechat-fabric-1.19.2-2.3.8.jar')))
-    //Music Player
-    include(implementation(files('libs/music_player-fabric-1.19.2-2.4.1.9.jar')))
-    //ModMenu
-    modImplementation files('libs/modmenu-4.0.6.jar')
     // Для библиотеки org.json внутри самого мода
     testImplementation 'junit:junit:4.13.1'
     testImplementation 'com.jayway.jsonpath:json-path:2.1.0'
     testImplementation 'org.mockito:mockito-core:1.9.5'
+    // Моды
+    modImplementation "maven.modrinth:replaymod:1.19.1-2.6.8" // ReplayMod
+    modImplementation "maven.modrinth:plasmo-voice:fabric-1.19.x-1.2.19" // Plasmo Voice
+    modImplementation "maven.modrinth:simple-voice-chat:fabric-1.19.2-2.3.12" // Simple Voice Chat
+    include(implementation(files('libs/music_player-fabric-1.19.2-2.4.1.9.jar'))) // Music Player
+    modImplementation "maven.modrinth:modmenu:4.1.0" // ModMenu
+    // Утилиты
 }
 
 processResources {
@@ -59,9 +64,6 @@ processResources {
 
     filesMatching("fabric.mod.json") {
         expand "version": project.version
-    }
-    filesMatching('quilt.mod.json') {
-        expand "version": version
     }
 }
 

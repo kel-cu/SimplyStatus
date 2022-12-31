@@ -6,6 +6,7 @@ import com.replaymod.core.ReplayMod;
 import com.replaymod.replay.ReplayModReplay;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.Translate;
@@ -18,10 +19,10 @@ import java.text.SimpleDateFormat;
 public class UnknownScene {
     public UnknownScene(DiscordRPC lib, MinecraftClient mc, Translate Translate, Long start_time, Exception err) {
         Client client = new Client();
-        Assets assets = new Assets(HotKeys.bedrock, HotKeys.cringeIcons);
+        Assets assets = new Assets(Main.useCustomAssets, Main.bedrock, Main.cringeIcons);
         Translate.selectedLang();
         DiscordRichPresence presence = new DiscordRichPresence();
-        if(HotKeys.showTime){
+        if(Main.showTime){
             presence.startTimestamp = start_time;
         }
         presence.state = client.getVersion(mc);
@@ -31,10 +32,10 @@ public class UnknownScene {
     }
     public UnknownScene(DiscordRPC lib, MinecraftClient mc, Translate Translate, Long start_time) {
         Client client = new Client();
-        Assets assets = new Assets(HotKeys.bedrock, HotKeys.cringeIcons);
+        Assets assets = new Assets(Main.useCustomAssets, Main.bedrock, Main.cringeIcons);
         Translate.selectedLang();
         DiscordRichPresence presence = new DiscordRichPresence();
-        if(HotKeys.showTime){
+        if(Main.showTime){
             presence.startTimestamp = start_time;
         }
         presence.state = client.getVersion(mc);

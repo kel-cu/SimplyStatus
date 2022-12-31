@@ -9,6 +9,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.client.MainClient;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.Translate;
@@ -22,7 +23,7 @@ public class Client {
         " (" + mc.getGameVersion() + "/" + ClientBrandRetriever.getClientModName() + ("release".equalsIgnoreCase(mc.getVersionType()) ? "" : "/" + mc.getVersionType()) + ")";
     }
     public String getName(MinecraftClient mc){
-        if(HotKeys.viewUsername){
+        if(Main.viewUsername){
             return mc.getSession().getUsername();
         } else {
             return MainClient.player.username;
@@ -44,7 +45,7 @@ public class Client {
         if (!mitem.equals("air")) {
             item(mc, main_item, presence, Translate);
         } else {
-            if(HotKeys.viewOffHand){
+            if(Main.viewOffHand){
                 if (!oitem.equals("air")) {
                     item(mc, off_item, presence, Translate);
                 } else {
@@ -131,7 +132,7 @@ public class Client {
         }
     }
     public void statistics(MinecraftClient mc, Translate Translate, DiscordRichPresence presence){
-        if(HotKeys.viewStatic){
+        if(Main.viewStatic){
             if(mc.player.isDead()) {
                 var randomNumber = Math.floor(Math.random() * 2);
                 if(!MainClient.lastMessageDeath){
@@ -164,7 +165,7 @@ public class Client {
         }
     }
     public boolean voiceSpeaking(DiscordRichPresence presence, MinecraftClient mc, Translate Translate){
-        if(HotKeys.viewVoice) {
+        if(Main.viewVoice) {
             if (MainClient.plasmoVoice) {
                 if (VoiceClient.isConnected()) {
                     if (VoiceClient.isSpeaking()) {

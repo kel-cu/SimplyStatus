@@ -10,6 +10,7 @@
   "key.simplystatus.bedrock": "Change icons to Bedrock icons",
   "key.simplystatus.showTime": "Show/Hide game play time",
   "key.simplystatus.configScreen": "Open the settings menu",
+  "config.simplystatus.connect": "Connect to Discord",
   "config.simplystatus.notConnected": "You are not connected to Discord!\nCheck your Internet connection and the presence of Discord on your computer",
   "config.simplystatus.notConnectedLinux": "If you have Discord installed through a third-party app store, like Flatpak, Snap, etc. Then look up RPC connectivity solutions, preferably about your app store and system in search engines",
 
@@ -93,6 +94,7 @@
   "message.simplystatus.username.false": "§7SimplyStatus§r » Your Discord nickname will now be displayed in the status",
   "message.simplystatus.rpc.false": "§7SimplyStatus§r » Game activity display is disabled",
   "message.simplystatus.rpc.true": "§7SimplyStatus§r » Game activity display is enabled",
+  "message.simplystatus.clothConfigNotFound": "§7SimplyStatus§r » Install the \"Cloth Config\" mod to display the config window. =-=",
 
   "modmenu.descriptionTranslation.simplystatus": "Simple, customizable Discord game status",
   "modmenu.simplystatus.github": "GitHub",
@@ -136,5 +138,21 @@
   "status.simplystatus.disconnect": "%username% was disconnected",
   "status.simplystatus.loadWorld": "Loading the World...",
 
-  "status.simplystatus.stats": "%health% • %health_max%❤ %armor%🛡️"
+  "status.simplystatus.stats": "%health% • %health_max%❤ %armor%🛡️",
+
+  "config.simplystatus.addonsPresences.customAssets": "§l§o(Experiment)§r Use custom assets",
+  "config.simplystatus.addonsPresences.customAssets.tooltip": "This feature is an experiment!\nIf you find bugs, please report them to the repository on GitHub\nhttps://github.com/simply-kel/SimplyStatus-fabric",
+  "config.simplystatus.assets": "Assets",
+  "config.simplystatus.assets.logo": "Game icon",
+  "config.simplystatus.assets.Unknown": "what?",
+  "config.simplystatus.assets.replay": "ReplayMod Icon",
+  "config.simplystatus.assets.music": "Music",
+  "config.simplystatus.assets.day": "Day",
+  "config.simplystatus.assets.night": "Night",
+  "config.simplystatus.assets.morning": "Morning",
+  "config.simplystatus.assets.evening": "Evening",
+  "config.simplystatus.assets.overworld": "The Overworld",
+  "config.simplystatus.assets.nether": "The Nether",
+  "config.simplystatus.assets.end": "The End?"
+
 }

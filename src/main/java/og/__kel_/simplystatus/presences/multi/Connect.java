@@ -5,6 +5,7 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableTextContent;
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.Translate;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
@@ -16,16 +17,16 @@ import og.__kel_.simplystatus.info.Music;
 public class Connect {
     public Connect(DiscordRPC lib, MinecraftClient mc, Translate Translate, Long start_time, Config cfg){
         Client client = new Client();
-        Assets assets = new Assets(HotKeys.bedrock, HotKeys.cringeIcons);
+        Assets assets = new Assets(Main.useCustomAssets, Main.bedrock, Main.cringeIcons);
         DiscordRichPresence presence = new DiscordRichPresence();
 
         presence.details = Translate.replaceText(Translate.connect, true, false, false, client);
         presence.largeImageKey = assets.Unknown;
 
-        if(HotKeys.showTime){
+        if(Main.showTime){
             presence.startTimestamp = start_time;
         }
-        if(HotKeys.viewMusicListening && MainClient.musicPlayer){
+        if(Main.viewMusicListening && MainClient.musicPlayer){
             Music music = new Music();
             if(!music.isPaused()) {
                 presence.smallImageKey = assets.music;

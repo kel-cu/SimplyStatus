@@ -5,6 +5,7 @@ import club.minnced.discord.rpc.DiscordRichPresence;
 import com.replaymod.replay.ReplayModReplay;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import og.__kel_.simplystatus.Main;
 import og.__kel_.simplystatus.Translate;
 import og.__kel_.simplystatus.client.HotKeys;
 import og.__kel_.simplystatus.client.MainClient;
@@ -18,9 +19,9 @@ import java.text.SimpleDateFormat;
 public class ReplayMod {
     public ReplayMod(DiscordRPC lib, MinecraftClient mc, Translate Translate, Long start_time, Config cfg){
         Client client = new Client();
-        Assets assets = new Assets(HotKeys.bedrock, HotKeys.cringeIcons);
+        Assets assets = new Assets(Main.useCustomAssets, Main.bedrock, Main.cringeIcons);
         DiscordRichPresence presence = new DiscordRichPresence();
-        if(HotKeys.viewReplayMod){
+        if(Main.viewReplayMod){
             if(ReplayModReplay.instance.getReplayHandler().getReplayFile() != null){
                 try{
                     presence.state =ReplayModReplay.instance.getReplayHandler().getReplayFile().getMetaData().getCustomServerName();
@@ -37,7 +38,7 @@ public class ReplayMod {
                 presence.largeImageKey = assets.replay;
                 presence.largeImageText = "ReplayMod v"+ com.replaymod.core.ReplayMod.instance.getVersion();
             }
-            if(HotKeys.showAvatar){
+            if(Main.showAvatar){
                 client.avatar(mc, presence);
             }
             lib.Discord_UpdatePresence(presence);
