@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "simplystatus",
+  "version": "${version}",
+  "name": "SimplyStatus",
+  "description": "Simple, customizable Discord game status",
+  "authors": [
+    "Simply_Kel"
+  ],
+  "contact": {
+    "website": "https://modrinth.com/mod/simplystatus",
+    "repo": "https://github.com/simply-kel/SimplyStatus"
+  },
+  "license": "MIT",
+  "icon": "assets/simplystatus/logo.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "ru.simplykel.simplystatus.Client"
+    ],
+    "main": [
+      "ru.simplykel.simplystatus.Main"
+    ]
+  },
+  "mixins": [
+    "simplystatus.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.11",
+    "fabric": "*",
+    "minecraft": "^1.19"
+  }
+}
