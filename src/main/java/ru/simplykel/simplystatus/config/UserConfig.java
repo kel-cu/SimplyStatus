@@ -17,9 +17,10 @@ public class UserConfig {
     public static boolean VIEW_PLAYER_NAME = true;
     public static boolean VIEW_VOICE_SPEAK = false;
     public static boolean VIEW_REPLAY_MOD = true;
+    public static boolean VIEW_REPLAY_MOD_SERVER_NAME = false;
     public static boolean VIEW_MUSIC_LISTENER = false;
     public static boolean USE_CUSTOM_ASSETS = false;
-    public static boolean USE_MINECRAFT_ID = false;
+    public static boolean USE_ANOTHER_ID = false;
 
     /**
      * Сохранение конфигурации
@@ -37,15 +38,33 @@ public class UserConfig {
                 .put("VIEW_PLAYER_NAME", VIEW_PLAYER_NAME)
                 .put("VIEW_VOICE_SPEAK", VIEW_VOICE_SPEAK)
                 .put("VIEW_REPLAY_MOD", VIEW_REPLAY_MOD)
+                .put("VIEW_REPLAY_MOD_SERVER_NAME", VIEW_REPLAY_MOD_SERVER_NAME)
                 .put("VIEW_MUSIC_LISTENER", VIEW_MUSIC_LISTENER)
                 .put("USE_CUSTOM_ASSETS", USE_CUSTOM_ASSETS)
-                .put("USE_MINECRAFT_ID", USE_MINECRAFT_ID);
+                .put("USE_ANOTHER_ID", USE_ANOTHER_ID);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public static String getStringConfigs(){
+        JSONObject jsonConfig = new JSONObject();
+        jsonConfig.put("ENABLE_RPC", ENABLE_RPC)
+                .put("ENABLE_BEDROCK_ASSETS", ENABLE_BEDROCK_ASSETS)
+                .put("SHOW_AVATAR_PLAYER", SHOW_AVATAR_PLAYER)
+                .put("SHOW_GAME_STARTED", SHOW_GAME_STARTED)
+                .put("VIEW_ITEM_OFF_HAND", VIEW_ITEM_OFF_HAND)
+                .put("VIEW_STATISTICS", VIEW_STATISTICS)
+                .put("VIEW_PLAYER_NAME", VIEW_PLAYER_NAME)
+                .put("VIEW_VOICE_SPEAK", VIEW_VOICE_SPEAK)
+                .put("VIEW_REPLAY_MOD", VIEW_REPLAY_MOD)
+                .put("VIEW_REPLAY_MOD_SERVER_NAME", VIEW_REPLAY_MOD_SERVER_NAME)
+                .put("VIEW_MUSIC_LISTENER", VIEW_MUSIC_LISTENER)
+                .put("USE_CUSTOM_ASSETS", USE_CUSTOM_ASSETS)
+                .put("USE_ANOTHER_ID", USE_ANOTHER_ID);
+        return jsonConfig.toString();
     }
 
     /**
@@ -77,11 +96,13 @@ public class UserConfig {
             else VIEW_VOICE_SPEAK = false;
             if(!jsonConfig.isNull("VIEW_REPLAY_MOD")) VIEW_REPLAY_MOD = jsonConfig.getBoolean("VIEW_REPLAY_MOD");
             else VIEW_REPLAY_MOD = true;
+            if(!jsonConfig.isNull("VIEW_REPLAY_MOD_SERVER_NAME")) VIEW_REPLAY_MOD_SERVER_NAME = jsonConfig.getBoolean("VIEW_REPLAY_MOD_SERVER_NAME");
+            else VIEW_REPLAY_MOD_SERVER_NAME = false;
 
             if(!jsonConfig.isNull("USE_CUSTOM_ASSETS")) USE_CUSTOM_ASSETS = jsonConfig.getBoolean("USE_CUSTOM_ASSETS");
             else USE_CUSTOM_ASSETS = false;
-            if(!jsonConfig.isNull("USE_MINECRAFT_ID")) USE_MINECRAFT_ID = jsonConfig.getBoolean("USE_MINECRAFT_ID");
-            else USE_MINECRAFT_ID = false;
+            if(!jsonConfig.isNull("USE_ANOTHER_ID")) USE_ANOTHER_ID = jsonConfig.getBoolean("USE_ANOTHER_ID");
+            else USE_ANOTHER_ID = false;
 
 
         } catch (Exception e){

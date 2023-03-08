@@ -7,12 +7,16 @@ import net.minecraft.text.MutableText;
 import net.minecraft.text.TranslatableTextContent;
 import org.json.JSONObject;
 import ru.simplykel.simplystatus.Client;
+import ru.simplykel.simplystatus.info.Game;
 import ru.simplykel.simplystatus.info.Player;
+import ru.simplykel.simplystatus.mods.ReplayMod;
 import ru.simplykel.simplystatus.mixin.MinecraftClientAccess;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 public class Localization {
     /**
@@ -62,7 +66,10 @@ public class Localization {
         if(parse) return getParsedText(text);
         else return text;
     }
-
+    public static String getLcnDefault(String type){
+        String text = MutableText.of(new TranslatableTextContent("simplystatus.presence."+type)).getString();
+        return text;
+    }
     /**
      * Задать значение локализации на определённый текст в JSON файле
      * @param type
@@ -74,7 +81,7 @@ public class Localization {
             JSONLocalization.put(type, text);
             MinecraftClient CLIENT = MinecraftClient.getInstance();
             File localizationFile = new File(CLIENT.runDirectory + "/SimplyStatus/lang/"+getCodeLocalization()+".json");
-            if(localizationFile.getParent().isEmpty()) Files.createDirectories(localizationFile.toPath().getParent());
+            Files.createDirectories(localizationFile.toPath().getParent());
             Files.writeString(localizationFile.toPath(), JSONLocalization.toString());
         } catch (Exception e){
             e.printStackTrace();
@@ -97,6 +104,12 @@ public class Localization {
         parsedText = parsedText.replace("%discord_discriminator%", Client.USER.discriminator);
         parsedText = parsedText.replace("%discord_id%", Client.USER.userId);
         parsedText = parsedText.replace("%discord_tag%", Client.USER.username+"#"+Client.USER.discriminator);
+        // Данные функции связаны с замены discord на siscord
+        parsedText = parsedText.replace("%siscord_name%", Client.USER.username);
+        parsedText = parsedText.replace("%siscord_discriminator%", Client.USER.discriminator);
+        parsedText = parsedText.replace("%siscord_id%", Client.USER.userId);
+        parsedText = parsedText.replace("%siscord_tag%", Client.USER.username+"#"+Client.USER.discriminator);
+
         if(CLIENT.world != null && CLIENT.player != null){
             parsedText = parsedText.replace("%item%", Player.getItemName()+"");
             parsedText = parsedText.replace("%scene%", Player.getTypeWorld());
@@ -106,12 +119,29 @@ public class Localization {
                     else if(ServerConfig.SHOW_NAME_IN_LIST) parsedText = parsedText.replace("%address%", CLIENT.getCurrentServerEntry().name);
                     else parsedText = parsedText.replace("%address%", CLIENT.getCurrentServerEntry().address);
                 } else parsedText = parsedText.replace("%address%", getLocalization("address.hidden", false));
+                if(Game.getGameState() == 0) parsedText = parsedText.replace("%ping%", CLIENT.player.networkHandler.getPlayerListEntry(CLIENT.player.getUuid()).getLatency()+"ms");
+                else parsedText = parsedText.replace("%ping%", "-ms");
+            } else if(!CLIENT.isInSingleplayer() && UserConfig.VIEW_REPLAY_MOD){
+                try {
+                    ReplayMod replay = new ReplayMod();
+                    DateFormat dateFormat = new SimpleDateFormat(Localization.getLocalization("mod.replaymod.date_format", false));
+                    parsedText = parsedText.replace("%date%", dateFormat.format(replay.date));
+                    parsedText = parsedText.replace("%sate%", dateFormat.format(replay.date));
+                    if(UserConfig.VIEW_REPLAY_MOD_SERVER_NAME) parsedText = parsedText.replace("%replay_server%", replay.name);
+                    else parsedText = parsedText.replace("%replay_server%", Localization.getLocalization("unknown.server", false));
+                    if(UserConfig.VIEW_REPLAY_MOD_SERVER_NAME) parsedText = parsedText.replace("%replay_address%", replay.address);
+                    else parsedText = parsedText.replace("%replay_address%", Localization.getLocalization("unknown.server", false));
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
             parsedText = parsedText.replace("%health%", Player.getHealth());
             parsedText = parsedText.replace("%health_max%", Player.getMaxHealth());
             parsedText = parsedText.replace("%health_percent%", Player.getPercentHealth());
             parsedText = parsedText.replace("%armor%", Player.getArmor());
             parsedText = parsedText.replace("%fps%", MinecraftClientAccess.getCurrentFps()+"FPS");
+            parsedText = parsedText.replace("%sps%", MinecraftClientAccess.getCurrentFps()+"FPS");
         }
         return parsedText;
     }

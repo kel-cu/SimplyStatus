@@ -93,7 +93,7 @@ public class Player {
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         float health = CLIENT.player.getHealth();
         float maxHealth = CLIENT.player.getMaxHealth();
-        return ((health*100)/maxHealth)+"";
+        return Main.DF.format((health*100)/maxHealth);
     }
     public static String getArmor(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();

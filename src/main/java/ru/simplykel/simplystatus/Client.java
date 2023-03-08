@@ -9,17 +9,22 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableTextContent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 import ru.simplykel.simplystatus.config.AssetsConfig;
 import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
+import ru.simplykel.simplystatus.config.gui.ConfigScreen;
 import ru.simplykel.simplystatus.info.Game;
 import ru.simplykel.simplystatus.presences.MainMenu;
+import ru.simplykel.simplystatus.presences.ReplayMod;
 import ru.simplykel.simplystatus.presences.Unknown;
 import ru.simplykel.simplystatus.presences.multiplayer.Connect;
 import ru.simplykel.simplystatus.presences.multiplayer.Disconnect;
@@ -53,36 +58,27 @@ public class Client implements ClientModInitializer {
         STARTED_TIME_GAME = System.currentTimeMillis() / 1000;
         UserConfig.load();
         KeyBinding openConfigKeyBind;
-        KeyBinding updateKeyBind = null;
         openConfigKeyBind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "simplystatus.key.openConfig",
                 InputUtil.Type.KEYSYM,
                 GLFW.GLFW_KEY_F4, // The keycode of the key
                 "simplystatus.name"
         ));
-        if(Main.isDevBuild){
-            updateKeyBind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                    "simplystatus.key.update",
-                    InputUtil.Type.KEYSYM,
-                    GLFW.GLFW_KEY_F6, // The keycode of the key
-                    "simplystatus.name"
-            ));
-        }
-        KeyBinding finalUpdateKeyBind = updateKeyBind;
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             assert client.player != null;
             while (openConfigKeyBind.wasPressed()) {
-                client.player.sendMessage(Text.of("The keybind unready to work"), true);
-            }
-
-            while (finalUpdateKeyBind != null && finalUpdateKeyBind.isPressed()){
-                client.player.sendMessage(Text.of( "The §aupdatePresence()§r function was called"), true);
-                updatePresence();
-
-
+//                client.player.sendMessage(Text.of("The keybind unready to work"), true);
+                if(!Main.clothConfig){
+                    client.player.sendMessage(MutableText.of(new TranslatableTextContent(("simplystatus.message.clothConfigNotFound"))), true);
+                    return;
+                }
+                final Screen current = client.currentScreen;
+                Screen configScreen = ConfigScreen.buildScreen(current);
+                client.setScreen(configScreen);
             }
         });
-        APPLICATION_ID = ModConfig.baseID;
+        if(UserConfig.USE_ANOTHER_ID) APPLICATION_ID = ModConfig.mineID;
+        else APPLICATION_ID = ModConfig.baseID;
         HANDLERS.ready = (user) -> {
             LOG.debug("The mod has been connected to Discord");
             USER = user;
@@ -138,6 +134,7 @@ public class Client implements ClientModInitializer {
             } else {
                 if(CLIENT.isInSingleplayer()) new SinglePlayer();
                 else if(CLIENT.getCurrentServerEntry() != null) new MultiPlayer();
+                else if(Main.replayMod && UserConfig.VIEW_REPLAY_MOD) new ReplayMod();
                 else new Unknown();
             }
         } else {

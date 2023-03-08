@@ -9,9 +9,11 @@ import java.text.DecimalFormat;
 public class Main implements ModInitializer {
     public static boolean isLoadingConfigs = true;
     public static boolean isDevBuild = true;
+    public static boolean useAnotherID = false;
     public static String prefixLog = "[SimplyStatus] ";
     public static DecimalFormat DF = new DecimalFormat("#.#");
     public static boolean clothConfig = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
+    public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
     @Override
     public void onInitialize() {
         if(isDevBuild){

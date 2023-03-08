@@ -25,6 +25,7 @@ public class ModConfig {
      * Использование default конфигов мода, чтобы не указывать в коде и не искать потом их везде
      * + Облеглчение работы ребят которые делают кастомы
      */
+    public static String MOD_CONFIG_STRING = "";
     public ModConfig() throws Exception {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream stream = loader.getResourceAsStream("simplystatus.config.mod.json");
@@ -39,5 +40,6 @@ public class ModConfig {
         } else defaultAssets = new AssetsConfig(config.getJSONObject("assetsDefault"), true, false);
         if(config.isNull("bedrockAssets")) bedrockAssets = null;
         else bedrockAssets = new AssetsConfig(config.getJSONObject("bedrockAssets"), true, true);
+        MOD_CONFIG_STRING = config.toString();
     }
 }

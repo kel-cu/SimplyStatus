@@ -20,14 +20,26 @@
     ],
     "main": [
       "ru.simplykel.simplystatus.Main"
+    ],
+    "modmenu": [
+      "ru.simplykel.simplystatus.config.gui.ModMenuIntegration"
     ]
   },
   "mixins": [
     "simplystatus.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.11",
+    "fabricloader": ">=0.14.14",
     "fabric": "*",
-    "minecraft": "^1.19"
+    "minecraft": [">=1.19.3"]
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.simplystatus.github": "https://github.com/simply-kel/SimplyStatus-fabric",
+        "modmenu.simplystatus.curseforge": "https://www.curseforge.com/minecraft/mc-mods/simplystatus",
+        "modmenu.simplystatus.modrinth": "https://modrinth.com/mod/simplystatus"
+      }
+    }
   }
 }

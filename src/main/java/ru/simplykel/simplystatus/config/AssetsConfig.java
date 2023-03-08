@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
 
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -98,12 +99,34 @@ public class AssetsConfig {
     public void saveUserAssets(){
         MinecraftClient mc = MinecraftClient.getInstance();
         final Path assetsFile = mc.runDirectory.toPath().resolve("SimplyStatus/assets.json");
+        JSONObject jsonConfig = new JSONObject();
+        jsonConfig.put("logo", logo)
+                .put("day", day)
+                .put("night", night)
+                .put("morning", morning)
+                .put("evening", evening)
+                .put("world", world)
+                .put("world_nether", world_nether)
+                .put("world_the_end", world_the_end)
+                .put("replaymod", replaymod)
+                .put("music", music)
+                .put("voice", voice)
+                .put("unknown", unknown)
+                .put("unknown_world", unknown_world);
         try {
-            JSONObject jsonConfig = new JSONObject();
-            Client.LOG.info("save unready");
-        } catch (Exception e){
+            Files.createDirectories(assetsFile.getParent());
+            Files.writeString(assetsFile, jsonConfig.toString());
+        } catch (IOException e) {
             e.printStackTrace();
         }
+
+        //        try {
+//            JSONObject jsonConfig = new JSONObject();
+//
+////            Client.LOG.info("save unready");
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
     }
     public AssetsConfig(boolean isUseBedrock){
         if(isUseBedrock && ModConfig.bedrockAssets != null){
