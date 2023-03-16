@@ -4,41 +4,42 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import ru.simplykel.simplystatus.config.ServerConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 
 public class ServerConfigs {
     public ConfigCategory getCategory(ConfigBuilder builder){
-        ConfigCategory category = builder.getOrCreateCategory(MutableText.of(new TranslatableTextContent("simplystatus.config.server")));
+        ConfigCategory category = builder.getOrCreateCategory(Text.translatable("simplystatus.config.server"));
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
         //
-        category.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("simplystatus.config.server.show_address")), ServerConfig.SHOW_ADDRESS)
+        category.addEntry(entryBuilder.startBooleanToggle(Text.translatable("simplystatus.config.server.show_address"), ServerConfig.SHOW_ADDRESS)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> ServerConfig.SHOW_ADDRESS = newValue)
                 .build());
         //
-        category.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("simplystatus.config.server.show_name_in_list")), ServerConfig.SHOW_NAME_IN_LIST)
+        category.addEntry(entryBuilder.startBooleanToggle(Text.translatable("simplystatus.config.server.show_name_in_list"), ServerConfig.SHOW_NAME_IN_LIST)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> ServerConfig.SHOW_NAME_IN_LIST = newValue)
                 .build());
         //
-        category.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("simplystatus.config.server.show_custom_name")), ServerConfig.SHOW_CUSTOM_NAME)
+        category.addEntry(entryBuilder.startBooleanToggle(Text.translatable("simplystatus.config.server.show_custom_name"), ServerConfig.SHOW_CUSTOM_NAME)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> ServerConfig.SHOW_CUSTOM_NAME = newValue)
                 .build());
         //
-        category.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("simplystatus.config.server.custom_name")), ServerConfig.CUSTOM_NAME)
+        category.addEntry(entryBuilder.startStrField(Text.translatable("simplystatus.config.server.custom_name"), ServerConfig.CUSTOM_NAME)
                 .setDefaultValue("Custom name")
                 .setSaveConsumer(newValue -> ServerConfig.CUSTOM_NAME = newValue)
                 .build());
         //
-        category.addEntry(entryBuilder.startBooleanToggle(MutableText.of(new TranslatableTextContent("simplystatus.config.server.show_icon")), ServerConfig.SHOW_ICON)
+        category.addEntry(entryBuilder.startBooleanToggle(Text.translatable("simplystatus.config.server.show_icon"), ServerConfig.SHOW_ICON)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> ServerConfig.SHOW_ICON = newValue)
                 .build());
         //
-        category.addEntry(entryBuilder.startStrField(MutableText.of(new TranslatableTextContent("simplystatus.config.server.icon_url")), ServerConfig.ICON_URL)
+        category.addEntry(entryBuilder.startStrField(Text.translatable("simplystatus.config.server.icon_url"), ServerConfig.ICON_URL)
                 .setDefaultValue("Icon URL")
                 .setSaveConsumer(newValue -> ServerConfig.ICON_URL = newValue)
                 .build());

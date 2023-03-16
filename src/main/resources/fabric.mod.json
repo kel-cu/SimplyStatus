@@ -29,16 +29,17 @@
     "simplystatus.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.14.14",
+    "fabricloader": ">=0.14.17",
     "fabric": "*",
-    "minecraft": [">=1.19.3"]
+    "minecraft": [">=1.19.4"]
   },
   "custom": {
     "modmenu": {
       "links": {
         "modmenu.simplystatus.github": "https://github.com/simply-kel/SimplyStatus-fabric",
         "modmenu.simplystatus.curseforge": "https://www.curseforge.com/minecraft/mc-mods/simplystatus",
-        "modmenu.simplystatus.modrinth": "https://modrinth.com/mod/simplystatus"
+        "modmenu.simplystatus.modrinth": "https://modrinth.com/mod/simplystatus",
+        "modmenu.simplystatus.boosty": "https://boosty.to/simply_kel"
       }
     }
   }

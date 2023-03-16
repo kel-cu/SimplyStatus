@@ -25,6 +25,12 @@
   "simplystatus.config.localization.mod.replaymod.state": "Сцена",
   "simplystatus.config.localization.mod.replaymod.date_format": "Формат даты",
 
+  "simplystatus.config.musicplayer": "Music Player",
+  "simplystatus.config.localization.mod.music.menu": "Прослушиваемый трек в меню",
+  "simplystatus.config.localization.mod.music": "Прослушиваемый трек в иконке",
+  "simplystatus.config.localization.mod.music.format": "Формат трека",
+  "simplystatus.config.localization.mod.music.format.artist": "Формат артиста",
+
   "simplystatus.config.server": "Текущий сервер",
   "simplystatus.config.server.show_address": "Показать адрес",
   "simplystatus.config.server.show_name_in_list": "Показать название из списка",
@@ -51,7 +57,6 @@
   "simplystatus.config.localization": "Локализация",
   "simplystatus.config.localization.mainmenu": "Главное меню",
   "simplystatus.config.localization.mainmenu.state": "Информация игры",
-  "simplystatus.config.localization.mainmenu.state.music": "Прослушиваемый трек в меню",
   "simplystatus.config.localization.death.one": "Сообщение смерти #1",
   "simplystatus.config.localization.death.two": "Сообщение смерти #2",
   "simplystatus.config.localization.death.three": "Сообщение смерти #3",
@@ -84,7 +89,6 @@
 
   "simplystatus.presence.mainmenu": "%name% в меню",
   "simplystatus.presence.mainmenu.state": "Minecraft %version%",
-  "simplystatus.presence.mainmenu.state.music": "🔊 %music%",
   "simplystatus.presence.death.one": "%name% нет в живых :(",
   "simplystatus.presence.death.two": "Игрок умер",
   "simplystatus.presence.death.three": "Игрок не смог выжить в этом мире",
@@ -120,6 +124,9 @@
   "simplystatus.presence.mod.voice.players.more": "%name% разговаривает с игроками",
 
   "simplystatus.presence.mod.music": "%music%",
+  "simplystatus.presence.mod.music.format": "%artist% %title%",
+  "simplystatus.presence.mod.music.format.artist": "%artist_name% -",
+  "simplystatus.presence.mod.music.menu": "🔊 %music%",
 
   "simplystatus.presence.mod.replaymod": "Повтор от %date%",
   "simplystatus.presence.mod.replaymod.state": "%replay_server%",
@@ -127,5 +134,6 @@
 
   "modmenu.simplystatus.github": "GitHub",
   "modmenu.simplystatus.curseforge": "CurseForge",
-  "modmenu.simplystatus.modrinth": "Modrinth"
+  "modmenu.simplystatus.modrinth": "Modrinth",
+  "modmenu.simplystatus.boosty": "Ранний доступ на Boosty"
 }

@@ -69,7 +69,7 @@ public class Client implements ClientModInitializer {
             while (openConfigKeyBind.wasPressed()) {
 //                client.player.sendMessage(Text.of("The keybind unready to work"), true);
                 if(!Main.clothConfig){
-                    client.player.sendMessage(MutableText.of(new TranslatableTextContent(("simplystatus.message.clothConfigNotFound"))), true);
+                    client.player.sendMessage(Text.translatable(("simplystatus.message.clothConfigNotFound")), true);
                     return;
                 }
                 final Screen current = client.currentScreen;

@@ -9,6 +9,7 @@ import ru.simplykel.simplystatus.config.ServerConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 import ru.simplykel.simplystatus.info.Player;
 import ru.simplykel.simplystatus.info.World;
+import ru.simplykel.simplystatus.mods.MusicPlayer;
 
 public class MultiPlayer {
     public MultiPlayer(){
@@ -20,7 +21,10 @@ public class MultiPlayer {
             presence.largeImageKey = World.getAssets();
             presence.largeImageText = World.getName();
         }
-        if(UserConfig.SHOW_AVATAR_PLAYER) {
+        if(UserConfig.VIEW_MUSIC_LISTENER && !new MusicPlayer().paused) {
+            presence.smallImageKey = Client.ASSETS.music;
+            presence.smallImageText = Localization.getLocalization("mod.music", true);
+        } else if(UserConfig.SHOW_AVATAR_PLAYER) {
             presence.smallImageKey = Player.getURLAvatar();
             presence.smallImageText = Player.getName();
         }

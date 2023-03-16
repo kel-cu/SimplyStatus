@@ -49,10 +49,15 @@
   "simplystatus.config.localization.mod.replaymod.state": "Scene",
   "simplystatus.config.localization.mod.replaymod.date_format": "Date format",
 
+  "simplystatus.config.musicplayer": "Music Player",
+  "simplystatus.config.localization.mod.music.menu": "Music listen on main menu",
+  "simplystatus.config.localization.mod.music": "Music listen in small icon",
+  "simplystatus.config.localization.mod.music.format": "Music format",
+  "simplystatus.config.localization.mod.music.format.artist": "Artist format",
+
   "simplystatus.config.localization": "Localization",
   "simplystatus.config.localization.mainmenu": "Main menu",
   "simplystatus.config.localization.mainmenu.state": "Main menu state",
-  "simplystatus.config.localization.mainmenu.state.music": "Music listen on main menu",
   "simplystatus.config.localization.death.one": "Death message #1",
   "simplystatus.config.localization.death.two": "Death message #2",
   "simplystatus.config.localization.death.three": "Death message #3",
@@ -86,7 +91,6 @@
 
   "simplystatus.presence.mainmenu": "%name% in the main menu",
   "simplystatus.presence.mainmenu.state": "Minecraft %version%",
-  "simplystatus.presence.mainmenu.state.music": "🔊 %music%",
   "simplystatus.presence.death.one": "%name% is not alive :(",
   "simplystatus.presence.death.two": "The player is dead",
   "simplystatus.presence.death.three": "The player could not survive in a harsh world",
@@ -120,7 +124,11 @@
   "simplystatus.presence.mod.voice": "%name% is talking",
   "simplystatus.presence.mod.voice.players.one": "%name% talks to %listener%",
   "simplystatus.presence.mod.voice.players.more": "%name% talks to the players",
+
   "simplystatus.presence.mod.music": "%music%",
+  "simplystatus.presence.mod.music.format": "%artist% %title%",
+  "simplystatus.presence.mod.music.format.artist": "%artist_name% -",
+  "simplystatus.presence.mod.music.menu": "🔊 %music%",
 
   "simplystatus.presence.mod.replaymod": "Repeat from %date%",
   "simplystatus.presence.mod.replaymod.state": "%replay_server%",
@@ -128,5 +136,6 @@
 
   "modmenu.simplystatus.github": "GitHub",
   "modmenu.simplystatus.curseforge": "CurseForge",
-  "modmenu.simplystatus.modrinth": "Modrinth"
+  "modmenu.simplystatus.modrinth": "Modrinth",
+  "modmenu.simplystatus.boosty": "Early access on Boosty"
 }

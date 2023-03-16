@@ -1,5 +1,6 @@
 package ru.simplykel.simplystatus;
 
+import info.u_team.music_player.MusicPlayerMod;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import ru.simplykel.simplystatus.config.ModConfig;
@@ -14,6 +15,8 @@ public class Main implements ModInitializer {
     public static DecimalFormat DF = new DecimalFormat("#.#");
     public static boolean clothConfig = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
     public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
+    public static Boolean musicPlayer = FabricLoader.getInstance().getModContainer("musicplayer").isPresent();
+    public static Boolean svc = FabricLoader.getInstance().getModContainer("voicechat").isPresent();
     @Override
     public void onInitialize() {
         if(isDevBuild){

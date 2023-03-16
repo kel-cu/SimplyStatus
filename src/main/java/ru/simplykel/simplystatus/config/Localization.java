@@ -4,11 +4,14 @@ import net.minecraft.SharedConstants;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import org.json.JSONObject;
 import ru.simplykel.simplystatus.Client;
+import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.info.Game;
 import ru.simplykel.simplystatus.info.Player;
+import ru.simplykel.simplystatus.mods.MusicPlayer;
 import ru.simplykel.simplystatus.mods.ReplayMod;
 import ru.simplykel.simplystatus.mixin.MinecraftClientAccess;
 
@@ -26,7 +29,8 @@ public class Localization {
     public static String getCodeLocalization(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         try{
-            return CLIENT.getGame().getSelectedLanguage().getCode();
+//            return CLIENT.getGame().getSelectedLanguage().getCode();
+            return CLIENT.getLanguageManager().getLanguage();
         } catch (Exception e){
             return "en_us";
         }
@@ -57,17 +61,17 @@ public class Localization {
         String text = "";
         try {
             JSONObject JSONLocalization = getJSONFile();
-            if(JSONLocalization.isNull(type)) text = MutableText.of(new TranslatableTextContent("simplystatus.presence."+type)).getString();
+            if(JSONLocalization.isNull(type)) text = Text.translatable("simplystatus.presence." + type).getString();
             else text = JSONLocalization.getString(type);
         } catch (Exception e){
             e.printStackTrace();
-            text = MutableText.of(new TranslatableTextContent("simplystatus.presence."+type)).getString();
+            text = Text.translatable("simplystatus.presence." + type).getString();
         }
         if(parse) return getParsedText(text);
         else return text;
     }
     public static String getLcnDefault(String type){
-        String text = MutableText.of(new TranslatableTextContent("simplystatus.presence."+type)).getString();
+        String text = Text.translatable("simplystatus.presence." + type).getString();;
         return text;
     }
     /**
@@ -109,7 +113,19 @@ public class Localization {
         parsedText = parsedText.replace("%siscord_discriminator%", Client.USER.discriminator);
         parsedText = parsedText.replace("%siscord_id%", Client.USER.userId);
         parsedText = parsedText.replace("%siscord_tag%", Client.USER.username+"#"+Client.USER.discriminator);
-
+        if(Main.musicPlayer){
+            MusicPlayer music = new MusicPlayer();
+            if(!music.paused){
+                parsedText = parsedText.replace("%music%", getLocalization("mod.music.format", false));
+                if(music.artistIsNull) parsedText = parsedText.replace("%artist%", "");
+                else {
+                    parsedText = parsedText.replace("%artist%", getLocalization("mod.music.format.artist", false));
+                    parsedText = parsedText.replace("%artist_name%", music.artist);
+                }
+                if(music.useFile) parsedText = parsedText.replace("%title%", music.file);
+                else parsedText = parsedText.replace("%title%", music.title);
+            }
+        }
         if(CLIENT.world != null && CLIENT.player != null){
             parsedText = parsedText.replace("%item%", Player.getItemName()+"");
             parsedText = parsedText.replace("%scene%", Player.getTypeWorld());

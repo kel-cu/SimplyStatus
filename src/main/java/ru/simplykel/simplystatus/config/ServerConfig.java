@@ -35,7 +35,14 @@ public class ServerConfig {
             e.printStackTrace();
         }
     }
-
+    public static void clear(){
+        SHOW_ADDRESS = false;
+        SHOW_ICON = false;
+        SHOW_CUSTOM_NAME = false;
+        SHOW_NAME_IN_LIST = true;
+        ICON_URL = "";
+        CUSTOM_NAME = "";
+    }
     /**
      * Загрузка файла конфигов
      */
@@ -58,6 +65,7 @@ public class ServerConfig {
             else ICON_URL = "";
         } catch (Exception e){
             e.printStackTrace();
+            clear();
             save();
         }
 

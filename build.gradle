@@ -40,9 +40,13 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     // Support ReplayMod
-    dependencies {
-        modImplementation "maven.modrinth:replaymod:${project.replaymod}"
-    }
+    modImplementation "maven.modrinth:replaymod:${project.replaymod}"
+    // Support Music Player for FabricMC
+    modImplementation files('mods/MP-Fab-2.5.0.18.jar')
+    // Support PlasmoVoice
+    modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
+    // Support Simple Voice chat
+    modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
 }
 
 processResources {

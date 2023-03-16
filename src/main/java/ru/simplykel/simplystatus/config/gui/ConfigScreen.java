@@ -4,6 +4,7 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.MutableText;
+import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
@@ -17,7 +18,7 @@ public class ConfigScreen {
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(currentScreen)
-                .setTitle(MutableText.of(new TranslatableTextContent("simplystatus.name")))
+                .setTitle(Text.translatable("simplystatus.name"))
                 .setTransparentBackground(true)
                 .setSavingRunnable(ConfigScreen::save);
         new MainConfigs().getCategory(builder);
@@ -27,6 +28,9 @@ public class ConfigScreen {
         }
         if(Main.replayMod && UserConfig.VIEW_REPLAY_MOD){
             new ReplayModConfigs().getCategory(builder);
+        }
+        if(Main.musicPlayer && UserConfig.VIEW_MUSIC_LISTENER){
+            new MusicPlayerConfigs().getCategory(builder);
         }
         new AssetsConfigs().getCategory(builder);
         new LocalizationsConfig().getCategory(builder);
