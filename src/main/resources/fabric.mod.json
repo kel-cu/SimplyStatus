@@ -5,7 +5,7 @@
   "name": "SimplyStatus",
   "description": "Simple, customizable Discord game status",
   "authors": [
-    "Simply_Kel"
+    "Im_Kel"
   ],
   "contact": {
     "website": "https://modrinth.com/mod/simplystatus",
@@ -13,7 +13,7 @@
   },
   "license": "MIT",
   "icon": "assets/simplystatus/logo.png",
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "ru.simplykel.simplystatus.Client"

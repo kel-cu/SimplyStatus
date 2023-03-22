@@ -14,7 +14,7 @@
   "simplystatus.config.client.view_player_name": "Показать никнейм",
 
   "simplystatus.config.addons": "Дополнения",
-  "simplystatus.config.addons.view_voice_speak": "Показывать разговор",
+  "simplystatus.config.addons.view_voice_speak": "Показать активность войса",
   "simplystatus.config.addons.view_replay_mod": "ReplayMod",
   "simplystatus.config.addons.view_music_listener": "Показывать музыку",
   "simplystatus.config.addons.use_custom_assets": "Использовать кастомные иконки",
@@ -62,8 +62,8 @@
   "simplystatus.config.localization.death.three": "Сообщение смерти #3",
   "simplystatus.config.localization.item.air": "Воздух",
   "simplystatus.config.localization.item": "Предмет в руке",
-  "simplystatus.config.localization.item.count": "Кол-во",
-  "simplystatus.config.localization.item.count.stack": "Стак",
+  "simplystatus.config.localization.item.format": "Формат предмета",
+  "simplystatus.config.localization.item.format.count": "Формат кол-во предметов",
   "simplystatus.config.localization.unknown.server": "Неизвестный сервер",
   "simplystatus.config.localization.unknown.world": "Неизвестный мир",
   "simplystatus.config.localization.unknown": "what?",
@@ -94,8 +94,8 @@
   "simplystatus.presence.death.three": "Игрок не смог выжить в этом мире",
   "simplystatus.presence.item.air": "Игрок хорошо проводит время",
   "simplystatus.presence.item": "Держит %item%",
-  "simplystatus.presence.item.count": "шт.",
-  "simplystatus.presence.item.count.stack": "стак",
+  "simplystatus.presence.item.format": "«%item_name%» %item_pcs%",
+  "simplystatus.presence.item.format.count": "%item_count%шт.",
   "simplystatus.presence.unknown.server": "неизвестный сервер",
   "simplystatus.presence.unknown.world": "неизвестный мир",
   "simplystatus.presence.unknown": "what?",
@@ -119,7 +119,7 @@
   "simplystatus.presence.world.loading": "Загрузка мира...",
   "simplystatus.presence.player.world.state": "%name% • %scene%",
 
-  "simplystatus.presence.mod.voice": "%name% разговаривает",
+  "simplystatus.presence.mod.voice": "%name% разговаривает c собой",
   "simplystatus.presence.mod.voice.players.one": "%name% разговаривает с %listener%",
   "simplystatus.presence.mod.voice.players.more": "%name% разговаривает с игроками",
 
@@ -132,6 +132,7 @@
   "simplystatus.presence.mod.replaymod.state": "%replay_server%",
   "simplystatus.presence.mod.replaymod.date_format": "dd.MM.yy, hh:mm",
 
+  "modmenu.descriptionTranslation.simplystatus": "Простой, кастомизированный игровой статус Discord",
   "modmenu.simplystatus.github": "GitHub",
   "modmenu.simplystatus.curseforge": "CurseForge",
   "modmenu.simplystatus.modrinth": "Modrinth",

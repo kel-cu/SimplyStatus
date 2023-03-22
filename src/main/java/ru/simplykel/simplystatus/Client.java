@@ -57,11 +57,12 @@ public class Client implements ClientModInitializer {
         LOG.debug("I'm started work UwU");
         STARTED_TIME_GAME = System.currentTimeMillis() / 1000;
         UserConfig.load();
+        Main.useAnotherID = UserConfig.USE_ANOTHER_ID;
         KeyBinding openConfigKeyBind;
         openConfigKeyBind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "simplystatus.key.openConfig",
                 InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_F4, // The keycode of the key
+                GLFW.GLFW_KEY_F7, // The keycode of the key
                 "simplystatus.name"
         ));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

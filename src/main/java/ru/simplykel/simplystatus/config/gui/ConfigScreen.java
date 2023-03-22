@@ -8,6 +8,7 @@ import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
 import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
+import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.ServerConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
@@ -18,7 +19,7 @@ public class ConfigScreen {
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(currentScreen)
-                .setTitle(Text.translatable("simplystatus.name"))
+                .setTitle(Localization.getText("simplystatus.name"))
                 .setTransparentBackground(true)
                 .setSavingRunnable(ConfigScreen::save);
         new MainConfigs().getCategory(builder);

@@ -9,6 +9,9 @@ public class ReplayMod {
     public String name;
     public String address;
     public long date;
+    /**
+     * ReplayMod support
+     */
     public ReplayMod() throws IOException {
         ReplayHandler handler = ReplayModReplay.instance.getReplayHandler();
         name = handler.getReplayFile().getMetaData().getCustomServerName();

@@ -12,8 +12,10 @@ import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.info.Game;
 import ru.simplykel.simplystatus.info.Player;
 import ru.simplykel.simplystatus.mods.MusicPlayer;
+import ru.simplykel.simplystatus.mods.PlasmoVoice;
 import ru.simplykel.simplystatus.mods.ReplayMod;
 import ru.simplykel.simplystatus.mixin.MinecraftClientAccess;
+import ru.simplykel.simplystatus.mods.SVC;
 
 import java.io.File;
 import java.io.IOException;
@@ -61,17 +63,17 @@ public class Localization {
         String text = "";
         try {
             JSONObject JSONLocalization = getJSONFile();
-            if(JSONLocalization.isNull(type)) text = Text.translatable("simplystatus.presence." + type).getString();
+            if(JSONLocalization.isNull(type)) text = getText("simplystatus.presence." + type).getString();
             else text = JSONLocalization.getString(type);
         } catch (Exception e){
             e.printStackTrace();
-            text = Text.translatable("simplystatus.presence." + type).getString();
+            text = getText("simplystatus.presence." + type).getString();
         }
         if(parse) return getParsedText(text);
         else return text;
     }
     public static String getLcnDefault(String type){
-        String text = Text.translatable("simplystatus.presence." + type).getString();;
+        String text = getText("simplystatus.presence." + type).getString();;
         return text;
     }
     /**
@@ -91,6 +93,15 @@ public class Localization {
             e.printStackTrace();
         }
     }
+    /**
+     * Хуета которая может быть спасёт от Mojang которые сука постоянно меняют либо название класса либо еще что-то
+     * @return MutableText
+     * @param key
+     */
+    public static MutableText getText(String key){
+        return Text.translatable(key);
+    }
+
 
     /**
      * Кто прочтёл описание, тот крутой, как мега база PWGood'а на Майншилде
@@ -127,8 +138,19 @@ public class Localization {
             }
         }
         if(CLIENT.world != null && CLIENT.player != null){
-            parsedText = parsedText.replace("%item%", Player.getItemName()+"");
+            parsedText = parsedText.replace("%item%", Localization.getLocalization("item.format", false));
+            parsedText = parsedText.replace("%item_name%", Player.getItemName()+"");
+            if(Player.getItemCount() >= 2) {
+                parsedText = parsedText.replace("%item_pcs%", Localization.getLocalization("item.format.count", false));
+                parsedText = parsedText.replace("%item_count%", Player.getItemCount() + "");
+            } else {
+                parsedText = parsedText.replace("%item_pcs%", "");
+                parsedText = parsedText.replace("%item_count%", "");
+            }
             parsedText = parsedText.replace("%scene%", Player.getTypeWorld());
+            parsedText = parsedText.replace("%x%", Player.getX());
+            parsedText = parsedText.replace("%y%", Player.getY());
+            parsedText = parsedText.replace("%z%", Player.getZ());
             if(!CLIENT.isInSingleplayer() && CLIENT.getCurrentServerEntry() != null){
                 if(ServerConfig.SHOW_ADDRESS){
                     if(ServerConfig.SHOW_CUSTOM_NAME) parsedText = parsedText.replace("%address%", ServerConfig.CUSTOM_NAME);
@@ -158,6 +180,15 @@ public class Localization {
             parsedText = parsedText.replace("%armor%", Player.getArmor());
             parsedText = parsedText.replace("%fps%", MinecraftClientAccess.getCurrentFps()+"FPS");
             parsedText = parsedText.replace("%sps%", MinecraftClientAccess.getCurrentFps()+"FPS");
+            if(Main.isVoiceModsEnable){
+                if(Main.plasmo){
+                    PlasmoVoice mod = new PlasmoVoice();
+                    if(mod.isSpeak) parsedText = parsedText.replace("%listener%", mod.listener);
+                } else if(Main.svc) {
+                    SVC mod = new SVC();
+                    if(mod.isSpeak) parsedText = parsedText.replace("%listener%", mod.listener);
+                }
+            }
         }
         return parsedText;
     }

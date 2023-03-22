@@ -5,6 +5,9 @@ import info.u_team.music_player.lavaplayer.api.audio.IAudioTrackInfo;
 import info.u_team.music_player.lavaplayer.api.queue.ITrackManager;
 import info.u_team.music_player.musicplayer.MusicPlayerManager;
 
+/**
+ * Music Player Fabric support
+ */
 public class MusicPlayer {
     public String artist = "";
     public String title = "";
