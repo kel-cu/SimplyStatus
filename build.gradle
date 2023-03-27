@@ -1,5 +1,6 @@
 plugins {
-    id 'fabric-loom' version '0.12-SNAPSHOT'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'maven-publish'
 }
 
@@ -7,55 +8,45 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://maven.terraformersmc.com/releases" }
-    maven {
-        url 'https://maven.bymartrixx.me'
-    }
+    // Add repositories to retrieve artifacts from in here.
+    // You should only use this when depending on other mods because
+    // Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
+    // See https://docs.gradle.org/current/userguide/declaring_repositories.html
+    // for more information about repositories.
     jcenter()
     maven {
         url = "https://jitpack.io/"
     }
-    maven { url = "https://maven.isxander.dev/releases" }
-    exclusiveContent {
-        forRepository {
-            maven {
-                name = "Modrinth"
-                url = "https://api.modrinth.com/maven"
-            }
-        }
-        filter {
-            includeGroup "maven.modrinth"
-        }
+    maven { url "https://maven.shedaniel.me/" }
+    maven {
+        url = "https://api.modrinth.com/maven"
     }
 }
 
 dependencies {
-
-    // Версии Minecraft and Fabric
+    // To change the versions see the gradle.properties file
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-    // Fabric API и API модов
+    // Fabric API. This is technically optional, but you probably want it anyway.
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_version}") {
+    // Libs
+    include(implementation "org.json:json:${project.JSON}")
+    include(implementation "club.minnced:discord-rpc-release:v3.4.0")
+    include(implementation "com.github.MinnDevelopment:java-discord-rpc:v2.0.2")
+    modImplementation "maven.modrinth:modmenu:${project.modmenu_version}"
+    modApi("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
-    // Прочея херня для работы с конфигами и Discord RPC
-    include(implementation('club.minnced:discord-rpc-release:v3.4.0'))
-    include(implementation("com.github.MinnDevelopment:java-discord-rpc:v2.0.2"))
-    // Для библиотеки org.json внутри самого мода
-    testImplementation 'junit:junit:4.13.1'
-    testImplementation 'com.jayway.jsonpath:json-path:2.1.0'
-    testImplementation 'org.mockito:mockito-core:1.9.5'
-    // Моды
-    modImplementation "maven.modrinth:replaymod:1.19.1-2.6.8" // ReplayMod
-    modImplementation "maven.modrinth:plasmo-voice:fabric-1.19.x-1.2.19" // Plasmo Voice
-    modImplementation "maven.modrinth:simple-voice-chat:fabric-1.19.2-2.3.12" // Simple Voice Chat
-    include(implementation(files('libs/music_player-fabric-1.19.2-2.4.1.9.jar'))) // Music Player
-    modImplementation "maven.modrinth:modmenu:4.1.0" // ModMenu
-    // Утилиты
+    // Support ReplayMod
+    modImplementation "maven.modrinth:replaymod:${project.replaymod}"
+    // Support Music Player for FabricMC
+    modImplementation files('mods/MP-Fab-2.5.0.18.jar')
+    // Support PlasmoVoice
+    modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
+    // Support Simple Voice chat
+    modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
 }
 
 processResources {
@@ -69,6 +60,10 @@ processResources {
 
 def targetJavaVersion = 17
 tasks.withType(JavaCompile).configureEach {
+    // ensure that the encoding is set to UTF-8, no matter what the system default is
+    // this fixes some edge cases with special characters not displaying correctly
+    // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
+    // If Javadoc is generated, this must be specified in that task too.
     it.options.encoding = "UTF-8"
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         it.options.release = targetJavaVersion
@@ -81,6 +76,9 @@ java {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
     archivesBaseName = project.archives_base_name
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
     withSourcesJar()
 }
 
@@ -90,18 +88,19 @@ jar {
     }
 }
 
+// configure the maven publication
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            artifact(remapJar) {
-                builtBy remapJar
-            }
-            artifact(sourcesJar) {
-                builtBy remapSourcesJar
-            }
+            from components.java
         }
     }
 
+    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
+        // Add repositories to publish to here.
+        // Notice: This block does NOT have the same function as the block in the top level.
+        // The repositories here will be used for publishing your artifact, not for
+        // retrieving dependencies.
     }
 }

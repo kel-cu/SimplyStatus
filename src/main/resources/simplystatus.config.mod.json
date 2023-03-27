@@ -1,0 +1,42 @@
+{
+  "baseID": "903288390072557648",
+  "mineID": "1004398909810016276",
+  "assetsDefault": {
+    "logo": "logo",
+
+    "day": "day_update_2",
+    "night": "nigth_update_2",
+    "morning": "morning_update_2",
+    "evening": "evening_update_2",
+
+    "world": "overworld",
+    "world_nether": "nether",
+    "world_the_end": "end",
+
+    "music": "music",
+    "replaymod": "replaymod_logo",
+    "voice": "voice",
+
+    "unknown_world": "unknown_world",
+    "unknown": "unknown"
+  },
+  "bedrockAssets": {
+    "logo": "logo_be",
+
+    "day": "day_be",
+    "night": "night_be",
+    "morning": "morning_be",
+    "evening": "evening_be",
+
+    "world": "overworld",
+    "world_nether": "nether",
+    "world_the_end": "end",
+
+    "music": "music",
+    "replaymod": "replaymod_logo",
+    "voice": "voice",
+
+    "unknown_world": "unknown_world",
+    "unknown": "unknown"
+  }
+}
