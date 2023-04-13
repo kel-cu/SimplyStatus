@@ -5,7 +5,6 @@ import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import org.json.JSONObject;
 import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;

@@ -13,6 +13,9 @@
   "simplystatus.config.client.view_item_off_hand": "Show item on offhand",
   "simplystatus.config.client.view_statistics": "Show statistics",
   "simplystatus.config.client.view_player_name": "Show player name",
+  "simplystatus.config.client.show_items": "Show items",
+  "simplystatus.config.client.enable_time_cycle": "Turn on time display",
+  "simplystatus.config.client.enable_world": "Turn on the world display",
 
   "simplystatus.config.addons": "Addons",
   "simplystatus.config.addons.view_voice_speak": "Show activity voice",

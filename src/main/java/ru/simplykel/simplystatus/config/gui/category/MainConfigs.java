@@ -3,13 +3,9 @@ package ru.simplykel.simplystatus.config.gui.category;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
-
 public class MainConfigs {
     public ConfigCategory getCategory(ConfigBuilder builder){
         ConfigCategory category = builder.getOrCreateCategory(Localization.getText("simplystatus.config.client"));
@@ -55,6 +51,21 @@ public class MainConfigs {
         category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.view_player_name"), UserConfig.VIEW_PLAYER_NAME)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> UserConfig.VIEW_PLAYER_NAME = newValue)
+                .build());
+        // 1.7.1
+        //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.show_items"), UserConfig.SHOW_ITEMS)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> UserConfig.SHOW_ITEMS = newValue)
+                .build());
+        //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_time_cycle"), UserConfig.ENABLE_TIME_CYCLE)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> UserConfig.ENABLE_TIME_CYCLE = newValue)
+                .build());
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_world"), UserConfig.ENABLE_WORLD)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> UserConfig.ENABLE_WORLD = newValue)
                 .build());
 
         return category;

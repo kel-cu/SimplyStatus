@@ -1,10 +1,7 @@
 package ru.simplykel.simplystatus.config;
 
-import com.mojang.authlib.yggdrasil.response.User;
 import net.minecraft.client.MinecraftClient;
 import org.json.JSONObject;
-import ru.simplykel.simplystatus.Client;
-import ru.simplykel.simplystatus.Main;
 
 import java.io.IOException;
 import java.nio.file.Files;

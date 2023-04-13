@@ -1,8 +1,6 @@
 package ru.simplykel.simplystatus.presences.multiplayer;
 
 import club.minnced.discord.rpc.DiscordRichPresence;
-import com.mojang.authlib.yggdrasil.response.User;
-import org.apache.logging.log4j.core.jmx.Server;
 import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ServerConfig;
@@ -16,11 +14,13 @@ public class MultiPlayer {
         DiscordRichPresence presence = new DiscordRichPresence();
         ServerConfig.load();
         String world = World.getCodeName();
-        if(world.endsWith("overworld")) World.getTime(presence);
-        else {
-            presence.largeImageKey = World.getAssets();
-            presence.largeImageText = World.getName();
-        }
+        if(UserConfig.ENABLE_WORLD){
+            if(world.endsWith("overworld") && UserConfig.ENABLE_TIME_CYCLE) World.getTime(presence);
+            else {
+                presence.largeImageKey = World.getAssets();
+                presence.largeImageText = World.getName();
+            }
+        } else presence.largeImageKey = Client.ASSETS.logo;
         if(UserConfig.VIEW_MUSIC_LISTENER && !new MusicPlayer().paused) {
             presence.smallImageKey = Client.ASSETS.music;
             presence.smallImageText = Localization.getLocalization("mod.music", true);

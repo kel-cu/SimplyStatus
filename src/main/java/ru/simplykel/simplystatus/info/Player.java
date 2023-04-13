@@ -71,7 +71,7 @@ public class Player {
             } else {
                 return lastTextDeath;
             }
-        } else if(getItemName() == null){
+        } else if(!UserConfig.SHOW_ITEMS || (getItemName() == null && UserConfig.SHOW_ITEMS)){
             if(lastMessageDeath) lastMessageDeath = false;
             if(UserConfig.VIEW_STATISTICS){
                 if(CLIENT.player.isSleeping()) return Localization.getLocalization("player.sleep", true);

@@ -21,6 +21,10 @@ public class UserConfig {
     public static boolean VIEW_MUSIC_LISTENER = false;
     public static boolean USE_CUSTOM_ASSETS = false;
     public static boolean USE_ANOTHER_ID = false;
+    // 1.7.1
+    public static boolean SHOW_ITEMS = true;
+    public static boolean ENABLE_TIME_CYCLE = true;
+    public static boolean ENABLE_WORLD = true;
 
     /**
      * Сохранение конфигурации
@@ -41,30 +45,16 @@ public class UserConfig {
                 .put("VIEW_REPLAY_MOD_SERVER_NAME", VIEW_REPLAY_MOD_SERVER_NAME)
                 .put("VIEW_MUSIC_LISTENER", VIEW_MUSIC_LISTENER)
                 .put("USE_CUSTOM_ASSETS", USE_CUSTOM_ASSETS)
-                .put("USE_ANOTHER_ID", USE_ANOTHER_ID);
+                .put("USE_ANOTHER_ID", USE_ANOTHER_ID)
+                .put("SHOW_ITEMS", SHOW_ITEMS)
+                .put("ENABLE_TIME_CYCLE", ENABLE_TIME_CYCLE)
+                .put("ENABLE_WORLD", ENABLE_WORLD);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    public static String getStringConfigs(){
-        JSONObject jsonConfig = new JSONObject();
-        jsonConfig.put("ENABLE_RPC", ENABLE_RPC)
-                .put("ENABLE_BEDROCK_ASSETS", ENABLE_BEDROCK_ASSETS)
-                .put("SHOW_AVATAR_PLAYER", SHOW_AVATAR_PLAYER)
-                .put("SHOW_GAME_STARTED", SHOW_GAME_STARTED)
-                .put("VIEW_ITEM_OFF_HAND", VIEW_ITEM_OFF_HAND)
-                .put("VIEW_STATISTICS", VIEW_STATISTICS)
-                .put("VIEW_PLAYER_NAME", VIEW_PLAYER_NAME)
-                .put("VIEW_VOICE_SPEAK", VIEW_VOICE_SPEAK)
-                .put("VIEW_REPLAY_MOD", VIEW_REPLAY_MOD)
-                .put("VIEW_REPLAY_MOD_SERVER_NAME", VIEW_REPLAY_MOD_SERVER_NAME)
-                .put("VIEW_MUSIC_LISTENER", VIEW_MUSIC_LISTENER)
-                .put("USE_CUSTOM_ASSETS", USE_CUSTOM_ASSETS)
-                .put("USE_ANOTHER_ID", USE_ANOTHER_ID);
-        return jsonConfig.toString();
     }
 
     /**
@@ -104,6 +94,13 @@ public class UserConfig {
             if(!jsonConfig.isNull("USE_ANOTHER_ID")) USE_ANOTHER_ID = jsonConfig.getBoolean("USE_ANOTHER_ID");
             else USE_ANOTHER_ID = false;
 
+
+            if(!jsonConfig.isNull("SHOW_ITEMS")) SHOW_ITEMS = jsonConfig.getBoolean("SHOW_ITEMS");
+            else SHOW_ITEMS = true;
+            if(!jsonConfig.isNull("ENABLE_TIME_CYCLE")) ENABLE_TIME_CYCLE = jsonConfig.getBoolean("ENABLE_TIME_CYCLE");
+            else ENABLE_TIME_CYCLE = true;
+            if(!jsonConfig.isNull("ENABLE_WORLD")) ENABLE_WORLD = jsonConfig.getBoolean("ENABLE_WORLD");
+            else ENABLE_WORLD = true;
 
         } catch (Exception e){
             e.printStackTrace();

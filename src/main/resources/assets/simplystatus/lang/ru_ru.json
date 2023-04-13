@@ -12,6 +12,9 @@
   "simplystatus.config.client.view_item_off_hand": "Показать предмет второй руки",
   "simplystatus.config.client.view_statistics": "Показывать статистику",
   "simplystatus.config.client.view_player_name": "Показать никнейм",
+  "simplystatus.config.client.show_items": "Показывать предметы",
+  "simplystatus.config.client.enable_time_cycle": "Включить показ времени",
+  "simplystatus.config.client.enable_world": "Включить показ мира",
 
   "simplystatus.config.addons": "Дополнения",
   "simplystatus.config.addons.view_voice_speak": "Показать активность войса",
