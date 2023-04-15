@@ -2,19 +2,24 @@ package ru.simplykel.simplystatus;
 
 import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
+import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordUser;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
+import net.minecraft.client.render.debug.GameEventDebugRenderer;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.world.event.GameEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -31,6 +36,7 @@ import ru.simplykel.simplystatus.presences.multiplayer.Disconnect;
 import ru.simplykel.simplystatus.presences.multiplayer.MultiPlayer;
 import ru.simplykel.simplystatus.presences.singleplayer.Loading;
 import ru.simplykel.simplystatus.presences.singleplayer.SinglePlayer;
+import su.plo.lib.api.event.MinecraftGlobalEvent;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -48,6 +54,7 @@ public class Client implements ClientModInitializer {
     public static AssetsConfig ASSETS = ModConfig.defaultAssets;
     public static DiscordUser USER;
     private static Timer TIMER = new Timer();
+    private String lastException;
     @Override
     public void onInitializeClient() {
         if(!Main.isLoadingConfigs) {
@@ -77,6 +84,10 @@ public class Client implements ClientModInitializer {
                 Screen configScreen = ConfigScreen.buildScreen(current);
                 client.setScreen(configScreen);
             }
+        });
+        ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
+            Client.LOG.info("Bay =-=");
+            LIB.Discord_Shutdown();
         });
         if(UserConfig.USE_ANOTHER_ID) APPLICATION_ID = ModConfig.mineID;
         else APPLICATION_ID = ModConfig.baseID;
@@ -109,10 +120,23 @@ public class Client implements ClientModInitializer {
      */
     private void start(){
         TIMER.scheduleAtFixedRate(new TimerTask() {
-
             @Override
             public void run() {
-                updatePresence();
+                try {
+                    updatePresence();
+                    if(lastException != null) lastException = null;
+                } catch(Exception ex){
+                    if(lastException == null || !lastException.equals(ex.getMessage())){
+                        ex.printStackTrace();
+                        DiscordRichPresence presence = new DiscordRichPresence();
+                        presence.largeImageKey = "unknown_world";
+                        presence.details = "There was an error, look in the console";
+                        presence.state = "And report the bug on GitHub";
+                        LIB.Discord_UpdatePresence(presence);
+//                        LOG.info(lastException);
+                        lastException = ex.getMessage();
+                    }
+                }
             }
         }, 2500, 2500);
     }
