@@ -42,7 +42,7 @@ dependencies {
     // Support ReplayMod
     modImplementation "maven.modrinth:replaymod:${project.replaymod}"
     // Support Music Player for FabricMC
-    modImplementation files('mods/MP-Fab-2.5.0.18.jar')
+    modImplementation files('mods/MP-Fab-2.6.0.206.jar')
     // Support PlasmoVoice
     modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
     // Support Simple Voice chat

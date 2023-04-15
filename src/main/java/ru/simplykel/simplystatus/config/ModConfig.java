@@ -1,6 +1,7 @@
 package ru.simplykel.simplystatus.config;
 
 import org.apache.commons.io.IOUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.InputStream;
@@ -19,8 +20,14 @@ public class ModConfig {
      * default иконки для GUI конфигов
      */
     public static AssetsConfig defaultAssets;
-    public static AssetsConfig bedrockAssets;
-
+    /**
+    *
+     */
+    public static String[] assetsList;
+    /**
+     *
+     */
+    public static JSONObject assets;
     /**
      * Использование default конфигов мода, чтобы не указывать в коде и не искать потом их везде
      * + Облеглчение работы ребят которые делают кастомы
@@ -35,11 +42,23 @@ public class ModConfig {
         } else baseID = config.getString("baseID");
         if(config.isNull("mineID")) mineID = null;
         else mineID = config.getString("mineID");
-        if(config.isNull("assetsDefault")) {
-            throw new Exception("Не найден defaultAssets, который требуется для запуска мода!");
-        } else defaultAssets = new AssetsConfig(config.getJSONObject("assetsDefault"), true, false);
-        if(config.isNull("bedrockAssets")) bedrockAssets = null;
-        else bedrockAssets = new AssetsConfig(config.getJSONObject("bedrockAssets"), true, true);
+        if(config.isNull("assets")) throw new Exception("Не найдены стандартные иконки, который требуется для запуска мода!");
+        else assets = config.getJSONObject("assets");
+        if(config.getJSONObject("assets").isNull("default")) {
+            throw new Exception("Не найдены стандартные иконки, который требуется для запуска мода!");
+        } else defaultAssets = new AssetsConfig(config.getJSONObject("assets").getJSONObject("default"), true);
+        if(config.isNull("assets_list")) assetsList = new String[]{"Default"};
+        else assetsList = jsonArrayToStringArray(config.getJSONArray("assets_list"));
         MOD_CONFIG_STRING = config.toString();
     }
+    public String[] jsonArrayToStringArray(JSONArray jsonArray) {
+        int arraySize = jsonArray.length();
+        String[] stringArray = new String[arraySize];
+
+        for(int i=0; i<arraySize; i++) {
+            stringArray[i] = jsonArray.getString(i);
+        }
+
+        return stringArray;
+    };
 }

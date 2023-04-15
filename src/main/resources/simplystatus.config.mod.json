@@ -1,42 +1,108 @@
 {
   "baseID": "903288390072557648",
   "mineID": "1004398909810016276",
-  "assetsDefault": {
-    "logo": "logo",
+  "assets_list": [
+    "Default",
+    "Bedrock",
+    "Old",
+    "Cringe",
+    "CraftPresence"
+  ],
+  "assets": {
+    "default": {
+      "logo": "logo",
 
-    "day": "day_update_2",
-    "night": "nigth_update_2",
-    "morning": "morning_update_2",
-    "evening": "evening_update_2",
+      "day": "day_update_2",
+      "night": "nigth_update_2",
+      "morning": "morning_update_2",
+      "evening": "evening_update_2",
 
-    "world": "overworld",
-    "world_nether": "nether",
-    "world_the_end": "end",
+      "world": "overworld",
+      "world_nether": "nether",
+      "world_the_end": "end",
 
-    "music": "music",
-    "replaymod": "replaymod_logo",
-    "voice": "voice",
+      "music": "music",
+      "replaymod": "replaymod_logo",
+      "voice": "voice",
 
-    "unknown_world": "unknown_world",
-    "unknown": "unknown"
-  },
-  "bedrockAssets": {
-    "logo": "logo_be",
+      "unknown_world": "unknown_world",
+      "unknown": "unknown"
+    },
+    "bedrock": {
+      "logo": "logo_be",
 
-    "day": "day_be",
-    "night": "night_be",
-    "morning": "morning_be",
-    "evening": "evening_be",
+      "day": "day_be",
+      "night": "night_be",
+      "morning": "morning_be",
+      "evening": "evening_be",
 
-    "world": "overworld",
-    "world_nether": "nether",
-    "world_the_end": "end",
+      "world": "overworld",
+      "world_nether": "nether",
+      "world_the_end": "end",
 
-    "music": "music",
-    "replaymod": "replaymod_logo",
-    "voice": "voice",
+      "music": "music",
+      "replaymod": "replaymod_logo",
+      "voice": "voice",
 
-    "unknown_world": "unknown_world",
-    "unknown": "unknown"
+      "unknown_world": "unknown_world",
+      "unknown": "unknown"
+    },
+    "old": {
+      "logo": "logo",
+
+      "day": "https://assets.simplykel.ru/simplystatus/old/day.png",
+      "night": "https://assets.simplykel.ru/simplystatus/old/night.png",
+      "morning": "https://assets.simplykel.ru/simplystatus/old/morning.png",
+      "evening": "https://assets.simplykel.ru/simplystatus/old/evening.png",
+
+      "world": "overworld",
+      "world_nether": "nether",
+      "world_the_end": "end",
+
+      "music": "music",
+      "replaymod": "replaymod_logo",
+      "voice": "voice",
+
+      "unknown_world": "unknown_world",
+      "unknown": "unknown"
+    },
+    "cringe": {
+      "logo": "logo",
+
+      "day": "day_update_2",
+      "night": "nigth_update_2",
+      "morning": "morning_update_2",
+      "evening": "evening_update_2",
+
+      "world": "https://assets.simplykel.ru/simplystatus/cringe/overworld.png",
+      "world_nether": "https://assets.simplykel.ru/simplystatus/cringe/nether.png",
+      "world_the_end": "https://assets.simplykel.ru/simplystatus/cringe/end.png",
+
+      "music": "music",
+      "replaymod": "replaymod_logo",
+      "voice": "voice",
+
+      "unknown_world": "unknown_world",
+      "unknown": "unknown"
+    },
+    "craftpresence": {
+      "logo": "overworld",
+
+      "day": "https://assets.simplykel.ru/simplystatus/craftpresence/day.png",
+      "night": "https://assets.simplykel.ru/simplystatus/craftpresence/night.png",
+      "morning": "https://assets.simplykel.ru/simplystatus/craftpresence/morning.png",
+      "evening": "https://assets.simplykel.ru/simplystatus/craftpresence/evening.png",
+
+      "world": "https://assets.simplykel.ru/simplystatus/craftpresence/overworld.png",
+      "world_nether": "https://assets.simplykel.ru/simplystatus/craftpresence/nether.png",
+      "world_the_end": "https://assets.simplykel.ru/simplystatus/craftpresence/end.png",
+
+      "music": "music",
+      "replaymod": "replaymod_logo",
+      "voice": "voice",
+
+      "unknown_world": "https://assets.simplykel.ru/simplystatus/craftpresence/unknown.png",
+      "unknown": "https://assets.simplykel.ru/simplystatus/craftpresence/unknown.png"
+    }
   }
 }

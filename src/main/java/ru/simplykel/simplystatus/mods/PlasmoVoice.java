@@ -1,7 +1,8 @@
 package ru.simplykel.simplystatus.mods;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
-import su.plo.voice.client.VoiceClient;
+import su.plo.voice.client.ModVoiceClient;
+import su.plo.voice.client.connection.ModClientChannelHandler;
 /**
  * PlasmoVoice support
  */
@@ -11,9 +12,10 @@ public class PlasmoVoice {
     public boolean isOnePlayer = false;
     public String listener = "";
     public PlasmoVoice(){
-        if (VoiceClient.isConnected()) {
+
+        if (ModVoiceClient.INSTANCE.getUdpClientManager().isConnected()) {
             MinecraftClient CLIENT = MinecraftClient.getInstance();
-            if (VoiceClient.isSpeaking()) {
+            if (ModVoiceClient.INSTANCE.getActivationManager().getParentActivation().get().isActive()) {
                 isSpeak = true;
                 if (CLIENT.world.getPlayers().size() == 1) {
                     isSelfTalk = true;

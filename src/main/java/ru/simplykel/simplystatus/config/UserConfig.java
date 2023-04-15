@@ -2,6 +2,7 @@ package ru.simplykel.simplystatus.config;
 
 import net.minecraft.client.MinecraftClient;
 import org.json.JSONObject;
+import ru.simplykel.simplystatus.Main;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -9,7 +10,7 @@ import java.nio.file.Path;
 
 public class UserConfig {
     public static boolean ENABLE_RPC = true;
-    public static boolean ENABLE_BEDROCK_ASSETS = false;
+    public static String USE_ASSETS = ModConfig.assetsList[0];
     public static boolean SHOW_GAME_STARTED = true;
     public static boolean SHOW_AVATAR_PLAYER = true;
     public static boolean VIEW_ITEM_OFF_HAND = false;
@@ -34,7 +35,7 @@ public class UserConfig {
         final Path configFile = mc.runDirectory.toPath().resolve("SimplyStatus/config.json");
         JSONObject jsonConfig = new JSONObject();
         jsonConfig.put("ENABLE_RPC", ENABLE_RPC)
-                .put("ENABLE_BEDROCK_ASSETS", ENABLE_BEDROCK_ASSETS)
+                .put("USE_ASSETS", USE_ASSETS)
                 .put("SHOW_AVATAR_PLAYER", SHOW_AVATAR_PLAYER)
                 .put("SHOW_GAME_STARTED", SHOW_GAME_STARTED)
                 .put("VIEW_ITEM_OFF_HAND", VIEW_ITEM_OFF_HAND)
@@ -67,8 +68,8 @@ public class UserConfig {
             JSONObject jsonConfig = new JSONObject(Files.readString(configFile));
             if(!jsonConfig.isNull("ENABLE_RPC")) ENABLE_RPC = jsonConfig.getBoolean("ENABLE_RPC");
             else ENABLE_RPC = true;
-            if(!jsonConfig.isNull("ENABLE_BEDROCK_ASSETS")) ENABLE_BEDROCK_ASSETS = jsonConfig.getBoolean("ENABLE_BEDROCK_ASSETS");
-            else ENABLE_BEDROCK_ASSETS = false;
+            if(!jsonConfig.isNull("USE_ASSETS")) USE_ASSETS = jsonConfig.getString("USE_ASSETS");
+            else USE_ASSETS = ModConfig.assetsList[0];
             if(!jsonConfig.isNull("SHOW_AVATAR_PLAYER")) SHOW_AVATAR_PLAYER = jsonConfig.getBoolean("SHOW_AVATAR_PLAYER");
             else SHOW_AVATAR_PLAYER = true;
             if(!jsonConfig.isNull("SHOW_GAME_STARTED")) SHOW_GAME_STARTED = jsonConfig.getBoolean("SHOW_GAME_STARTED");
@@ -76,16 +77,16 @@ public class UserConfig {
 
             if(!jsonConfig.isNull("VIEW_ITEM_OFF_HAND")) VIEW_ITEM_OFF_HAND = jsonConfig.getBoolean("VIEW_ITEM_OFF_HAND");
             else VIEW_ITEM_OFF_HAND = false;
-            if(!jsonConfig.isNull("VIEW_MUSIC_LISTENER")) VIEW_MUSIC_LISTENER = jsonConfig.getBoolean("VIEW_MUSIC_LISTENER");
+            if(!jsonConfig.isNull("VIEW_MUSIC_LISTENER") && Main.musicPlayer) VIEW_MUSIC_LISTENER = jsonConfig.getBoolean("VIEW_MUSIC_LISTENER");
             else VIEW_MUSIC_LISTENER = false;
             if(!jsonConfig.isNull("VIEW_STATISTICS")) VIEW_STATISTICS = jsonConfig.getBoolean("VIEW_STATISTICS");
             else VIEW_STATISTICS = true;
             if(!jsonConfig.isNull("VIEW_PLAYER_NAME")) VIEW_PLAYER_NAME = jsonConfig.getBoolean("VIEW_PLAYER_NAME");
             else VIEW_PLAYER_NAME = true;
-            if(!jsonConfig.isNull("VIEW_VOICE_SPEAK")) VIEW_VOICE_SPEAK = jsonConfig.getBoolean("VIEW_VOICE_SPEAK");
+            if(!jsonConfig.isNull("VIEW_VOICE_SPEAK")  && Main.isVoiceModsEnable) VIEW_VOICE_SPEAK = jsonConfig.getBoolean("VIEW_VOICE_SPEAK");
             else VIEW_VOICE_SPEAK = false;
-            if(!jsonConfig.isNull("VIEW_REPLAY_MOD")) VIEW_REPLAY_MOD = jsonConfig.getBoolean("VIEW_REPLAY_MOD");
-            else VIEW_REPLAY_MOD = true;
+            if(!jsonConfig.isNull("VIEW_REPLAY_MOD") && Main.replayMod) VIEW_REPLAY_MOD = jsonConfig.getBoolean("VIEW_REPLAY_MOD");
+            else VIEW_REPLAY_MOD = false;
             if(!jsonConfig.isNull("VIEW_REPLAY_MOD_SERVER_NAME")) VIEW_REPLAY_MOD_SERVER_NAME = jsonConfig.getBoolean("VIEW_REPLAY_MOD_SERVER_NAME");
             else VIEW_REPLAY_MOD_SERVER_NAME = false;
 

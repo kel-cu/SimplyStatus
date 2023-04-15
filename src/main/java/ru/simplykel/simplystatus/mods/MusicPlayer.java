@@ -1,6 +1,5 @@
 package ru.simplykel.simplystatus.mods;
 
-import info.u_team.music_player.lavaplayer.api.audio.IAudioTrack;
 import info.u_team.music_player.lavaplayer.api.audio.IAudioTrackInfo;
 import info.u_team.music_player.lavaplayer.api.queue.ITrackManager;
 import info.u_team.music_player.musicplayer.MusicPlayerManager;
@@ -16,6 +15,10 @@ public class MusicPlayer {
     public Boolean artistIsNull = true;
     public Boolean paused = false;
     public MusicPlayer(){
+        if(MusicPlayerManager.getPlayer() == null){
+            paused = true;
+            return;
+        }
         ITrackManager manager = MusicPlayerManager.getPlayer().getTrackManager();
         if (manager.isPaused() || manager.getCurrentTrack() == null) {
             paused = true;

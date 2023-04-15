@@ -123,7 +123,7 @@ public class Client implements ClientModInitializer {
     private void updatePresence(){
         if(!CONNECTED_DISCORD) return;
         UserConfig.load();
-        ASSETS = new AssetsConfig(UserConfig.ENABLE_BEDROCK_ASSETS);
+        ASSETS = new AssetsConfig();
         if(UserConfig.USE_CUSTOM_ASSETS) ASSETS.loadUserAssets();
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         if(UserConfig.ENABLE_RPC){

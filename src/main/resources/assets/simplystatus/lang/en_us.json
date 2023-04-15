@@ -7,7 +7,7 @@
   "simplystatus.config.client": "Client",
   "simplystatus.config.client.enable_rpc": "Enable RPC",
   "simplystatus.config.client.use_minecraft_id": "Change title to Minecraft",
-  "simplystatus.config.client.enable_bedrock_assets": "Enable Bedrock Assets",
+  "simplystatus.config.client.assets": "Use Assets",
   "simplystatus.config.client.show_avatar_player": "Show avatar player",
   "simplystatus.config.client.show_game_started": "Show game started",
   "simplystatus.config.client.view_item_off_hand": "Show item on offhand",
@@ -124,9 +124,9 @@
   "simplystatus.presence.world.loading": "Loading the World",
   "simplystatus.presence.player.world.state": "%name% • %scene%",
 
-  "simplystatus.presence.mod.voice": "%name% talks to himself",
-  "simplystatus.presence.mod.voice.players.one": "%name% talks to %listener%",
-  "simplystatus.presence.mod.voice.players.more": "%name% talks to the players",
+  "simplystatus.presence.mod.voice": "%discord_name% talks to himself",
+  "simplystatus.presence.mod.voice.players.one": "%discord_name% talks to %listener%",
+  "simplystatus.presence.mod.voice.players.more": "%discord_name% talks to the players",
 
   "simplystatus.presence.mod.music": "%music%",
   "simplystatus.presence.mod.music.format": "%artist% %title%",

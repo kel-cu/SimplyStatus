@@ -70,7 +70,7 @@ public class AssetsConfig {
         try {
             JSONObject jsonConfig = new JSONObject();
             if(assetsFile.toFile().exists()) jsonConfig = new JSONObject(Files.readString(assetsFile));
-            AssetsConfig assets = new AssetsConfig(jsonConfig, false, UserConfig.ENABLE_BEDROCK_ASSETS);
+            AssetsConfig assets = new AssetsConfig(jsonConfig, false);
             logo = assets.logo;
             day = assets.day;
             night = assets.night;
@@ -125,46 +125,27 @@ public class AssetsConfig {
 //            e.printStackTrace();
 //        }
     }
-    public AssetsConfig(boolean isUseBedrock){
-        if(isUseBedrock && ModConfig.bedrockAssets != null){
-            logo = ModConfig.bedrockAssets.logo;
-            day = ModConfig.bedrockAssets.day;
-            night = ModConfig.bedrockAssets.night;
-            morning = ModConfig.bedrockAssets.morning;
-            evening = ModConfig.bedrockAssets.evening;
+    public AssetsConfig(){
+        AssetsConfig assets = new AssetsConfig(ModConfig.assets.getJSONObject(UserConfig.USE_ASSETS.toLowerCase()), false);
+            logo = assets.logo;
+            day = assets.day;
+            night = assets.night;
+            morning = assets.morning;
+            evening = assets.evening;
 
-            world = ModConfig.bedrockAssets.world;
-            world_nether = ModConfig.bedrockAssets.world_nether;
-            world_the_end = ModConfig.bedrockAssets.world_the_end;
+            world = assets.world;
+            world_nether = assets.world_nether;
+            world_the_end = assets.world_the_end;
 
-            replaymod = ModConfig.bedrockAssets.replaymod;
-            voice = ModConfig.bedrockAssets.voice;
-            music = ModConfig.bedrockAssets.music;
+            replaymod = assets.replaymod;
+            voice = assets.voice;
+            music = assets.music;
 
-            unknown_world = ModConfig.bedrockAssets.unknown_world;
-            unknown = ModConfig.bedrockAssets.unknown;
-        } else {
-            logo = ModConfig.defaultAssets.logo;
-            day = ModConfig.defaultAssets.day;
-            night = ModConfig.defaultAssets.night;
-            morning = ModConfig.defaultAssets.morning;
-            evening = ModConfig.defaultAssets.evening;
-
-            world = ModConfig.defaultAssets.world;
-            world_nether = ModConfig.defaultAssets.world_nether;
-            world_the_end = ModConfig.defaultAssets.world_the_end;
-
-            replaymod = ModConfig.defaultAssets.replaymod;
-            voice = ModConfig.defaultAssets.voice;
-            music = ModConfig.defaultAssets.music;
-
-            unknown_world = ModConfig.defaultAssets.unknown_world;
-            unknown = ModConfig.defaultAssets.unknown;
-        }
+            unknown_world = assets.unknown_world;
+            unknown = assets.unknown;
     }
-    public AssetsConfig(JSONObject jsonAssets, boolean isLoadingResources, boolean isBedrockIcons){
+    public AssetsConfig(JSONObject jsonAssets, boolean isLoadingResources){
         AssetsConfig assets = ModConfig.defaultAssets;
-        if(isBedrockIcons) assets = ModConfig.bedrockAssets;
         if(jsonAssets.isNull("logo")) logo = nullAsset(isLoadingResources, assets.logo);
         else logo = jsonAssets.getString("logo");
 

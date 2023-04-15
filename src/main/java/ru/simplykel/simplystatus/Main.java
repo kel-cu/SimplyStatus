@@ -18,7 +18,7 @@ public class Main implements ModInitializer {
     public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
     public static Boolean musicPlayer = FabricLoader.getInstance().getModContainer("musicplayer").isPresent();
     public static Boolean svc = FabricLoader.getInstance().getModContainer("voicechat").isPresent();
-    public static Boolean plasmo = FabricLoader.getInstance().getModContainer("plasmo_voice").isPresent();
+    public static Boolean plasmo = FabricLoader.getInstance().getModContainer("plasmovoice").isPresent();
     public static Boolean isVoiceModsEnable = (svc || plasmo);
     @Override
     public void onInitialize() {

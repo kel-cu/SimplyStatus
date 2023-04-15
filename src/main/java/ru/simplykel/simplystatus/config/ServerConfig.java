@@ -62,7 +62,7 @@ public class ServerConfig {
             if(!jsonConfig.isNull("SHOW_ICON")) SHOW_ICON = jsonConfig.getBoolean("SHOW_ICON");
             else SHOW_ICON = false;
             if(!jsonConfig.isNull("ICON_URL")) ICON_URL = jsonConfig.getString("ICON_URL");
-            else ICON_URL = "";
+            else ICON_URL = "https://api.mcsrvstat.us/icon/"+CLIENT.getCurrentServerEntry().address;
         } catch (Exception e){
             e.printStackTrace();
             clear();

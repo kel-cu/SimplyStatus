@@ -3,9 +3,16 @@ package ru.simplykel.simplystatus.config.gui.category;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import ru.simplykel.simplystatus.Client;
+import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
+
+import java.util.List;
+
+import static com.ibm.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 public class MainConfigs {
     public ConfigCategory getCategory(ConfigBuilder builder){
         ConfigCategory category = builder.getOrCreateCategory(Localization.getText("simplystatus.config.client"));
@@ -21,12 +28,10 @@ public class MainConfigs {
                 .setSaveConsumer(newValue -> UserConfig.USE_ANOTHER_ID = newValue)
                 .build());
         // ENABLE BEDROCK ASSETS
-        if(ModConfig.bedrockAssets != null){
-            category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_bedrock_assets"), UserConfig.ENABLE_BEDROCK_ASSETS)
-                    .setDefaultValue(false)
-                    .setSaveConsumer(newValue -> UserConfig.ENABLE_BEDROCK_ASSETS = newValue)
-                    .build());
-        }
+        category.addEntry(entryBuilder.startSelector(Localization.getText("simplystatus.config.client.assets"), ModConfig.assetsList, UserConfig.USE_ASSETS)
+                .setDefaultValue(ModConfig.assetsList[0])
+                .setSaveConsumer(newVolume -> UserConfig.USE_ASSETS = newVolume)
+                .build());
         // SHOW GAME STARTED
         category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.show_game_started"), UserConfig.SHOW_GAME_STARTED)
                 .setDefaultValue(true)
