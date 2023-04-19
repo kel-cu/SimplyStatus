@@ -21,6 +21,10 @@ public class ModConfig {
      */
     public static AssetsConfig defaultAssets;
     /**
+     * default иконки для GUI конфигов с использованием ссылок
+     */
+    public static AssetsConfig defaultUrlsAssets;
+    /**
     *
      */
     public static String[] assetsList;
@@ -47,6 +51,9 @@ public class ModConfig {
         if(config.getJSONObject("assets").isNull("default")) {
             throw new Exception("Не найдены стандартные иконки, который требуется для запуска мода!");
         } else defaultAssets = new AssetsConfig(config.getJSONObject("assets").getJSONObject("default"), true);
+        if(config.getJSONObject("assets").isNull("~urls")) {
+            throw new Exception("Не найдены стандартные ссылки на иконки, который требуется для запуска мода!");
+        } else defaultUrlsAssets = new AssetsConfig(config.getJSONObject("assets").getJSONObject("~urls"), true);
         if(config.isNull("assets_list")) assetsList = new String[]{"Default"};
         else assetsList = jsonArrayToStringArray(config.getJSONArray("assets_list"));
         MOD_CONFIG_STRING = config.toString();

@@ -42,6 +42,10 @@ public class AssetsConfig {
      * The End
      */
     public String world_the_end = "";
+    /**
+     * The End
+     */
+    public String world_moon = "";
 
     /**
      * Music
@@ -55,7 +59,6 @@ public class AssetsConfig {
      * PlasmoVoice or Simple Voice Chat
      */
     public String voice = "";
-
     /**
      * Неизвестный мир
      */
@@ -136,6 +139,7 @@ public class AssetsConfig {
             world = assets.world;
             world_nether = assets.world_nether;
             world_the_end = assets.world_the_end;
+            world_moon = assets.world_moon;
 
             replaymod = assets.replaymod;
             voice = assets.voice;
@@ -164,6 +168,8 @@ public class AssetsConfig {
         else world_nether = jsonAssets.getString("world_nether");
         if(jsonAssets.isNull("world_the_end")) world_the_end = nullAsset(isLoadingResources, assets.world_the_end);
         else world_the_end = jsonAssets.getString("world_the_end");
+        if(jsonAssets.isNull("world_moon")) world_moon = nullAsset(isLoadingResources, assets.world_moon);
+        else world_moon = jsonAssets.getString("world_moon");
 
         if(jsonAssets.isNull("replaymod")) replaymod = nullAsset(isLoadingResources, assets.replaymod);
         else replaymod = jsonAssets.getString("replaymod");

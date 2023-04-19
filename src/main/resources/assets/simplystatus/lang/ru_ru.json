@@ -79,6 +79,7 @@
   "simplystatus.config.localization.world.overworld": "Верхний мир",
   "simplystatus.config.localization.world.nether": "Ад",
   "simplystatus.config.localization.world.the_end": "The End?",
+  "simplystatus.config.localization.world.moon": "Луна",
   "simplystatus.config.localization.singleplayer": "Одиночка",
   "simplystatus.config.localization.player.sleep": "Игрок спит",
   "simplystatus.config.localization.player.sneak": "Игрок кродётся",
@@ -111,6 +112,7 @@
   "simplystatus.presence.world.overworld": "Верхний мир",
   "simplystatus.presence.world.nether": "Нижний мир",
   "simplystatus.presence.world.the_end": "The End?",
+  "simplystatus.presence.world.moon": "Луна",
   "simplystatus.presence.singleplayer": "Одиночная игра",
   "simplystatus.presence.player.sleep": "%name% спит",
   "simplystatus.presence.player.sneak": "%name% кродётся",
@@ -137,7 +139,6 @@
 
   "modmenu.descriptionTranslation.simplystatus": "Простой, кастомизированный игровой статус Discord",
   "modmenu.simplystatus.github": "GitHub",
-  "modmenu.simplystatus.curseforge": "CurseForge",
   "modmenu.simplystatus.modrinth": "Modrinth",
   "modmenu.simplystatus.boosty": "Ранний доступ на Boosty"
 }

@@ -65,6 +65,7 @@ public class Client implements ClientModInitializer {
         STARTED_TIME_GAME = System.currentTimeMillis() / 1000;
         UserConfig.load();
         Main.useAnotherID = UserConfig.USE_ANOTHER_ID;
+        Main.useCustomID = UserConfig.USE_CUSTOM_APP_ID;
         KeyBinding openConfigKeyBind;
         openConfigKeyBind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "simplystatus.key.openConfig",
@@ -86,11 +87,13 @@ public class Client implements ClientModInitializer {
             }
         });
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
-            Client.LOG.info("Bay =-=");
+            Client.LOG.info(Main.prefixLog+"Bay =-=");
             LIB.Discord_Shutdown();
         });
-        if(UserConfig.USE_ANOTHER_ID) APPLICATION_ID = ModConfig.mineID;
+        if(UserConfig.USE_CUSTOM_APP_ID && !UserConfig.CUSTOM_APP_ID.isBlank()) APPLICATION_ID = UserConfig.CUSTOM_APP_ID;
+        else if(UserConfig.USE_ANOTHER_ID) APPLICATION_ID = ModConfig.mineID;
         else APPLICATION_ID = ModConfig.baseID;
+        Main.customID = APPLICATION_ID;
         HANDLERS.ready = (user) -> {
             LOG.debug("The mod has been connected to Discord");
             USER = user;
@@ -148,6 +151,7 @@ public class Client implements ClientModInitializer {
         if(!CONNECTED_DISCORD) return;
         UserConfig.load();
         ASSETS = new AssetsConfig();
+        if(UserConfig.USE_CUSTOM_APP_ID) ASSETS = ModConfig.defaultUrlsAssets;
         if(UserConfig.USE_CUSTOM_ASSETS) ASSETS.loadUserAssets();
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         if(UserConfig.ENABLE_RPC){

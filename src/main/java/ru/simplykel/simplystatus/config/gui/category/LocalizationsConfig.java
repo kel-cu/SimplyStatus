@@ -3,6 +3,8 @@ package ru.simplykel.simplystatus.config.gui.category;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
+import net.minecraft.SharedConstants;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableTextContent;
@@ -27,10 +29,6 @@ public class LocalizationsConfig {
                 .setDefaultValue(Localization.getLcnDefault("mainmenu.state"))
                 .setSaveConsumer(newValue -> Localization.setLocalization("mainmenu.state", newValue))
                 .build());
-        //
-        if(UserConfig.VIEW_MUSIC_LISTENER){
-
-        }
         //
         category.addEntry(entryBuilder.startStrField(
                         Localization.getText("simplystatus.config.localization.death.one"),
@@ -164,6 +162,15 @@ public class LocalizationsConfig {
                 .setDefaultValue(Localization.getLcnDefault("world.the_end"))
                 .setSaveConsumer(newValue -> Localization.setLocalization("world.the_end", newValue))
                 .build());
+        //
+        if(SharedConstants.getGameVersion().getName().equals("23w13a_or_b")){
+            category.addEntry(entryBuilder.startStrField(
+                            Localization.getText("simplystatus.config.localization.world.moon"),
+                            Localization.getLocalization("world.moon", false))
+                    .setDefaultValue(Localization.getLcnDefault("world.moon"))
+                    .setSaveConsumer(newValue -> Localization.setLocalization("world.moon", newValue))
+                    .build());
+        }
         //
         category.addEntry(entryBuilder.startStrField(
                         Localization.getText("simplystatus.config.localization.singleplayer"),

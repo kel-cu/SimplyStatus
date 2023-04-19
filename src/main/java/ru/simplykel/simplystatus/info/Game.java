@@ -1,6 +1,9 @@
 package ru.simplykel.simplystatus.info;
+import io.github.bumblesoftware.fastload.client.BuildingTerrainScreen;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.*;
+import ru.simplykel.simplystatus.Main;
+
 public class Game {
 
     private static final MinecraftClient CLIENT = MinecraftClient.getInstance();
@@ -23,7 +26,9 @@ public class Game {
         gameState = newGameState;
     }
     public static void tick() {
-        if (CLIENT.currentScreen != null) screenTick();
+        if (CLIENT.currentScreen != null) {
+            if(Main.fastload) screenTickFastLoad(); else screenTick();
+        };
         if (lastScreen != CLIENT.currentScreen) {
             if (lastScreen != null) screenChange(lastScreen);
             lastScreen = CLIENT.currentScreen;
@@ -34,6 +39,18 @@ public class Game {
 //        var api = BetterTaskbarAPI.getInstance();
 //        MainClient.log.warn(mc.currentScreen.getClass().getName());
         if (CLIENT.currentScreen instanceof LevelLoadingScreen loadingScreen) {
+            setGameState(1);
+        } else if (CLIENT.currentScreen instanceof ProgressScreen || CLIENT.currentScreen instanceof ConnectScreen || CLIENT.currentScreen instanceof DownloadingTerrainScreen) {
+            setGameState(2);
+        } else  if (CLIENT.currentScreen instanceof DisconnectedScreen) {
+            setGameState(3);
+        } else {
+            setGameState(0);
+        }
+        setUpdated(true);
+    }
+    private static void screenTickFastLoad() {
+        if (CLIENT.currentScreen instanceof LevelLoadingScreen || CLIENT.currentScreen instanceof BuildingTerrainScreen) {
             setGameState(1);
         } else if (CLIENT.currentScreen instanceof ProgressScreen || CLIENT.currentScreen instanceof ConnectScreen || CLIENT.currentScreen instanceof DownloadingTerrainScreen) {
             setGameState(2);

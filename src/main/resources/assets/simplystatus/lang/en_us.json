@@ -80,6 +80,7 @@
   "simplystatus.config.localization.world.overworld": "The Overworld",
   "simplystatus.config.localization.world.nether": "The Nether",
   "simplystatus.config.localization.world.the_end": "The End?",
+  "simplystatus.config.localization.world.moon": "The Moon",
   "simplystatus.config.localization.singleplayer": "Singleplayer",
   "simplystatus.config.localization.player.sleep": "Player sleep",
   "simplystatus.config.localization.player.sneak": "Player sneaks",
@@ -113,6 +114,7 @@
   "simplystatus.presence.world.overworld": "The Overworld",
   "simplystatus.presence.world.nether": "The Nether",
   "simplystatus.presence.world.the_end": "The End?",
+  "simplystatus.presence.world.moon": "The Moon",
   "simplystatus.presence.singleplayer": "Singleplayer",
   "simplystatus.presence.player.sleep": "%discord_name% sleeps",
   "simplystatus.presence.player.sneak": "The %discord_name% sneaks",
@@ -139,7 +141,6 @@
 
   "modmenu.descriptionTranslation.simplystatus": "Simple, customizable Discord game status",
   "modmenu.simplystatus.github": "GitHub",
-  "modmenu.simplystatus.curseforge": "CurseForge",
   "modmenu.simplystatus.modrinth": "Modrinth",
   "modmenu.simplystatus.boosty": "Early access on Boosty"
 }

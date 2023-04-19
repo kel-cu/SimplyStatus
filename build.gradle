@@ -1,5 +1,4 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'fabric-loom' version '1.0-SNAPSHOT'
     id 'maven-publish'
 }
@@ -47,6 +46,8 @@ dependencies {
     modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
     // Support Simple Voice chat
     modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
+    // Support Fast Load
+    modImplementation "maven.modrinth:fastload:${project.fastload}"
 }
 
 processResources {

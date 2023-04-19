@@ -9,9 +9,11 @@ import java.text.DecimalFormat;
 
 public class Main implements ModInitializer {
     public static boolean isLoadingConfigs = true;
-    public static boolean isDevBuild = false;
+    public static boolean isDevBuild = true;
     public static boolean configWarn = false;
     public static boolean useAnotherID = false;
+    public static boolean useCustomID = false;
+    public static String customID = "";
     public static String prefixLog = "[SimplyStatus] ";
     public static DecimalFormat DF = new DecimalFormat("#.#");
     public static boolean clothConfig = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
@@ -19,6 +21,7 @@ public class Main implements ModInitializer {
     public static Boolean musicPlayer = FabricLoader.getInstance().getModContainer("musicplayer").isPresent();
     public static Boolean svc = FabricLoader.getInstance().getModContainer("voicechat").isPresent();
     public static Boolean plasmo = FabricLoader.getInstance().getModContainer("plasmovoice").isPresent();
+    public static Boolean fastload = FabricLoader.getInstance().getModContainer("fastload").isPresent();
     public static Boolean isVoiceModsEnable = (svc || plasmo);
     @Override
     public void onInitialize() {

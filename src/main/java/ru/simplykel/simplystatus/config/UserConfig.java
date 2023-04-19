@@ -26,6 +26,8 @@ public class UserConfig {
     public static boolean SHOW_ITEMS = true;
     public static boolean ENABLE_TIME_CYCLE = true;
     public static boolean ENABLE_WORLD = true;
+    public static boolean USE_CUSTOM_APP_ID = false;
+    public static String CUSTOM_APP_ID = "";
 
     /**
      * Сохранение конфигурации
@@ -49,7 +51,9 @@ public class UserConfig {
                 .put("USE_ANOTHER_ID", USE_ANOTHER_ID)
                 .put("SHOW_ITEMS", SHOW_ITEMS)
                 .put("ENABLE_TIME_CYCLE", ENABLE_TIME_CYCLE)
-                .put("ENABLE_WORLD", ENABLE_WORLD);
+                .put("ENABLE_WORLD", ENABLE_WORLD)
+                .put("USE_CUSTOM_APP_ID", USE_CUSTOM_APP_ID)
+                .put("CUSTOM_APP_ID", CUSTOM_APP_ID);
         try {
             Files.createDirectories(configFile.getParent());
             Files.writeString(configFile, jsonConfig.toString());
@@ -102,6 +106,13 @@ public class UserConfig {
             else ENABLE_TIME_CYCLE = true;
             if(!jsonConfig.isNull("ENABLE_WORLD")) ENABLE_WORLD = jsonConfig.getBoolean("ENABLE_WORLD");
             else ENABLE_WORLD = true;
+
+
+            if(!jsonConfig.isNull("USE_CUSTOM_APP_ID")) USE_CUSTOM_APP_ID = jsonConfig.getBoolean("USE_CUSTOM_APP_ID");
+            else USE_CUSTOM_APP_ID = false;
+            if(!jsonConfig.isNull("CUSTOM_APP_ID")) CUSTOM_APP_ID = jsonConfig.getString("CUSTOM_APP_ID");
+            else CUSTOM_APP_ID = "";
+
 
         } catch (Exception e){
             e.printStackTrace();

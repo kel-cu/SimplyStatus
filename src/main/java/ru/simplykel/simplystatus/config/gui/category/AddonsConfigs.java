@@ -3,11 +3,9 @@ package ru.simplykel.simplystatus.config.gui.category;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
+import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 
 public class AddonsConfigs {
@@ -29,10 +27,37 @@ public class AddonsConfigs {
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.VIEW_MUSIC_LISTENER = newValue)
                 .build());
+        // 1.7.1
+        //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.show_items"), UserConfig.SHOW_ITEMS)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> UserConfig.SHOW_ITEMS = newValue)
+                .build());
+        //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_time_cycle"), UserConfig.ENABLE_TIME_CYCLE)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> UserConfig.ENABLE_TIME_CYCLE = newValue)
+                .build());
+        //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_world"), UserConfig.ENABLE_WORLD)
+                .setDefaultValue(true)
+                .setSaveConsumer(newValue -> UserConfig.ENABLE_WORLD = newValue)
+                .build());
         //
         category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.addons.use_custom_assets"), UserConfig.USE_CUSTOM_ASSETS)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.USE_CUSTOM_ASSETS = newValue)
+                .build());
+
+        //
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.use_custom_app_id"), UserConfig.USE_CUSTOM_APP_ID)
+                .setDefaultValue(false)
+                .setSaveConsumer(newValue -> UserConfig.USE_CUSTOM_APP_ID = newValue)
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(Localization.getText("simplystatus.config.addons.custom_app_id"), UserConfig.CUSTOM_APP_ID)
+                .setDefaultValue(ModConfig.baseID)
+                .setSaveConsumer(newValue -> UserConfig.CUSTOM_APP_ID = newValue)
                 .build());
         return category;
     }

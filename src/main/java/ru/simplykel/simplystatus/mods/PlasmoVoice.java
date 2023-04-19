@@ -1,8 +1,8 @@
 package ru.simplykel.simplystatus.mods;
+
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.entity.player.PlayerEntity;
 import su.plo.voice.client.ModVoiceClient;
-import su.plo.voice.client.connection.ModClientChannelHandler;
 /**
  * PlasmoVoice support
  */

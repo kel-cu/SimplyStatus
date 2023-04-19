@@ -57,21 +57,6 @@ public class MainConfigs {
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> UserConfig.VIEW_PLAYER_NAME = newValue)
                 .build());
-        // 1.7.1
-        //
-        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.show_items"), UserConfig.SHOW_ITEMS)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> UserConfig.SHOW_ITEMS = newValue)
-                .build());
-        //
-        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_time_cycle"), UserConfig.ENABLE_TIME_CYCLE)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> UserConfig.ENABLE_TIME_CYCLE = newValue)
-                .build());
-        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_world"), UserConfig.ENABLE_WORLD)
-                .setDefaultValue(true)
-                .setSaveConsumer(newValue -> UserConfig.ENABLE_WORLD = newValue)
-                .build());
 
         return category;
     }

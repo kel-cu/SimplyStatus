@@ -33,11 +33,15 @@
     "fabric": "*",
     "minecraft": [">=1.19.4"]
   },
+  "breaks": {
+    "craftpresence": "*",
+    "simple-rpc": "*",
+    "amrpcf": "*"
+  },
   "custom": {
     "modmenu": {
       "links": {
         "modmenu.simplystatus.github": "https://github.com/simply-kel/SimplyStatus-fabric",
-        "modmenu.simplystatus.curseforge": "https://www.curseforge.com/minecraft/mc-mods/simplystatus",
         "modmenu.simplystatus.modrinth": "https://modrinth.com/mod/simplystatus",
         "modmenu.simplystatus.boosty": "https://boosty.to/simply_kel"
       }

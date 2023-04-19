@@ -20,6 +20,7 @@
       "world": "overworld",
       "world_nether": "nether",
       "world_the_end": "end",
+      "world_moon": "end",
 
       "music": "music",
       "replaymod": "replaymod_logo",
@@ -39,6 +40,7 @@
       "world": "overworld",
       "world_nether": "nether",
       "world_the_end": "end",
+      "world_moon": "end",
 
       "music": "music",
       "replaymod": "replaymod_logo",
@@ -58,6 +60,7 @@
       "world": "overworld",
       "world_nether": "nether",
       "world_the_end": "end",
+      "world_moon": "end",
 
       "music": "music",
       "replaymod": "replaymod_logo",
@@ -77,6 +80,7 @@
       "world": "https://assets.simplykel.ru/simplystatus/cringe/overworld.png",
       "world_nether": "https://assets.simplykel.ru/simplystatus/cringe/nether.png",
       "world_the_end": "https://assets.simplykel.ru/simplystatus/cringe/end.png",
+      "world_moon": "https://assets.simplykel.ru/simplystatus/cringe/end.png",
 
       "music": "music",
       "replaymod": "replaymod_logo",
@@ -96,6 +100,7 @@
       "world": "https://assets.simplykel.ru/simplystatus/craftpresence/overworld.png",
       "world_nether": "https://assets.simplykel.ru/simplystatus/craftpresence/nether.png",
       "world_the_end": "https://assets.simplykel.ru/simplystatus/craftpresence/end.png",
+      "world_moon": "https://assets.simplykel.ru/simplystatus/craftpresence/moon.png",
 
       "music": "music",
       "replaymod": "replaymod_logo",
@@ -103,6 +108,46 @@
 
       "unknown_world": "https://assets.simplykel.ru/simplystatus/craftpresence/unknown.png",
       "unknown": "https://assets.simplykel.ru/simplystatus/craftpresence/unknown.png"
+    },
+    "penciled": {
+      "logo": "logo",
+
+      "day": "day_update_2",
+      "night": "nigth_update_2",
+      "morning": "morning_update_2",
+      "evening": "evening_update_2",
+
+      "world": "overworld",
+      "world_nether": "nether",
+      "world_the_end": "end",
+      "world_moon": "end",
+
+      "music": "music",
+      "replaymod": "replaymod_logo",
+      "voice": "voice",
+
+      "unknown_world": "unknown_world",
+      "unknown": "unknown"
+    },
+    "~urls": {
+      "logo": "https://assets.simplykel.ru/simplystatus/default/logo.png",
+
+      "day": "https://assets.simplykel.ru/simplystatus/default/day_update_2.png",
+      "night": "https://assets.simplykel.ru/simplystatus/default/nigth_update_2.png",
+      "morning": "https://assets.simplykel.ru/simplystatus/default/morning_update_2.png",
+      "evening": "https://assets.simplykel.ru/simplystatus/default/evening_update_2.png",
+
+      "world": "https://assets.simplykel.ru/simplystatus/default/overworld.png",
+      "world_nether": "https://assets.simplykel.ru/simplystatus/default/nether.png",
+      "world_the_end": "https://assets.simplykel.ru/simplystatus/default/end.png",
+      "world_moon": "https://assets.simplykel.ru/simplystatus/default/end.png",
+
+      "music": "https://assets.simplykel.ru/simplystatus/default/music.png",
+      "replaymod": "https://assets.simplykel.ru/simplystatus/default/replaymod_logo.png",
+      "voice": "https://assets.simplykel.ru/simplystatus/default/voice.png",
+
+      "unknown_world": "https://assets.simplykel.ru/simplystatus/default/unknown_world.png",
+      "unknown": "https://assets.simplykel.ru/simplystatus/default/unknown.png"
     }
   }
 }
