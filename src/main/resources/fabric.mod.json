@@ -8,8 +8,9 @@
     "Im_Kel"
   ],
   "contact": {
-    "website": "https://modrinth.com/mod/simplystatus",
-    "repo": "https://github.com/simply-kel/SimplyStatus"
+    "homepage": "https://modrinth.com/mod/simplystatus",
+    "issues": "https://github.com/simply-kel/SimplyStatus-fabric/issues",
+    "email": "kel@simplykel.ru"
   },
   "license": "MIT",
   "icon": "assets/simplystatus/logo.png",

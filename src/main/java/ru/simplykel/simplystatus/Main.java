@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 
 public class Main implements ModInitializer {
     public static boolean isLoadingConfigs = true;
-    public static boolean isDevBuild = true;
+    public static boolean isDevBuild = false;
     public static boolean configWarn = false;
     public static boolean useAnotherID = false;
     public static boolean useCustomID = false;
