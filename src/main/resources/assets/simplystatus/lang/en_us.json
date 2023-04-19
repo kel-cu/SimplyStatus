@@ -23,7 +23,7 @@
   "simplystatus.config.addons.view_music_listener": "Show listen music",
   "simplystatus.config.addons.use_custom_assets": "Use custom assets",
   "simplystatus.config.client.use_custom_app_id": "Use custom app ID",
-  "simplystatus.config.client.custom_app_id": "Custom app ID",
+  "simplystatus.config.addons.custom_app_id": "Custom app ID",
 
   "simplystatus.config.server": "Current Server",
   "simplystatus.config.server.show_address": "Show address",
