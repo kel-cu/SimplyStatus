@@ -21,6 +21,8 @@
   "simplystatus.config.addons.view_replay_mod": "ReplayMod",
   "simplystatus.config.addons.view_music_listener": "Показывать музыку",
   "simplystatus.config.addons.use_custom_assets": "Использовать кастомные иконки",
+  "simplystatus.config.client.use_custom_app_id": "Использовать кастомное app ID",
+  "simplystatus.config.client.custom_app_id": "Кастомное ID приложения",
 
   "simplystatus.config.replaymod": "ReplayMod",
   "simplystatus.config.replaymod.view_replay_mod_server_name": "Показывать название серв.",

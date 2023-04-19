@@ -23,7 +23,7 @@ public class MainConfigs {
                 .setSaveConsumer(newValue -> UserConfig.ENABLE_RPC = newValue)
                 .build());
         //
-        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.use_minecraft_id"), UserConfig.USE_ANOTHER_ID)
+        if(!UserConfig.USE_CUSTOM_APP_ID) category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.use_minecraft_id"), UserConfig.USE_ANOTHER_ID)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.USE_ANOTHER_ID = newValue)
                 .build());
