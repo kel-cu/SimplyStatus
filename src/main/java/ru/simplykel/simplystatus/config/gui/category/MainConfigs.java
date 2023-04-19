@@ -27,8 +27,8 @@ public class MainConfigs {
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.USE_ANOTHER_ID = newValue)
                 .build());
-        // ENABLE BEDROCK ASSETS
-        category.addEntry(entryBuilder.startSelector(Localization.getText("simplystatus.config.client.assets"), ModConfig.assetsList, UserConfig.USE_ASSETS)
+        // USE ASSETS
+        if(!UserConfig.USE_CUSTOM_ASSETS && !UserConfig.USE_CUSTOM_APP_ID) category.addEntry(entryBuilder.startSelector(Localization.getText("simplystatus.config.client.assets"), ModConfig.assetsList, UserConfig.USE_ASSETS)
                 .setDefaultValue(ModConfig.assetsList[0])
                 .setSaveConsumer(newVolume -> UserConfig.USE_ASSETS = newVolume)
                 .build());

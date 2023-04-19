@@ -111,7 +111,7 @@ public class UserConfig {
             if(!jsonConfig.isNull("USE_CUSTOM_APP_ID")) USE_CUSTOM_APP_ID = jsonConfig.getBoolean("USE_CUSTOM_APP_ID");
             else USE_CUSTOM_APP_ID = false;
             if(!jsonConfig.isNull("CUSTOM_APP_ID")) CUSTOM_APP_ID = jsonConfig.getString("CUSTOM_APP_ID");
-            else CUSTOM_APP_ID = "";
+            else CUSTOM_APP_ID = ModConfig.baseID;
 
 
         } catch (Exception e){

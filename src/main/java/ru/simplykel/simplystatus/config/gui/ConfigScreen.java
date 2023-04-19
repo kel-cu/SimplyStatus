@@ -25,7 +25,7 @@ public class ConfigScreen {
                 .setSavingRunnable(ConfigScreen::save);
         new MainConfigs().getCategory(builder);
         new LocalizationsConfig().getCategory(builder);
-        if(UserConfig.USE_CUSTOM_ASSETS) new AssetsConfigs().getCategory(builder);
+        if(UserConfig.USE_CUSTOM_ASSETS || UserConfig.USE_CUSTOM_APP_ID) new AssetsConfigs().getCategory(builder);
         new AddonsConfigs().getCategory(builder);
         if(!CLIENT.isInSingleplayer() && CLIENT.getCurrentServerEntry() != null) {
             new ServerConfigs().getCategory(builder);
@@ -55,7 +55,7 @@ public class ConfigScreen {
             Client.LIB.Discord_Shutdown();
             Client.LIB.Discord_Initialize(APPLICATION_ID, Client.HANDLERS, Client.AUTO_REGISTER, Client.STEAM_ID);
 
-        } else {
+        } else if(UserConfig.USE_CUSTOM_APP_ID){
             String APPLICATION_ID = UserConfig.CUSTOM_APP_ID;
             if(APPLICATION_ID.isBlank()){
                 APPLICATION_ID = ModConfig.baseID;
