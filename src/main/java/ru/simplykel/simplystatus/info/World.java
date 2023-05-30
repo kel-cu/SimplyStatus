@@ -30,11 +30,11 @@ public class World {
     }
     public static String getCodeName(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        return CLIENT.player.world.getRegistryKey().getValue().toString();
+        return CLIENT.player.getWorld().getRegistryKey().getValue().toString();
     }
     public static String getAssets(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        String world = CLIENT.player.world.getRegistryKey().getValue().toString();
+        String world = CLIENT.player.getWorld().getRegistryKey().getValue().toString();
         if(world.equals("minecraft:the_moon")) return Client.ASSETS.world_moon;
         if(world.equals("minecraft:the_end")) return Client.ASSETS.world_the_end;
         if(world.equals("minecraft:the_nether")) return Client.ASSETS.world_nether;
@@ -43,7 +43,7 @@ public class World {
     }
     public static String getName(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        String world = CLIENT.player.world.getRegistryKey().getValue().toString();
+        String world = CLIENT.player.getWorld().getRegistryKey().getValue().toString();
         if(world.equals("minecraft:the_moon")) return Localization.getLocalization("world.moon", true);
         if(world.equals("minecraft:the_end")) return Localization.getLocalization("world.the_end", true);
         if(world.equals("minecraft:the_nether")) return Localization.getLocalization("world.nether", true);

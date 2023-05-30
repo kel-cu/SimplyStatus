@@ -13,6 +13,6 @@ public class Loading {
         DiscordRichPresence presence = new DiscordRichPresence();
         presence.state = Localization.getLocalization("world.loading", true);
         presence.smallImageKey = Client.ASSETS.logo;
-        Client.LIB.Discord_UpdatePresence(presence);
+        Client.updateDiscordPresence(presence);
     }
 }

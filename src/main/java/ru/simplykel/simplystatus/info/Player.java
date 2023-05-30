@@ -16,15 +16,16 @@ public class Player {
     public static String lastTextDeath = "";
     public static String getName(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        if(UserConfig.VIEW_PLAYER_NAME) return CLIENT.getSession().getUsername();
+        if(UserConfig.VIEW_PLAYER_NAME || !Client.CONNECTED_DISCORD) return CLIENT.getSession().getUsername();
         else return Client.USER.username;
     }
     public static String getURLAvatar(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        if(CLIENT.getSession().getAccountType().getName().equals("msa")){
+        if(CLIENT.getSession().getAccountType().getName().equals("msa") || CLIENT.getSession().getAccountType().getName().equals("mojang")){
             return "https://crafthead.net/helm/"+CLIENT.getSession().getUuid()+"/512";
         } else {
-            return "https://cdn.discordapp.com/avatars/"+Client.USER.userId+"/"+Client.USER.avatar+".png?size=480";
+            if(Client.CONNECTED_DISCORD) return "https://cdn.discordapp.com/avatars/"+Client.USER.userId+"/"+Client.USER.avatar+".png?size=480";
+            else return "https://cdn.discordapp.com/avatars/USER_ID/AVATAR_ID.png?size=480";
         }
     }
     public static String getItemName(){

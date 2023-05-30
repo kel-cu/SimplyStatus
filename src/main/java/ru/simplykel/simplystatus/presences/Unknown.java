@@ -15,6 +15,6 @@ public class Unknown {
         DiscordRichPresence presence = new DiscordRichPresence();
         presence.state = Localization.getLocalization("unknown", true);
         presence.largeImageKey = Client.ASSETS.unknown;
-        Client.LIB.Discord_UpdatePresence(presence);
+        Client.updateDiscordPresence(presence);
     }
 }

@@ -30,6 +30,6 @@ public class SinglePlayer {
         if(UserConfig.SHOW_GAME_STARTED) presence.startTimestamp = Client.STARTED_TIME_GAME;
         presence.details = Player.getState();
         presence.state = Localization.getLocalization("player.world.state", true);
-        Client.LIB.Discord_UpdatePresence(presence);
+        Client.updateDiscordPresence(presence);
     }
 }

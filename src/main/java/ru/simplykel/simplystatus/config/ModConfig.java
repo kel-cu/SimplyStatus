@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 public class ModConfig {
+    public static boolean debugPresence;
     /**
      * Базовое ID RPC мода
      */
@@ -44,6 +45,8 @@ public class ModConfig {
         if(config.isNull("baseID")) {
             throw new Exception("Не найден baseID, который требуется для запуска мода!");
         } else baseID = config.getString("baseID");
+        if(config.isNull("debugPresence")) debugPresence = false;
+        else debugPresence = config.getBoolean("debugPresence");
         if(config.isNull("mineID")) mineID = null;
         else mineID = config.getString("mineID");
         if(config.isNull("assets")) throw new Exception("Не найдены стандартные иконки, который требуется для запуска мода!");

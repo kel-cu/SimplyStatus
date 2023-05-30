@@ -20,6 +20,7 @@ repositories {
     maven {
         url = "https://api.modrinth.com/maven"
     }
+    maven { url = "https://repo.u-team.info" }
 }
 
 dependencies {
@@ -41,7 +42,7 @@ dependencies {
     // Support ReplayMod
     modImplementation "maven.modrinth:replaymod:${project.replaymod}"
     // Support Music Player for FabricMC
-    modImplementation files('mods/MP-Fab-2.6.0.206.jar')
+    modImplementation "info.u-team:music_player-fabric-${project.musicplayer}";
     // Support PlasmoVoice
     modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
     // Support Simple Voice chat

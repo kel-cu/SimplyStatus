@@ -25,6 +25,6 @@ public class ReplayMod {
             presence.smallImageKey = Player.getURLAvatar();
             presence.smallImageText = Player.getName();
         }
-        Client.LIB.Discord_UpdatePresence(presence);
+        Client.updateDiscordPresence(presence);
     }
 }

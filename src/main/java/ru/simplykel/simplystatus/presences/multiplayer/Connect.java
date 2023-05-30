@@ -13,6 +13,6 @@ public class Connect {
         DiscordRichPresence presence = new DiscordRichPresence();
         presence.state = Localization.getLocalization("server.connecting", true);
         presence.smallImageKey = Client.ASSETS.unknown_world;
-        Client.LIB.Discord_UpdatePresence(presence);
+        Client.updateDiscordPresence(presence);
     }
 }

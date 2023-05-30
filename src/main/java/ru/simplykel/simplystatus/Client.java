@@ -73,7 +73,20 @@ public class Client implements ClientModInitializer {
                 GLFW.GLFW_KEY_F7, // The keycode of the key
                 "simplystatus.name"
         ));
+        KeyBinding debugPresence;
+        debugPresence = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "simplystatus.key.debugPresence",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_F9, // The keycode of the key
+                "simplystatus.name"));
+        if(!ModConfig.debugPresence) debugPresence = null;
+        KeyBinding finalDebugPresence = debugPresence;
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            if(finalDebugPresence != null) {
+                while (finalDebugPresence.wasPressed()) {
+                    updatePresence();
+                }
+            }
             assert client.player != null;
             while (openConfigKeyBind.wasPressed()) {
 //                client.player.sendMessage(Text.of("The keybind unready to work"), true);
@@ -126,7 +139,7 @@ public class Client implements ClientModInitializer {
             @Override
             public void run() {
                 try {
-                    updatePresence();
+                    if(CONNECTED_DISCORD) updatePresence();
                     if(lastException != null) lastException = null;
                 } catch(Exception ex){
                     if(lastException == null || !lastException.equals(ex.getMessage())){
@@ -148,7 +161,6 @@ public class Client implements ClientModInitializer {
      * Запуск функции обновление
      */
     private void updatePresence(){
-        if(!CONNECTED_DISCORD) return;
         UserConfig.load();
         ASSETS = new AssetsConfig();
         if(UserConfig.USE_CUSTOM_APP_ID) ASSETS = ModConfig.defaultUrlsAssets;
@@ -167,7 +179,20 @@ public class Client implements ClientModInitializer {
                 else new Unknown();
             }
         } else {
-            LIB.Discord_UpdatePresence(null);
+            updateDiscordPresence(null);
         }
+    }
+    public static void updateDiscordPresence(DiscordRichPresence presence){
+        if(presence == null) LOG.info("Presence is null!");
+        else if(ModConfig.debugPresence){
+            LOG.info("Update presence");
+            if(presence.details != null) LOG.info("Details: "+presence.details);
+            if(presence.state != null) LOG.info("State: "+presence.state);
+            if(presence.largeImageKey != null) LOG.info("Large Image Key: "+presence.largeImageKey);
+            if(presence.largeImageText != null) LOG.info("Large Image Text: "+presence.largeImageText);
+            if(presence.smallImageKey != null) LOG.info("Small Image Key: "+presence.smallImageKey);
+            if(presence.smallImageText != null) LOG.info("Small Image Text: "+presence.smallImageText);
+        }
+        if(CONNECTED_DISCORD) LIB.Discord_UpdatePresence(presence);
     }
 }

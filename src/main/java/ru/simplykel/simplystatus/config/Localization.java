@@ -31,7 +31,7 @@ public class Localization {
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         try{
 //            return CLIENT.getGame().getSelectedLanguage().getCode();
-            return CLIENT.getLanguageManager().getLanguage();
+            return CLIENT.options.language;
         } catch (Exception e){
             return "en_us";
         }
@@ -110,19 +110,22 @@ public class Localization {
     public static String getParsedText(String text){
         String parsedText = text;
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        parsedText = parsedText.replace("%version%", SharedConstants.getGameVersion().getName());
+        parsedText = parsedText.replace("%version%", CLIENT.getGameVersion());
         parsedText = parsedText.replace("%modded%", ClientBrandRetriever.getClientModName());
         parsedText = parsedText.replace("%version_type%", ("release".equalsIgnoreCase(CLIENT.getVersionType()) ? "" : CLIENT.getVersionType()));
         parsedText = parsedText.replace("%name%", Player.getName());
-        parsedText = parsedText.replace("%discord_name%", Client.USER.username);
-        parsedText = parsedText.replace("%discord_discriminator%", Client.USER.discriminator);
-        parsedText = parsedText.replace("%discord_id%", Client.USER.userId);
-        parsedText = parsedText.replace("%discord_tag%", Client.USER.username+"#"+Client.USER.discriminator);
-        // Данные функции связаны с замены discord на siscord
-        parsedText = parsedText.replace("%siscord_name%", Client.USER.username);
-        parsedText = parsedText.replace("%siscord_discriminator%", Client.USER.discriminator);
-        parsedText = parsedText.replace("%siscord_id%", Client.USER.userId);
-        parsedText = parsedText.replace("%siscord_tag%", Client.USER.username+"#"+Client.USER.discriminator);
+        if(Client.CONNECTED_DISCORD) {
+            parsedText = parsedText.replace("%discord_name%", Client.USER.username);
+            parsedText = parsedText.replace("%discord_discriminator%", Client.USER.discriminator);
+            parsedText = parsedText.replace("%discord_id%", Client.USER.userId);
+            parsedText = parsedText.replace("%discord_tag%", Client.USER.username + "#" + Client.USER.discriminator);
+
+            // Данные функции связаны с замены discord на siscord
+            parsedText = parsedText.replace("%siscord_name%", Client.USER.username);
+            parsedText = parsedText.replace("%siscord_discriminator%", Client.USER.discriminator);
+            parsedText = parsedText.replace("%siscord_id%", Client.USER.userId);
+            parsedText = parsedText.replace("%siscord_tag%", Client.USER.username+"#"+Client.USER.discriminator);
+        }
         if(Main.musicPlayer){
             MusicPlayer music = new MusicPlayer();
             if(!music.paused){

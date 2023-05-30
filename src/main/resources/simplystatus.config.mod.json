@@ -1,6 +1,7 @@
 {
   "baseID": "903288390072557648",
   "mineID": "1004398909810016276",
+  "debugPresence": false,
   "assets_list": [
     "Default",
     "Bedrock",

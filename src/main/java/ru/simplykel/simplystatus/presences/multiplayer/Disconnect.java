@@ -13,6 +13,6 @@ public class Disconnect {
         DiscordRichPresence presence = new DiscordRichPresence();
         presence.state = Localization.getLocalization("server.disconnected", true);
         presence.smallImageKey = Client.ASSETS.logo;
-        Client.LIB.Discord_UpdatePresence(presence);
+        Client.updateDiscordPresence(presence);
     }
 }
