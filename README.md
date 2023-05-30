@@ -14,7 +14,7 @@
 <div align=left>
 
 ### Что нужно для стабильной работы мода?
-Minecraft **1.19.4** | 
+Minecraft **1.19** | 
 [Fabric API](https://modrinth.com/mod/fabric-api) |
 [Fabric Loader 0.14.17 и выше](https://fabricmc.net/use)
 
