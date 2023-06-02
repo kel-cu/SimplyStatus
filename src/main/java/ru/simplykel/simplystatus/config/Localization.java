@@ -100,6 +100,9 @@ public class Localization {
     public static MutableText getText(String key){
         return Text.translatable(key);
     }
+    public static MutableText toText(String text){
+        return Text.literal(text);
+    }
 
 
     /**

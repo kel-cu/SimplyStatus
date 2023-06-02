@@ -73,23 +73,9 @@ public class Client implements ClientModInitializer {
                 GLFW.GLFW_KEY_F7, // The keycode of the key
                 "simplystatus.name"
         ));
-        KeyBinding debugPresence;
-        debugPresence = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-                "simplystatus.key.debugPresence",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_F9, // The keycode of the key
-                "simplystatus.name"));
-        if(!ModConfig.debugPresence) debugPresence = null;
-        KeyBinding finalDebugPresence = debugPresence;
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(finalDebugPresence != null) {
-                while (finalDebugPresence.wasPressed()) {
-                    updatePresence();
-                }
-            }
             assert client.player != null;
             while (openConfigKeyBind.wasPressed()) {
-//                client.player.sendMessage(Text.of("The keybind unready to work"), true);
                 if(!Main.clothConfig){
                     client.player.sendMessage(Text.translatable(("simplystatus.message.clothConfigNotFound")), true);
                     return;
@@ -100,7 +86,7 @@ public class Client implements ClientModInitializer {
             }
         });
         ClientLifecycleEvents.CLIENT_STOPPING.register(client -> {
-            Client.LOG.info(Main.prefixLog+"Bay =-=");
+            Client.LOG.info(Main.prefixLog+"Bye =-=");
             LIB.Discord_Shutdown();
         });
         if(UserConfig.USE_CUSTOM_APP_ID && !UserConfig.CUSTOM_APP_ID.isBlank()) APPLICATION_ID = UserConfig.CUSTOM_APP_ID;
@@ -183,7 +169,7 @@ public class Client implements ClientModInitializer {
         }
     }
     public static void updateDiscordPresence(DiscordRichPresence presence){
-        if(presence == null) LOG.info("Presence is null!");
+        if(presence == null && ModConfig.debugPresence) LOG.info("Presence is null!");
         else if(ModConfig.debugPresence){
             LOG.info("Update presence");
             if(presence.details != null) LOG.info("Details: "+presence.details);

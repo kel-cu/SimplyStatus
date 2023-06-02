@@ -14,6 +14,7 @@ import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.ServerConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 import ru.simplykel.simplystatus.config.gui.category.*;
+import su.plo.voice.api.client.config.ClientConfig;
 
 public class ConfigScreen {
     public static Screen buildScreen (Screen currentScreen) {
@@ -33,8 +34,14 @@ public class ConfigScreen {
         if(Main.replayMod && UserConfig.VIEW_REPLAY_MOD){
             new ReplayModConfigs().getCategory(builder);
         }
+        if(Main.isVoiceModsEnable && UserConfig.VIEW_VOICE_SPEAK){
+            new VoiceConfigs().getCategory(builder);
+        }
         if(Main.musicPlayer && UserConfig.VIEW_MUSIC_LISTENER){
             new MusicPlayerConfigs().getCategory(builder);
+        }
+        if(Main.isBetaBuild || Main.isDevBuild){
+            new DevConfigs().getCategory(builder);
         }
         return builder.build();
     }

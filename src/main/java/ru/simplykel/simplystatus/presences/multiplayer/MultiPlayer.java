@@ -24,14 +24,14 @@ public class MultiPlayer {
         if(UserConfig.VIEW_MUSIC_LISTENER && !new MusicPlayer().paused) {
             presence.smallImageKey = Client.ASSETS.music;
             presence.smallImageText = Localization.getLocalization("mod.music", true);
+        } else if(ServerConfig.SHOW_ICON && (ServerConfig.ICON_URL.length() != 0)){
+            presence.smallImageKey = ServerConfig.ICON_URL;
+            presence.smallImageText = Localization.getParsedText("%address%");
         } else if(UserConfig.SHOW_AVATAR_PLAYER) {
             presence.smallImageKey = Player.getURLAvatar();
             presence.smallImageText = Player.getName();
         }
-        if(ServerConfig.SHOW_ICON && (ServerConfig.ICON_URL.length() != 0)){
-            presence.smallImageKey = ServerConfig.ICON_URL;
-            presence.smallImageText = Localization.getParsedText("%address%");
-        }
+
         if(UserConfig.SHOW_GAME_STARTED) presence.startTimestamp = Client.STARTED_TIME_GAME;
         presence.details = Player.getState();
         presence.state = Localization.getLocalization("player.world.state", true);

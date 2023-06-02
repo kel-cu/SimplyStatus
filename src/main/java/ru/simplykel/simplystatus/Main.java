@@ -10,7 +10,7 @@ import java.text.DecimalFormat;
 public class Main implements ModInitializer {
     public static boolean isLoadingConfigs = true;
     public static boolean isDevBuild = false;
-    public static boolean configWarn = false;
+    public static boolean isBetaBuild = false;
     public static boolean useAnotherID = false;
     public static boolean useCustomID = false;
     public static String customID = "";
@@ -25,11 +25,20 @@ public class Main implements ModInitializer {
     public static Boolean isVoiceModsEnable = (svc || plasmo);
     @Override
     public void onInitialize() {
+        String version = FabricLoader.getInstance().getModContainer("simplystatus").get().getMetadata().getVersion().getFriendlyString();
+        String[] versions = version.split("-");
+        if(versions.length >= 2){
+            if(versions[1].startsWith("dev") || versions[1].startsWith("alpha")) isDevBuild = true;
+            if(versions[1].startsWith("beta") || versions[1].startsWith("pre")) isBetaBuild = true;
+        };
         if(isDevBuild) {
             Client.LOG.warn(prefixLog+"Внимание!");
             Client.LOG.warn(prefixLog+"Данная версия мода не является стабильной, в случаи обнаружение ошибок обращайтесь в https://github.com/simply-kel/SimplyStatus-fabric");
+            Client.LOG.warn(prefixLog+"Запущенная версия: "+version);
+        } else if(isBetaBuild){
+            Client.LOG.warn(prefixLog+"Внимание!");
+            Client.LOG.warn(prefixLog+"Данная версия мода является для тестирование публикой, в случаи обнаружение ошибок обращайтесь в https://github.com/simply-kel/SimplyStatus-fabric");
         }
-        if(configWarn) Client.LOG.warn(prefixLog+"*С обновления 1.6.x на 1.7, у вас сбросятся конфигурации мода. Просьба обратить внимание на это, вам придётся самому настраивать. Может вы сделаете лучше, чем прежде -w-*");
         try {
             new ModConfig();
         } catch (Exception e) {

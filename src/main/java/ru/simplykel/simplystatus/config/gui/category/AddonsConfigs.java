@@ -12,8 +12,9 @@ public class AddonsConfigs {
     public ConfigCategory getCategory(ConfigBuilder builder){
         ConfigCategory category = builder.getOrCreateCategory(Localization.getText("simplystatus.config.addons"));
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
+        if(Main.isVoiceModsEnable || Main.replayMod || Main.musicPlayer) category.addEntry(entryBuilder.startTextDescription(Localization.getText("simplystatus.config.addons.modifications")).build());
         // Voice
-        if(Main.svc || Main.plasmo) category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.addons.view_voice_speak"), UserConfig.VIEW_VOICE_SPEAK)
+        if(Main.isVoiceModsEnable) category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.addons.view_voice_speak"), UserConfig.VIEW_VOICE_SPEAK)
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.VIEW_VOICE_SPEAK = newValue)
                 .build());
@@ -27,22 +28,23 @@ public class AddonsConfigs {
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.VIEW_MUSIC_LISTENER = newValue)
                 .build());
-        // 1.7.1
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("simplystatus.config.addons.indicators")).build());
         //
-        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.show_items"), UserConfig.SHOW_ITEMS)
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.addons.show_items"), UserConfig.SHOW_ITEMS)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> UserConfig.SHOW_ITEMS = newValue)
                 .build());
         //
-        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_time_cycle"), UserConfig.ENABLE_TIME_CYCLE)
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.addons.enable_time_cycle"), UserConfig.ENABLE_TIME_CYCLE)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> UserConfig.ENABLE_TIME_CYCLE = newValue)
                 .build());
         //
-        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.enable_world"), UserConfig.ENABLE_WORLD)
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.addons.enable_world"), UserConfig.ENABLE_WORLD)
                 .setDefaultValue(true)
                 .setSaveConsumer(newValue -> UserConfig.ENABLE_WORLD = newValue)
                 .build());
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("simplystatus.config.addons.custom")).build());
         //
         category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.addons.use_custom_assets"), UserConfig.USE_CUSTOM_ASSETS)
                 .setDefaultValue(false)

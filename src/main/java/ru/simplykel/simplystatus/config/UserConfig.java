@@ -27,7 +27,7 @@ public class UserConfig {
     public static boolean ENABLE_TIME_CYCLE = true;
     public static boolean ENABLE_WORLD = true;
     public static boolean USE_CUSTOM_APP_ID = false;
-    public static String CUSTOM_APP_ID = "";
+    public static String CUSTOM_APP_ID = ModConfig.baseID;
 
     /**
      * Сохранение конфигурации
