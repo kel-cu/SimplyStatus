@@ -10,16 +10,11 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.message.v1.ClientReceiveMessageEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.render.debug.GameEventDebugRenderer;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
-import net.minecraft.world.event.GameEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
@@ -36,7 +31,6 @@ import ru.simplykel.simplystatus.presences.multiplayer.Disconnect;
 import ru.simplykel.simplystatus.presences.multiplayer.MultiPlayer;
 import ru.simplykel.simplystatus.presences.singleplayer.Loading;
 import ru.simplykel.simplystatus.presences.singleplayer.SinglePlayer;
-import su.plo.lib.api.event.MinecraftGlobalEvent;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -135,7 +129,6 @@ public class Client implements ClientModInitializer {
                         presence.details = "There was an error, look in the console";
                         presence.state = "And report the bug on GitHub";
                         LIB.Discord_UpdatePresence(presence);
-//                        LOG.info(lastException);
                         lastException = ex.getMessage();
                     }
                 }

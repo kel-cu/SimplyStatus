@@ -11,7 +11,7 @@ public class MusicPlayer {
     public String artist = "";
     public String title = "";
     public Boolean useFile = false;
-    public String file = "gaming for developers (gayporno2281337)";
+    public String file = "file.mp4";
     public Boolean artistIsNull = true;
     public Boolean paused = false;
     public MusicPlayer(){

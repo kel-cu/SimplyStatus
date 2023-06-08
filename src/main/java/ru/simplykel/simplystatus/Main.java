@@ -1,6 +1,5 @@
 package ru.simplykel.simplystatus;
 
-import info.u_team.music_player.MusicPlayerMod;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import ru.simplykel.simplystatus.config.ModConfig;

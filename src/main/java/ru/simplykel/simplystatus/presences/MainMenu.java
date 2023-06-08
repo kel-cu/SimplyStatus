@@ -14,9 +14,8 @@ public class MainMenu {
      */
     public MainMenu(){
         DiscordRichPresence presence = new DiscordRichPresence();
-        if(Localization.getLocalization("mainmenu", false).equals("simplystatus.presence.mainmenu")){
-            presence.details = "Resources unready...";
-        } else  {
+        if(Localization.getLocalization("mainmenu", false).equals("simplystatus.presence.mainmenu")) presence.details = "Resources unready...";
+        else  {
             presence.details = Localization.getLocalization("mainmenu", true);
             if(Localization.getLocalization("mainmenu.state", true).equals("simplystatus.presence.mainmenu.state"))  presence.details = "m,kjn ";
             else presence.state = Localization.getLocalization("mainmenu.state", true);

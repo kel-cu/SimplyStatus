@@ -1,6 +1,5 @@
 package ru.simplykel.simplystatus.config.gui.category;
 
-import com.mojang.authlib.yggdrasil.response.User;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
@@ -9,7 +8,6 @@ import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ModConfig;
-import ru.simplykel.simplystatus.config.ServerConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 
 public class DevConfigs {
@@ -53,7 +51,7 @@ public class DevConfigs {
         category.addEntry(entryBuilder.startTextDescription(Localization.toText("§9# Discord")).build());
         category.addEntry(entryBuilder.startTextDescription(Localization.toText("Application ID: " + Client.APPLICATION_ID)).build());
         //
-        category.addEntry(entryBuilder.startTextDescription(Localization.toText("User ID: " + Client.USER.userId)).build());
+        if(Client.USER != null && Client.CONNECTED_DISCORD) category.addEntry(entryBuilder.startTextDescription(Localization.toText("User ID: " + Client.USER.userId)).build());
         //
         category.addEntry(entryBuilder.startTextDescription(Localization.toText("Is connected: " + Client.CONNECTED_DISCORD)).build());
         return category;

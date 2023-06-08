@@ -36,9 +36,7 @@ public class Game {
     }
 
     private static void screenTick() {
-//        var api = BetterTaskbarAPI.getInstance();
-//        MainClient.log.warn(mc.currentScreen.getClass().getName());
-        if (CLIENT.currentScreen instanceof LevelLoadingScreen loadingScreen) {
+        if (CLIENT.currentScreen instanceof LevelLoadingScreen) {
             setGameState(1);
         } else if (CLIENT.currentScreen instanceof ProgressScreen || CLIENT.currentScreen instanceof ConnectScreen || CLIENT.currentScreen instanceof DownloadingTerrainScreen) {
             setGameState(2);
@@ -63,7 +61,6 @@ public class Game {
     }
 
     private static void screenChange(Screen lastScreen) {
-//        var api = BetterTaskbarAPI.getInstance();
         if (isUpdate() && (lastScreen instanceof DisconnectedScreen || lastScreen instanceof LevelLoadingScreen || lastScreen instanceof ProgressScreen || lastScreen instanceof ConnectScreen || lastScreen instanceof ConfirmScreen || lastScreen instanceof DownloadingTerrainScreen)) {
             setUpdated(false);
         }

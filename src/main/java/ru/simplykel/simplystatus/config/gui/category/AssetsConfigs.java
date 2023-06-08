@@ -3,23 +3,33 @@ package ru.simplykel.simplystatus.config.gui.category;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
+import net.minecraft.client.MinecraftClient;
 import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ModConfig;
 
 public class AssetsConfigs {
     public ConfigCategory getCategory(ConfigBuilder builder){
+        MinecraftClient CLIENT = MinecraftClient.getInstance();
         ConfigCategory category = builder.getOrCreateCategory(Localization.getText("simplystatus.config.assets"));
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
+        ///
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("simplystatus.config.assets.title.menu")).build());
         //
         category.addEntry(entryBuilder.startStrField(
                                 Localization.getText("simplystatus.config.assets.logo"),
                         Client.ASSETS.logo)
                 .setDefaultValue(ModConfig.defaultAssets.logo)
                 .setSaveConsumer(newValue -> Client.ASSETS.logo = newValue)
+                .build());
+        ///
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("simplystatus.config.assets.title.time")).build());
+        //
+        category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("simplystatus.config.assets.morning"),
+                        Client.ASSETS.morning)
+                .setDefaultValue(ModConfig.defaultAssets.morning)
+                .setSaveConsumer(newValue -> Client.ASSETS.morning = newValue)
                 .build());
         //
         category.addEntry(entryBuilder.startStrField(
@@ -30,25 +40,20 @@ public class AssetsConfigs {
                 .build());
         //
         category.addEntry(entryBuilder.startStrField(
+                        Localization.getText("simplystatus.config.assets.evening"),
+                        Client.ASSETS.evening)
+                .setDefaultValue(ModConfig.defaultAssets.evening)
+                .setSaveConsumer(newValue -> Client.ASSETS.evening = newValue)
+                .build());
+        //
+        category.addEntry(entryBuilder.startStrField(
                                 Localization.getText("simplystatus.config.assets.night"),
                         Client.ASSETS.night)
                 .setDefaultValue(ModConfig.defaultAssets.night)
                 .setSaveConsumer(newValue -> Client.ASSETS.night = newValue)
                 .build());
-        //
-        category.addEntry(entryBuilder.startStrField(
-                Localization.getText("simplystatus.config.assets.morning"),
-                        Client.ASSETS.morning)
-                .setDefaultValue(ModConfig.defaultAssets.morning)
-                .setSaveConsumer(newValue -> Client.ASSETS.morning = newValue)
-                .build());
-        //
-        category.addEntry(entryBuilder.startStrField(
-                                Localization.getText("simplystatus.config.assets.evening"),
-                        Client.ASSETS.evening)
-                .setDefaultValue(ModConfig.defaultAssets.evening)
-                .setSaveConsumer(newValue -> Client.ASSETS.evening = newValue)
-                .build());
+        ///
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("simplystatus.config.assets.title.worlds")).build());
         //
         category.addEntry(entryBuilder.startStrField(
                                 Localization.getText("simplystatus.config.assets.world"),
@@ -71,6 +76,17 @@ public class AssetsConfigs {
                 .setSaveConsumer(newValue -> Client.ASSETS.world_the_end = newValue)
                 .build());
         //
+        if(CLIENT.getGameVersion().equals("23w13a_or_b")){
+            category.addEntry(entryBuilder.startStrField(
+                            Localization.getText("simplystatus.config.assets.world_moon"),
+                            Client.ASSETS.world_moon)
+                    .setDefaultValue(ModConfig.defaultAssets.world_moon)
+                    .setSaveConsumer(newValue -> Client.ASSETS.world_moon = newValue)
+                    .build());
+        }
+        ///
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("simplystatus.config.assets.title.modification")).build());
+        //
         category.addEntry(entryBuilder.startStrField(
                                 Localization.getText("simplystatus.config.assets.music"),
                         Client.ASSETS.music)
@@ -91,6 +107,8 @@ public class AssetsConfigs {
                 .setDefaultValue(ModConfig.defaultAssets.voice)
                 .setSaveConsumer(newValue -> Client.ASSETS.voice = newValue)
                 .build());
+        ///
+        category.addEntry(entryBuilder.startTextDescription(Localization.getText("simplystatus.config.assets.title.unknown")).build());
         //
         category.addEntry(entryBuilder.startStrField(
                                 Localization.getText("simplystatus.config.assets.unknown"),

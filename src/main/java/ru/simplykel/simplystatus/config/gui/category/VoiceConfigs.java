@@ -4,7 +4,6 @@ import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import ru.simplykel.simplystatus.config.Localization;
-import ru.simplykel.simplystatus.config.UserConfig;
 
 public class VoiceConfigs {
     public ConfigCategory getCategory(ConfigBuilder builder){

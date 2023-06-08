@@ -119,14 +119,6 @@ public class AssetsConfig {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        //        try {
-//            JSONObject jsonConfig = new JSONObject();
-//
-////            Client.LOG.info("save unready");
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
     }
     public AssetsConfig(){
         AssetsConfig assets = new AssetsConfig(ModConfig.assets.getJSONObject(UserConfig.USE_ASSETS.toLowerCase()), false);

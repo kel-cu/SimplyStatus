@@ -22,7 +22,6 @@ public class UserConfig {
     public static boolean VIEW_MUSIC_LISTENER = false;
     public static boolean USE_CUSTOM_ASSETS = false;
     public static boolean USE_ANOTHER_ID = false;
-    // 1.7.1
     public static boolean SHOW_ITEMS = true;
     public static boolean ENABLE_TIME_CYCLE = true;
     public static boolean ENABLE_WORLD = true;

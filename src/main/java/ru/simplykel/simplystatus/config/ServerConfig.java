@@ -11,16 +11,16 @@ public class ServerConfig {
     public static boolean SHOW_ADDRESS = false;
     public static boolean SHOW_NAME_IN_LIST = true;
     public static boolean SHOW_CUSTOM_NAME = false;
-    public static String CUSTOM_NAME = "";
+    public static String CUSTOM_NAME = "Custom name";
     public static boolean SHOW_ICON = false;
-    public static String ICON_URL = "";
+    public static String ICON_URL = "Icon URL";
 
     /**
      * Сохранение конфигурации
      */
     public static void save(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        final Path configFile = CLIENT.runDirectory.toPath().resolve("SimplyStatus/servers/"+CLIENT.getCurrentServerEntry().address+".json");
+        final Path configFile = CLIENT.runDirectory.toPath().resolve("SimplyStatus/servers/"+CLIENT.getCurrentServerEntry().address.replace(":", "-")+".json");
         JSONObject jsonConfig = new JSONObject();
         jsonConfig.put("SHOW_ADDRESS", SHOW_ADDRESS)
                 .put("SHOW_NAME_IN_LIST", SHOW_NAME_IN_LIST)
@@ -40,15 +40,15 @@ public class ServerConfig {
         SHOW_ICON = false;
         SHOW_CUSTOM_NAME = false;
         SHOW_NAME_IN_LIST = true;
-        ICON_URL = "";
-        CUSTOM_NAME = "";
+        ICON_URL = "Icon URL";
+        CUSTOM_NAME = "Custom name";
     }
     /**
      * Загрузка файла конфигов
      */
     public static void load(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        final Path configFile = CLIENT.runDirectory.toPath().resolve("SimplyStatus/servers/"+CLIENT.getCurrentServerEntry().address+".json");
+        final Path configFile = CLIENT.runDirectory.toPath().resolve("SimplyStatus/servers/"+CLIENT.getCurrentServerEntry().address.replace(":", "-")+".json");
         try{
             JSONObject jsonConfig = new JSONObject(Files.readString(configFile));
             if(!jsonConfig.isNull("SHOW_ADDRESS")) SHOW_ADDRESS = jsonConfig.getBoolean("SHOW_ADDRESS");

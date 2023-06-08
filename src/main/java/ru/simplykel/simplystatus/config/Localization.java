@@ -1,6 +1,5 @@
 package ru.simplykel.simplystatus.config;
 
-import net.minecraft.SharedConstants;
 import net.minecraft.client.ClientBrandRetriever;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.text.MutableText;

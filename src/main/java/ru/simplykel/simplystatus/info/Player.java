@@ -6,7 +6,6 @@ import net.minecraft.util.Hand;
 import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
-import ru.simplykel.simplystatus.config.ServerConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 import ru.simplykel.simplystatus.mods.PlasmoVoice;
 import ru.simplykel.simplystatus.mods.SVC;
@@ -30,7 +29,6 @@ public class Player {
     }
     public static String getItemName(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-//        if(CLIENT.player)
         ItemStack main_hand = CLIENT.player.getStackInHand(Hand.MAIN_HAND);
         String main_hand_item = main_hand.getItem().toString();
         if(main_hand_item.equals("air") && UserConfig.VIEW_ITEM_OFF_HAND){
@@ -114,47 +112,31 @@ public class Player {
     }
     public static String getHealth(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        float health = 0;
-        health = CLIENT.player.getHealth();
-//        health =+ CLIENT.player.get
-        return Main.DF.format(health/2);
+        return Main.DF.format(CLIENT.player.getHealth()/2);
     }
     public static String getMaxHealth(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        float health = 0;
-        health = CLIENT.player.getMaxHealth();
-//        health =+ CLIENT.player.get
-        return Main.DF.format(health/2);
+        return Main.DF.format(CLIENT.player.getMaxHealth()/2);
     }
     public static String getPercentHealth(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        float health = CLIENT.player.getHealth();
-        float maxHealth = CLIENT.player.getMaxHealth();
-        return Main.DF.format((health*100)/maxHealth);
+        return Main.DF.format((CLIENT.player.getHealth()*100)/CLIENT.player.getMaxHealth());
     }
     public static String getArmor(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        float armor = 0;
-        armor = CLIENT.player.getArmor();
-        return Main.DF.format(armor/2);
+        return Main.DF.format(CLIENT.player.getArmor()/2);
     }
     public static String getX(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        double position = 0;
-        position = CLIENT.player.capeX;
-        return Main.DF.format(position);
+        return Main.DF.format(CLIENT.player.capeX);
     }
     public static String getY(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        double position = 0;
-        position = CLIENT.player.capeY;
-        return Main.DF.format(position);
+        return Main.DF.format(CLIENT.player.capeY);
     }
     public static String getZ(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
-        double position = 0;
-        position = CLIENT.player.capeZ;
-        return Main.DF.format(position);
+        return Main.DF.format(CLIENT.player.capeZ);
     }
 
 }

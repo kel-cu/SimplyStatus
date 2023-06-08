@@ -1,12 +1,8 @@
 package ru.simplykel.simplystatus.config.gui;
 
-import com.mojang.authlib.yggdrasil.response.User;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableTextContent;
 import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
@@ -14,7 +10,6 @@ import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.ServerConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 import ru.simplykel.simplystatus.config.gui.category.*;
-import su.plo.voice.api.client.config.ClientConfig;
 
 public class ConfigScreen {
     public static Screen buildScreen (Screen currentScreen) {
