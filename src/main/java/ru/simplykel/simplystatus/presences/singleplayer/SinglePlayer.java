@@ -2,9 +2,11 @@ package ru.simplykel.simplystatus.presences.singleplayer;
 
 import club.minnced.discord.rpc.DiscordRichPresence;
 import ru.simplykel.simplystatus.Client;
+import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.info.Player;
 import ru.simplykel.simplystatus.info.World;
+import ru.simplykel.simplystatus.mods.KelUtils;
 import ru.simplykel.simplystatus.mods.MusicPlayer;
 import ru.simplykel.simplystatus.config.UserConfig;
 
@@ -20,7 +22,7 @@ public class SinglePlayer {
             }
         } else presence.largeImageKey = Client.ASSETS.logo;
 
-        if(UserConfig.VIEW_MUSIC_LISTENER && !new MusicPlayer().paused) {
+        if(UserConfig.VIEW_MUSIC_LISTENER && ((Main.musicPlayer  && !new MusicPlayer().paused) || (Main.kelUtils && !new KelUtils().paused))) {
             presence.smallImageKey = Client.ASSETS.music;
             presence.smallImageText = Localization.getLocalization("mod.music", true);
         } else if(UserConfig.SHOW_AVATAR_PLAYER) {

@@ -1,7 +1,7 @@
 {
   "simplystatus.name": "SimplyStatus",
   "simplystatus.key.openConfig": "Відкрити конфігурацію",
-  "simplystatus.message.clothConfigNotFound": "§7SimplyStatus§r » Встановіть мод §7Cloth Config§r для показу вікна конфігурації. =-=",
+  "simplystatus.message.clothConfigNotFound": "§7SimplyStatus§r » Встановіть мод §7Cloth Config або YetAnotherConfigLib§r для показу вікна конфігурації. =-=",
 
   "simplystatus.config.client": "Клієнт",
   "simplystatus.config.client.enable_rpc": "Увімкнено RPC",
@@ -145,7 +145,7 @@
   "simplystatus.presence.player.sneak": "%name% кродется",
   "simplystatus.presence.player.on.fire": "%name% горить",
   "simplystatus.presence.player.on.water": "%name% занурений у воду",
-  "simplystatus.presence.player.statistics": "%health% • %health_max%❤ %armor%🛡",
+  "simplystatus.presence.player.statistics": "❤: %health% • ⛊: %armor%",
   "simplystatus.presence.server.connecting": "%name% підключається до сервера",
   "simplystatus.presence.server.disconnected": "%name% відключений від сервера",
   "simplystatus.presence.world.loading": "Завантаження світу...",

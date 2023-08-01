@@ -2,11 +2,13 @@ package ru.simplykel.simplystatus.presences.multiplayer;
 
 import club.minnced.discord.rpc.DiscordRichPresence;
 import ru.simplykel.simplystatus.Client;
+import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ServerConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 import ru.simplykel.simplystatus.info.Player;
 import ru.simplykel.simplystatus.info.World;
+import ru.simplykel.simplystatus.mods.KelUtils;
 import ru.simplykel.simplystatus.mods.MusicPlayer;
 
 public class MultiPlayer {
@@ -21,7 +23,7 @@ public class MultiPlayer {
                 presence.largeImageText = World.getName();
             }
         } else presence.largeImageKey = Client.ASSETS.logo;
-        if(UserConfig.VIEW_MUSIC_LISTENER && !new MusicPlayer().paused) {
+        if(UserConfig.VIEW_MUSIC_LISTENER && ((Main.musicPlayer  && !new MusicPlayer().paused) || (Main.kelUtils && !new KelUtils().paused))) {
             presence.smallImageKey = Client.ASSETS.music;
             presence.smallImageText = Localization.getLocalization("mod.music", true);
         } else if(ServerConfig.SHOW_ICON && (ServerConfig.ICON_URL.length() != 0)){

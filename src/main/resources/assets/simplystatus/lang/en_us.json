@@ -2,7 +2,7 @@
   "simplystatus.name": "SimplyStatus",
   "simplystatus.key.devhotkey": "Developer HotKey",
   "simplystatus.key.openConfig": "Open Config",
-  "simplystatus.message.clothConfigNotFound": "§7SimplyStatus§r » Install the §7Cloth Config§r mod to display the config window. =-=",
+  "simplystatus.message.clothConfigNotFound": "§7SimplyStatus§r » Install the §7Cloth Config or YetAnotherConfigLib§r mod to display the config window. =-=",
 
   "simplystatus.config.client": "Client",
   "simplystatus.config.client.enable_rpc": "Enable RPC",
@@ -147,7 +147,7 @@
   "simplystatus.presence.player.sneak": "The %discord_name% sneaks",
   "simplystatus.presence.player.on.fire": "%discord_name% is burning",
   "simplystatus.presence.player.on.water": "%discord_name% is submerged in water",
-  "simplystatus.presence.player.statistics": "%health% • %health_max%❤ %armor%🛡",
+  "simplystatus.presence.player.statistics": "❤: %health% • ⛊: %armor%",
   "simplystatus.presence.server.connecting": "%discord_name% connecting to server",
   "simplystatus.presence.server.disconnected": "%discord_name% disconnected from server",
   "simplystatus.presence.world.loading": "Loading the World",

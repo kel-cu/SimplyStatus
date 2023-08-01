@@ -26,6 +26,7 @@ public class UserConfig {
     public static boolean ENABLE_TIME_CYCLE = true;
     public static boolean ENABLE_WORLD = true;
     public static boolean USE_CUSTOM_APP_ID = false;
+    public static boolean USE_YACL_CONFIGURATION = false;
     public static String CUSTOM_APP_ID = ModConfig.baseID;
 
     /**
@@ -52,6 +53,7 @@ public class UserConfig {
                 .put("ENABLE_TIME_CYCLE", ENABLE_TIME_CYCLE)
                 .put("ENABLE_WORLD", ENABLE_WORLD)
                 .put("USE_CUSTOM_APP_ID", USE_CUSTOM_APP_ID)
+                .put("USE_YACL_CONFIGURATION", USE_YACL_CONFIGURATION)
                 .put("CUSTOM_APP_ID", CUSTOM_APP_ID);
         try {
             Files.createDirectories(configFile.getParent());
@@ -80,7 +82,7 @@ public class UserConfig {
 
             if(!jsonConfig.isNull("VIEW_ITEM_OFF_HAND")) VIEW_ITEM_OFF_HAND = jsonConfig.getBoolean("VIEW_ITEM_OFF_HAND");
             else VIEW_ITEM_OFF_HAND = false;
-            if(!jsonConfig.isNull("VIEW_MUSIC_LISTENER") && Main.musicPlayer) VIEW_MUSIC_LISTENER = jsonConfig.getBoolean("VIEW_MUSIC_LISTENER");
+            if(!jsonConfig.isNull("VIEW_MUSIC_LISTENER") && (Main.musicPlayer || Main.kelUtils)) VIEW_MUSIC_LISTENER = jsonConfig.getBoolean("VIEW_MUSIC_LISTENER");
             else VIEW_MUSIC_LISTENER = false;
             if(!jsonConfig.isNull("VIEW_STATISTICS")) VIEW_STATISTICS = jsonConfig.getBoolean("VIEW_STATISTICS");
             else VIEW_STATISTICS = true;
@@ -109,6 +111,8 @@ public class UserConfig {
 
             if(!jsonConfig.isNull("USE_CUSTOM_APP_ID")) USE_CUSTOM_APP_ID = jsonConfig.getBoolean("USE_CUSTOM_APP_ID");
             else USE_CUSTOM_APP_ID = false;
+            if(!jsonConfig.isNull("USE_YACL_CONFIGURATION") && Main.yetAnotherConfigLibV3) USE_YACL_CONFIGURATION = jsonConfig.getBoolean("USE_YACL_CONFIGURATION");
+            else USE_YACL_CONFIGURATION = false;
             if(!jsonConfig.isNull("CUSTOM_APP_ID")) CUSTOM_APP_ID = jsonConfig.getString("CUSTOM_APP_ID");
             else CUSTOM_APP_ID = ModConfig.baseID;
 

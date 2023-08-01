@@ -9,11 +9,8 @@ import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.info.Game;
 import ru.simplykel.simplystatus.info.Player;
-import ru.simplykel.simplystatus.mods.MusicPlayer;
-import ru.simplykel.simplystatus.mods.PlasmoVoice;
-import ru.simplykel.simplystatus.mods.ReplayMod;
+import ru.simplykel.simplystatus.mods.*;
 import ru.simplykel.simplystatus.mixin.MinecraftClientAccess;
-import ru.simplykel.simplystatus.mods.SVC;
 
 import java.io.File;
 import java.io.IOException;
@@ -130,6 +127,20 @@ public class Localization {
         }
         if(Main.musicPlayer){
             MusicPlayer music = new MusicPlayer();
+            if(!music.paused){
+                parsedText = parsedText.replace("%music%", getLocalization("mod.music.format", false));
+                if(music.artistIsNull) parsedText = parsedText.replace("%artist%", "");
+                else {
+                    parsedText = parsedText.replace("%artist%", getLocalization("mod.music.format.artist", false));
+                    parsedText = parsedText.replace("%artist_name%", music.artist);
+                }
+                if(music.useFile) parsedText = parsedText.replace("%title%", music.file);
+                else parsedText = parsedText.replace("%title%", music.title);
+            }
+        }
+
+        if(Main.kelUtils){
+            KelUtils music = new KelUtils();
             if(!music.paused){
                 parsedText = parsedText.replace("%music%", getLocalization("mod.music.format", false));
                 if(music.artistIsNull) parsedText = parsedText.replace("%artist%", "");

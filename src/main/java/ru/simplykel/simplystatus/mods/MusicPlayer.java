@@ -34,7 +34,7 @@ public class MusicPlayer {
                 artistIsNull = false;
             }
             title = manager.getCurrentTrack().getInfo().getTitle();
-            if(title.startsWith(artist)){
+            if(title.contains(artist)){
                 artist = "";
                 artistIsNull = true;
             }
