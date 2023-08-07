@@ -5,27 +5,54 @@
 
   "simplystatus.config.client": "Клієнт",
   "simplystatus.config.client.enable_rpc": "Увімкнено RPC",
+  "simplystatus.config.client.use_yacl": "Використовувати YACL",
   "simplystatus.config.client.use_minecraft_id": "Змінити назву на Minecraft",
   "simplystatus.config.client.assets": "Використовувати іконки",
+  "simplystatus.config.client.api": "Використовувати API рендеру",
   "simplystatus.config.client.show_avatar_player": "Показати аватарку",
   "simplystatus.config.client.show_game_started": "Показати час завантаження",
   "simplystatus.config.client.view_item_off_hand": "Показати предмет другої руки",
   "simplystatus.config.client.view_statistics": "Показувати статистику",
   "simplystatus.config.client.view_player_name": "Показати нікнейм",
 
+  "simplystatus.config.client.enable_rpc.description": "Показує статус у Discord",
+  "simplystatus.config.client.use_yacl.description": "*YACL - YetAnotherConfigLib",
+  "simplystatus.config.client.use_minecraft_id.description": "Змінює ідентифікатор програми на інший, щоб змінити назву",
+  "simplystatus.config.client.assets.description": "Набір іконок:\n§lDefault§r - Стандартний мод\n§lBedrock§r - Стиль Bedrock Edition\n§lOld§r - Стара версія іконок мода\n§lCringe§r - :/\n§lCraftPresence§r - Стилістика мода CraftPresence",
+  "simplystatus.config.client.api.description": "API для рендерингу аватарів.\n*Alina API - Це публічний API розробника мода.",
+  "simplystatus.config.client.show_avatar_player.description": "Показує вашу шкіру як іконку, якщо у вас є ліцензія на гру. В іншому випадку буде показано аватар Discord",
+  "simplystatus.config.client.show_game_started.description": "Показує час гри, коли ви починаєте гру",
+  "simplystatus.config.client.view_item_off_hand.description": "Показує предмет, який ви тримаєте в другій руці, за умови, що в першій руці нічого немає.",
+  "simplystatus.config.client.view_statistics.description": "Показує статистику гравця у вигляді здоров'я, броні та досвіду",
+  "simplystatus.config.client.view_player_name.description": "Показує ваш нікнейм з гри, інакше буде показано нікнейм розбрату",
+
   "simplystatus.config.addons": "Доповнення",
   "simplystatus.config.addons.modifications": "Модифікації",
   "simplystatus.config.addons.view_voice_speak": "Показати активність войса",
   "simplystatus.config.addons.view_replay_mod": "ReplayMod",
   "simplystatus.config.addons.view_music_listener": "Показувати музику",
+
+  "simplystatus.config.addons.view_voice_speak.description": "Показує у вашому статусі, що ви розмовляєте з голосом.\nМоди: Plasmo Voice, Simple Voice Chat",
+  "simplystatus.config.addons.view_replay_mod.description": "Показує, в якому типі відтворення ви перебуваєте",
+  "simplystatus.config.addons.view_music_listener.description": "Показує музику, яку ви слухаєте.\nМоди:Music Player Fabric, KelUtils - Музыка",
+
   "simplystatus.config.addons.indicators": "Показники",
   "simplystatus.config.client.show_items": "Показувати предмети",
   "simplystatus.config.client.enable_time_cycle": "Увімкнути показ часу",
   "simplystatus.config.client.enable_world": "Увімкнути показ світу",
+
+  "simplystatus.config.addons.show_items.description": "Показує стан предмета, який ви тримаєте в руці",
+  "simplystatus.config.addons.enable_time_cycle.description": "Показує піктограму часу у Верхньому світі",
+  "simplystatus.config.addons.enable_world.description": "Показує піктограму світу, в якому ви перебуваєте",
+
   "simplystatus.config.addons.custom": "Кастомізація",
   "simplystatus.config.addons.use_custom_assets": "Використовувати кастомні іконки",
   "simplystatus.config.client.use_custom_app_id": "Використовувати кастомний app ID",
   "simplystatus.config.addons.custom_app_id": "Кастомний ID додатка",
+
+  "simplystatus.config.addons.use_custom_assets.description": "Я художник. Ось як я це бачу.",
+  "simplystatus.config.addons.use_custom_app_id.description": "Використовуйте свій додаток Discord",
+  "simplystatus.config.addons.custom_app_id.description": "Ваш ідентифікатор програми Discord",
 
   "simplystatus.config.replaymod": "ReplayMod",
   "simplystatus.config.replaymod.view_replay_mod_server_name": "Показувати назву серв.",
@@ -51,6 +78,12 @@
   "simplystatus.config.server.custom_name": "Кастомна назва",
   "simplystatus.config.server.show_icon": "Показати іконку",
   "simplystatus.config.server.icon_url": "Посилання іконки",
+
+  "simplystatus.config.server.show_address.description": "Shows the server address, or name",
+  "simplystatus.config.server.show_name_in_list.description": "Shows the server name from the server list",
+  "simplystatus.config.server.show_custom_name.description": "Your own server name, if it does not fit from the list of servers",
+  "simplystatus.config.server.show_icon.description": "Shows server icon Server icon Server icon",
+  "simplystatus.config.server.icon_url.description": "Link to the server icon, take note - discord links don't work!",
 
   "simplystatus.config.assets": "Іконки",
   "simplystatus.config.assets.logo": "Лого",
@@ -167,5 +200,5 @@
   "modmenu.descriptionTranslation.simplystatus": "Простий, кастомізований ігровий статус Discord",
   "modmenu.simplystatus.github": "GitHub",
   "modmenu.simplystatus.modrinth": "Modrinth",
-  "modmenu.simplystatus.boosty": "Ранній доступ на Boosty"
+  "modmenu.simplystatus.donate": "DonationAlerts"
 }

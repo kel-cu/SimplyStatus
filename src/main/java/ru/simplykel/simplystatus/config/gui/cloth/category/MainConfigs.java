@@ -7,13 +7,15 @@ import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
 
+import java.util.Arrays;
+
 public class MainConfigs {
     public ConfigCategory getCategory(ConfigBuilder builder){
         ConfigCategory category = builder.getOrCreateCategory(Localization.getText("simplystatus.config.client"));
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
         // YACL
-        category.addEntry(entryBuilder.startBooleanToggle(Localization.toText("Use YACL"), UserConfig.USE_YACL_CONFIGURATION)
-                .setTooltip(Localization.toText("A reboot will be required to apply the changes to ModMenu"))
+        category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.use_yacl"), UserConfig.USE_YACL_CONFIGURATION)
+                .setTooltip(Localization.getText("simplystatus.config.client.use_yacl.description"))
                 .setDefaultValue(false)
                 .setSaveConsumer(newValue -> UserConfig.USE_YACL_CONFIGURATION = newValue)
                 .build());
@@ -31,6 +33,11 @@ public class MainConfigs {
         if(!UserConfig.USE_CUSTOM_ASSETS && !UserConfig.USE_CUSTOM_APP_ID) category.addEntry(entryBuilder.startSelector(Localization.getText("simplystatus.config.client.assets"), ModConfig.assetsList, UserConfig.USE_ASSETS)
                 .setDefaultValue(ModConfig.assetsList[0])
                 .setSaveConsumer(newVolume -> UserConfig.USE_ASSETS = newVolume)
+                .build());
+        String[] apiNames = ru.simplykel.simplystatus.config.gui.yacl.category.MainConfigs.apiNames;
+        category.addEntry(entryBuilder.startSelector(Localization.getText("simplystatus.config.client.api"), apiNames, apiNames[UserConfig.USE_API_RENDER])
+                .setDefaultValue(apiNames[0])
+                .setSaveConsumer(newVolume -> UserConfig.USE_API_RENDER = Arrays.asList(apiNames).indexOf(newVolume))
                 .build());
         // SHOW GAME STARTED
         category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.show_game_started"), UserConfig.SHOW_GAME_STARTED)

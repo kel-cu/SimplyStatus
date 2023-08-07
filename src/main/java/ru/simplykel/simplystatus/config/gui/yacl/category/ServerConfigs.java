@@ -2,6 +2,7 @@ package ru.simplykel.simplystatus.config.gui.yacl.category;
 
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.Option;
+import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.impl.controller.BooleanControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.StringControllerBuilderImpl;
 import ru.simplykel.simplystatus.Main;
@@ -17,6 +18,8 @@ public class ServerConfigs {
         category.option(
                 Option.createBuilder(boolean.class)
                         .name(Localization.getText("simplystatus.config.server.show_address"))
+                        .description(OptionDescription.createBuilder()
+                                .text(Localization.getText("simplystatus.config.server.show_address.description")).build())
                         .binding(false,
                                 () -> ServerConfig.SHOW_ADDRESS,
                                 newVal -> ServerConfig.SHOW_ADDRESS = newVal)
@@ -26,6 +29,8 @@ public class ServerConfigs {
         category.option(
                 Option.createBuilder(boolean.class)
                         .name(Localization.getText("simplystatus.config.server.show_name_in_list"))
+                        .description(OptionDescription.createBuilder()
+                                .text(Localization.getText("simplystatus.config.server.show_name_in_list.description")).build())
                         .binding(true,
                                 () -> ServerConfig.SHOW_NAME_IN_LIST,
                                 newVal -> ServerConfig.SHOW_NAME_IN_LIST = newVal)
@@ -35,6 +40,8 @@ public class ServerConfigs {
         category.option(
                 Option.createBuilder(boolean.class)
                         .name(Localization.getText("simplystatus.config.server.show_custom_name"))
+                        .description(OptionDescription.createBuilder()
+                                .text(Localization.getText("simplystatus.config.server.show_custom_name.description")).build())
                         .binding(false,
                                 () -> ServerConfig.SHOW_CUSTOM_NAME,
                                 newVal -> ServerConfig.SHOW_CUSTOM_NAME = newVal)
@@ -53,6 +60,8 @@ public class ServerConfigs {
         category.option(
                 Option.createBuilder(boolean.class)
                         .name(Localization.getText("simplystatus.config.server.show_icon"))
+                        .description(OptionDescription.createBuilder()
+                                .text(Localization.getText("simplystatus.config.server.show_icon.description")).build())
                         .binding(false,
                                 () -> ServerConfig.SHOW_ICON,
                                 newVal -> ServerConfig.SHOW_ICON = newVal)
@@ -62,6 +71,8 @@ public class ServerConfigs {
         category.option(
                 Option.createBuilder(String.class)
                         .name(Localization.getText("simplystatus.config.server.icon_url"))
+                        .description(OptionDescription.createBuilder()
+                                .text(Localization.getText("simplystatus.config.server.icon_url.description")).build())
                         .binding("Icon URL",
                                 () -> ServerConfig.ICON_URL,
                                 newVal -> ServerConfig.ICON_URL = newVal)

@@ -26,7 +26,7 @@ public class ModConfig {
      */
     public static AssetsConfig defaultUrlsAssets;
     /**
-    *
+     *
      */
     public static String[] assetsList;
     /**

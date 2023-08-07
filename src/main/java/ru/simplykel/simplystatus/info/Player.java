@@ -21,10 +21,21 @@ public class Player {
     public static String getURLAvatar(){
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         if(CLIENT.getSession().getAccountType().getName().equals("msa") || CLIENT.getSession().getAccountType().getName().equals("mojang")){
-            return "https://crafthead.net/helm/"+CLIENT.getSession().getUuid()+"/512";
+            switch (UserConfig.USE_API_RENDER){
+                case 1 -> {
+                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+CLIENT.getSession().getUsername()+"&api=1&sendfile=true";
+                }
+                case 2 -> {
+                    return "https://api.kelcuprum.ru/skin/render?name="+CLIENT.getSession().getUsername()+"&api=1&head=true&sendfile=true";
+                }
+                default -> {
+                    return "https://crafthead.net/helm/"+CLIENT.getSession().getUuidOrNull()+"/512";
+                }
+            }
+//
         } else {
             if(Client.CONNECTED_DISCORD) return "https://cdn.discordapp.com/avatars/"+Client.USER.userId+"/"+Client.USER.avatar+".png?size=480";
-            else return "https://cdn.discordapp.com/avatars/USER_ID/AVATAR_ID.png?size=480";
+            else return "https://kelcuprum.ru/ass/other/error.png";
         }
     }
     public static String getItemName(){

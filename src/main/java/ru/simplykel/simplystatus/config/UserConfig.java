@@ -11,6 +11,7 @@ import java.nio.file.Path;
 public class UserConfig {
     public static boolean ENABLE_RPC = true;
     public static String USE_ASSETS = ModConfig.assetsList[0];
+    public static int USE_API_RENDER = 0;
     public static boolean SHOW_GAME_STARTED = true;
     public static boolean SHOW_AVATAR_PLAYER = true;
     public static boolean VIEW_ITEM_OFF_HAND = false;
@@ -38,6 +39,7 @@ public class UserConfig {
         JSONObject jsonConfig = new JSONObject();
         jsonConfig.put("ENABLE_RPC", ENABLE_RPC)
                 .put("USE_ASSETS", USE_ASSETS)
+                .put("USE_API_RENDER", USE_API_RENDER)
                 .put("SHOW_AVATAR_PLAYER", SHOW_AVATAR_PLAYER)
                 .put("SHOW_GAME_STARTED", SHOW_GAME_STARTED)
                 .put("VIEW_ITEM_OFF_HAND", VIEW_ITEM_OFF_HAND)
@@ -75,6 +77,8 @@ public class UserConfig {
             else ENABLE_RPC = true;
             if(!jsonConfig.isNull("USE_ASSETS")) USE_ASSETS = jsonConfig.getString("USE_ASSETS");
             else USE_ASSETS = ModConfig.assetsList[0];
+            if(!jsonConfig.isNull("USE_API_RENDER")) USE_API_RENDER = jsonConfig.getInt("USE_API_RENDER");
+            else USE_API_RENDER = 0;
             if(!jsonConfig.isNull("SHOW_AVATAR_PLAYER")) SHOW_AVATAR_PLAYER = jsonConfig.getBoolean("SHOW_AVATAR_PLAYER");
             else SHOW_AVATAR_PLAYER = true;
             if(!jsonConfig.isNull("SHOW_GAME_STARTED")) SHOW_GAME_STARTED = jsonConfig.getBoolean("SHOW_GAME_STARTED");

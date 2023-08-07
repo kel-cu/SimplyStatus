@@ -2,6 +2,7 @@ package ru.simplykel.simplystatus.config.gui.yacl.category;
 
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.Option;
+import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.impl.controller.BooleanControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.StringControllerBuilderImpl;
@@ -19,6 +20,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(boolean.class)
                                 .name(Localization.getText("simplystatus.config.addons.view_replay_mod"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.view_replay_mod.description")).build())
                                 .binding(false, () -> UserConfig.VIEW_REPLAY_MOD, newVal -> UserConfig.VIEW_REPLAY_MOD = newVal)
                                 .controller(BooleanControllerBuilderImpl::new)
                                 .available(Main.replayMod)
@@ -27,6 +30,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(boolean.class)
                                 .name(Localization.getText("simplystatus.config.addons.view_voice_speak"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.view_voice_speak.description")).build())
                                 .binding(false, () -> UserConfig.VIEW_VOICE_SPEAK, newVal -> UserConfig.VIEW_VOICE_SPEAK = newVal)
                                 .controller(BooleanControllerBuilderImpl::new)
                                 .available(Main.isVoiceModsEnable)
@@ -35,6 +40,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(boolean.class)
                                 .name(Localization.getText("simplystatus.config.addons.view_music_listener"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.view_music_listener.description")).build())
                                 .binding(false, () -> UserConfig.VIEW_MUSIC_LISTENER, newVal -> UserConfig.VIEW_MUSIC_LISTENER = newVal)
                                 .controller(BooleanControllerBuilderImpl::new)
                                 .available(Main.musicPlayer || Main.kelUtils)
@@ -48,6 +55,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(boolean.class)
                                 .name(Localization.getText("simplystatus.config.addons.show_items"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.show_items.description")).build())
                                 .binding(true, () -> UserConfig.SHOW_ITEMS, newVal -> UserConfig.SHOW_ITEMS = newVal)
                                 .controller(BooleanControllerBuilderImpl::new)
                                 .build()
@@ -55,6 +64,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(boolean.class)
                                 .name(Localization.getText("simplystatus.config.addons.enable_time_cycle"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.enable_time_cycle.description")).build())
                                 .binding(true, () -> UserConfig.ENABLE_TIME_CYCLE, newVal -> UserConfig.ENABLE_TIME_CYCLE = newVal)
                                 .controller(BooleanControllerBuilderImpl::new)
                                 .build()
@@ -62,6 +73,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(boolean.class)
                                 .name(Localization.getText("simplystatus.config.addons.enable_world"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.enable_world.description")).build())
                                 .binding(true, () -> UserConfig.ENABLE_WORLD, newVal -> UserConfig.ENABLE_WORLD = newVal)
                                 .controller(BooleanControllerBuilderImpl::new)
                                 .build()
@@ -74,6 +87,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(boolean.class)
                                 .name(Localization.getText("simplystatus.config.addons.use_custom_assets"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.use_custom_assets.description")).build())
                                 .binding(false, () -> UserConfig.USE_CUSTOM_ASSETS, newVal -> UserConfig.USE_CUSTOM_ASSETS = newVal)
                                 .controller(BooleanControllerBuilderImpl::new)
                                 .build()
@@ -81,6 +96,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(boolean.class)
                                 .name(Localization.getText("simplystatus.config.client.use_custom_app_id"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.use_custom_app_id.description")).build())
                                 .binding(false, () -> UserConfig.USE_CUSTOM_APP_ID, newVal -> UserConfig.USE_CUSTOM_APP_ID = newVal)
                                 .controller(BooleanControllerBuilderImpl::new)
                                 .build()
@@ -88,6 +105,8 @@ public class AddonsConfigs {
                 .option(
                         Option.createBuilder(String.class)
                                 .name(Localization.getText("simplystatus.config.addons.custom_app_id"))
+                                .description(OptionDescription.createBuilder()
+                                        .text(Localization.getText("simplystatus.config.addons.custom_app_id.description")).build())
                                 .binding(ModConfig.baseID, () -> UserConfig.CUSTOM_APP_ID, newVal -> UserConfig.CUSTOM_APP_ID = newVal)
                                 .controller(StringControllerBuilderImpl::new)
                                 .build()
