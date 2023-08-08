@@ -7,7 +7,8 @@
     "Bedrock",
     "Old",
     "Cringe",
-    "CraftPresence"
+    "CraftPresence",
+    "Stones"
   ],
   "assets": {
     "default": {
@@ -110,25 +111,25 @@
       "unknown_world": "https://assets.kelcuprum.ru/simplystatus/craftpresence/unknown.png",
       "unknown": "https://assets.kelcuprum.ru/simplystatus/craftpresence/unknown.png"
     },
-    "penciled": {
-      "logo": "logo",
+    "stones": {
+      "logo": "https://assets.kelcuprum.ru/simplystatus/stones/logo.webp",
 
-      "day": "day_update_2",
-      "night": "nigth_update_2",
-      "morning": "morning_update_2",
-      "evening": "evening_update_2",
+      "day": "https://assets.kelcuprum.ru/simplystatus/stones/day.webp",
+      "night": "https://assets.kelcuprum.ru/simplystatus/stones/night.webp",
+      "morning": "https://assets.kelcuprum.ru/simplystatus/stones/morning.webp",
+      "evening": "https://assets.kelcuprum.ru/simplystatus/stones/evening.webp",
 
-      "world": "overworld",
-      "world_nether": "nether",
-      "world_the_end": "end",
-      "world_moon": "end",
+      "world": "https://assets.kelcuprum.ru/simplystatus/stones/overworld.webp",
+      "world_nether": "https://assets.kelcuprum.ru/simplystatus/stones/nether.webp",
+      "world_the_end": "https://assets.kelcuprum.ru/simplystatus/stones/end.webp",
+      "world_moon": "https://assets.kelcuprum.ru/simplystatus/stones/end.webp",
 
       "music": "music",
       "replaymod": "replaymod_logo",
       "voice": "voice",
 
-      "unknown_world": "unknown_world",
-      "unknown": "unknown"
+      "unknown_world": "https://assets.kelcuprum.ru/other/error.png",
+      "unknown": "https://assets.kelcuprum.ru/other/error.png"
     },
     "~urls": {
       "logo": "https://assets.kelcuprum.ru/simplystatus/default/logo.png",

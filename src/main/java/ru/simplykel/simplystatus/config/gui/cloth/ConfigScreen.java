@@ -60,9 +60,7 @@ public class ConfigScreen {
             Main.useAnotherID = UserConfig.USE_ANOTHER_ID;
             Main.useCustomID = UserConfig.USE_CUSTOM_APP_ID;
             Main.customID = "";
-            String APPLICATION_ID = "";
-            if(UserConfig.USE_ANOTHER_ID) APPLICATION_ID = ModConfig.mineID;
-            else APPLICATION_ID = ModConfig.baseID;
+            String APPLICATION_ID = UserConfig.USE_ANOTHER_ID ? ModConfig.mineID : ModConfig.baseID;
 
             Client.LIB.Discord_Shutdown();
             Client.LIB.Discord_Initialize(APPLICATION_ID, Client.HANDLERS, Client.AUTO_REGISTER, Client.STEAM_ID);

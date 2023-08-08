@@ -2,12 +2,9 @@ package ru.simplykel.simplystatus.config.gui.yacl.category;
 
 import dev.isxander.yacl3.api.ConfigCategory;
 import dev.isxander.yacl3.api.Option;
-import dev.isxander.yacl3.impl.controller.BooleanControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.StringControllerBuilderImpl;
 import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
-import ru.simplykel.simplystatus.config.UserConfig;
-
 public class VoiceConfigs {
     public ConfigCategory getCategory(){
         ConfigCategory.Builder category = ConfigCategory.createBuilder()

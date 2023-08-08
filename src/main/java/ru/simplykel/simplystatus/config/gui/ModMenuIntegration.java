@@ -5,7 +5,6 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.gui.screen.Screen;
-import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.UserConfig;
 import ru.simplykel.simplystatus.config.gui.cloth.ConfigScreen;
@@ -16,11 +15,6 @@ public class ModMenuIntegration implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
-        UserConfig.load();
-//        Client.LOG.info("1 " + (Main.clothConfig && !(UserConfig.USE_YACL_CONFIGURATION && Main.yetAnotherConfigLibV3)));
-//        Client.LOG.info("2 " + (UserConfig.USE_YACL_CONFIGURATION && Main.yetAnotherConfigLibV3));
-//        Client.LOG.info("3 " + Main.yetAnotherConfigLibV3);
-//        Client.LOG.info("4 " + UserConfig.USE_YACL_CONFIGURATION);
         return this::setScreen;
     }
     public Screen setScreen(Screen currentScreen){

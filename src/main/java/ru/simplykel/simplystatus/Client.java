@@ -154,10 +154,12 @@ public class Client implements ClientModInitializer {
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         if(UserConfig.ENABLE_RPC){
             if(CLIENT.world == null || CLIENT.player == null){
-                if(Game.getGameState() == 1) new Loading();
-                else if(Game.getGameState() == 2) new Connect();
-                else if(Game.getGameState() == 3) new Disconnect();
-                else new MainMenu();
+                switch(Game.getGameState()){
+                    case 1 -> new Loading();
+                    case 2 -> new Connect();
+                    case 3 -> new Disconnect();
+                    default -> new MainMenu();
+                }
             } else {
                 if(CLIENT.isInSingleplayer()) new SinglePlayer();
                 else if(CLIENT.getCurrentServerEntry() != null) new MultiPlayer();

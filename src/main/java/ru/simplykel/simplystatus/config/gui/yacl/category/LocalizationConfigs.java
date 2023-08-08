@@ -5,7 +5,6 @@ import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionGroup;
 import dev.isxander.yacl3.impl.controller.StringControllerBuilderImpl;
 import net.minecraft.client.MinecraftClient;
-import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
 
 public class LocalizationConfigs {

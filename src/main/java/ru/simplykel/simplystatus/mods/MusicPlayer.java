@@ -27,13 +27,13 @@ public class MusicPlayer {
         IAudioTrackInfo Track = manager.getCurrentTrack().getInfo();
         if(Track.getAuthor().equals("Unknown artist") && Track.getTitle().equals("Unknown title")) {
             useFile = true;
-            file = manager.getCurrentTrack().getInfo().getURI();
+            file = Track.getURI();
         } else {
-            if (!manager.getCurrentTrack().getInfo().getAuthor().equals("")) {
-                artist = manager.getCurrentTrack().getInfo().getAuthor();
+            if (!Track.getAuthor().equals("")) {
+                artist = Track.getAuthor();
                 artistIsNull = false;
             }
-            title = manager.getCurrentTrack().getInfo().getTitle();
+            title = Track.getTitle();
             if(title.contains(artist)){
                 artist = "";
                 artistIsNull = true;

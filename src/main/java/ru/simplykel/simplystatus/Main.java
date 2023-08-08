@@ -40,6 +40,7 @@ public class Main implements ModInitializer {
             Client.LOG.warn(prefixLog+"Внимание!");
             Client.LOG.warn(prefixLog+"Данная версия мода является для тестирование публикой, в случаи обнаружение ошибок обращайтесь в https://github.com/simply-kel/SimplyStatus-fabric");
         }
+        Client.LOG.warn(prefixLog+"ЭТОТ МОД НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНЫМ [ПРОДУКТОМ/УСЛУГОЙ/СОБЫТИЕМ И т.п.] MINECRAFT. НЕ ОДОБРЕНО И НЕ СВЯЗАНО С КОМПАНИЕЙ MOJANG ИЛИ MICROSOFT");
         try {
             new ModConfig();
         } catch (Exception e) {

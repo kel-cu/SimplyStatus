@@ -1,10 +1,8 @@
 package ru.simplykel.simplystatus.mods;
 
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
-import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackInfo;
 import ru.simplykel.kelutils.client.Main;
-import ru.simplykel.kelutils.client.lavaplayer.MusicPlayer;
 
 /**
  * Kel Utils/Music Player support

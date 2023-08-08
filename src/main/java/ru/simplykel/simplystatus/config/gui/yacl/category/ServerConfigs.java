@@ -5,10 +5,8 @@ import dev.isxander.yacl3.api.Option;
 import dev.isxander.yacl3.api.OptionDescription;
 import dev.isxander.yacl3.impl.controller.BooleanControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.StringControllerBuilderImpl;
-import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.ServerConfig;
-import ru.simplykel.simplystatus.config.UserConfig;
 
 public class ServerConfigs {
     public ConfigCategory getCategory(){

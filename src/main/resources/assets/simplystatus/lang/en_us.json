@@ -19,7 +19,7 @@
   "simplystatus.config.client.enable_rpc.description": "Shows status in Discord",
   "simplystatus.config.client.use_yacl.description": "*YACL - YetAnotherConfigLib",
   "simplystatus.config.client.use_minecraft_id.description": "Changes the application ID to a different one to change the title",
-  "simplystatus.config.client.assets.description": "Icon set:\n§lDefault§r - Standard mod\n§lBedrock§r - Bedrock Edition Style\n§lOld§r - Old version of the mod icons\n§lCringe§r - :/\n§lCraftPresence§r - CraftPresence mod stylistics",
+  "simplystatus.config.client.assets.description": "Icon set:\n§lDefault§r - Standard mod\n§lBedrock§r - Bedrock Edition Style\n§lOld§r - Old version of the mod icons\n§lCringe§r - :/\n§lCraftPresence§r - CraftPresence mod stylistics\n§lStones§r - stone",
   "simplystatus.config.client.api.description": "API for avatar rendering.\n*Alina API - This is the public API of the mod developer.",
   "simplystatus.config.client.show_avatar_player.description": "Shows your skin as an icon, provided you have a game license. Otherwise Discord avatar will be displayed",
   "simplystatus.config.client.show_game_started.description": "Shows the game time when you start the game",

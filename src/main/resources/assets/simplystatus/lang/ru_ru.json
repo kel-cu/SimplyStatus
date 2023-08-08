@@ -18,7 +18,7 @@
   "simplystatus.config.client.enable_rpc.description": "Показывает статус в Discord",
   "simplystatus.config.client.use_yacl.description": "*YACL - YetAnotherConfigLib",
   "simplystatus.config.client.use_minecraft_id.description": "Меняет ID приложения на другой для смены названия",
-  "simplystatus.config.client.assets.description": "Набор иконок:\n§lDefault§r - Стандартный мода\n§lBedrock§r - Стиль Bedrock Edition\n§lOld§r - Старая версия иконок мода\n§lCringe§r - :/\n§lCraftPresence§r - Стилистика мода СraftPresence",
+  "simplystatus.config.client.assets.description": "Набор иконок:\n§lDefault§r - Стандартный мода\n§lBedrock§r - Стиль Bedrock Edition\n§lOld§r - Старая версия иконок мода\n§lCringe§r - :/\n§lCraftPresence§r - Стилистика мода СraftPresence\n§lStones§r - камень",
   "simplystatus.config.client.api.description": "API для рендеринга аватаров.\n*Alina API - Это публичный API разработчика мода.",
   "simplystatus.config.client.show_avatar_player.description": "Показывает ваш скин в виде иконки, при условии что у вас есть лицензия игры. Иначе будет отображаться аватарка Discord",
   "simplystatus.config.client.show_game_started.description": "Показывает время игры когда вы запустили игру",
