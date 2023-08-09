@@ -31,22 +31,15 @@ public class PlasmoVoice {
                         isOnePlayer = true;
                         isSelfTalk = false;
                     }
-                } else {
-                    listener = "";
-                    isSelfTalk = false;
-                    isOnePlayer = false;
-                }
-            } else {
-                isSpeak =  false;
-                isOnePlayer = false;
-                isSelfTalk = false;
-                listener = "";
-            }
-        } else {
-            isSpeak =  false;
-            isOnePlayer = false;
-            isSelfTalk = false;
-            listener = "";
-        }
+                } else toDisable();
+            } else toDisable();
+        } else toDisable();
+    }
+    private void toDisable(){
+        isSpeak =  false;
+        isOnePlayer = false;
+        isSelfTalk = false;
+        listener = "";
+
     }
 }

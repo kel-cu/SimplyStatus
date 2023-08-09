@@ -21,7 +21,8 @@ import org.lwjgl.glfw.GLFW;
 import ru.simplykel.simplystatus.config.AssetsConfig;
 import ru.simplykel.simplystatus.config.ModConfig;
 import ru.simplykel.simplystatus.config.UserConfig;
-import ru.simplykel.simplystatus.config.gui.ConfigScreen;
+import ru.simplykel.simplystatus.config.gui.cloth.ConfigScreen;
+import ru.simplykel.simplystatus.config.gui.yacl.YACLConfigScreen;
 import ru.simplykel.simplystatus.info.Game;
 import ru.simplykel.simplystatus.presences.MainMenu;
 import ru.simplykel.simplystatus.presences.ReplayMod;
@@ -70,12 +71,18 @@ public class Client implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             assert client.player != null;
             while (openConfigKeyBind.wasPressed()) {
-                if(!Main.clothConfig){
+                if(!Main.clothConfig && !Main.yetAnotherConfigLibV3){
                     client.player.sendMessage(Text.translatable(("simplystatus.message.clothConfigNotFound")), true);
                     return;
                 }
                 final Screen current = client.currentScreen;
-                Screen configScreen = ConfigScreen.buildScreen(current);
+                Screen configScreen ;
+                if(Main.clothConfig && !(UserConfig.USE_YACL_CONFIGURATION && Main.yetAnotherConfigLibV3)) {
+                    configScreen = ConfigScreen.buildScreen(current);
+                } else {
+                    configScreen = YACLConfigScreen.buildScreen(current);
+                }
+
                 client.setScreen(configScreen);
             }
         });
@@ -147,10 +154,12 @@ public class Client implements ClientModInitializer {
         MinecraftClient CLIENT = MinecraftClient.getInstance();
         if(UserConfig.ENABLE_RPC){
             if(CLIENT.world == null || CLIENT.player == null){
-                if(Game.getGameState() == 1) new Loading();
-                else if(Game.getGameState() == 2) new Connect();
-                else if(Game.getGameState() == 3) new Disconnect();
-                else new MainMenu();
+                switch(Game.getGameState()){
+                    case 1 -> new Loading();
+                    case 2 -> new Connect();
+                    case 3 -> new Disconnect();
+                    default -> new MainMenu();
+                }
             } else {
                 if(CLIENT.isInSingleplayer()) new SinglePlayer();
                 else if(CLIENT.getCurrentServerEntry() != null) new MultiPlayer();

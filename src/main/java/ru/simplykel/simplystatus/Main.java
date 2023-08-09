@@ -18,7 +18,9 @@ public class Main implements ModInitializer {
     public static boolean clothConfig = FabricLoader.getInstance().getModContainer("cloth-config").isPresent();
     public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
     public static Boolean musicPlayer = FabricLoader.getInstance().getModContainer("musicplayer").isPresent();
+    public static Boolean kelUtils = FabricLoader.getInstance().getModContainer("kelutils").isPresent();
     public static Boolean svc = FabricLoader.getInstance().getModContainer("voicechat").isPresent();
+    public static Boolean yetAnotherConfigLibV3 = FabricLoader.getInstance().getModContainer("yet_another_config_lib_v3").isPresent();
     public static Boolean plasmo = FabricLoader.getInstance().getModContainer("plasmovoice").isPresent();
     public static Boolean fastload = FabricLoader.getInstance().getModContainer("fastload").isPresent();
     public static Boolean isVoiceModsEnable = (svc || plasmo);
@@ -38,6 +40,7 @@ public class Main implements ModInitializer {
             Client.LOG.warn(prefixLog+"Внимание!");
             Client.LOG.warn(prefixLog+"Данная версия мода является для тестирование публикой, в случаи обнаружение ошибок обращайтесь в https://github.com/simply-kel/SimplyStatus-fabric");
         }
+        Client.LOG.warn(prefixLog+"ЭТОТ МОД НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНЫМ [ПРОДУКТОМ/УСЛУГОЙ/СОБЫТИЕМ И т.п.] MINECRAFT. НЕ ОДОБРЕНО И НЕ СВЯЗАНО С КОМПАНИЕЙ MOJANG ИЛИ MICROSOFT");
         try {
             new ModConfig();
         } catch (Exception e) {

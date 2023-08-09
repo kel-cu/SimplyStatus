@@ -9,11 +9,8 @@ import ru.simplykel.simplystatus.Client;
 import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.info.Game;
 import ru.simplykel.simplystatus.info.Player;
-import ru.simplykel.simplystatus.mods.MusicPlayer;
-import ru.simplykel.simplystatus.mods.PlasmoVoice;
-import ru.simplykel.simplystatus.mods.ReplayMod;
+import ru.simplykel.simplystatus.mods.*;
 import ru.simplykel.simplystatus.mixin.MinecraftClientAccess;
-import ru.simplykel.simplystatus.mods.SVC;
 
 import java.io.File;
 import java.io.IOException;
@@ -141,6 +138,20 @@ public class Localization {
                 else parsedText = parsedText.replace("%title%", music.title);
             }
         }
+
+        if(Main.kelUtils){
+            KelUtils music = new KelUtils();
+            if(!music.paused){
+                parsedText = parsedText.replace("%music%", getLocalization("mod.music.format", false));
+                if(music.artistIsNull) parsedText = parsedText.replace("%artist%", "");
+                else {
+                    parsedText = parsedText.replace("%artist%", getLocalization("mod.music.format.artist", false));
+                    parsedText = parsedText.replace("%artist_name%", music.artist);
+                }
+                if(music.useFile) parsedText = parsedText.replace("%title%", music.file);
+                else parsedText = parsedText.replace("%title%", music.title);
+            }
+        }
         if(CLIENT.world != null && CLIENT.player != null){
             parsedText = parsedText.replace("%item%", Localization.getLocalization("item.format", false));
             parsedText = parsedText.replace("%item_name%", Player.getItemName()+"");
@@ -161,7 +172,7 @@ public class Localization {
                     else if(ServerConfig.SHOW_NAME_IN_LIST) parsedText = parsedText.replace("%address%", CLIENT.getCurrentServerEntry().name);
                     else parsedText = parsedText.replace("%address%", CLIENT.getCurrentServerEntry().address);
                 } else parsedText = parsedText.replace("%address%", getLocalization("address.hidden", false));
-                if(Game.getGameState() == 0) parsedText = parsedText.replace("%ping%", CLIENT.player.networkHandler.getPlayerListEntry(CLIENT.player.getUuid()).getLatency()+"ms");
+                if(Game.getGameState() == 0 && CLIENT.player.getUuid() != null) parsedText = parsedText.replace("%ping%", CLIENT.player.networkHandler.getPlayerListEntry(CLIENT.player.getUuid()).getLatency()+"ms");
                 else parsedText = parsedText.replace("%ping%", "-ms");
             } else if(!CLIENT.isInSingleplayer() && UserConfig.VIEW_REPLAY_MOD){
                 try {

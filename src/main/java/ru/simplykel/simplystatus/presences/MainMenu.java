@@ -2,9 +2,11 @@ package ru.simplykel.simplystatus.presences;
 
 import club.minnced.discord.rpc.DiscordRichPresence;
 import ru.simplykel.simplystatus.Client;
+import ru.simplykel.simplystatus.Main;
 import ru.simplykel.simplystatus.config.Localization;
 import ru.simplykel.simplystatus.config.UserConfig;
 import ru.simplykel.simplystatus.info.Player;
+import ru.simplykel.simplystatus.mods.KelUtils;
 import ru.simplykel.simplystatus.mods.MusicPlayer;
 
 public class MainMenu {
@@ -22,7 +24,7 @@ public class MainMenu {
         }
         presence.largeImageKey = Client.ASSETS.logo;
         if(UserConfig.SHOW_GAME_STARTED) presence.startTimestamp = Client.STARTED_TIME_GAME;
-        if(UserConfig.VIEW_MUSIC_LISTENER && !new MusicPlayer().paused) {
+        if(UserConfig.VIEW_MUSIC_LISTENER && ((Main.musicPlayer  && !new MusicPlayer().paused) || (Main.kelUtils && !new KelUtils().paused))) {
             presence.smallImageKey = Client.ASSETS.music;
             presence.smallImageText = Localization.getLocalization("mod.music", true);
             presence.state = Localization.getLocalization("mod.music.menu", true);
