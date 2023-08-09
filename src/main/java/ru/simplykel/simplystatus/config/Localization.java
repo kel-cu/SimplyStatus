@@ -172,7 +172,7 @@ public class Localization {
                     else if(ServerConfig.SHOW_NAME_IN_LIST) parsedText = parsedText.replace("%address%", CLIENT.getCurrentServerEntry().name);
                     else parsedText = parsedText.replace("%address%", CLIENT.getCurrentServerEntry().address);
                 } else parsedText = parsedText.replace("%address%", getLocalization("address.hidden", false));
-                if(Game.getGameState() == 0) parsedText = parsedText.replace("%ping%", CLIENT.player.networkHandler.getPlayerListEntry(CLIENT.player.getUuid()).getLatency()+"ms");
+                if(Game.getGameState() == 0 && CLIENT.player.getUuid() != null) parsedText = parsedText.replace("%ping%", CLIENT.player.networkHandler.getPlayerListEntry(CLIENT.player.getUuid()).getLatency()+"ms");
                 else parsedText = parsedText.replace("%ping%", "-ms");
             } else if(!CLIENT.isInSingleplayer() && UserConfig.VIEW_REPLAY_MOD){
                 try {

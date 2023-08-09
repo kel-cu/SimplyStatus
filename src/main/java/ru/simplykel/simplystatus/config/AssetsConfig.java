@@ -2,6 +2,8 @@ package ru.simplykel.simplystatus.config;
 
 import net.minecraft.client.MinecraftClient;
 import org.json.JSONObject;
+import ru.simplykel.simplystatus.Client;
+import ru.simplykel.simplystatus.Main;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -73,7 +75,7 @@ public class AssetsConfig {
         try {
             JSONObject jsonConfig = new JSONObject();
             if(assetsFile.toFile().exists()) jsonConfig = new JSONObject(Files.readString(assetsFile));
-            AssetsConfig assets = new AssetsConfig(jsonConfig, false);
+            AssetsConfig assets = new AssetsConfig(jsonConfig);
             logo = assets.logo;
             day = assets.day;
             night = assets.night;
@@ -121,7 +123,7 @@ public class AssetsConfig {
         }
     }
     public AssetsConfig(){
-        AssetsConfig assets = new AssetsConfig(ModConfig.assets.getJSONObject(UserConfig.USE_ASSETS.toLowerCase()), false);
+        AssetsConfig assets = new AssetsConfig(ModConfig.assets.getJSONObject(UserConfig.USE_ASSETS.toLowerCase()));
             logo = assets.logo;
             day = assets.day;
             night = assets.night;
@@ -140,46 +142,25 @@ public class AssetsConfig {
             unknown_world = assets.unknown_world;
             unknown = assets.unknown;
     }
-    public AssetsConfig(JSONObject jsonAssets, boolean isLoadingResources){
-        AssetsConfig assets = ModConfig.defaultAssets;
-        if(jsonAssets.isNull("logo")) logo = nullAsset(isLoadingResources, assets.logo);
-        else logo = jsonAssets.getString("logo");
-
-        if(jsonAssets.isNull("day")) day = nullAsset(isLoadingResources, assets.day);
-        else day = jsonAssets.getString("day");
-        if(jsonAssets.isNull("night")) night = nullAsset(isLoadingResources, assets.night);
-        else night = jsonAssets.getString("night");
-        if(jsonAssets.isNull("morning")) morning = nullAsset(isLoadingResources, assets.morning);
-        else morning = jsonAssets.getString("morning");
-        if(jsonAssets.isNull("evening")) day = nullAsset(isLoadingResources, assets.evening);
-        else evening = jsonAssets.getString("evening");
-
-        if(jsonAssets.isNull("world")) world = nullAsset(isLoadingResources, assets.world);
-        else world = jsonAssets.getString("world");
-        if(jsonAssets.isNull("world_nether")) world_nether = nullAsset(isLoadingResources, assets.world_nether);
-        else world_nether = jsonAssets.getString("world_nether");
-        if(jsonAssets.isNull("world_the_end")) world_the_end = nullAsset(isLoadingResources, assets.world_the_end);
-        else world_the_end = jsonAssets.getString("world_the_end");
-        if(jsonAssets.isNull("world_moon")) world_moon = nullAsset(isLoadingResources, assets.world_moon);
-        else world_moon = jsonAssets.getString("world_moon");
-
-        if(jsonAssets.isNull("replaymod")) replaymod = nullAsset(isLoadingResources, assets.replaymod);
-        else replaymod = jsonAssets.getString("replaymod");
-        if(jsonAssets.isNull("music")) music = nullAsset(isLoadingResources, assets.music);
-        else music = jsonAssets.getString("music");
-        if(jsonAssets.isNull("voice")) voice = nullAsset(isLoadingResources, assets.voice);
-        else voice = jsonAssets.getString("voice");
-
-        if(jsonAssets.isNull("unknown_world")) unknown_world = nullAsset(isLoadingResources, assets.unknown_world);
-        else unknown_world = jsonAssets.getString("unknown_world");
-        if(jsonAssets.isNull("unknown")) unknown = nullAsset(isLoadingResources, assets.unknown);
-        else unknown = jsonAssets.getString("unknown");
-    }
-    private String nullAsset(boolean isResourcesLoading, String type){
-        if(isResourcesLoading){
-            return "https://assets.simplykel.ru/monke.gif";
-        } else {
-            return type;
+    public AssetsConfig(JSONObject jsonAssets){
+        for (String key : jsonAssets.keySet()) {
+            switch (key) {
+                case "logo" -> logo = jsonAssets.getString(key);
+                case "day" -> day = jsonAssets.getString(key);
+                case "night" -> night = jsonAssets.getString(key);
+                case "morning" -> morning = jsonAssets.getString(key);
+                case "evening" -> evening = jsonAssets.getString(key);
+                case "world" -> world = jsonAssets.getString(key);
+                case "world_nether" -> world_nether = jsonAssets.getString(key);
+                case "world_the_end" -> world_the_end = jsonAssets.getString(key);
+                case "world_moon" -> world_moon = jsonAssets.getString(key);
+                case "replaymod" -> replaymod = jsonAssets.getString(key);
+                case "music" -> music = jsonAssets.getString(key);
+                case "voice" -> voice = jsonAssets.getString(key);
+                case "unknown_world" -> unknown_world = jsonAssets.getString(key);
+                case "unknown" -> unknown = jsonAssets.getString(key);
+                default -> Client.LOG.warn(Main.prefixLog+key+" is not found in class");
+            }
         }
     }
 }

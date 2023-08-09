@@ -27,7 +27,7 @@ public class UserConfig {
     public static boolean ENABLE_TIME_CYCLE = true;
     public static boolean ENABLE_WORLD = true;
     public static boolean USE_CUSTOM_APP_ID = false;
-    public static boolean USE_YACL_CONFIGURATION = false;
+    public static boolean USE_YACL_CONFIGURATION = true;
     public static String CUSTOM_APP_ID = ModConfig.baseID;
 
     /**
@@ -116,7 +116,7 @@ public class UserConfig {
             if(!jsonConfig.isNull("USE_CUSTOM_APP_ID")) USE_CUSTOM_APP_ID = jsonConfig.getBoolean("USE_CUSTOM_APP_ID");
             else USE_CUSTOM_APP_ID = false;
             if(!jsonConfig.isNull("USE_YACL_CONFIGURATION") && Main.yetAnotherConfigLibV3) USE_YACL_CONFIGURATION = jsonConfig.getBoolean("USE_YACL_CONFIGURATION");
-            else USE_YACL_CONFIGURATION = false;
+            else USE_YACL_CONFIGURATION = true;
             if(!jsonConfig.isNull("CUSTOM_APP_ID")) CUSTOM_APP_ID = jsonConfig.getString("CUSTOM_APP_ID");
             else CUSTOM_APP_ID = ModConfig.baseID;
 

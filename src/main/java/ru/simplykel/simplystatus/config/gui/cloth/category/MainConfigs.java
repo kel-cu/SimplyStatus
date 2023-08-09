@@ -16,7 +16,7 @@ public class MainConfigs {
         // YACL
         category.addEntry(entryBuilder.startBooleanToggle(Localization.getText("simplystatus.config.client.use_yacl"), UserConfig.USE_YACL_CONFIGURATION)
                 .setTooltip(Localization.getText("simplystatus.config.client.use_yacl.description"))
-                .setDefaultValue(false)
+                .setDefaultValue(true)
                 .setSaveConsumer(newValue -> UserConfig.USE_YACL_CONFIGURATION = newValue)
                 .build());
         // ENABLE RPC
