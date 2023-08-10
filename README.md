@@ -13,6 +13,16 @@
 </div>
 <div align=left>
 
+### Примеры статусов
+**В главном меню**<br>
+<img src="https://cdn.modrinth.com/data/6kYGBz0X/images/30d75e96bb571c6f8567b02d04499af6e7c3ce9b.png"><br>
+
+**Статистика**<br>
+<img src="https://cdn.modrinth.com/data/6kYGBz0X/images/721e079e92394787d5e54677938e638051360c59.png"><br>
+
+**Цикл времени в статусе**<br>
+<img src="https://cdn.modrinth.com/data/6kYGBz0X/images/7f63d49f98ddbbfd2b868425bb9097f917f5ca1c.png">
+
 ### Что нужно для стабильной работы мода?
 Minecraft **1.19 and up** | 
 [Fabric API](https://modrinth.com/mod/fabric-api) |
