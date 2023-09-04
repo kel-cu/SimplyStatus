@@ -4,7 +4,6 @@ import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.config.AssetsConfig;
 import ru.kelcuprum.simplystatus.config.ModConfig;
 import ru.kelcuprum.simplystatus.config.gui.category.*;
 import ru.kelcuprum.simplystatus.localization.Localization;
@@ -42,6 +41,7 @@ public class YACLConfigScreen {
                 SimplyStatus.customID = APPLICATION_ID;
                 SimplyStatus.LIB.Discord_Shutdown();
                 SimplyStatus.LIB.Discord_Initialize(APPLICATION_ID, SimplyStatus.HANDLERS, SimplyStatus.AUTO_REGISTER, SimplyStatus.STEAM_ID);
+                SimplyStatus.lastPresence = null;
             }
         } else if((SimplyStatus.useAnotherID != SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false)) || (SimplyStatus.useCustomID != SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false))){
             SimplyStatus.useAnotherID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false);
@@ -51,6 +51,7 @@ public class YACLConfigScreen {
 
             SimplyStatus.LIB.Discord_Shutdown();
             SimplyStatus.LIB.Discord_Initialize(APPLICATION_ID, SimplyStatus.HANDLERS, SimplyStatus.AUTO_REGISTER, SimplyStatus.STEAM_ID);
+            SimplyStatus.lastPresence = null;
         }
         SimplyStatus.userConfig.save();
         if(!CLIENT.isSingleplayer() && CLIENT.getCurrentServer() != null){
