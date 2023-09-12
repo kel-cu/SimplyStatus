@@ -23,7 +23,6 @@ import ru.kelcuprum.simplystatus.config.ModConfig;
 import ru.kelcuprum.simplystatus.config.gui.YACLConfigScreen;
 import ru.kelcuprum.simplystatus.info.Game;
 import ru.kelcuprum.simplystatus.info.Player;
-import ru.kelcuprum.simplystatus.info.World;
 import ru.kelcuprum.simplystatus.localization.Localization;
 import ru.kelcuprum.simplystatus.mods.Music;
 import ru.kelcuprum.simplystatus.mods.Voice;
