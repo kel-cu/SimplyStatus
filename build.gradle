@@ -20,7 +20,7 @@ repositories {
     maven { url = "https://maven.terraformersmc.com/releases" }
     maven { url = "https://maven.isxander.dev/releases" }
     maven { url = "https://oss.sonatype.org/content/repositories/snapshots" }
-    maven { url = 'https://repo.kelcuprum.ru/releases' }
+//    maven { url = 'https://repo.kelcuprum.ru/releases' }
     maven { url = "https://maven.meteordev.org/releases" }
     maven { url = "https://repo.u-team.info" }
     maven { url = "https://api.modrinth.com/maven" }
@@ -41,7 +41,8 @@ dependencies {
     modImplementation "info.u-team:music_player-fabric-${project.musicplayer}";
     modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
     modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
-    modImplementation "ru.kelcuprum:waterplayer:1.0.0"
+//    modImplementation "ru.kelcuprum:waterplayer:1.0.0"
+    modImplementation(files("offlineLibs/WaterPlayer-1.0.0.jar"))
     // Discord Libs
     include(implementation "club.minnced:discord-rpc-release:v3.4.0")
     include(implementation "com.github.MinnDevelopment:java-discord-rpc:v2.0.2")

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "simplystatus",
+  "version": "${version}",
+  "name": "SimplyStatus",
+  "description": "Simple, customizable Discord game status",
+  "authors": [
+    "Im_Kel"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/mod/simplystatus",
+    "issues": "https://github.com/simply-kel/SimplyStatus/issues",
+    "email": "kel@simplykel.ru"
+  },
+  "license": "MIT",
+  "icon": "assets/simplystatus/logo.png",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "ru.kelcuprum.simplystatus.SimplyStatus"
+    ],
+    "modmenu": [
+      "ru.kelcuprum.simplystatus.config.gui.ModMenuIntegration"
+    ]
+  },
+  "mixins": [
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.17",
+    "fabric": "*",
+    "minecraft": [">=1.20"]
+  },
+  "breaks": {
+    "craftpresence": "*",
+    "simple-rpc": "*",
+    "amrpcf": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.simplystatus.github": "https://github.com/simply-kel/SimplyStatus",
+        "modmenu.simplystatus.modrinth": "https://modrinth.com/mod/simplystatus",
+        "modmenu.simplystatus.donate": "https://kelcuprum.ru/r/don"
+      }
+    }
+  }
+}
