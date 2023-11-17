@@ -204,8 +204,8 @@ public class Localization {
         }
         if(SimplyStatus.replayMod){
             ss.set("replay", new ValueMap()
-                    .set("date", () -> Value.string(getReplayDateFormat(new ReplayMod().date)))
-                    .set("name", () -> Value.string(SimplyStatus.userConfig.getBoolean("VIEW_REPLAY_MOD_SERVER_NAME", true) ? new ReplayMod().name : new ReplayMod().address))
+                    .set("date", () -> Value.string(getReplayDateFormat(ReplayMod.date)))
+                    .set("name", () -> Value.string(SimplyStatus.userConfig.getBoolean("VIEW_REPLAY_MOD_SERVER_NAME", true) ? ReplayMod.name : ReplayMod.address))
             );
         }
     }

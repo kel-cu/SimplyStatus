@@ -18,7 +18,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 import ru.kelcuprum.simplystatus.config.AssetsConfig;
-import ru.kelcuprum.simplystatus.config.Config;
+import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.simplystatus.config.ModConfig;
 import ru.kelcuprum.simplystatus.config.gui.YACLConfigScreen;
 import ru.kelcuprum.simplystatus.info.Game;

@@ -6,7 +6,7 @@ import info.u_team.music_player.lavaplayer.api.audio.IAudioTrackInfo;
 import info.u_team.music_player.lavaplayer.api.queue.ITrackManager;
 import info.u_team.music_player.musicplayer.MusicPlayerManager;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.waterplayer.Client;
+import ru.kelcuprum.waterplayer.WaterPlayer;
 
 public class Music {
     public String artist = "";
@@ -47,11 +47,11 @@ public class Music {
         }
     }
     private void useWaterPlayer(){
-        if(Client.music.getAudioPlayer() == null){
+        if(WaterPlayer.music.getAudioPlayer() == null){
             paused = true;
             return;
         }
-        AudioPlayer manager = Client.music.getAudioPlayer();
+        AudioPlayer manager = WaterPlayer.music.getAudioPlayer();
         if (manager.isPaused() || manager.getPlayingTrack() == null) {
             paused = true;
             return;

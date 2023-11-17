@@ -7,7 +7,7 @@ import dev.isxander.yacl3.impl.controller.BooleanControllerBuilderImpl;
 import dev.isxander.yacl3.impl.controller.StringControllerBuilderImpl;
 import net.minecraft.client.Minecraft;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.config.Config;
+import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.simplystatus.localization.Localization;
 
 public class ServerConfigs {

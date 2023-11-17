@@ -10,6 +10,7 @@ public class ReplayMod {
      * Причины: Игрок находится в главном меню; Игрок в ReplayMod сцене и параметр скрыт
      */
     public ReplayMod(){
+        ru.kelcuprum.simplystatus.mods.ReplayMod.update();
         DiscordRichPresence presence = new DiscordRichPresence();
         presence.details = Localization.getLocalization("mod.replaymod", true);
         presence.state = Localization.getLocalization("mod.replaymod.state", true);

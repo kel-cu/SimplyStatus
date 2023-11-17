@@ -3,7 +3,7 @@ package ru.kelcuprum.simplystatus.presence.multiplayer;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import net.minecraft.client.Minecraft;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.config.Config;
+import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.info.World;
 import ru.kelcuprum.simplystatus.localization.Localization;

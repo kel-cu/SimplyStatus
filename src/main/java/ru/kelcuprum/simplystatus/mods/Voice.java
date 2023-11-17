@@ -33,7 +33,11 @@ public class Voice {
                         isOnePlayer = true;
                         isSelfTalk = false;
                     }
-                } else toDisable();
+                } else {
+                    isOnePlayer = false;
+                    isSelfTalk = false;
+                    listener = CLIENT.getUser().getName();
+                }
             } else toDisable();
         } else toDisable();
     }
@@ -53,7 +57,11 @@ public class Voice {
                         isOnePlayer = true;
                         isSelfTalk = false;
                     }
-                } else toDisable();
+                } else {
+                    isOnePlayer = false;
+                    isSelfTalk = false;
+                    listener = CLIENT.getUser().getName();
+                }
             } else toDisable();
         } else toDisable();
     }
