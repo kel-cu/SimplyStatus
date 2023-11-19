@@ -55,8 +55,8 @@ public class SimplyStatus implements ClientModInitializer {
     // Another shit
     public static String[] apiNames = {
             "CraftHead",
-//            "Alina API: 2D", // Убраны на время DDoS-Атаки
-//            "Alina API: 3D"
+            "Alina API: 2D",
+            "Alina API: 3D"
     };
     public static boolean useAnotherID = false;
     public static boolean useCustomID = false;
@@ -76,7 +76,6 @@ public class SimplyStatus implements ClientModInitializer {
     public static Boolean waterPlayer = FabricLoader.getInstance().getModContainer("waterplayer").isPresent();
     public static Boolean svc = FabricLoader.getInstance().getModContainer("voicechat").isPresent();
     public static Boolean plasmo = FabricLoader.getInstance().getModContainer("plasmovoice").isPresent();
-    public static Boolean fastload = FabricLoader.getInstance().getModContainer("fastload").isPresent();
     public static Boolean isVoiceModsEnable = (svc || plasmo);
     public static Boolean isMusicModsEnable = (musicPlayer || waterPlayer);
     // Discord

@@ -40,9 +40,9 @@ dependencies {
     modImplementation "info.u-team:music_player-fabric-${project.musicplayer}";
     modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
     modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
-//    modImplementation "ru.kelcuprum:waterplayer:1.0.0"
+    // - - - - - - - -
     modImplementation("maven.modrinth:waterplayer:${project.waterplayer}")
-    modImplementation("ru.kelcuprum.alinlib:AlinLib:${project.alinlib}")
+    shade modImplementation("ru.kelcuprum.alinlib:AlinLib:${project.alinlib}");
     // Discord Libs
     include(implementation "club.minnced:discord-rpc-release:v3.4.0")
     include(implementation "com.github.MinnDevelopment:java-discord-rpc:v2.0.2")
