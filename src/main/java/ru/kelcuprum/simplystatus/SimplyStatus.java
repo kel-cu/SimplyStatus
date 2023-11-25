@@ -4,6 +4,13 @@ import club.minnced.discord.rpc.DiscordEventHandlers;
 import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
 import club.minnced.discord.rpc.DiscordUser;
+import com.google.gson.JsonObject;
+import com.jagrosh.discordipc.IPCClient;
+import com.jagrosh.discordipc.IPCListener;
+import com.jagrosh.discordipc.entities.Packet;
+import com.jagrosh.discordipc.entities.RichPresence;
+import com.jagrosh.discordipc.entities.User;
+import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -43,6 +50,7 @@ import static ru.kelcuprum.simplystatus.localization.Localization.compile;
 
 public class SimplyStatus implements ClientModInitializer {
     private static final Timer TIMER = new Timer();
+    public static IPCClient client = new IPCClient(345229890980937739L);
 
     // Mod Statud build
     public static String version = "0.0.0";
@@ -79,12 +87,13 @@ public class SimplyStatus implements ClientModInitializer {
     public static Boolean isVoiceModsEnable = (svc || plasmo);
     public static Boolean isMusicModsEnable = (musicPlayer || waterPlayer);
     // Discord
-    public static final DiscordRPC LIB = DiscordRPC.INSTANCE;
-    public static final DiscordEventHandlers HANDLERS = new DiscordEventHandlers();
-    public static DiscordUser USER;
+//    public static final DiscordRPC LIB = DiscordRPC.INSTANCE;
+//    public static final DiscordEventHandlers HANDLERS = new DiscordEventHandlers();
+//    public static DiscordUser USER_OLD;
+    public static User USER;
     public static String APPLICATION_ID;
-    public static final String STEAM_ID = "";
-    public static final Boolean AUTO_REGISTER = true;
+//    public static final String STEAM_ID = "";
+//    public static final Boolean AUTO_REGISTER = true;
     // Discord Status
     public static boolean CONNECTED_DISCORD = false;
 
@@ -111,29 +120,37 @@ public class SimplyStatus implements ClientModInitializer {
         });
     }
     private void registerApplications(){
-        HANDLERS.ready = (user) -> {
-            log("The mod has been connected to Discord", Level.DEBUG);
-            USER = user;
-            CONNECTED_DISCORD = true;
-        };
-        HANDLERS.disconnected = (err, reason) -> {
-            log("The mod has been pulled from Discord", Level.DEBUG);
-            log(String.format("Reason: %s", reason), Level.DEBUG);
-            CONNECTED_DISCORD = false;
-        };
+
+//        HANDLERS.ready = (user) -> {
+//            log("The mod has been connected to Discord", Level.DEBUG);
+//            USER_OLD = user;
+//            CONNECTED_DISCORD = true;
+//        };
+//        HANDLERS.disconnected = (err, reason) -> {
+//            log("The mod has been pulled from Discord", Level.DEBUG);
+//            log(String.format("Reason: %s", reason), Level.DEBUG);
+//            CONNECTED_DISCORD = false;
+//        };
         APPLICATION_ID = userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
         if(userConfig.getBoolean("USE_CUSTOM_APP_ID", false)&& !userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID).isBlank()) APPLICATION_ID = userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
         customID = APPLICATION_ID;
-        LIB.Discord_Initialize(APPLICATION_ID, HANDLERS, AUTO_REGISTER, STEAM_ID);
-        new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()) {
-                LIB.Discord_RunCallbacks();
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException ignored) {
-                }
-            }
-        }, "SimplyStatus RPC-Callback-Handler").start();
+        client = new IPCClient(Long.parseLong(APPLICATION_ID));
+        setupListener();
+        try {
+            client.connect();
+        } catch (Exception ex){
+            ex.printStackTrace();
+        }
+//        LIB.Discord_Initialize(APPLICATION_ID, HANDLERS, AUTO_REGISTER, STEAM_ID);
+//        new Thread(() -> {
+//            while (!Thread.currentThread().isInterrupted()) {
+//                LIB.Discord_RunCallbacks();
+//                try {
+//                    Thread.sleep(2000);
+//                } catch (InterruptedException ignored) {
+//                }
+//            }
+//        }, "SimplyStatus RPC-Callback-Handler").start();
         start();
     }
     private void start(){
@@ -150,13 +167,62 @@ public class SimplyStatus implements ClientModInitializer {
                         presence.largeImageKey = "unknown_world";
                         presence.details = "There was an error, look in the console";
                         presence.state = "And report the bug on GitHub";
-                        LIB.Discord_UpdatePresence(presence);
+                        updateDiscordPresence(presence);
                         lastException = ex.getMessage();
                     }
                 }
             }
         }, 500, 500);
     }
+    public static void setupListener(){
+        client.setListener(new IPCListener(){
+            @Override
+            public void onPacketSent(IPCClient ipcClient, Packet packet) {
+
+            }
+
+            @Override
+            public void onPacketReceived(IPCClient ipcClient, Packet packet) {
+
+            }
+
+            @Override
+            public void onActivityJoin(IPCClient ipcClient, String s) {
+
+            }
+
+            @Override
+            public void onActivitySpectate(IPCClient ipcClient, String s) {
+
+            }
+
+            @Override
+            public void onActivityJoinRequest(IPCClient ipcClient, String s, User user) {
+
+            }
+
+            @Override
+            public void onReady(IPCClient client)
+            {
+                log("The mod has been connected to Discord", Level.DEBUG);
+                USER = client.getCurrentUser();
+                CONNECTED_DISCORD = true;
+            }
+
+            @Override
+            public void onClose(IPCClient ipcClient, JsonObject jsonObject) {
+                CONNECTED_DISCORD = false;
+            }
+
+            @Override
+            public void onDisconnect(IPCClient ipcClient, Throwable throwable) {
+                log("The mod has been pulled from Discord", Level.DEBUG);
+                log(String.format("Reason: %s", throwable.getLocalizedMessage()), Level.DEBUG);
+                CONNECTED_DISCORD = false;
+            }
+        });
+    }
+
     private void updatePresence(){
         ASSETS = new AssetsConfig();
         if(userConfig.getBoolean("USE_CUSTOM_APP_ID", false)) ASSETS = ModConfig.defaultUrlsAssets;
@@ -214,7 +280,23 @@ public class SimplyStatus implements ClientModInitializer {
         }
         if(lastPresence == null || !lastPresence.equals(presence)){
             lastPresence = presence;
-            if(CONNECTED_DISCORD) LIB.Discord_UpdatePresence(presence);
+            RichPresence.Builder rich = new RichPresence.Builder();
+            if(presence != null) {
+                if (presence.details != null) rich.setDetails(presence.details);
+                if (presence.state != null) rich.setState(presence.state);
+                if (presence.startTimestamp >= 0) rich.setStartTimestamp(presence.startTimestamp);
+                if (presence.endTimestamp >= 0) rich.setEndTimestamp(presence.endTimestamp);
+                if (presence.largeImageKey != null && presence.largeImageText == null)
+                    rich.setLargeImage(presence.largeImageKey);
+                if (presence.largeImageKey != null && presence.largeImageText != null)
+                    rich.setLargeImage(presence.largeImageKey, presence.largeImageText);
+                if (presence.smallImageKey != null && presence.smallImageText == null)
+                    rich.setSmallImage(presence.smallImageKey);
+                if (presence.smallImageKey != null && presence.smallImageText != null)
+                    rich.setSmallImage(presence.smallImageKey, presence.smallImageText);
+            }
+//            if(CONNECTED_DISCORD) LIB.Discord_UpdatePresence(presence);
+            if(CONNECTED_DISCORD) client.sendRichPresence(rich.build());
             if(ModConfig.debugPresence) LOG.info("Update presence");
         }
     }

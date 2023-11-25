@@ -1,5 +1,6 @@
 package ru.kelcuprum.simplystatus.config.gui;
 
+import com.jagrosh.discordipc.IPCClient;
 import dev.isxander.yacl3.api.YetAnotherConfigLib;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
@@ -39,8 +40,16 @@ public class YACLConfigScreen {
             }
             if(!SimplyStatus.customID.equals(APPLICATION_ID)) {
                 SimplyStatus.customID = APPLICATION_ID;
-                SimplyStatus.LIB.Discord_Shutdown();
-                SimplyStatus.LIB.Discord_Initialize(APPLICATION_ID, SimplyStatus.HANDLERS, SimplyStatus.AUTO_REGISTER, SimplyStatus.STEAM_ID);
+//                SimplyStatus.LIB.Discord_Shutdown();
+//                SimplyStatus.LIB.Discord_Initialize(APPLICATION_ID, SimplyStatus.HANDLERS, SimplyStatus.AUTO_REGISTER, SimplyStatus.STEAM_ID);
+                SimplyStatus.client.close();
+                SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
+                SimplyStatus.setupListener();
+                try {
+                    SimplyStatus.client.connect();
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
                 SimplyStatus.lastPresence = null;
             }
         } else if((SimplyStatus.useAnotherID != SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false)) || (SimplyStatus.useCustomID != SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false))){
@@ -49,8 +58,16 @@ public class YACLConfigScreen {
             SimplyStatus.customID = "";
             String APPLICATION_ID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
 
-            SimplyStatus.LIB.Discord_Shutdown();
-            SimplyStatus.LIB.Discord_Initialize(APPLICATION_ID, SimplyStatus.HANDLERS, SimplyStatus.AUTO_REGISTER, SimplyStatus.STEAM_ID);
+//                SimplyStatus.LIB.Discord_Shutdown();
+//                SimplyStatus.LIB.Discord_Initialize(APPLICATION_ID, SimplyStatus.HANDLERS, SimplyStatus.AUTO_REGISTER, SimplyStatus.STEAM_ID);
+            SimplyStatus.client.close();
+            SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
+            SimplyStatus.setupListener();
+            try {
+                SimplyStatus.client.connect();
+            } catch (Exception ex){
+                ex.printStackTrace();
+            }
             SimplyStatus.lastPresence = null;
         }
         SimplyStatus.userConfig.save();

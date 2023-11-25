@@ -15,7 +15,7 @@ public class Player {
     static Minecraft CLIENT = Minecraft.getInstance();
     public static String getName(){
         if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED_DISCORD) return CLIENT.getUser().getName();
-        else return SimplyStatus.USER.username;
+        else return SimplyStatus.USER.getName();
     }
     public static String getURLAvatar(){
         if(CLIENT.getUser().getType().name().toLowerCase().equals("msa") || CLIENT.getUser().getType().name().toLowerCase().equals("mojang")){
@@ -31,7 +31,7 @@ public class Player {
                 }
             }
         } else {
-            if(SimplyStatus.CONNECTED_DISCORD) return "https://cdn.discordapp.com/avatars/"+SimplyStatus.USER.userId+"/"+SimplyStatus.USER.avatar+".png?size=480";
+            if(SimplyStatus.CONNECTED_DISCORD) return "https://cdn.discordapp.com/avatars/"+SimplyStatus.USER.getId()+"/"+SimplyStatus.USER.getAvatarId()+".png?size=480";
             else return "https://kelcuprum.ru/ass/other/error.png";
         }
     }

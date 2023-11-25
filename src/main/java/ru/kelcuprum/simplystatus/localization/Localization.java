@@ -157,10 +157,10 @@ public class Localization {
         ss.set("time", () -> Value.string(LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))));
         // Discord
         ss.set("discord", new ValueMap()
-                .set("name", () -> Value.string(SimplyStatus.USER.username))
-                .set("discriminator", () -> Value.string(SimplyStatus.USER.discriminator))
-                .set("id", () -> Value.string(SimplyStatus.USER.userId))
-                .set("avatar", () -> Value.string(SimplyStatus.USER.avatar))
+                .set("name", () -> Value.string(SimplyStatus.USER.getName()))
+                .set("discriminator", () -> Value.string(SimplyStatus.USER.getDiscriminator()))
+                .set("id", () -> Value.string(SimplyStatus.USER.getId()))
+                .set("avatar", () -> Value.string(SimplyStatus.USER.getAvatarId()))
         );
         // Player
         ss.set("player", new ValueMap()
