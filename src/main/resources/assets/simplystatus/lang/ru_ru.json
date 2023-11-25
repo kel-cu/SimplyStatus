@@ -181,7 +181,7 @@
   "simplystatus.presence.date.time": "HH:mm",
 
   "simplystatus.presence.mod.voice": "{discord.name} разговаривает c собой",
-  "simplystatus.presence.mod.voice.players.one": "{discord.name} разговаривает с %listener%",
+  "simplystatus.presence.mod.voice.players.one": "{discord.name} разговаривает с {voice.listener}",
   "simplystatus.presence.mod.voice.players.more": "{discord.name} разговаривает с игроками",
 
   "simplystatus.presence.mod.music": "«{music.author}» {music.title}",

@@ -61,8 +61,8 @@ public class Player {
                     Voice mod = new Voice();
                     if(mod.isSpeak){
                         if(mod.isSelfTalk) return Localization.getLocalization("mod.voice", true);
-                        else if(mod.isOnePlayer) return Localization.getLocalization("mod.voice.one", true);
-                        else return Localization.getLocalization("mod.voice.more", true);
+                        else if(mod.isOnePlayer) return Localization.getLocalization("mod.voice.players.one", true);
+                        else return Localization.getLocalization("mod.voice.players.more", true);
                     }
                     return Localization.getLocalization("player.statistics", true);
                 }

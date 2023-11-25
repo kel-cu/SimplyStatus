@@ -50,9 +50,8 @@ import static ru.kelcuprum.simplystatus.localization.Localization.compile;
 
 public class SimplyStatus implements ClientModInitializer {
     private static final Timer TIMER = new Timer();
-    public static IPCClient client = new IPCClient(345229890980937739L);
 
-    // Mod Statud build
+    // Mod Status build
     public static String version = "0.0.0";
     public static boolean isDevBuild = false;
     public static boolean isBetaBuild = false;
@@ -87,13 +86,9 @@ public class SimplyStatus implements ClientModInitializer {
     public static Boolean isVoiceModsEnable = (svc || plasmo);
     public static Boolean isMusicModsEnable = (musicPlayer || waterPlayer);
     // Discord
-//    public static final DiscordRPC LIB = DiscordRPC.INSTANCE;
-//    public static final DiscordEventHandlers HANDLERS = new DiscordEventHandlers();
-//    public static DiscordUser USER_OLD;
+    public static IPCClient client;
     public static User USER;
     public static String APPLICATION_ID;
-//    public static final String STEAM_ID = "";
-//    public static final Boolean AUTO_REGISTER = true;
     // Discord Status
     public static boolean CONNECTED_DISCORD = false;
 
@@ -120,17 +115,6 @@ public class SimplyStatus implements ClientModInitializer {
         });
     }
     private void registerApplications(){
-
-//        HANDLERS.ready = (user) -> {
-//            log("The mod has been connected to Discord", Level.DEBUG);
-//            USER_OLD = user;
-//            CONNECTED_DISCORD = true;
-//        };
-//        HANDLERS.disconnected = (err, reason) -> {
-//            log("The mod has been pulled from Discord", Level.DEBUG);
-//            log(String.format("Reason: %s", reason), Level.DEBUG);
-//            CONNECTED_DISCORD = false;
-//        };
         APPLICATION_ID = userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
         if(userConfig.getBoolean("USE_CUSTOM_APP_ID", false)&& !userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID).isBlank()) APPLICATION_ID = userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
         customID = APPLICATION_ID;
@@ -141,16 +125,6 @@ public class SimplyStatus implements ClientModInitializer {
         } catch (Exception ex){
             ex.printStackTrace();
         }
-//        LIB.Discord_Initialize(APPLICATION_ID, HANDLERS, AUTO_REGISTER, STEAM_ID);
-//        new Thread(() -> {
-//            while (!Thread.currentThread().isInterrupted()) {
-//                LIB.Discord_RunCallbacks();
-//                try {
-//                    Thread.sleep(2000);
-//                } catch (InterruptedException ignored) {
-//                }
-//            }
-//        }, "SimplyStatus RPC-Callback-Handler").start();
         start();
     }
     private void start(){

@@ -183,7 +183,7 @@
   "simplystatus.presence.date.time": "hh:mm",
 
   "simplystatus.presence.mod.voice": "{discord.name} talks to himself",
-  "simplystatus.presence.mod.voice.players.one": "{discord.name} talks to ${voice.listener}",
+  "simplystatus.presence.mod.voice.players.one": "{discord.name} talks to {voice.listener}",
   "simplystatus.presence.mod.voice.players.more": "{discord.name} talks to the players",
 
   "simplystatus.presence.mod.music": "«{music.author}» {music.title}",

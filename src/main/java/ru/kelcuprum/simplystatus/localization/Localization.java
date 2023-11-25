@@ -24,6 +24,7 @@ import ru.kelcuprum.simplystatus.info.Utils;
 import ru.kelcuprum.simplystatus.info.World;
 import ru.kelcuprum.simplystatus.mods.Music;
 import ru.kelcuprum.simplystatus.mods.ReplayMod;
+import ru.kelcuprum.simplystatus.mods.Voice;
 
 import java.io.File;
 import java.io.IOException;
@@ -200,6 +201,11 @@ public class Localization {
                     .set("title", () -> Value.string(new Music().useFile ? new Music().file : new Music().title))
                     .set("author", () -> Value.string(new Music().artistIsNull ? "" : new Music().artist))
                     .set("uri", () -> Value.string(new Music().file))
+            );
+        }
+        if(SimplyStatus.isVoiceModsEnable){
+            ss.set("voice", new ValueMap()
+                    .set("listener", () -> Value.string(new Voice().listener))
             );
         }
         if(SimplyStatus.replayMod){
