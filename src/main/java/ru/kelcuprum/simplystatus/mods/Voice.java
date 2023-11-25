@@ -19,16 +19,16 @@ public class Voice {
     }
     private void usePlasmo(){
         if (ModVoiceClient.INSTANCE.getUdpClientManager().isConnected()) {
-            if (ModVoiceClient.INSTANCE.getActivationManager().getParentActivation().get().isActive()) {
+            if (ModVoiceClient.INSTANCE.getActivationManager().getParentActivation().isPresent() && ModVoiceClient.INSTANCE.getActivationManager().getParentActivation().get().isActive()) {
                 isSpeak = true;
-                if (CLIENT.level.players().size() == 1) {
+                if ((CLIENT.level != null) && CLIENT.level.players().size() == 1) {
                     isSelfTalk = true;
-                } else if(CLIENT.level.players().size() == 2){
+                } else if((CLIENT.level != null) && CLIENT.level.players().size() == 2){
                     if (CLIENT.level.players().get(0).getName().equals(CLIENT.level.players().get(1).getName())) {
                         isSelfTalk = true;
                     } else {
                         AbstractClientPlayer player = CLIENT.level.players().get(0);
-                        if (player.getName().equals(CLIENT.player.getName())) player = CLIENT.level.players().get(1);
+                        if ((CLIENT.player != null) && player.getName().equals(CLIENT.player.getName())) player = CLIENT.level.players().get(1);
                         listener = player.getName().getString();
                         isOnePlayer = true;
                         isSelfTalk = false;
@@ -43,16 +43,16 @@ public class Voice {
     }
     private void useSVC(){
         if(!VoicechatClientApiImpl.instance().isDisconnected()){
-            if(ClientManager.getClient().getMicThread().isTalking()) {
+            if((ClientManager.getClient() != null && ClientManager.getClient().getMicThread() != null) && ClientManager.getClient().getMicThread().isTalking()) {
                 isSpeak = true;
-                if (CLIENT.level.players().size() == 1) {
+                if ((CLIENT.level != null) && CLIENT.level.players().size() == 1) {
                     isSelfTalk = true;
-                } else if(CLIENT.level.players().size() == 2){
+                } else if((CLIENT.level != null) && CLIENT.level.players().size() == 2){
                     if (CLIENT.level.players().get(0).getName().equals(CLIENT.level.players().get(1).getName())) {
                         isSelfTalk = true;
                     } else {
                         AbstractClientPlayer player = CLIENT.level.players().get(0);
-                        if (player.getName().equals(CLIENT.player.getName())) player = CLIENT.level.players().get(1);
+                        if ((CLIENT.player != null) && player.getName().equals(CLIENT.player.getName())) player = CLIENT.level.players().get(1);
                         listener = player.getName().getString();
                         isOnePlayer = true;
                         isSelfTalk = false;
