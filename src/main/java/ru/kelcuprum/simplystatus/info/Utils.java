@@ -2,13 +2,11 @@ package ru.kelcuprum.simplystatus.info;
 
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Utils {
     private static final int codes = 22;
-    public static Pattern pattern = Pattern.compile("#[a-fA-F0-9]{6}");
     private static final Map<String, String> formatCodes = IntStream.range(0, codes)
             .boxed()
             .collect(Collectors.toMap(List.of(new String[]{

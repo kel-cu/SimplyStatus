@@ -13,7 +13,6 @@ import meteordevelopment.starscript.value.ValueMap;
 
 import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import org.apache.logging.log4j.Level;
 import org.json.JSONObject;
@@ -40,7 +39,6 @@ public class Localization {
     public static String getCodeLocalization(){
         Minecraft CLIENT = Minecraft.getInstance();
         try{
-//            return CLIENT.getGame().getSelectedLanguage().getCode();
             return CLIENT.options.languageCode;
         } catch (Exception e){
             return "en_us";
@@ -50,7 +48,6 @@ public class Localization {
     /**
      * Получение JSON файл локализации
      * @return JSONObject
-     * @throws IOException
      */
     public static JSONObject getJSONFile() throws IOException {
         Minecraft CLIENT = Minecraft.getInstance();
@@ -64,34 +61,29 @@ public class Localization {
 
     /**
      * Получение текста локализации
-     * @param type
-     * @param parse
      * @return String
      */
     public static String getLocalization(String type, boolean parse){
         return getLocalization(type, parse, false);
     }
     public static String getLocalization(String type, boolean parse, boolean clearColor){
-        String text = "";
+        String text;
         try {
             JSONObject JSONLocalization = getJSONFile();
             if(JSONLocalization.isNull(type)) text = getText("simplystatus.presence." + type).getString();
             else text = JSONLocalization.getString(type);
         } catch (Exception e){
-            e.printStackTrace();
+            SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
             text = getText("simplystatus.presence." + type).getString();
         }
         if(parse) text = run(compile(text));
         return clearColor ? Utils.clearFormatCodes(text) : text;
     }
     public static String getLcnDefault(String type){
-        String text = getText("simplystatus.presence." + type).getString();;
-        return text;
+        return getText("simplystatus.presence." + type).getString();
     }
     /**
      * Задать значение локализации на определённый текст в JSON файле
-     * @param type
-     * @param text
      */
     public static void setLocalization(String type, String text){
         try {
@@ -102,13 +94,12 @@ public class Localization {
             Files.createDirectories(localizationFile.toPath().getParent());
             Files.writeString(localizationFile.toPath(), JSONLocalization.toString());
         } catch (Exception e){
-            e.printStackTrace();
+            SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
         }
     }
     /**
      * Хуета которая может быть спасёт от Mojang которые сука постоянно меняют либо название класса либо еще что-то
      * @return MutableText
-     * @param key
      */
     public static Component getText(String key){
         return Component.translatable(key);
@@ -116,27 +107,14 @@ public class Localization {
 
     /**
      * Перевод String в MutableText
-     * @param text
      * @return MutableText
      */
     public static Component toText(String text){
         return Component.literal(text);
     }
 
-    /**
-     * Перевод Text в String
-     * @param text
-     * @return MutableText
-     */
-    public static String toString(Component text){
-        return text.getString();
-    }
-
     // PARSE USE STARSCRIPT
     public static Starscript ss = new Starscript();
-
-    private static final BlockPos.MutableBlockPos BP = new BlockPos.MutableBlockPos();
-    private static final StringBuilder SB = new StringBuilder();
     static Minecraft mc = Minecraft.getInstance();
 
     public static void init() {
@@ -238,17 +216,13 @@ public class Localization {
             return ss.run(script, sb);
         }
         catch (StarscriptError error) {
-            error.printStackTrace();
+            SimplyStatus.log(error.getLocalizedMessage(), Level.ERROR);
             return null;
         }
     }
     public static String run(Script script, StringBuilder sb) {
         Section section = runSection(script, sb);
         return section != null ? section.toString() : null;
-    }
-
-    public static Section runSection(Script script) {
-        return runSection(script, new StringBuilder());
     }
     public static String run(Script script) {
         return run(script, new StringBuilder());

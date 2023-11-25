@@ -11,6 +11,7 @@ import ru.kelcuprum.simplystatus.localization.Localization;
 public class MultiPlayer {
     public MultiPlayer(){
         DiscordRichPresence presence = new DiscordRichPresence();
+        if(Minecraft.getInstance().getCurrentServer() == null) return;
         SimplyStatus.serverConfig = new Config(String.format("config/SimplyStatus/servers/%s.json", Minecraft.getInstance().getCurrentServer().ip.replace(":", "_")));
         SimplyStatus.serverConfig.load();
         SimplyStatus.updateContentPresenceByConfigs(presence, true);

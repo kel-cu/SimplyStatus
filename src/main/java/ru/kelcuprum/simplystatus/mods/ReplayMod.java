@@ -1,10 +1,9 @@
 package ru.kelcuprum.simplystatus.mods;
 
-import club.minnced.discord.rpc.DiscordRichPresence;
 import com.replaymod.replay.ReplayHandler;
 import com.replaymod.replay.ReplayModReplay;
-
-import java.io.IOException;
+import org.apache.logging.log4j.Level;
+import ru.kelcuprum.simplystatus.SimplyStatus;
 
 public class ReplayMod {
     public static String name = "";
@@ -22,7 +21,7 @@ public class ReplayMod {
             date = handler.getReplayFile().getMetaData().getDate();
         } catch(Exception ex){
             if(lastException == null || !lastException.equals(ex.getMessage())){
-                ex.printStackTrace();
+                SimplyStatus.log(ex.getLocalizedMessage(), Level.ERROR);
                 lastException = ex.getMessage();
             }
         }

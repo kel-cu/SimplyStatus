@@ -35,7 +35,7 @@ public class Music {
             String[] fileArgs = Track.getURI().split("/");
             file = fileArgs[fileArgs.length-1];
         } else {
-            if (!Track.getAuthor().equals("")) {
+            if (!Track.getAuthor().isBlank()) {
                 artist = Track.getAuthor();
                 artistIsNull = false;
             }
@@ -63,7 +63,7 @@ public class Music {
             if(fileArgs.length == 1) fileArgs = Track.uri.split("\\\\");
             file = fileArgs[fileArgs.length-1];
         } else {
-            if (!Track.author.equals("")) {
+            if (!Track.author.isBlank()) {
                 artist = Track.author;
                 artistIsNull = false;
             }

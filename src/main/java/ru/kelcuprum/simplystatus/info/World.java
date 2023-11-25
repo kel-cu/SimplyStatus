@@ -28,6 +28,7 @@ public class World {
         }
     }
     public static String getTime(){
+        if(CLIENT.level == null) return "";
         long daytime = CLIENT.level.getDayTime()+6000;
 
         int hours=(int) (daytime / 1000)%24;
@@ -38,7 +39,7 @@ public class World {
             String strDateFormat = Localization.getLocalization("date.time", false);
             DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
             Calendar calendar = new GregorianCalendar();
-            calendar.set(2000, 0, day+1, hours, minutes, 0);
+            calendar.set(2000, Calendar.JANUARY, day+1, hours, minutes, 0);
 
             clock = dateFormat.format(calendar.getTimeInMillis());
         } catch (IllegalArgumentException ex) {
@@ -48,6 +49,7 @@ public class World {
 
     }
     public static void getTime(DiscordRichPresence presence){
+        if(CLIENT.level == null) return;
         long currentTime = CLIENT.level.getDayTime() % 24000;
         if (currentTime < 6000 && currentTime > 0) {
             presence.largeImageKey = SimplyStatus.ASSETS.morning;
@@ -58,7 +60,7 @@ public class World {
         } else if (currentTime < 16500 && currentTime > 12000) {
             presence.largeImageKey = SimplyStatus.ASSETS.evening;
             presence.largeImageText = Localization.getLocalization("time.evening", true);
-        } else if (currentTime < 24000 && currentTime > 16500) {
+        } else if (currentTime > 16500) {
             presence.largeImageKey = SimplyStatus.ASSETS.night;
             presence.largeImageText = Localization.getLocalization("time.night", true);
         } else {
@@ -69,6 +71,7 @@ public class World {
         }
     }
     public static String getCodeName(){
+        if(CLIENT.level == null) return "";
         return CLIENT.level.dimension().location().toString();// CLIENT.level.dimensionTypeRegistration().value().toString(); //getRegistryKey().getValue().toString();
     }
     public static String getAssets(){

@@ -1,16 +1,12 @@
 package ru.kelcuprum.simplystatus;
 
-import club.minnced.discord.rpc.DiscordEventHandlers;
-import club.minnced.discord.rpc.DiscordRPC;
 import club.minnced.discord.rpc.DiscordRichPresence;
-import club.minnced.discord.rpc.DiscordUser;
 import com.google.gson.JsonObject;
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
 import com.jagrosh.discordipc.entities.Packet;
 import com.jagrosh.discordipc.entities.RichPresence;
 import com.jagrosh.discordipc.entities.User;
-import com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -74,7 +70,7 @@ public class SimplyStatus implements ClientModInitializer {
     public static Long TIME_STARTED_CLIENT;
     // Logs
     public static final Logger LOG = LogManager.getLogger("SimplyStatus");
-    public static void log(String message) {log(message, Level.INFO);};
+    public static void log(String message) {log(message, Level.INFO);}
     public static void log(String message, Level level){ LOG.log(level, "["+LOG.getName()+"] "+message);}
     // Mods is present
     public static Boolean yacl = FabricLoader.getInstance().getModContainer("yet_another_config_lib_v3").isPresent();
@@ -101,7 +97,7 @@ public class SimplyStatus implements ClientModInitializer {
             new ModConfig();
         } catch (Exception e) {
             log("The default configuration of the mod was not loaded, no launch possible!", Level.ERROR);
-            e.printStackTrace();
+            log(e.getLocalizedMessage(), Level.ERROR);
             return;
         }
         useAnotherID = userConfig.getBoolean("USE_ANOTHER_ID", false);
@@ -110,9 +106,7 @@ public class SimplyStatus implements ClientModInitializer {
         Localization.init();
         registerApplications();
         registerKeyBinds();
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            log(String.format("Client %s is up and running!", client.getLaunchedVersion()));
-        });
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> log(String.format("Client %s is up and running!", client.getLaunchedVersion())));
     }
     private void registerApplications(){
         APPLICATION_ID = userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
@@ -123,7 +117,7 @@ public class SimplyStatus implements ClientModInitializer {
         try {
             client.connect();
         } catch (Exception ex){
-            ex.printStackTrace();
+            log(ex.getLocalizedMessage(), Level.ERROR);
         }
         start();
     }
@@ -136,7 +130,7 @@ public class SimplyStatus implements ClientModInitializer {
                     if(lastException != null) lastException = null;
                 } catch(Exception ex){
                     if(lastException == null || !lastException.equals(ex.getMessage())){
-                        ex.printStackTrace();
+                        log(ex.getLocalizedMessage(), Level.ERROR);
                         DiscordRichPresence presence = new DiscordRichPresence();
                         presence.largeImageKey = "unknown_world";
                         presence.details = "There was an error, look in the console";
@@ -233,7 +227,7 @@ public class SimplyStatus implements ClientModInitializer {
         } else if(userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused)) {
             presence.smallImageKey = ASSETS.music;
             presence.smallImageText = new Music().artistIsNull ? Localization.getLocalization("mod.music.noauthor", true) : Localization.getLocalization("mod.music", true);
-        } else if(isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (serverConfig.getString("ICON_URL", "").length() != 0))){
+        } else if(isServer && Minecraft.getInstance().getCurrentServer() != null && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))){
             presence.smallImageKey = serverConfig.getString("ICON_URL", "").replace("%address%", Minecraft.getInstance().getCurrentServer().ip);
             presence.smallImageText = Localization.run(compile("{player.scene}"));
         } else if(userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
@@ -300,7 +294,7 @@ public class SimplyStatus implements ClientModInitializer {
         if(versions.length >= 2){
             if(versions[1].startsWith("dev") || versions[1].startsWith("alpha")) isDevBuild = true;
             if(versions[1].startsWith("beta") || versions[1].startsWith("pre")) isBetaBuild = true;
-        };
+        }
         if(isDevBuild) {
             log("ЭТОТ МОД НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНЫМ [ПРОДУКТОМ/УСЛУГОЙ/СОБЫТИЕМ И т.п.] MINECRAFT. НЕ ОДОБРЕНО И НЕ СВЯЗАНО С КОМПАНИЕЙ MOJANG ИЛИ MICROSOFT", Level.WARN);
             log("Warning!", Level.WARN);
