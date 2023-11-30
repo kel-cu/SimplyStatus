@@ -205,7 +205,7 @@ public class SimplyStatus implements ClientModInitializer {
                     default -> new MainMenu();
                 }
             } else {
-                if(CLIENT.isSingleplayer()) new SinglePlayer();
+                if(CLIENT.isSingleplayer() || CLIENT.hasSingleplayerServer()) new SinglePlayer();
                 else if(CLIENT.getCurrentServer() != null) new MultiPlayer();
                 else if(SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
                 else new Unknown();
