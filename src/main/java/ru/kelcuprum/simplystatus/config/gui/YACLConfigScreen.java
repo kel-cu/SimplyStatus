@@ -40,8 +40,6 @@ public class YACLConfigScreen {
             }
             if(!SimplyStatus.customID.equals(APPLICATION_ID)) {
                 SimplyStatus.customID = APPLICATION_ID;
-//                SimplyStatus.LIB.Discord_Shutdown();
-//                SimplyStatus.LIB.Discord_Initialize(APPLICATION_ID, SimplyStatus.HANDLERS, SimplyStatus.AUTO_REGISTER, SimplyStatus.STEAM_ID);
                 SimplyStatus.client.close();
                 SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
                 SimplyStatus.setupListener();
@@ -57,9 +55,6 @@ public class YACLConfigScreen {
             SimplyStatus.useCustomID = SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
             SimplyStatus.customID = "";
             String APPLICATION_ID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
-
-//                SimplyStatus.LIB.Discord_Shutdown();
-//                SimplyStatus.LIB.Discord_Initialize(APPLICATION_ID, SimplyStatus.HANDLERS, SimplyStatus.AUTO_REGISTER, SimplyStatus.STEAM_ID);
             SimplyStatus.client.close();
             SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
             SimplyStatus.setupListener();

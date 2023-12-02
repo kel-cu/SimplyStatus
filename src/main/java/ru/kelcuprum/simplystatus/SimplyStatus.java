@@ -255,15 +255,22 @@ public class SimplyStatus implements ClientModInitializer {
                 if (presence.startTimestamp >= 0) rich.setStartTimestamp(presence.startTimestamp);
                 if (presence.endTimestamp >= 0) rich.setEndTimestamp(presence.endTimestamp);
                 if (presence.largeImageKey != null && presence.largeImageText == null)
-                    rich.setLargeImage(presence.largeImageKey);
+                    rich.setLargeImage(presence.largeImageKey, "");
                 if (presence.largeImageKey != null && presence.largeImageText != null)
                     rich.setLargeImage(presence.largeImageKey, presence.largeImageText);
-                if (presence.smallImageKey != null && presence.smallImageText == null)
-                    rich.setSmallImage(presence.smallImageKey);
-                if (presence.smallImageKey != null && presence.smallImageText != null)
-                    rich.setSmallImage(presence.smallImageKey, presence.smallImageText);
+
+                if(presence.largeImageKey == null || presence.largeImageKey.isBlank()){
+                    if (presence.smallImageKey != null && presence.smallImageText == null)
+                        rich.setLargeImage(presence.smallImageKey, "");
+                    if (presence.smallImageKey != null && presence.smallImageText != null)
+                        rich.setLargeImage(presence.smallImageKey, presence.smallImageText);
+                } else {
+                    if (presence.smallImageKey != null && presence.smallImageText == null)
+                        rich.setSmallImage(presence.smallImageKey, "");
+                    if (presence.smallImageKey != null && presence.smallImageText != null)
+                        rich.setSmallImage(presence.smallImageKey, presence.smallImageText);
+                }
             }
-//            if(CONNECTED_DISCORD) LIB.Discord_UpdatePresence(presence);
             if(CONNECTED_DISCORD) client.sendRichPresence(rich.build());
             if(ModConfig.debugPresence) LOG.info("Update presence");
         }
