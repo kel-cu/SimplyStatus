@@ -20,10 +20,13 @@ public class Player {
         if(CLIENT.getUser().getType().name().equalsIgnoreCase("msa") || CLIENT.getUser().getType().name().equalsIgnoreCase("mojang")){
             switch (SimplyStatus.userConfig.getInt("USE_API_RENDER", 0)){
                 case 1 -> {
-                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+CLIENT.getUser().getName()+"&api=1&sendfile=true";
+                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+CLIENT.getUser().getName()+"&api=0&sendfile=true";
                 }
                 case 2 -> {
-                    return "https://api.kelcuprum.ru/skin/render?name="+CLIENT.getUser().getName()+"&api=1&head=true&sendfile=true";
+                    return "https://api.kelcuprum.ru/skin/render?name="+CLIENT.getUser().getName()+"&api=0&head=true&sendfile=true";
+                }
+                case 3 -> {
+                    return SimplyStatus.USER.getAvatarUrl();
                 }
                 default -> {
                     return "https://crafthead.net/helm/"+ CLIENT.getUser().getProfileId() +"/512";

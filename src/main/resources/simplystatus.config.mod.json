@@ -128,28 +128,28 @@
       "replaymod": "replaymod_logo",
       "voice": "https://raw.githubusercontent.com/simply-kel/SimplyStatus-Icons/main/default/microphone.png",
 
-      "unknown_world": "https://assets.kelcuprum.ru/other/error.png",
-      "unknown": "https://assets.kelcuprum.ru/other/error.png"
+      "unknown_world": "https://cdn.kelcuprum.ru/other/error.png",
+      "unknown": "https://cdn.kelcuprum.ru/other/error.png"
     },
     "error": {
-      "logo": "https://assets.kelcuprum.ru/other/error.png",
+      "logo": "https://cdn.kelcuprum.ru/other/error.png",
 
-      "day": "https://assets.kelcuprum.ru/other/error.png",
-      "night": "https://assets.kelcuprum.ru/other/error.png",
-      "morning": "https://assets.kelcuprum.ru/other/error.png",
-      "evening": "https://assets.kelcuprum.ru/other/error.png",
+      "day": "https://cdn.kelcuprum.ru/other/error.png",
+      "night": "https://cdn.kelcuprum.ru/other/error.png",
+      "morning": "https://cdn.kelcuprum.ru/other/error.png",
+      "evening": "https://cdn.kelcuprum.ru/other/error.png",
 
-      "world": "https://assets.kelcuprum.ru/other/error.png",
-      "world_nether": "https://assets.kelcuprum.ru/other/error.png",
-      "world_the_end": "https://assets.kelcuprum.ru/other/error.png",
-      "world_moon": "https://assets.kelcuprum.ru/other/error.png",
+      "world": "https://cdn.kelcuprum.ru/other/error.png",
+      "world_nether": "https://cdn.kelcuprum.ru/other/error.png",
+      "world_the_end": "https://cdn.kelcuprum.ru/other/error.png",
+      "world_moon": "https://cdn.kelcuprum.ru/other/error.png",
 
-      "music": "https://assets.kelcuprum.ru/other/error.png",
-      "replaymod": "https://assets.kelcuprum.ru/other/error.png",
-      "voice": "https://assets.kelcuprum.ru/other/error.png",
+      "music": "https://cdn.kelcuprum.ru/other/error.png",
+      "replaymod": "https://cdn.kelcuprum.ru/other/error.png",
+      "voice": "https://cdn.kelcuprum.ru/other/error.png",
 
-      "unknown_world": "https://assets.kelcuprum.ru/other/error.png",
-      "unknown": "https://assets.kelcuprum.ru/other/error.png"
+      "unknown_world": "https://cdn.kelcuprum.ru/other/error.png",
+      "unknown": "https://cdn.kelcuprum.ru/other/error.png"
     },
     "~urls": {
       "logo": "https://raw.githubusercontent.com/simply-kel/SimplyStatus-Icons/main/default/logo.png",

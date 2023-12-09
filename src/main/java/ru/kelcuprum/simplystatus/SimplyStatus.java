@@ -59,7 +59,8 @@ public class SimplyStatus implements ClientModInitializer {
     public static String[] apiNames = {
             "CraftHead",
             "Alina API: 2D",
-            "Alina API: 3D"
+            "Alina API: 3D",
+            "Discord"
     };
     public static boolean useAnotherID = false;
     public static boolean useCustomID = false;

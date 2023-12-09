@@ -124,12 +124,6 @@ public class Localization {
         ss.set("minecraft", new ValueMap()
                 .set("version", SharedConstants.getCurrentVersion().getName())
                 .set("loader", Minecraft.getInstance().getVersionType())
-                .set("tech", new ValueMap()
-                        .set("cpu", () -> Value.string(Client.getCPUInfo()))
-                        .set("vendor", () -> Value.string(Client.getVendor()))
-                        .set("gpu", () -> Value.string(Client.getGPURender()))
-                        .set("screen_resolution", () -> Value.string(Client.getScreenResolution()))
-                )
         );
         ss.set("fps", () -> Value.number(mc.getFps()));
         ss.set("ping", () -> Value.number(Player.getPing()));
