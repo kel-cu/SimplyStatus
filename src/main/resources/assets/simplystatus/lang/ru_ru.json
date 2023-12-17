@@ -3,6 +3,7 @@
   "simplystatus.key.openConfig": "Открыть конфигурацию",
   "simplystatus.message.clothConfigNotFound": "§7SimplyStatus§r » Установите мод §7Cloth Config или YetAnotherConfigLib§r для показа окна конфигурации. =-=",
 
+  "simplystatus.config.exit": "Выйти",
   "simplystatus.config.client": "Клиент",
   "simplystatus.config.client.enable_rpc": "Включен RPC",
   "simplystatus.config.client.use_minecraft_id": "Изменить название на Minecraft",
@@ -52,13 +53,14 @@
   "simplystatus.config.addons.use_custom_app_id.description": "Использовать своё приложение Discord",
   "simplystatus.config.addons.custom_app_id.description": "Ваш ID приложения Discord",
 
+  "simplystatus.config.mods": "Моды",
   "simplystatus.config.replaymod": "ReplayMod",
   "simplystatus.config.replaymod.view_replay_mod_server_name": "Показывать название серв.",
   "simplystatus.config.localization.mod.replaymod": "Информация",
   "simplystatus.config.localization.mod.replaymod.state": "Сцена",
   "simplystatus.config.localization.mod.replaymod.date_format": "Формат даты",
 
-  "simplystatus.config.musicplayer": "Music Player",
+  "simplystatus.config.music": "Music Player",
   "simplystatus.config.localization.mod.music.menu": "Прослушиваемый трек в меню",
   "simplystatus.config.localization.mod.music": "Прослушиваемый трек в иконке",
   "simplystatus.config.localization.mod.music.menu.noauthor": "Прослушиваемый трек в меню (Без автора)",

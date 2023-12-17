@@ -8,7 +8,10 @@ import com.jagrosh.discordipc.entities.Packet;
 import com.jagrosh.discordipc.entities.RichPresence;
 import com.jagrosh.discordipc.entities.User;
 import com.mojang.blaze3d.platform.InputConstants;
+import com.mojang.brigadier.CommandDispatcher;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
+import net.fabricmc.fabric.api.client.command.v2.FabricClientCommandSource;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -16,14 +19,19 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
+import ru.kelcuprum.alinlib.gui.toast.AlinaToast;
 import ru.kelcuprum.simplystatus.config.AssetsConfig;
 import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.simplystatus.config.ModConfig;
 import ru.kelcuprum.simplystatus.config.gui.YACLConfigScreen;
+import ru.kelcuprum.simplystatus.config.gui.config.ClientConfigs;
 import ru.kelcuprum.simplystatus.info.Game;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.localization.Localization;
@@ -37,6 +45,9 @@ import ru.kelcuprum.simplystatus.presence.multiplayer.Disconnect;
 import ru.kelcuprum.simplystatus.presence.multiplayer.MultiPlayer;
 import ru.kelcuprum.simplystatus.presence.singleplayer.Loading;
 import ru.kelcuprum.simplystatus.presence.singleplayer.SinglePlayer;
+
+import net.minecraft.commands.CommandBuildContext;
+import static net.fabricmc.fabric.api.client.command.v2.ClientCommandManager.literal;
 
 import java.text.DecimalFormat;
 import java.util.Timer;
@@ -107,6 +118,7 @@ public class SimplyStatus implements ClientModInitializer {
         Localization.init();
         registerApplications();
         registerKeyBinds();
+        ClientCommandRegistrationCallback.EVENT.register(this::registerCommand);
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> log(String.format("Client %s is up and running!", client.getLaunchedVersion())));
     }
     private void registerApplications(){
@@ -276,24 +288,21 @@ public class SimplyStatus implements ClientModInitializer {
             if(ModConfig.debugPresence) LOG.info("Update presence");
         }
     }
-    private void registerKeyBinds(){
-        if(yacl){
-            KeyMapping openConfigKeyBind;
-            openConfigKeyBind = KeyBindingHelper.registerKeyBinding(new KeyMapping(
-                    "simplystatus.key.openConfig",
-                    InputConstants.Type.KEYSYM,
-                    GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
-                    "simplystatus.name"
-            ));
-            ClientTickEvents.END_CLIENT_TICK.register(client -> {
-                assert client.player != null;
-                while (openConfigKeyBind.consumeClick()) {
-                    final Screen current = client.screen;
-                    Screen configScreen = YACLConfigScreen.buildScreen(current);
-                    client.setScreen(configScreen);
-                }
-            });
-        } else log("Configuration hotkey has not been registered, no desired mod found");
+
+    private void registerKeyBinds() {
+        KeyMapping openConfigKeyBind;
+        openConfigKeyBind = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+                "simplystatus.key.openConfig",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
+                "simplystatus.name"
+        ));
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            assert client.player != null;
+            while (openConfigKeyBind.consumeClick()) {
+                client.setScreen(new ClientConfigs(client.screen));
+            }
+        });
     }
     private void checkVersion(){
         if(FabricLoader.getInstance().getModContainer("simplystatus").isEmpty()) return;
@@ -312,5 +321,19 @@ public class SimplyStatus implements ClientModInitializer {
             log("Warning!", Level.WARN);
             log("This version of the mod is for testing by the public, in case of bugs, please contact https://github.com/simply-kel/SimplyStatus", Level.WARN);
         }
+    }
+    private void registerCommand(CommandDispatcher<FabricClientCommandSource> dispatcher, CommandBuildContext registryAccess){
+        dispatcher.register(literal("simplystatus")
+                .then(literal("config")
+                        .executes(context -> {
+                            Minecraft client = context.getSource().getClient();
+                            client.tell(() -> client.setScreen(new ClientConfigs(client.screen)));
+                            return 1;
+                        })
+                )
+                .executes(context -> {
+                    context.getSource().getClient().getToasts().addToast(new AlinaToast(Component.translatable("simplystatus.name"), Component.literal("Hello, world!"), Items.CRAFTING_TABLE));
+                    return 1;
+                }));
     }
 }

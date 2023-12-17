@@ -4,6 +4,7 @@
   "simplystatus.key.openConfig": "Open Config",
   "simplystatus.message.clothConfigNotFound": "§7SimplyStatus§r » Install the §7Cloth Config or YetAnotherConfigLib§r mod to display the config window. =-=",
 
+  "simplystatus.config.exit": "Exit",
   "simplystatus.config.client": "Client",
   "simplystatus.config.client.enable_rpc": "Enable RPC",
   "simplystatus.config.client.use_minecraft_id": "Change title to Minecraft",
@@ -89,13 +90,14 @@
   "simplystatus.config.assets.title.modification": "Modifications",
   "simplystatus.config.assets.title.unknown": "Unknown",
 
+  "simplystatus.config.mods": "Mods",
   "simplystatus.config.replaymod": "ReplayMod",
   "simplystatus.config.replaymod.view_replay_mod_server_name": "Show server name",
   "simplystatus.config.localization.mod.replaymod": "Information",
   "simplystatus.config.localization.mod.replaymod.state": "Scene",
   "simplystatus.config.localization.mod.replaymod.date_format": "Date format",
 
-  "simplystatus.config.musicplayer": "Music Player",
+  "simplystatus.config.music": "Music Player",
   "simplystatus.config.localization.mod.music.menu": "Music listen on main menu",
   "simplystatus.config.localization.mod.music": "Music listen in small icon",
   "simplystatus.config.localization.mod.music.menu.noauthor": "Music listen on main menu (No Author)",
