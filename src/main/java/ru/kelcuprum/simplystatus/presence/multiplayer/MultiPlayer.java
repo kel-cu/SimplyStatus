@@ -1,6 +1,6 @@
 package ru.kelcuprum.simplystatus.presence.multiplayer;
 
-import club.minnced.discord.rpc.DiscordRichPresence;
+import ru.kelcuprum.simplystatus.info.DiscordRichPresence;
 import net.minecraft.client.Minecraft;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.alinlib.config.Config;

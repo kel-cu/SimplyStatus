@@ -18,8 +18,7 @@ repositories {
     maven { url = "https://jitpack.io/" }
     maven { url = "https://maven.terraformersmc.com/releases" }
     maven { url = "https://maven.isxander.dev/releases" }
-    maven { url = 'https://repo.kelcuprum.ru/snapshots' }
-    maven { url = 'https://repo.kelcuprum.ru/releases' }
+    maven { url = 'https://repo.kelcuprum.ru/developer' }
     maven { url = 'https://repo.kelcuprum.ru/forks' }
     maven { url = "https://maven.meteordev.org/releases" }
     maven { url = "https://repo.u-team.info" }
@@ -41,12 +40,11 @@ dependencies {
     modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
     modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
     // - - - - - - - -
-    modImplementation("maven.modrinth:waterplayer:${project.waterplayer}")
+//    modImplementation("maven.modrinth:waterplayer:${project.waterplayer}")
     shade modImplementation("ru.kelcuprum.alinlib:AlinLib:${project.alinlib}");
     // Discord Libs
     include(implementation "com.kohlschutter.junixsocket:junixsocket-common:2.7.0")
     include(implementation "com.kohlschutter.junixsocket:junixsocket-native-common:2.7.0")
-    include(implementation "com.github.MinnDevelopment:java-discord-rpc:v2.0.2")
     include(implementation "com.jagrosh.discordipc:DiscordIPC:0.6.0")
     // JSON Lib
     include(implementation "org.json:json:${project.JSON}")

@@ -5,10 +5,10 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import ru.kelcuprum.alinlib.gui.InterfaceUtils;
-import ru.kelcuprum.alinlib.gui.components.buttons.vanilla.VanillaButton;
-import ru.kelcuprum.alinlib.gui.components.buttons.vanilla.VanillaButtonBoolean;
-import ru.kelcuprum.alinlib.gui.components.selector.vanilla.VanillaSelectorStringButton;
-import ru.kelcuprum.alinlib.gui.components.selector.vanilla.VanillaSelectorStringWithIntButton;
+import ru.kelcuprum.alinlib.gui.components.buttons.Button;
+import ru.kelcuprum.alinlib.gui.components.buttons.ButtonBoolean;
+import ru.kelcuprum.alinlib.gui.components.selector.SelectorStringButton;
+import ru.kelcuprum.alinlib.gui.components.selector.SelectorStringWithIntButton;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.ModConfig;
@@ -21,14 +21,14 @@ public class ClientConfigs extends Screen {
     // Components
     private TextBox titleBox;
     //
-    private VanillaButtonBoolean useMinecraftID;
-    private VanillaSelectorStringButton assets;
-    private VanillaSelectorStringWithIntButton api;
-    private VanillaButtonBoolean showGameStarted;
-    private VanillaButtonBoolean showAvatarPlayer;
-    private VanillaButtonBoolean viewItemOffHand;
-    private VanillaButtonBoolean viewStatistics;
-    private VanillaButtonBoolean viewPlayerName;
+    private ButtonBoolean useMinecraftID;
+    private SelectorStringButton assets;
+    private SelectorStringWithIntButton api;
+    private ButtonBoolean showGameStarted;
+    private ButtonBoolean showAvatarPlayer;
+    private ButtonBoolean viewItemOffHand;
+    private ButtonBoolean viewStatistics;
+    private ButtonBoolean viewPlayerName;
 
     //
     public ClientConfigs(Screen parent){
@@ -73,15 +73,15 @@ public class ClientConfigs extends Screen {
             SimplyStatus.lastPresence = null;
         }
         //
-        titleBox.setYPos(15-scrolled);
-        this.useMinecraftID.setYPos(40-scrolled);
-        this.assets.setYPos(65-scrolled);
-        this.api.setYPos(90-scrolled);
-        this.showGameStarted.setYPos(115-scrolled);
-        this.showAvatarPlayer.setYPos(140-scrolled);
-        this.viewItemOffHand.setYPos(165-scrolled);
-        this.viewStatistics.setYPos(190-scrolled);
-        this.viewPlayerName.setYPos(215-scrolled);
+        titleBox.setY(15-scrolled);
+        this.useMinecraftID.setY(40-scrolled);
+        this.assets.setY(65-scrolled);
+        this.api.setY(90-scrolled);
+        this.showGameStarted.setY(115-scrolled);
+        this.showAvatarPlayer.setY(140-scrolled);
+        this.viewItemOffHand.setY(165-scrolled);
+        this.viewStatistics.setY(190-scrolled);
+        this.viewPlayerName.setY(215-scrolled);
 
     }
 
@@ -96,55 +96,55 @@ public class ClientConfigs extends Screen {
         this.titleBox = this.addRenderableWidget(new TextBox(140, 15, x, 9, this.title, true));
         addRenderableWidget(titleBox);
 
-        this.useMinecraftID = new VanillaButtonBoolean(140, 40, x, 20, SimplyStatus.userConfig, "USE_ANOTHER_ID", false, Component.translatable("simplystatus.config.client.use_minecraft_id"));
+        this.useMinecraftID = new ButtonBoolean(140, 40, x, 20, SimplyStatus.userConfig, "USE_ANOTHER_ID", false, Component.translatable("simplystatus.config.client.use_minecraft_id"));
         addRenderableWidget(useMinecraftID);
-        this.assets = new VanillaSelectorStringButton(140, 65, x, 20, ModConfig.assetsList, SimplyStatus.userConfig, "USE_ASSETS", ModConfig.assetsList[0], Component.translatable("simplystatus.config.client.assets"));
+        this.assets = new SelectorStringButton(140, 65, x, 20, ModConfig.assetsList, SimplyStatus.userConfig, "USE_ASSETS", ModConfig.assetsList[0], Component.translatable("simplystatus.config.client.assets"));
         addRenderableWidget(assets);
-        this.api = new VanillaSelectorStringWithIntButton(140, 90, x, 20, SimplyStatus.apiNames, SimplyStatus.userConfig, "USE_API_RENDER", 0, Component.translatable("simplystatus.config.client.api"));
+        this.api = new SelectorStringWithIntButton(140, 90, x, 20, SimplyStatus.apiNames, SimplyStatus.userConfig, "USE_API_RENDER", 0, Component.translatable("simplystatus.config.client.api"));
         addRenderableWidget(api);
-        this.showGameStarted = new VanillaButtonBoolean(140, 115, x, 20, SimplyStatus.userConfig, "SHOW_GAME_TIME", true, Component.translatable("simplystatus.config.client.show_game_started"));
+        this.showGameStarted = new ButtonBoolean(140, 115, x, 20, SimplyStatus.userConfig, "SHOW_GAME_TIME", true, Component.translatable("simplystatus.config.client.show_game_started"));
         addRenderableWidget(showGameStarted);
-        this.showAvatarPlayer = new VanillaButtonBoolean(140, 140, x, 20, SimplyStatus.userConfig, "SHOW_AVATAR_PLAYER", true, Component.translatable("simplystatus.config.client.show_avatar_player"));
+        this.showAvatarPlayer = new ButtonBoolean(140, 140, x, 20, SimplyStatus.userConfig, "SHOW_AVATAR_PLAYER", true, Component.translatable("simplystatus.config.client.show_avatar_player"));
         addRenderableWidget(showAvatarPlayer);
-        this.viewItemOffHand = new VanillaButtonBoolean(140, 165, x, 20, SimplyStatus.userConfig, "VIEW_ITEM_OFF_HAND", false, Component.translatable("simplystatus.config.client.view_item_off_hand"));
+        this.viewItemOffHand = new ButtonBoolean(140, 165, x, 20, SimplyStatus.userConfig, "VIEW_ITEM_OFF_HAND", false, Component.translatable("simplystatus.config.client.view_item_off_hand"));
         addRenderableWidget(viewItemOffHand);
-        this.viewStatistics = new VanillaButtonBoolean(140, 190, x, 20, SimplyStatus.userConfig, "VIEW_STATISTICS", true, Component.translatable("simplystatus.config.client.view_statistics"));
+        this.viewStatistics = new ButtonBoolean(140, 190, x, 20, SimplyStatus.userConfig, "VIEW_STATISTICS", true, Component.translatable("simplystatus.config.client.view_statistics"));
         addRenderableWidget(viewStatistics);
-        this.viewPlayerName = new VanillaButtonBoolean(140, 215, x, 20, SimplyStatus.userConfig, "VIEW_PLAYER_NAME", true, Component.translatable("simplystatus.config.client.view_player_name"));
+        this.viewPlayerName = new ButtonBoolean(140, 215, x, 20, SimplyStatus.userConfig, "VIEW_PLAYER_NAME", true, Component.translatable("simplystatus.config.client.view_player_name"));
         addRenderableWidget(viewPlayerName);
 
     }
     public void initPanel(){
         addRenderableWidget(new TextBox(10, 15, 110, font.lineHeight, TITLE, true));
 
-        addRenderableWidget(new VanillaButton(10, 40, 110, 20, Component.translatable("simplystatus.config.client"), (OnPress) -> {
+        addRenderableWidget(new Button(10, 40, 110, 20, Component.translatable("simplystatus.config.client"), (OnPress) -> {
             this.minecraft.setScreen(new ClientConfigs(this.parent));
         }));
 
-        addRenderableWidget(new VanillaButton(10, 65, 110, 20, Component.translatable("simplystatus.config.server"), (OnPress) -> {
+        addRenderableWidget(new Button(10, 65, 110, 20, Component.translatable("simplystatus.config.server"), (OnPress) -> {
             this.minecraft.setScreen(new ServerConfigs(this.parent));
         })).setActive(this.minecraft.getCurrentServer() != null);
 
-        addRenderableWidget(new VanillaButton(10, 90, 110, 20, Component.translatable("simplystatus.config.localization"), (OnPress) -> {
+        addRenderableWidget(new Button(10, 90, 110, 20, Component.translatable("simplystatus.config.localization"), (OnPress) -> {
             this.minecraft.setScreen(new LocalizationConfigs(this.parent));
         }));
 
-        addRenderableWidget(new VanillaButton(10, 115, 110, 20, Component.translatable("simplystatus.config.addons"), (OnPress) -> {
+        addRenderableWidget(new Button(10, 115, 110, 20, Component.translatable("simplystatus.config.addons"), (OnPress) -> {
             this.minecraft.setScreen(new AddonsConfigs(this.parent));
         }));
 
-        addRenderableWidget(new VanillaButton(10, 140, 110, 20, Component.translatable("simplystatus.config.assets"), (OnPress) -> {
+        addRenderableWidget(new Button(10, 140, 110, 20, Component.translatable("simplystatus.config.assets"), (OnPress) -> {
             this.minecraft.setScreen(new AssetConfigs(this.parent));
         })).setActive(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false));
 
-        addRenderableWidget(new VanillaButton(10, 165, 110, 20, Component.translatable("simplystatus.config.mods"), (OnPress) -> {
+        addRenderableWidget(new Button(10, 165, 110, 20, Component.translatable("simplystatus.config.mods"), (OnPress) -> {
             this.minecraft.setScreen(new ModsConfigs(this.parent));
         }));
 
-        addRenderableWidget(new VanillaButton(10, height-30, 80, 20, Component.translatable("simplystatus.config.exit"), (OnPress) -> {
+        addRenderableWidget(new Button(10, height-30, 85, 20, Component.translatable("simplystatus.config.exit"), (OnPress) -> {
             this.minecraft.setScreen(parent);
         }));
-        addRenderableWidget(new VanillaButton(100, height-30, 20, 20, Component.literal("l"), (OnPress) -> {
+        addRenderableWidget(new Button(100, height-30, 20, 20, Component.literal("l"), (OnPress) -> {
             this.minecraft.setScreen(YACLConfigScreen.buildScreen(this.parent));
         })).setActive(SimplyStatus.yacl);
     }

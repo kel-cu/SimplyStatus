@@ -1,6 +1,5 @@
 package ru.kelcuprum.simplystatus;
 
-import club.minnced.discord.rpc.DiscordRichPresence;
 import com.google.gson.JsonObject;
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
@@ -18,9 +17,7 @@ import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
@@ -30,8 +27,8 @@ import ru.kelcuprum.alinlib.gui.toast.AlinaToast;
 import ru.kelcuprum.simplystatus.config.AssetsConfig;
 import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.simplystatus.config.ModConfig;
-import ru.kelcuprum.simplystatus.config.gui.YACLConfigScreen;
 import ru.kelcuprum.simplystatus.config.gui.config.ClientConfigs;
+import ru.kelcuprum.simplystatus.info.DiscordRichPresence;
 import ru.kelcuprum.simplystatus.info.Game;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.localization.Localization;
