@@ -18,7 +18,7 @@ public class Player {
     }
     public static String getURLAvatar(){
         if(CLIENT.getUser().getType().name().equalsIgnoreCase("msa") || CLIENT.getUser().getType().name().equalsIgnoreCase("mojang")){
-            switch (SimplyStatus.userConfig.getInt("USE_API_RENDER", 0)){
+            switch (SimplyStatus.userConfig.getNumber("USE_API_RENDER", 0).intValue()){
                 case 1 -> {
                     return "https://api.kelcuprum.ru/skin/render/avatar?name="+CLIENT.getUser().getName()+"&api=0&sendfile=true";
                 }

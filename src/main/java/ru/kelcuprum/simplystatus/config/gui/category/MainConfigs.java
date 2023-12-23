@@ -47,7 +47,7 @@ public class MainConfigs {
                     .name(Localization.getText("simplystatus.config.client.api"))
                     .description(OptionDescription.createBuilder()
                             .text(Localization.getText("simplystatus.config.client.api.description")).build())
-                    .binding(1, () -> SimplyStatus.userConfig.getInt("USE_API_RENDER", 0) + 1, newVal -> SimplyStatus.userConfig.setInt("USE_API_RENDER", newVal - 1))
+                    .binding(1, () -> SimplyStatus.userConfig.getNumber("USE_API_RENDER", 0).intValue() + 1, newVal -> SimplyStatus.userConfig.setNumber("USE_API_RENDER", newVal - 1))
                     .controller(opt -> IntegerSliderControllerBuilder.create(opt)
                             .range(1, SimplyStatus.apiNames.length)
                             .step(1)
