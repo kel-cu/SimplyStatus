@@ -105,7 +105,7 @@ public class ClientConfigs extends Screen {
         addRenderableWidget(useMinecraftID);
         this.assets = new SelectorStringButton(140, 65, x, 20, InterfaceUtils.DesignType.VANILLA, ModConfig.assetsList, SimplyStatus.userConfig, "USE_ASSETS", ModConfig.assetsList[0], Component.translatable("simplystatus.config.client.assets"));
         widgets.add(assets);
-        addRenderableWidget(assets);
+        addRenderableWidget(assets).setActive(!(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false)));
         this.api = new SelectorStringWithIntButton(140, 90, x, 20, InterfaceUtils.DesignType.VANILLA, SimplyStatus.apiNames, SimplyStatus.userConfig, "USE_API_RENDER", 0, Component.translatable("simplystatus.config.client.api"));
         widgets.add(api);
         addRenderableWidget(api);

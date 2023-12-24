@@ -96,6 +96,25 @@ public class AssetsConfig {
             saveUserAssets();
         }
     }
+    public void setValue(String type, String value){
+        switch (type.toLowerCase()) {
+            case "logo" -> logo = value;
+            case "day" -> day = value;
+            case "night" -> night = value;
+            case "morning" -> morning = value;
+            case "evening" -> evening = value;
+            case "world" -> world = value;
+            case "world_nether" -> world_nether = value;
+            case "world_the_end" -> world_the_end = value;
+            case "world_moon" -> world_moon = value;
+            case "replaymod" -> replaymod = value;
+            case "music" -> music = value;
+            case "voice" -> voice = value;
+            case "unknown_world" -> unknown_world = value;
+            case "unknown" -> unknown = value;
+        }
+        saveUserAssets();
+    }
     public void saveUserAssets(){
         Minecraft mc = Minecraft.getInstance();
         final Path assetsFile = mc.gameDirectory.toPath().resolve("config/SimplyStatus/assets.json");
