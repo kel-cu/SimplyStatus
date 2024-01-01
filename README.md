@@ -1,3 +1,7 @@
+# ВНИМАНИЕ/WARNING!!!!
+> Опубликованные версии 2.1.0-alpha.* были отменены/удалены, пожалуйста, используйте текущую версию 2.0.x!<br>
+> Published versions 2.1.0-alpha.* have been canceled/deleted, please use current release 2.0.x!
+
 <div align=center>
 
 ## SimplyStatus
@@ -12,10 +16,6 @@
 
 </div>
 <div align=left>
-
-> [!WARNING]
-> Опубликованные версии 2.1.0-alpha.* были отменены/удалены, пожалуйста, используйте текущую версию 2.0.x!<br>
-> Published versions 2.1.0-alpha.* have been canceled/deleted, please use current release 2.0.x!
 
 ### Примеры статусов
 **В главном меню**<br>
