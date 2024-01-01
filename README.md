@@ -13,6 +13,10 @@
 </div>
 <div align=left>
 
+> [!WARNING]
+> Опубликованные версии 2.1.0-alpha.* были отменены/удалены, пожалуйста, используйте текущую версию 2.0.x!<br>
+> Published versions 2.1.0-alpha.* have been canceled/deleted, please use current release 2.0.x!
+
 ### Примеры статусов
 **В главном меню**<br>
 <img src="https://cdn.modrinth.com/data/6kYGBz0X/images/30d75e96bb571c6f8567b02d04499af6e7c3ce9b.png"><br>
