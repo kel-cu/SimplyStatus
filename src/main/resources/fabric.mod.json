@@ -9,8 +9,9 @@
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/simplystatus",
+    "sources": "https://github.com/simply-kel/SimplyStatus/",
     "issues": "https://github.com/simply-kel/SimplyStatus/issues",
-    "email": "kel@simplykel.ru"
+    "email": "me@kelcuprum.ru"
   },
   "license": "MIT",
   "icon": "assets/simplystatus/logo.png",
@@ -20,7 +21,7 @@
       "ru.kelcuprum.simplystatus.SimplyStatus"
     ],
     "modmenu": [
-      "ru.kelcuprum.simplystatus.config.gui.ModMenuIntegration"
+      "ru.kelcuprum.simplystatus.gui.ModMenuIntegration"
     ]
   },
   "mixins": [
@@ -28,6 +29,7 @@
   "depends": {
     "fabricloader": ">=0.14.17",
     "fabric": "*",
+    "alinlib": "*",
     "minecraft": [">=1.20"]
   },
   "breaks": {
@@ -38,9 +40,8 @@
   "custom": {
     "modmenu": {
       "links": {
-        "modmenu.simplystatus.github": "https://github.com/simply-kel/SimplyStatus",
-        "modmenu.simplystatus.modrinth": "https://modrinth.com/mod/simplystatus",
-        "modmenu.simplystatus.donate": "https://kelcuprum.ru/r/don"
+        "modmenu.modrinth": "https://modrinth.com/mod/simplystatus",
+        "modmenu.donate": "https://kelcuprum.ru/r/don"
       }
     }
   }

@@ -6,7 +6,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.localization.Localization;
+import ru.kelcuprum.simplystatus.localization.StarScript;
 import ru.kelcuprum.simplystatus.mods.Voice;
 
 public class Player {
@@ -15,23 +15,23 @@ public class Player {
     static Minecraft CLIENT = Minecraft.getInstance();
     public static String getName(){
         if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED_DISCORD) return CLIENT.getUser().getName();
-        else return SimplyStatus.USER.username;
+        else return SimplyStatus.USER.getName();
     }
     public static String getURLAvatar(){
         if(CLIENT.getUser().getType().name().toLowerCase().equals("msa") || CLIENT.getUser().getType().name().toLowerCase().equals("mojang")){
-            switch (SimplyStatus.userConfig.getInt("USE_API_RENDER", 0)){
+            switch (SimplyStatus.userConfig.getNumber("USE_API_RENDER", 0).intValue()){
                 case 1 -> {
-                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+CLIENT.getUser().getName()+"&api=1&sendfile=true";
+                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+CLIENT.getUser().getName()+"&api=0&sendfile=true";
                 }
                 case 2 -> {
-                    return "https://api.kelcuprum.ru/skin/render?name="+CLIENT.getUser().getName()+"&api=1&head=true&sendfile=true";
+                    return "https://api.kelcuprum.ru/skin/render?name="+CLIENT.getUser().getName()+"&api=0&head=true&sendfile=true";
                 }
                 default -> {
                     return "https://crafthead.net/helm/"+CLIENT.getUser().getProfileId().toString()+"/512";
                 }
             }
         } else {
-            if(SimplyStatus.CONNECTED_DISCORD) return "https://cdn.discordapp.com/avatars/"+SimplyStatus.USER.userId+"/"+SimplyStatus.USER.avatar+".png?size=480";
+            if(SimplyStatus.CONNECTED_DISCORD) return SimplyStatus.USER.getAvatarUrl();
             else return "https://kelcuprum.ru/ass/other/error.png";
         }
     }
@@ -40,9 +40,9 @@ public class Player {
             double randomNumber = Math.floor(Math.random() * 2);
             if(!lastMessageDeath){
                 String message;
-                if(randomNumber == 0) message = Localization.getLocalization("death.one", true);
-                else if(randomNumber == 1) message = Localization.getLocalization("death.two", true);
-                else message = Localization.getLocalization("death.three", true);
+                if(randomNumber == 0) message = SimplyStatus.localization.getLocalization("death.one", true);
+                else if(randomNumber == 1) message = SimplyStatus.localization.getLocalization("death.two", true);
+                else message = SimplyStatus.localization.getLocalization("death.three", true);
                 lastTextDeath = message;
                 lastMessageDeath = true;
                 return message;
@@ -52,26 +52,26 @@ public class Player {
         } else if(!SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true) || (getItemName() == null && SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true))){
             if(lastMessageDeath) lastMessageDeath = false;
             if(SimplyStatus.userConfig.getBoolean("VIEW_STATISTICS", true)){
-                if(CLIENT.player.isSleeping()) return Localization.getLocalization("player.sleep", true);
-                else if(CLIENT.player.isCrouching()) return Localization.getLocalization("player.sneak", true);
-                else if(CLIENT.player.isOnFire()) return Localization.getLocalization("player.on.fire", true);
-                else if(CLIENT.player.isInLava()) return Localization.getLocalization("player.on.lava", true);
-                else if(CLIENT.player.isUnderWater()) return Localization.getLocalization("player.on.water", true);
+                if(CLIENT.player.isSleeping()) return SimplyStatus.localization.getLocalization("player.sleep", true);
+                else if(CLIENT.player.isCrouching()) return SimplyStatus.localization.getLocalization("player.sneak", true);
+                else if(CLIENT.player.isOnFire()) return SimplyStatus.localization.getLocalization("player.on.fire", true);
+                else if(CLIENT.player.isInLava()) return SimplyStatus.localization.getLocalization("player.on.lava", true);
+                else if(CLIENT.player.isUnderWater()) return SimplyStatus.localization.getLocalization("player.on.water", true);
                 else if(SimplyStatus.isVoiceModsEnable && SimplyStatus.userConfig.getBoolean("VIEW_VOICE_SPEAK", false)) {
                     Voice mod = new Voice();
                     if(mod.isSpeak){
-                        if(mod.isSelfTalk) return Localization.getLocalization("mod.voice", true);
-                        else if(mod.isOnePlayer) return Localization.getLocalization("mod.voice.one", true);
-                        else return Localization.getLocalization("mod.voice.more", true);
+                        if(mod.isSelfTalk) return SimplyStatus.localization.getLocalization("mod.voice", true);
+                        else if(mod.isOnePlayer) return SimplyStatus.localization.getLocalization("mod.voice.players.one", true);
+                        else return SimplyStatus.localization.getLocalization("mod.voice.players.more", true);
                     }
-                    return Localization.getLocalization("player.statistics", true);
+                    return SimplyStatus.localization.getLocalization("player.statistics", true);
                 }
-                else return Localization.getLocalization("player.statistics", true);
+                else return SimplyStatus.localization.getLocalization("player.statistics", true);
             } else {
-                return Localization.getLocalization("item.air", true);
+                return SimplyStatus.localization.getLocalization("item.air", true);
             }
         } else {
-            return getItemCount() >= 2 ? Localization.getLocalization("item.count", true) : Localization.getLocalization("item", true);
+            return getItemCount() >= 2 ? SimplyStatus.localization.getLocalization("item.count", true) : SimplyStatus.localization.getLocalization("item", true);
         }
     }
     public static String getItemName(){
@@ -126,14 +126,13 @@ public class Player {
     public static String getDirection(boolean oneSymbol){
         Direction direction = CLIENT.player.getDirection();
         return switch (direction) {
-            case NORTH -> oneSymbol ? "N" : Localization.getLocalization("north", false);
-            case SOUTH -> oneSymbol ? "S" : Localization.getLocalization("south", false);
-            case WEST -> oneSymbol ? "W" : Localization.getLocalization("west", false);
-            case EAST -> oneSymbol ? "E" : Localization.getLocalization("east", false);
-            default -> oneSymbol ? "?" : Localization.getLocalization("unknown", false);
+            case NORTH -> oneSymbol ? "N" : SimplyStatus.localization.getLocalization("north", false);
+            case SOUTH -> oneSymbol ? "S" : SimplyStatus.localization.getLocalization("south", false);
+            case WEST -> oneSymbol ? "W" : SimplyStatus.localization.getLocalization("west", false);
+            case EAST -> oneSymbol ? "E" : SimplyStatus.localization.getLocalization("east", false);
+            default -> oneSymbol ? "?" : SimplyStatus.localization.getLocalization("unknown", false);
         };
     }
-    static BlockPos.MutableBlockPos BP = new BlockPos.MutableBlockPos();
     public static long getPing() {
         if (CLIENT.getCurrentServer() == null) return 0;
         return CLIENT.getCurrentServer().ping;

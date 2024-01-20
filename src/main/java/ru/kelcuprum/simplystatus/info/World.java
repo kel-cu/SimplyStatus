@@ -1,9 +1,9 @@
 package ru.kelcuprum.simplystatus.info;
 
-import club.minnced.discord.rpc.DiscordRichPresence;
+import com.jagrosh.discordipc.entities.RichPresence;
 import net.minecraft.client.Minecraft;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.localization.Localization;
+import ru.kelcuprum.simplystatus.localization.StarScript;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -16,13 +16,13 @@ public class World {
         if(CLIENT.level == null) return "";
         long currentTime = CLIENT.level.getDayTime() % 24000;
         if (currentTime < 6000 && currentTime > 0) {
-            return Localization.getLocalization("time.morning", false);
+            return SimplyStatus.localization.getLocalization("time.morning", false);
         } else if (currentTime < 12000 && currentTime > 6000) {
-            return Localization.getLocalization("time.day", false);
+            return SimplyStatus.localization.getLocalization("time.day", false);
         } else if (currentTime < 16500 && currentTime > 12000) {
-            return Localization.getLocalization("time.evening", false);
+            return SimplyStatus.localization.getLocalization("time.evening", false);
         } else if (currentTime > 16500) {
-            return Localization.getLocalization("time.night", false);
+            return SimplyStatus.localization.getLocalization("time.night", false);
         } else {
             return "";
         }
@@ -35,7 +35,7 @@ public class World {
         int day = (int) daytime / 1000 / 24;
         String clock;
         try {
-            String strDateFormat = Localization.getLocalization("date.time", false);
+            String strDateFormat = SimplyStatus.localization.getLocalization("date.time", false);
             DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
             Calendar calendar = new GregorianCalendar();
             calendar.set(2000, 0, day+1, hours, minutes, 0);
@@ -47,25 +47,19 @@ public class World {
         return clock;
 
     }
-    public static void getTime(DiscordRichPresence presence){
+    public static void getTime(RichPresence.Builder presence){
         long currentTime = CLIENT.level.getDayTime() % 24000;
         if (currentTime < 6000 && currentTime > 0) {
-            presence.largeImageKey = SimplyStatus.ASSETS.morning;
-            presence.largeImageText = Localization.getLocalization("time.morning", true);
+            presence.setLargeImage(SimplyStatus.ASSETS.morning, SimplyStatus.localization.getLocalization("time.morning", true));
         } else if (currentTime < 12000 && currentTime > 6000) {
-            presence.largeImageKey = SimplyStatus.ASSETS.day;
-            presence.largeImageText = Localization.getLocalization("time.day", true);
+            presence.setLargeImage(SimplyStatus.ASSETS.day, SimplyStatus.localization.getLocalization("time.day", true));
         } else if (currentTime < 16500 && currentTime > 12000) {
-            presence.largeImageKey = SimplyStatus.ASSETS.evening;
-            presence.largeImageText = Localization.getLocalization("time.evening", true);
+            presence.setLargeImage(SimplyStatus.ASSETS.evening, SimplyStatus.localization.getLocalization("time.evening", true));
         } else if (currentTime < 24000 && currentTime > 16500) {
-            presence.largeImageKey = SimplyStatus.ASSETS.night;
-            presence.largeImageText = Localization.getLocalization("time.night", true);
+            presence.setLargeImage(SimplyStatus.ASSETS.night, SimplyStatus.localization.getLocalization("time.night", true));
         } else {
-            presence.largeImageKey = SimplyStatus.ASSETS.world;
-            presence.largeImageText = Localization.getLocalization("world.overworld", true);
-            presence.smallImageKey = null;
-            presence.smallImageText = null;
+            presence.setLargeImage(SimplyStatus.ASSETS.world, SimplyStatus.localization.getLocalization("world.overworld", true));
+            presence.setSmallImage("", "");
         }
     }
     public static String getCodeName(){
@@ -81,18 +75,18 @@ public class World {
     }
     public static String getName(){
         String world = getCodeName();
-        if(world.equals("minecraft:the_moon")) return Localization.getLocalization("world.moon", false);
-        if(world.equals("minecraft:the_end")) return Localization.getLocalization("world.the_end", false);
-        if(world.equals("minecraft:the_nether")) return Localization.getLocalization("world.nether", false);
-        if(world.equals("minecraft:overworld")) return Localization.getLocalization("world.overworld", false);
-        return Localization.getLocalization("world.unknown", false);
+        if(world.equals("minecraft:the_moon")) return SimplyStatus.localization.getLocalization("world.moon", false);
+        if(world.equals("minecraft:the_end")) return SimplyStatus.localization.getLocalization("world.the_end", false);
+        if(world.equals("minecraft:the_nether")) return SimplyStatus.localization.getLocalization("world.nether", false);
+        if(world.equals("minecraft:overworld")) return SimplyStatus.localization.getLocalization("world.overworld", false);
+        return SimplyStatus.localization.getLocalization("world.unknown", false);
     }
     public static String getScene(){
         if(CLIENT.getCurrentServer() != null && !CLIENT.isSingleplayer())
             return SimplyStatus.serverConfig.getBoolean("USE_CUSTOM_NAME", false) ? SimplyStatus.serverConfig.getString("CUSTOM_NAME", "Custom name") :
                     SimplyStatus.serverConfig.getBoolean("SHOW_NAME", true) ? CLIENT.getCurrentServer().name :
                         SimplyStatus.serverConfig.getBoolean("SHOW_ADDRESS", false) ? CLIENT.getCurrentServer().ip :
-                                    Localization.getLocalization("address.hidden", false);
-        else return Localization.getLocalization("singleplayer", false);
+                                SimplyStatus.localization.getLocalization("address.hidden", false);
+        else return SimplyStatus.localization.getLocalization("singleplayer", false);
     }
 }

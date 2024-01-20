@@ -1,9 +1,11 @@
 package ru.kelcuprum.simplystatus;
 
-import club.minnced.discord.rpc.DiscordEventHandlers;
-import club.minnced.discord.rpc.DiscordRPC;
-import club.minnced.discord.rpc.DiscordRichPresence;
-import club.minnced.discord.rpc.DiscordUser;
+import com.google.gson.JsonObject;
+import com.jagrosh.discordipc.IPCClient;
+import com.jagrosh.discordipc.IPCListener;
+import com.jagrosh.discordipc.entities.Packet;
+import com.jagrosh.discordipc.entities.RichPresence;
+import com.jagrosh.discordipc.entities.User;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
@@ -17,13 +19,13 @@ import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
+import ru.kelcuprum.alinlib.config.Config;
+import ru.kelcuprum.alinlib.config.Localization;
 import ru.kelcuprum.simplystatus.config.AssetsConfig;
-import ru.kelcuprum.simplystatus.config.Config;
 import ru.kelcuprum.simplystatus.config.ModConfig;
-import ru.kelcuprum.simplystatus.config.gui.YACLConfigScreen;
 import ru.kelcuprum.simplystatus.info.Game;
 import ru.kelcuprum.simplystatus.info.Player;
-import ru.kelcuprum.simplystatus.localization.Localization;
+import ru.kelcuprum.simplystatus.localization.StarScript;
 import ru.kelcuprum.simplystatus.mods.Music;
 import ru.kelcuprum.simplystatus.mods.Voice;
 import ru.kelcuprum.simplystatus.presence.MainMenu;
@@ -39,8 +41,6 @@ import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static ru.kelcuprum.simplystatus.localization.Localization.compile;
-
 public class SimplyStatus implements ClientModInitializer {
     private static final Timer TIMER = new Timer();
 
@@ -51,48 +51,44 @@ public class SimplyStatus implements ClientModInitializer {
     // User Configurations
     public static Config userConfig = new Config("config/SimplyStatus/config.json");
     public static Config serverConfig = new Config("config/SimplyStatus/servers/default.json");
+    public static Localization localization = new Localization("simplystatus.presence","config/SimplyStatus/lang");
     public static AssetsConfig ASSETS = ModConfig.defaultAssets;
     // Another shit
     public static String[] apiNames = {
             "CraftHead",
-//            "Alina API: 2D", // Убраны на время DDoS-Атаки
-//            "Alina API: 3D"
+            "Alina API: 2D",
+            "Alina API: 3D"
     };
     public static boolean useAnotherID = false;
     public static boolean useCustomID = false;
     public static String customID = "";
     public static DecimalFormat DF = new DecimalFormat("#.##");
     private String lastException;
-    public static DiscordRichPresence lastPresence;
     public static Long TIME_STARTED_CLIENT;
     // Logs
     public static final Logger LOG = LogManager.getLogger("SimplyStatus");
     public static void log(String message) {log(message, Level.INFO);};
     public static void log(String message, Level level){ LOG.log(level, "["+LOG.getName()+"] "+message);}
     // Mods is present
-    public static Boolean yacl = FabricLoader.getInstance().getModContainer("yet_another_config_lib_v3").isPresent();
+    public static Boolean alinlib = FabricLoader.getInstance().getModContainer("alinlib").isPresent();
     public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
-    public static Boolean musicPlayer = FabricLoader.getInstance().getModContainer("musicplayer").isPresent();
     public static Boolean waterPlayer = FabricLoader.getInstance().getModContainer("waterplayer").isPresent();
     public static Boolean svc = FabricLoader.getInstance().getModContainer("voicechat").isPresent();
     public static Boolean plasmo = FabricLoader.getInstance().getModContainer("plasmovoice").isPresent();
-    public static Boolean fastload = FabricLoader.getInstance().getModContainer("fastload").isPresent();
     public static Boolean isVoiceModsEnable = (svc || plasmo);
-    public static Boolean isMusicModsEnable = (musicPlayer || waterPlayer);
+    public static Boolean isMusicModsEnable = waterPlayer;
     // Discord
-    public static final DiscordRPC LIB = DiscordRPC.INSTANCE;
-    public static final DiscordEventHandlers HANDLERS = new DiscordEventHandlers();
-    public static DiscordUser USER;
+    public static RichPresence lastPresence;
+    public static IPCClient client;
+    public static User USER;
     public static String APPLICATION_ID;
-    public static final String STEAM_ID = "";
-    public static final Boolean AUTO_REGISTER = true;
-    // Discord Status
     public static boolean CONNECTED_DISCORD = false;
 
     @Override
     public void onInitializeClient() {
         userConfig.load();
         serverConfig.load();
+        localization.setParser((s) -> StarScript.run(StarScript.compile(s)));
         checkVersion();
         try {
             new ModConfig();
@@ -104,7 +100,7 @@ public class SimplyStatus implements ClientModInitializer {
         useAnotherID = userConfig.getBoolean("USE_ANOTHER_ID", false);
         useCustomID = userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
         TIME_STARTED_CLIENT = System.currentTimeMillis() / 1000;
-        Localization.init();
+        StarScript.init();
         registerApplications();
         registerKeyBinds();
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
@@ -112,30 +108,65 @@ public class SimplyStatus implements ClientModInitializer {
         });
     }
     private void registerApplications(){
-        HANDLERS.ready = (user) -> {
-            log("The mod has been connected to Discord", Level.DEBUG);
-            USER = user;
-            CONNECTED_DISCORD = true;
-        };
-        HANDLERS.disconnected = (err, reason) -> {
-            log("The mod has been pulled from Discord", Level.DEBUG);
-            log(String.format("Reason: %s", reason), Level.DEBUG);
-            CONNECTED_DISCORD = false;
-        };
         APPLICATION_ID = userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
         if(userConfig.getBoolean("USE_CUSTOM_APP_ID", false)&& !userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID).isBlank()) APPLICATION_ID = userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
         customID = APPLICATION_ID;
-        LIB.Discord_Initialize(APPLICATION_ID, HANDLERS, AUTO_REGISTER, STEAM_ID);
-        new Thread(() -> {
-            while (!Thread.currentThread().isInterrupted()) {
-                LIB.Discord_RunCallbacks();
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException ignored) {
-                }
-            }
-        }, "SimplyStatus RPC-Callback-Handler").start();
+        client = new IPCClient(Long.parseLong(APPLICATION_ID));
+        setupListener();
+        try {
+            client.connect();
+        } catch (Exception ex){
+            log(ex.getLocalizedMessage(), Level.ERROR);
+        }
         start();
+    }
+    public static void setupListener(){
+        client.setListener(new IPCListener(){
+            @Override
+            public void onPacketSent(IPCClient ipcClient, Packet packet) {
+
+            }
+
+            @Override
+            public void onPacketReceived(IPCClient ipcClient, Packet packet) {
+
+            }
+
+            @Override
+            public void onActivityJoin(IPCClient ipcClient, String s) {
+
+            }
+
+            @Override
+            public void onActivitySpectate(IPCClient ipcClient, String s) {
+
+            }
+
+            @Override
+            public void onActivityJoinRequest(IPCClient ipcClient, String s, User user) {
+
+            }
+
+            @Override
+            public void onReady(IPCClient client)
+            {
+                log("The mod has been connected to Discord", Level.DEBUG);
+                USER = client.getCurrentUser();
+                CONNECTED_DISCORD = true;
+            }
+
+            @Override
+            public void onClose(IPCClient ipcClient, JsonObject jsonObject) {
+                CONNECTED_DISCORD = false;
+            }
+
+            @Override
+            public void onDisconnect(IPCClient ipcClient, Throwable throwable) {
+                log("The mod has been pulled from Discord", Level.DEBUG);
+                log(String.format("Reason: %s", throwable.getLocalizedMessage()), Level.DEBUG);
+                CONNECTED_DISCORD = false;
+            }
+        });
     }
     private void start(){
         TIMER.scheduleAtFixedRate(new TimerTask() {
@@ -147,11 +178,11 @@ public class SimplyStatus implements ClientModInitializer {
                 } catch(Exception ex){
                     if(lastException == null || !lastException.equals(ex.getMessage())){
                         ex.printStackTrace();
-                        DiscordRichPresence presence = new DiscordRichPresence();
-                        presence.largeImageKey = "unknown_world";
-                        presence.details = "There was an error, look in the console";
-                        presence.state = "And report the bug on GitHub";
-                        LIB.Discord_UpdatePresence(presence);
+                        RichPresence.Builder presence = new RichPresence.Builder()
+                                .setDetails("There was an error, look in the console")
+                                .setState("And report the bug on GitHub")
+                                .setLargeImage("unknown_world");
+                        client.sendRichPresence(presence.build());
                         lastException = ex.getMessage();
                     }
                 }
@@ -172,7 +203,7 @@ public class SimplyStatus implements ClientModInitializer {
                     default -> new MainMenu();
                 }
             } else {
-                if(CLIENT.isSingleplayer()) new SinglePlayer();
+                if(CLIENT.isSingleplayer() || CLIENT.hasSingleplayerServer()) new SinglePlayer();
                 else if(CLIENT.getCurrentServer() != null) new MultiPlayer();
                 else if(SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
                 else new Unknown();
@@ -181,46 +212,33 @@ public class SimplyStatus implements ClientModInitializer {
             updateDiscordPresence(null);
         }
     }
-    public static void updateContentPresenceByConfigs(DiscordRichPresence presence) { updateContentPresenceByConfigs(presence, false); }
-    public static void updateContentPresenceByConfigs(DiscordRichPresence presence, boolean isServer){
+    public static void updateContentPresenceByConfigs(RichPresence.Builder presence) { updateContentPresenceByConfigs(presence, false); }
+    public static void updateContentPresenceByConfigs(RichPresence.Builder presence, boolean isServer){
 
-        if(SimplyStatus.userConfig.getBoolean("SHOW_GAME_TIME", true)) presence.startTimestamp = SimplyStatus.TIME_STARTED_CLIENT;
+        if(SimplyStatus.userConfig.getBoolean("SHOW_GAME_TIME", true)) presence.setStartTimestamp(SimplyStatus.TIME_STARTED_CLIENT);
         ///
         if(userConfig.getBoolean("VIEW_VOICE_SPEAK", false) && (isVoiceModsEnable && new Voice().isSpeak)) {
             Voice mod = new Voice();
-            String info = mod.isSelfTalk ? Localization.getLocalization("mod.voice", false) : mod.isOnePlayer ? Localization.getLocalization("mod.voice.one", false) : Localization.getLocalization("mod.voice.more", false);
-            presence.smallImageKey = ASSETS.voice;
-            presence.smallImageText = Localization.run(compile(info));
+            String info = mod.isSelfTalk ? localization.getLocalization("mod.voice", false) : mod.isOnePlayer ? localization.getLocalization("mod.voice.one", false) : localization.getLocalization("mod.voice.more", false);
+            presence.setSmallImage(ASSETS.voice, localization.getParsedText(info));
         } else if(userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused)) {
-            presence.smallImageKey = ASSETS.music;
-            presence.smallImageText = new Music().artistIsNull ? Localization.getLocalization("mod.music.noauthor", true) : Localization.getLocalization("mod.music", true);
+            presence.setSmallImage(new Music().artist.isBlank() ? ASSETS.music : new Music().cover, new Music().artistIsNull ? localization.getLocalization("mod.music.noauthor", true) : localization.getLocalization("mod.music", true));
         } else if(isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (serverConfig.getString("ICON_URL", "").length() != 0))){
-            presence.smallImageKey = serverConfig.getString("ICON_URL", "").replace("%address%", Minecraft.getInstance().getCurrentServer().ip);
-            presence.smallImageText = Localization.run(compile("{player.scene}"));
+            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Minecraft.getInstance().getCurrentServer().ip), localization.getParsedText("{player.scene}"));
         } else if(userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
-            presence.smallImageKey = Player.getURLAvatar();
-            presence.smallImageText = Player.getName();
+            presence.setSmallImage(Player.getURLAvatar(), Player.getName());
         }
     }
-    public static void updateDiscordPresence(DiscordRichPresence presence){
+    public static void updateDiscordPresence(RichPresence presence){
         if(presence == null && ModConfig.debugPresence) LOG.info("Presence is null!");
-        else if(ModConfig.debugPresence){
-            LOG.info("Content presence");
-            if(presence.details != null) LOG.info("Details: "+presence.details);
-            if(presence.state != null) LOG.info("State: "+presence.state);
-            if(presence.largeImageKey != null) LOG.info("Large Image Key: "+presence.largeImageKey);
-            if(presence.largeImageText != null) LOG.info("Large Image Text: "+presence.largeImageText);
-            if(presence.smallImageKey != null) LOG.info("Small Image Key: "+presence.smallImageKey);
-            if(presence.smallImageText != null) LOG.info("Small Image Text: "+presence.smallImageText);
-        }
         if(lastPresence == null || !lastPresence.equals(presence)){
             lastPresence = presence;
-            if(CONNECTED_DISCORD) LIB.Discord_UpdatePresence(presence);
+            if(CONNECTED_DISCORD) client.sendRichPresence(presence);
             if(ModConfig.debugPresence) LOG.info("Update presence");
         }
     }
     private void registerKeyBinds(){
-        if(yacl){
+        if(alinlib){
             KeyMapping openConfigKeyBind;
             openConfigKeyBind = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                     "simplystatus.key.openConfig",
@@ -232,8 +250,8 @@ public class SimplyStatus implements ClientModInitializer {
                 assert client.player != null;
                 while (openConfigKeyBind.consumeClick()) {
                     final Screen current = client.screen;
-                    Screen configScreen = YACLConfigScreen.buildScreen(current);
-                    client.setScreen(configScreen);
+//                    Screen configScreen = YACLConfigScreen.buildScreen(current);
+//                    client.setScreen(configScreen);
                 }
             });
         } else log("Configuration hotkey has not been registered, no desired mod found");

@@ -1,8 +1,7 @@
 package ru.kelcuprum.simplystatus.presence;
 
-import club.minnced.discord.rpc.DiscordRichPresence;
+import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.localization.Localization;
 
 public class ReplayMod {
     /**
@@ -10,11 +9,11 @@ public class ReplayMod {
      * Причины: Игрок находится в главном меню; Игрок в ReplayMod сцене и параметр скрыт
      */
     public ReplayMod(){
-        DiscordRichPresence presence = new DiscordRichPresence();
-        presence.details = Localization.getLocalization("mod.replaymod", true);
-        presence.state = Localization.getLocalization("mod.replaymod.state", true);
-        presence.largeImageKey = SimplyStatus.ASSETS.replaymod;
+        RichPresence.Builder presence = new RichPresence.Builder()
+            .setDetails(SimplyStatus.localization.getLocalization("mod.replaymod", true))
+            .setState(SimplyStatus.localization.getLocalization("mod.replaymod.state", true))
+            .setLargeImage(SimplyStatus.ASSETS.replaymod);
         SimplyStatus.updateContentPresenceByConfigs(presence);
-        SimplyStatus.updateDiscordPresence(presence);
+        SimplyStatus.updateDiscordPresence(presence.build());
     }
 }

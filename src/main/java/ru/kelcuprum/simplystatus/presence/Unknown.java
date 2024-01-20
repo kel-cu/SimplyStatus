@@ -1,8 +1,8 @@
 package ru.kelcuprum.simplystatus.presence;
 
-import club.minnced.discord.rpc.DiscordRichPresence;
+import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.localization.Localization;
+import ru.kelcuprum.simplystatus.localization.StarScript;
 
 public class Unknown {
     /**
@@ -10,9 +10,9 @@ public class Unknown {
      * Причины: Ни одна проверка не нашла подходящий вариант
      */
     public Unknown(){
-        DiscordRichPresence presence = new DiscordRichPresence();
-        presence.state = Localization.getLocalization("unknown", true);
-        presence.largeImageKey = SimplyStatus.ASSETS.unknown;
-        SimplyStatus.updateDiscordPresence(presence);
+        RichPresence.Builder presence = new RichPresence.Builder();
+        presence.setState(SimplyStatus.localization.getLocalization("unknown", true));
+        presence.setLargeImage(SimplyStatus.ASSETS.unknown);
+        SimplyStatus.updateDiscordPresence(presence.build());
     }
 }

@@ -1,8 +1,7 @@
 package ru.kelcuprum.simplystatus.presence.singleplayer;
 
-import club.minnced.discord.rpc.DiscordRichPresence;
+import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.localization.Localization;
 
 public class Loading {
     /**
@@ -10,9 +9,9 @@ public class Loading {
      * Причины:
      */
     public Loading(){
-        DiscordRichPresence presence = new DiscordRichPresence();
-        presence.state = Localization.getLocalization("world.loading", true);
-        presence.smallImageKey = SimplyStatus.ASSETS.logo;
-        SimplyStatus.updateDiscordPresence(presence);
+        RichPresence.Builder presence = new RichPresence.Builder();
+        presence.setState(SimplyStatus.localization.getLocalization("world.loading", true));
+        presence.setSmallImage(SimplyStatus.ASSETS.logo);
+        SimplyStatus.updateDiscordPresence(presence.build());
     }
 }
