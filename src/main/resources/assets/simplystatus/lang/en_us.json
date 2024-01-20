@@ -89,13 +89,14 @@
   "simplystatus.config.assets.title.modification": "Modifications",
   "simplystatus.config.assets.title.unknown": "Unknown",
 
+  "simplystatus.config.mods": "Mods",
   "simplystatus.config.replaymod": "ReplayMod",
   "simplystatus.config.replaymod.view_replay_mod_server_name": "Show server name",
   "simplystatus.config.localization.mod.replaymod": "Information",
   "simplystatus.config.localization.mod.replaymod.state": "Scene",
   "simplystatus.config.localization.mod.replaymod.date_format": "Date format",
 
-  "simplystatus.config.musicplayer": "Music Player",
+  "simplystatus.config.music": "Music Player",
   "simplystatus.config.localization.mod.music.menu": "Music listen on main menu",
   "simplystatus.config.localization.mod.music": "Music listen in small icon",
   "simplystatus.config.localization.mod.music.menu.noauthor": "Music listen on main menu (No Author)",
@@ -196,8 +197,5 @@
   "simplystatus.presence.mod.replaymod.state": "{replay.name}",
   "simplystatus.presence.mod.replaymod.date_format": "MM/dd/yy, hh:mm",
 
-  "modmenu.descriptionTranslation.simplystatus": "Simple, customizable Discord game status",
-  "modmenu.simplystatus.github": "GitHub",
-  "modmenu.simplystatus.modrinth": "Modrinth",
-  "modmenu.simplystatus.donate": "DonationAlerts"
+  "modmenu.descriptionTranslation.simplystatus": "Simple, customizable Discord game status"
 }

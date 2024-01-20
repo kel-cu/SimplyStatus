@@ -1,7 +1,8 @@
 package ru.kelcuprum.simplystatus.config;
 
+import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
-import org.json.JSONObject;
+import net.minecraft.util.GsonHelper;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -71,8 +72,8 @@ public class AssetsConfig {
         Minecraft mc = Minecraft.getInstance();
         final Path assetsFile = mc.gameDirectory.toPath().resolve("config/SimplyStatus/assets.json");
         try {
-            JSONObject jsonConfig = new JSONObject();
-            if(assetsFile.toFile().exists()) jsonConfig = new JSONObject(Files.readString(assetsFile));
+            JsonObject jsonConfig = new JsonObject();
+            if(assetsFile.toFile().exists()) jsonConfig = GsonHelper.parse(Files.readString(assetsFile));
             AssetsConfig assets = new AssetsConfig(jsonConfig);
             logo = assets.logo;
             day = assets.day;
@@ -99,20 +100,20 @@ public class AssetsConfig {
     public void saveUserAssets(){
         Minecraft mc = Minecraft.getInstance();
         final Path assetsFile = mc.gameDirectory.toPath().resolve("config/SimplyStatus/assets.json");
-        JSONObject jsonConfig = new JSONObject();
-        jsonConfig.put("logo", logo)
-                .put("day", day)
-                .put("night", night)
-                .put("morning", morning)
-                .put("evening", evening)
-                .put("world", world)
-                .put("world_nether", world_nether)
-                .put("world_the_end", world_the_end)
-                .put("replaymod", replaymod)
-                .put("music", music)
-                .put("voice", voice)
-                .put("unknown", unknown)
-                .put("unknown_world", unknown_world);
+        JsonObject jsonConfig = new JsonObject();
+        jsonConfig.addProperty("logo", logo);
+        jsonConfig.addProperty("day", day);
+        jsonConfig.addProperty("night", night);
+        jsonConfig.addProperty("morning", morning);
+        jsonConfig.addProperty("evening", evening);
+        jsonConfig.addProperty("world", world);
+        jsonConfig.addProperty("world_nether", world_nether);
+        jsonConfig.addProperty("world_the_end", world_the_end);
+        jsonConfig.addProperty("replaymod", replaymod);
+        jsonConfig.addProperty("music", music);
+        jsonConfig.addProperty("voice", voice);
+        jsonConfig.addProperty("unknown", unknown);
+        jsonConfig.addProperty("unknown_world", unknown_world);
         try {
             Files.createDirectories(assetsFile.getParent());
             Files.writeString(assetsFile, jsonConfig.toString());
@@ -121,7 +122,7 @@ public class AssetsConfig {
         }
     }
     public AssetsConfig() {
-        AssetsConfig assets = new AssetsConfig(ModConfig.assets.getJSONObject(SimplyStatus.userConfig.getString("USE_ASSETS", "Default").toLowerCase()));
+        AssetsConfig assets = new AssetsConfig(ModConfig.assets.getAsJsonObject(SimplyStatus.userConfig.getString("USE_ASSETS", "Default").toLowerCase()));
             logo = assets.logo;
             day = assets.day;
             night = assets.night;
@@ -140,23 +141,23 @@ public class AssetsConfig {
             unknown_world = assets.unknown_world;
             unknown = assets.unknown;
     }
-    public AssetsConfig(JSONObject jsonAssets){
+    public AssetsConfig(JsonObject jsonAssets){
         for (String key : jsonAssets.keySet()) {
             switch (key) {
-                case "logo" -> logo = jsonAssets.getString(key);
-                case "day" -> day = jsonAssets.getString(key);
-                case "night" -> night = jsonAssets.getString(key);
-                case "morning" -> morning = jsonAssets.getString(key);
-                case "evening" -> evening = jsonAssets.getString(key);
-                case "world" -> world = jsonAssets.getString(key);
-                case "world_nether" -> world_nether = jsonAssets.getString(key);
-                case "world_the_end" -> world_the_end = jsonAssets.getString(key);
-                case "world_moon" -> world_moon = jsonAssets.getString(key);
-                case "replaymod" -> replaymod = jsonAssets.getString(key);
-                case "music" -> music = jsonAssets.getString(key);
-                case "voice" -> voice = jsonAssets.getString(key);
-                case "unknown_world" -> unknown_world = jsonAssets.getString(key);
-                case "unknown" -> unknown = jsonAssets.getString(key);
+                case "logo" -> logo = jsonAssets.get(key).getAsString();
+                case "day" -> day = jsonAssets.get(key).getAsString();
+                case "night" -> night = jsonAssets.get(key).getAsString();
+                case "morning" -> morning = jsonAssets.get(key).getAsString();
+                case "evening" -> evening = jsonAssets.get(key).getAsString();
+                case "world" -> world = jsonAssets.get(key).getAsString();
+                case "world_nether" -> world_nether = jsonAssets.get(key).getAsString();
+                case "world_the_end" -> world_the_end = jsonAssets.get(key).getAsString();
+                case "world_moon" -> world_moon = jsonAssets.get(key).getAsString();
+                case "replaymod" -> replaymod = jsonAssets.get(key).getAsString();
+                case "music" -> music = jsonAssets.get(key).getAsString();
+                case "voice" -> voice = jsonAssets.get(key).getAsString();
+                case "unknown_world" -> unknown_world = jsonAssets.get(key).getAsString();
+                case "unknown" -> unknown = jsonAssets.get(key).getAsString();
             }
         }
     }

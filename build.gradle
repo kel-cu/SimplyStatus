@@ -12,8 +12,8 @@ repositories {
     mavenCentral()
     maven { url = "https://maven.terraformersmc.com/releases" }
     maven { url = "https://maven.meteordev.org/releases" }
+    maven { url = 'https://repo.kelcuprum.ru/snapshots' }
     maven { url = 'https://repo.kelcuprum.ru/releases' }
-    maven { url = 'https://repo.kelcuprum.ru/snapshot' }
     maven { url = 'https://repo.kelcuprum.ru/forks' }
     maven { url = 'https://repo.kelcuprum.ru/test' }
     maven { url = "https://api.modrinth.com/maven" }

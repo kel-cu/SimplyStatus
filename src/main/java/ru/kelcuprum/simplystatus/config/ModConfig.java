@@ -1,8 +1,9 @@
 package ru.kelcuprum.simplystatus.config;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import net.minecraft.util.GsonHelper;
 import org.apache.commons.io.IOUtils;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -32,7 +33,7 @@ public class ModConfig {
     /**
      * JSON обьект ассетов
      */
-    public static JSONObject assets;
+    public static JsonObject assets;
     /**
      * String версия конфигов
      */
@@ -45,23 +46,23 @@ public class ModConfig {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream stream = loader.getResourceAsStream("simplystatus.config.mod.json");
         MOD_CONFIG_STRING = IOUtils.toString(stream, StandardCharsets.UTF_8);
-        JSONObject config = new JSONObject(MOD_CONFIG_STRING);
+        JsonObject config = GsonHelper.parse(MOD_CONFIG_STRING);
         for (String key : config.keySet()) {
             switch (key.toLowerCase()) {
-                case "baseid" -> baseID = config.getString(key);
-                case "debugpresence" -> debugPresence = config.getBoolean(key);
-                case "mineid" -> mineID = config.getString(key);
+                case "baseid" -> baseID = config.get(key).getAsString();
+                case "debugpresence" -> debugPresence = config.get(key).getAsBoolean();
+                case "mineid" -> mineID = config.get(key).getAsString();
                 case "assets" -> {
-                    JSONObject json = config.getJSONObject(key);
+                    JsonObject json = config.get(key).getAsJsonObject();
                     assets = json;
                     for (String keyJSON : json.keySet()) {
                         switch (keyJSON.toLowerCase()) {
-                            case "default" -> defaultAssets = new AssetsConfig(json.getJSONObject(keyJSON));
-                            case "~urls" -> defaultUrlsAssets = new AssetsConfig(json.getJSONObject(keyJSON));
+                            case "default" -> defaultAssets = new AssetsConfig(json.get(keyJSON).getAsJsonObject());
+                            case "~urls" -> defaultUrlsAssets = new AssetsConfig(json.get(keyJSON).getAsJsonObject());
                         }
                     }
                 }
-                case "assets_list" -> assetsList = jsonArrayToStringArray(config.getJSONArray("assets_list"));
+                case "assets_list" -> assetsList = jsonArrayToStringArray(config.get("assets_list").getAsJsonArray());
             }
         }
         if(baseID == null) throw new Exception("Не найден baseID, который требуется для запуска мода!");
@@ -70,12 +71,12 @@ public class ModConfig {
         if(defaultUrlsAssets == null) throw new Exception("Не найдены стандартные ссылки на иконки, который требуется для запуска мода!");
         MOD_CONFIG_STRING = config.toString();
     }
-    public String[] jsonArrayToStringArray(JSONArray jsonArray) {
-        int arraySize = jsonArray.length();
+    public String[] jsonArrayToStringArray(JsonArray jsonArray) {
+        int arraySize = jsonArray.size();
         String[] stringArray = new String[arraySize];
 
         for(int i=0; i<arraySize; i++) {
-            stringArray[i] = jsonArray.getString(i);
+            stringArray[i] = jsonArray.get(i).getAsString();
         }
 
         return stringArray;
