@@ -5,6 +5,7 @@
 
   "simplystatus.config.client": "Клиент",
   "simplystatus.config.client.enable_rpc": "Включен RPC",
+  "simplystatus.config.reconnect": "Переподключить приложение",
   "simplystatus.config.client.use_minecraft_id": "Изменить название на Minecraft",
   "simplystatus.config.client.assets": "Использовать иконки",
   "simplystatus.config.client.api": "Использовать API рендера",
@@ -45,7 +46,7 @@
 
   "simplystatus.config.addons.custom": "Кастомизация",
   "simplystatus.config.addons.use_custom_assets": "Использовать кастомные иконки",
-  "simplystatus.config.client.use_custom_app_id": "Использовать кастомный app ID",
+  "simplystatus.config.addons.use_custom_app_id": "Использовать кастомный app ID",
   "simplystatus.config.addons.custom_app_id": "Кастомное ID приложения",
 
   "simplystatus.config.addons.use_custom_assets.description": "Я художник - Я так вижу",

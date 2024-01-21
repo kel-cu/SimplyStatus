@@ -6,6 +6,7 @@
 
   "simplystatus.config.client": "Client",
   "simplystatus.config.client.enable_rpc": "Enable RPC",
+  "simplystatus.config.reconnect": "Reconnect Application",
   "simplystatus.config.client.use_minecraft_id": "Change title to Minecraft",
   "simplystatus.config.client.assets": "Use Assets",
   "simplystatus.config.client.api": "Use API Render",
@@ -46,7 +47,7 @@
 
   "simplystatus.config.addons.custom": "Customize",
   "simplystatus.config.addons.use_custom_assets": "Use custom assets",
-  "simplystatus.config.client.use_custom_app_id": "Use custom app ID",
+  "simplystatus.config.addons.use_custom_app_id": "Use custom app ID",
   "simplystatus.config.addons.custom_app_id": "Custom app ID",
 
   "simplystatus.config.addons.use_custom_assets.description": "I'm an artist. That's the way I see it.",

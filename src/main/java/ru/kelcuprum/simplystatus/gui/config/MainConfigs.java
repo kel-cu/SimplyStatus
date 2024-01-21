@@ -38,13 +38,14 @@ public class MainConfigs {
                 //
                 .addWidget(new TextBox(140, 5, Component.translatable("simplystatus.config.client"), true))
                 .addWidget(new ButtonConfigBoolean(140, 30, designType, SimplyStatus.userConfig, "USE_ANOTHER_ID", false, Component.translatable("simplystatus.config.client.use_minecraft_id")))
-                .addWidget(new SelectorStringButton(140, 55, designType, ModConfig.assetsList, SimplyStatus.userConfig, "USE_ASSETS", ModConfig.assetsList[0], Component.translatable("simplystatus.config.client.assets")))
-                .addWidget(new SelectorIntegerButton(140, 80, designType, SimplyStatus.apiNames, SimplyStatus.userConfig, "USE_API_RENDER", 0, Component.translatable("simplystatus.config.client.api")))
-                .addWidget(new ButtonConfigBoolean(140, 105, designType, SimplyStatus.userConfig, "SHOW_GAME_TIME", true, Component.translatable("simplystatus.config.client.show_game_started")))
-                .addWidget(new ButtonConfigBoolean(140, 130, designType, SimplyStatus.userConfig, "SHOW_AVATAR_PLAYER", true, Component.translatable("simplystatus.config.client.show_avatar_player")))
-                .addWidget(new ButtonConfigBoolean(140, 155, designType, SimplyStatus.userConfig, "VIEW_ITEM_OFF_HAND", false, Component.translatable("simplystatus.config.client.view_item_off_hand")))
-                .addWidget(new ButtonConfigBoolean(140, 180, designType, SimplyStatus.userConfig, "VIEW_STATISTICS", true, Component.translatable("simplystatus.config.client.view_statistics")))
-                .addWidget(new ButtonConfigBoolean(140, 205, designType, SimplyStatus.userConfig, "VIEW_PLAYER_NAME", true, Component.translatable("simplystatus.config.client.view_player_name")))
+                .addWidget(new Button(140, 55, designType, Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()))
+                .addWidget(new SelectorStringButton(140, 80, designType, ModConfig.assetsList, SimplyStatus.userConfig, "USE_ASSETS", ModConfig.assetsList[0], Component.translatable("simplystatus.config.client.assets")))
+                .addWidget(new SelectorIntegerButton(140, 105, designType, SimplyStatus.apiNames, SimplyStatus.userConfig, "USE_API_RENDER", 0, Component.translatable("simplystatus.config.client.api")))
+                .addWidget(new ButtonConfigBoolean(140, 130, designType, SimplyStatus.userConfig, "SHOW_GAME_TIME", true, Component.translatable("simplystatus.config.client.show_game_started")))
+                .addWidget(new ButtonConfigBoolean(140, 155, designType, SimplyStatus.userConfig, "SHOW_AVATAR_PLAYER", true, Component.translatable("simplystatus.config.client.show_avatar_player")))
+                .addWidget(new ButtonConfigBoolean(140, 180, designType, SimplyStatus.userConfig, "VIEW_ITEM_OFF_HAND", false, Component.translatable("simplystatus.config.client.view_item_off_hand")))
+                .addWidget(new ButtonConfigBoolean(140, 205, designType, SimplyStatus.userConfig, "VIEW_STATISTICS", true, Component.translatable("simplystatus.config.client.view_statistics")))
+                .addWidget(new ButtonConfigBoolean(140, 230, designType, SimplyStatus.userConfig, "VIEW_PLAYER_NAME", true, Component.translatable("simplystatus.config.client.view_player_name")))
                 .build();
     }
 }

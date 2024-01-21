@@ -45,7 +45,7 @@ public class AddonsConfigs {
                                 .addValue(new ButtonConfigBoolean(140, 155, designType, SimplyStatus.userConfig, "USE_CUSTOM_ASSETS", false, Component.translatable("simplystatus.config.addons.use_custom_assets")))
                                 .addValue(new ButtonConfigBoolean(140, 180, designType, SimplyStatus.userConfig, "USE_CUSTOM_APP_ID", false, Component.translatable("simplystatus.config.addons.use_custom_app_id")))
                                 .addValue(new EditBoxConfigString(140, 205, false, designType, SimplyStatus.userConfig, "CUSTOM_APP_ID", ModConfig.baseID, Component.translatable("simplystatus.config.addons.custom_app_id")))
-                        //"CUSTOM_APP_ID", ModConfig.baseID
+                                .addValue(new Button(140, 230, designType, Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()))
                 )
                 .build();
     }

@@ -106,6 +106,10 @@ public class SimplyStatus implements ClientModInitializer {
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             log(String.format("Client %s is up and running!", client.getLaunchedVersion()));
         });
+        ClientLifecycleEvents.CLIENT_STOPPING.register(client1 -> {
+            log("Client stopped");
+            client.close();
+        });
     }
     private void registerApplications(){
         APPLICATION_ID = userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
@@ -272,6 +276,42 @@ public class SimplyStatus implements ClientModInitializer {
         } else if(isBetaBuild){
             log("Warning!", Level.WARN);
             log("This version of the mod is for testing by the public, in case of bugs, please contact https://github.com/simply-kel/SimplyStatus", Level.WARN);
+        }
+    }
+    public static void reconnectApp(){
+        if(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false) && !SimplyStatus.customID.equals(SimplyStatus.userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID))){
+            SimplyStatus.useCustomID = true;
+            String APPLICATION_ID = SimplyStatus.userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
+            if(APPLICATION_ID.isBlank()){
+                APPLICATION_ID = ModConfig.baseID;
+                SimplyStatus.userConfig.setString("CUSTOM_APP_ID", APPLICATION_ID);
+            }
+            if(!SimplyStatus.customID.equals(APPLICATION_ID)) {
+                SimplyStatus.customID = APPLICATION_ID;
+                SimplyStatus.client.close();
+                SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
+                SimplyStatus.setupListener();
+                try {
+                    SimplyStatus.client.connect();
+                } catch (Exception ex){
+                    ex.printStackTrace();
+                }
+                SimplyStatus.lastPresence = null;
+            }
+        } else if((SimplyStatus.useAnotherID != SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false)) || (SimplyStatus.useCustomID != SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false))){
+            SimplyStatus.useAnotherID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false);
+            SimplyStatus.useCustomID = SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
+            SimplyStatus.customID = "";
+            String APPLICATION_ID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
+            SimplyStatus.client.close();
+            SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
+            SimplyStatus.setupListener();
+            try {
+                SimplyStatus.client.connect();
+            } catch (Exception ex){
+                ex.printStackTrace();
+            }
+            SimplyStatus.lastPresence = null;
         }
     }
 }
