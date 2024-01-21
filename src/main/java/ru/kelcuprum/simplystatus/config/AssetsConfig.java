@@ -75,27 +75,47 @@ public class AssetsConfig {
             JsonObject jsonConfig = new JsonObject();
             if(assetsFile.toFile().exists()) jsonConfig = GsonHelper.parse(Files.readString(assetsFile));
             AssetsConfig assets = new AssetsConfig(jsonConfig);
-            logo = assets.logo;
-            day = assets.day;
-            night = assets.night;
-            morning = assets.morning;
-            evening = assets.evening;
+            logo = assets.logo.isEmpty() ? ModConfig.defaultUrlsAssets.logo : assets.logo;
+            day = assets.day.isEmpty() ? ModConfig.defaultUrlsAssets.day : assets.day;
+            night = assets.night.isEmpty() ? ModConfig.defaultUrlsAssets.night : assets.night;
+            morning = assets.morning.isEmpty() ? ModConfig.defaultUrlsAssets.morning : assets.morning;
+            evening = assets.evening.isEmpty() ? ModConfig.defaultUrlsAssets.evening : assets.evening;
 
-            world = assets.world;
-            world_nether = assets.world_nether;
-            world_the_end = assets.world_the_end;
+            world = assets.world.isEmpty() ? ModConfig.defaultUrlsAssets.world : assets.world;
+            world_nether = assets.world_nether.isEmpty() ? ModConfig.defaultUrlsAssets.world_nether : assets.world_nether;
+            world_the_end = assets.world_the_end.isEmpty() ? ModConfig.defaultUrlsAssets.world_the_end : assets.world_the_end;
+            world_moon = assets.world_moon.isEmpty() ? ModConfig.defaultUrlsAssets.world_moon : assets.world_moon;
 
-            replaymod = assets.replaymod;
-            voice = assets.voice;
-            music = assets.music;
+            replaymod = assets.replaymod.isEmpty() ? ModConfig.defaultUrlsAssets.replaymod : assets.replaymod;
+            voice = assets.voice.isEmpty() ? ModConfig.defaultUrlsAssets.voice : assets.voice;
+            music = assets.music.isEmpty() ? ModConfig.defaultUrlsAssets.music : assets.music;
 
-            unknown_world = assets.unknown_world;
-            unknown = assets.unknown;
+            unknown_world = assets.unknown_world.isEmpty() ? ModConfig.defaultUrlsAssets.unknown_world : assets.unknown_world;
+            unknown = assets.unknown.isEmpty() ? ModConfig.defaultUrlsAssets.unknown : assets.unknown;
 
         } catch (Exception e){
             e.printStackTrace();
             saveUserAssets();
         }
+    }
+    public void setValue(String type, String value){
+        switch (type.toLowerCase()) {
+            case "logo" -> logo = value;
+            case "day" -> day = value;
+            case "night" -> night = value;
+            case "morning" -> morning = value;
+            case "evening" -> evening = value;
+            case "world" -> world = value;
+            case "world_nether" -> world_nether = value;
+            case "world_the_end" -> world_the_end = value;
+            case "world_moon" -> world_moon = value;
+            case "replaymod" -> replaymod = value;
+            case "music" -> music = value;
+            case "voice" -> voice = value;
+            case "unknown_world" -> unknown_world = value;
+            case "unknown" -> unknown = value;
+        }
+        saveUserAssets();
     }
     public void saveUserAssets(){
         Minecraft mc = Minecraft.getInstance();
@@ -123,23 +143,23 @@ public class AssetsConfig {
     }
     public AssetsConfig() {
         AssetsConfig assets = new AssetsConfig(ModConfig.assets.getAsJsonObject(SimplyStatus.userConfig.getString("USE_ASSETS", "Default").toLowerCase()));
-            logo = assets.logo;
-            day = assets.day;
-            night = assets.night;
-            morning = assets.morning;
-            evening = assets.evening;
+            logo = assets.logo.isEmpty() ? ModConfig.defaultUrlsAssets.logo : assets.logo;
+            day = assets.day.isEmpty() ? ModConfig.defaultUrlsAssets.day : assets.day;
+            night = assets.night.isEmpty() ? ModConfig.defaultUrlsAssets.night : assets.night;
+            morning = assets.morning.isEmpty() ? ModConfig.defaultUrlsAssets.morning : assets.morning;
+            evening = assets.evening.isEmpty() ? ModConfig.defaultUrlsAssets.evening : assets.evening;
 
-            world = assets.world;
-            world_nether = assets.world_nether;
-            world_the_end = assets.world_the_end;
-            world_moon = assets.world_moon;
+            world = assets.world.isEmpty() ? ModConfig.defaultUrlsAssets.world : assets.world;
+            world_nether = assets.world_nether.isEmpty() ? ModConfig.defaultUrlsAssets.world_nether : assets.world_nether;
+            world_the_end = assets.world_the_end.isEmpty() ? ModConfig.defaultUrlsAssets.world_the_end : assets.world_the_end;
+            world_moon = assets.world_moon.isEmpty() ? ModConfig.defaultUrlsAssets.world_moon : assets.world_moon;
 
-            replaymod = assets.replaymod;
-            voice = assets.voice;
-            music = assets.music;
+            replaymod = assets.replaymod.isEmpty() ? ModConfig.defaultUrlsAssets.replaymod : assets.replaymod;
+            voice = assets.voice.isEmpty() ? ModConfig.defaultUrlsAssets.voice : assets.voice;
+            music = assets.music.isEmpty() ? ModConfig.defaultUrlsAssets.music : assets.music;
 
-            unknown_world = assets.unknown_world;
-            unknown = assets.unknown;
+            unknown_world = assets.unknown_world.isEmpty() ? ModConfig.defaultUrlsAssets.unknown_world : assets.unknown_world;
+            unknown = assets.unknown.isEmpty() ? ModConfig.defaultUrlsAssets.unknown : assets.unknown;
     }
     public AssetsConfig(JsonObject jsonAssets){
         for (String key : jsonAssets.keySet()) {

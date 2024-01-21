@@ -26,7 +26,7 @@ public class ServerConfigs {
                 }).setActive(Minecraft.getInstance().getCurrentServer() != null))
                 .addPanelWidget(new Button(10,115, designType, Component.translatable("simplystatus.config.assets"), (s) -> {
                     Minecraft.getInstance().setScreen(new AssetsConfigs().build(parent));
-                }))
+                }).setActive(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false)))
                 .addPanelWidget(new Button(10,140, designType, Component.translatable("simplystatus.config.addons"), (s) -> {
                     Minecraft.getInstance().setScreen(new AddonsConfigs().build(parent));
                 }))
