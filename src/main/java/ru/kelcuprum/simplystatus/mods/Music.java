@@ -38,7 +38,7 @@ public class Music {
             if(fileArgs.length == 1) fileArgs = Track.uri.split("\\\\");
             file = fileArgs[fileArgs.length-1];
         } else {
-            if (!Track.author.equals("")) {
+            if (!Track.author.isEmpty()) {
                 artist = Track.author;
                 artistIsNull = false;
             }

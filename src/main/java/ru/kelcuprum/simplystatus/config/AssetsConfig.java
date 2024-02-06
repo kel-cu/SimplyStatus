@@ -3,6 +3,7 @@ package ru.kelcuprum.simplystatus.config;
 import com.google.gson.JsonObject;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.GsonHelper;
+import org.apache.logging.log4j.Level;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -94,7 +95,7 @@ public class AssetsConfig {
             unknown = assets.unknown.isEmpty() ? ModConfig.defaultUrlsAssets.unknown : assets.unknown;
 
         } catch (Exception e){
-            e.printStackTrace();
+            SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
             saveUserAssets();
         }
     }
@@ -138,7 +139,7 @@ public class AssetsConfig {
             Files.createDirectories(assetsFile.getParent());
             Files.writeString(assetsFile, jsonConfig.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
         }
     }
     public AssetsConfig() {

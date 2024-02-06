@@ -3,7 +3,6 @@ package ru.kelcuprum.simplystatus.info;
 import com.jagrosh.discordipc.entities.RichPresence;
 import net.minecraft.client.Minecraft;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.localization.StarScript;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,6 +27,7 @@ public class World {
         }
     }
     public static String getTime(){
+        if(CLIENT.level == null) return "";
         long daytime = CLIENT.level.getDayTime()+6000;
 
         int hours=(int) (daytime / 1000)%24;
@@ -38,7 +38,7 @@ public class World {
             String strDateFormat = SimplyStatus.localization.getLocalization("date.time", false);
             DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
             Calendar calendar = new GregorianCalendar();
-            calendar.set(2000, 0, day+1, hours, minutes, 0);
+            calendar.set(2000, Calendar.JANUARY, day+1, hours, minutes, 0);
 
             clock = dateFormat.format(calendar.getTimeInMillis());
         } catch (IllegalArgumentException ex) {
@@ -48,6 +48,7 @@ public class World {
 
     }
     public static void getTime(RichPresence.Builder presence){
+        if(CLIENT.level == null) return;
         long currentTime = CLIENT.level.getDayTime() % 24000;
         if (currentTime < 6000 && currentTime > 0) {
             presence.setLargeImage(SimplyStatus.ASSETS.morning, SimplyStatus.localization.getLocalization("time.morning", true));
@@ -55,7 +56,7 @@ public class World {
             presence.setLargeImage(SimplyStatus.ASSETS.day, SimplyStatus.localization.getLocalization("time.day", true));
         } else if (currentTime < 16500 && currentTime > 12000) {
             presence.setLargeImage(SimplyStatus.ASSETS.evening, SimplyStatus.localization.getLocalization("time.evening", true));
-        } else if (currentTime < 24000 && currentTime > 16500) {
+        } else if (currentTime > 16500) {
             presence.setLargeImage(SimplyStatus.ASSETS.night, SimplyStatus.localization.getLocalization("time.night", true));
         } else {
             presence.setLargeImage(SimplyStatus.ASSETS.world, SimplyStatus.localization.getLocalization("world.overworld", true));
@@ -63,23 +64,26 @@ public class World {
         }
     }
     public static String getCodeName(){
-        return CLIENT.level.dimension().location().toString();// CLIENT.level.dimensionTypeRegistration().value().toString(); //getRegistryKey().getValue().toString();
+        if(CLIENT.level == null) return "";
+        return CLIENT.level.dimension().location().toString();
     }
     public static String getAssets(){
-        String world = getCodeName();
-        if(world.equals("minecraft:the_moon")) return SimplyStatus.ASSETS.world_moon;
-        if(world.equals("minecraft:the_end")) return SimplyStatus.ASSETS.world_the_end;
-        if(world.equals("minecraft:the_nether")) return SimplyStatus.ASSETS.world_nether;
-        if(world.equals("minecraft:overworld")) return SimplyStatus.ASSETS.world;
-        return SimplyStatus.ASSETS.unknown_world;
+        return switch (getCodeName()){
+            case "minecraft:the_moon" -> SimplyStatus.ASSETS.world_moon;
+            case "minecraft:the_end" -> SimplyStatus.ASSETS.world_the_end;
+            case "minecraft:the_nether" -> SimplyStatus.ASSETS.world_nether;
+            case "minecraft:overworld" -> SimplyStatus.ASSETS.world;
+            default -> SimplyStatus.ASSETS.unknown_world;
+        };
     }
     public static String getName(){
-        String world = getCodeName();
-        if(world.equals("minecraft:the_moon")) return SimplyStatus.localization.getLocalization("world.moon", false);
-        if(world.equals("minecraft:the_end")) return SimplyStatus.localization.getLocalization("world.the_end", false);
-        if(world.equals("minecraft:the_nether")) return SimplyStatus.localization.getLocalization("world.nether", false);
-        if(world.equals("minecraft:overworld")) return SimplyStatus.localization.getLocalization("world.overworld", false);
-        return SimplyStatus.localization.getLocalization("world.unknown", false);
+        return switch (getCodeName()) {
+            case "minecraft:the_moon" -> SimplyStatus.localization.getLocalization("world.moon", false);
+            case "minecraft:the_end" -> SimplyStatus.localization.getLocalization("world.the_end", false);
+            case "minecraft:the_nether" -> SimplyStatus.localization.getLocalization("world.nether", false);
+            case "minecraft:overworld" -> SimplyStatus.localization.getLocalization("world.overworld", false);
+            default -> SimplyStatus.localization.getLocalization("world.unknown", false);
+        };
     }
     public static String getScene(){
         if(CLIENT.getCurrentServer() != null && !CLIENT.isSingleplayer())

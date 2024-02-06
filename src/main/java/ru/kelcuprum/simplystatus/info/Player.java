@@ -1,12 +1,10 @@
 package ru.kelcuprum.simplystatus.info;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.localization.StarScript;
 import ru.kelcuprum.simplystatus.mods.Voice;
 
 public class Player {
@@ -18,7 +16,7 @@ public class Player {
         else return SimplyStatus.USER.getName();
     }
     public static String getURLAvatar(){
-        if(CLIENT.getUser().getType().name().toLowerCase().equals("msa") || CLIENT.getUser().getType().name().toLowerCase().equals("mojang")){
+        if(CLIENT.getUser().getType().name().equalsIgnoreCase("msa") || CLIENT.getUser().getType().name().equalsIgnoreCase("mojang")){
             switch (SimplyStatus.userConfig.getNumber("USE_API_RENDER", 0).intValue()){
                 case 1 -> {
                     return "https://api.kelcuprum.ru/skin/render/avatar?name="+CLIENT.getUser().getName()+"&api=0&sendfile=true";
@@ -27,7 +25,7 @@ public class Player {
                     return "https://api.kelcuprum.ru/skin/render?name="+CLIENT.getUser().getName()+"&api=0&head=true&sendfile=true";
                 }
                 default -> {
-                    return "https://crafthead.net/helm/"+CLIENT.getUser().getProfileId().toString()+"/512";
+                    return "https://crafthead.net/helm/"+CLIENT.getUser().getProfileId()+"/512";
                 }
             }
         } else {
@@ -36,6 +34,7 @@ public class Player {
         }
     }
     public static String getState(){
+        if(CLIENT.player == null) return "";
         if(CLIENT.player.isDeadOrDying()){
             double randomNumber = Math.floor(Math.random() * 2);
             if(!lastMessageDeath){
@@ -49,7 +48,7 @@ public class Player {
             } else {
                 return lastTextDeath;
             }
-        } else if(!SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true) || (getItemName() == null && SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true))){
+        } else if(!SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true) || (getItemName().isBlank() && SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true))){
             if(lastMessageDeath) lastMessageDeath = false;
             if(SimplyStatus.userConfig.getBoolean("VIEW_STATISTICS", true)){
                 if(CLIENT.player.isSleeping()) return SimplyStatus.localization.getLocalization("player.sleep", true);
@@ -75,55 +74,51 @@ public class Player {
         }
     }
     public static String getItemName(){
-        Minecraft CLIENT = Minecraft.getInstance();
+        if(CLIENT.player == null) return "";
         ItemStack main_hand = CLIENT.player.getItemInHand(InteractionHand.MAIN_HAND);
-        String main_hand_item = main_hand.getItem().toString();
-        if(main_hand_item.equals("air") && SimplyStatus.userConfig.getBoolean("VIEW_ITEM_OFF_HAND", false)){
-            ItemStack off_hand = CLIENT.player.getItemInHand(InteractionHand.OFF_HAND);
-            String off_hand_item = off_hand.getItem().toString();
-            if(off_hand_item.equals("air") || off_hand.getHoverName() == null) return null;
-            else return off_hand.getHoverName().getString();
-        } else {
-            if(main_hand_item.equals("air") || main_hand.getHoverName() == null) return null;
-            else return main_hand.getHoverName().getString();
-        }
+        ItemStack off_hand = CLIENT.player.getItemInHand(InteractionHand.OFF_HAND);
+        if(!main_hand.isEmpty()) return main_hand.getHoverName().getString();
+        else if(!off_hand.isEmpty() && SimplyStatus.userConfig.getBoolean("VIEW_ITEM_OFF_HAND", false)) return off_hand.getHoverName().getString();
+        else return "";
     }
     public static int getItemCount(){
-        Minecraft CLIENT = Minecraft.getInstance();
+        if(CLIENT.player == null) return 0;
         ItemStack main_hand = CLIENT.player.getItemInHand(InteractionHand.MAIN_HAND);
-        String main_hand_item = main_hand.getItem().toString();
-        if(main_hand_item.equals("air") && SimplyStatus.userConfig.getBoolean("VIEW_ITEM_OFF_HAND", false)){
-            ItemStack off_hand = CLIENT.player.getItemInHand(InteractionHand.OFF_HAND);
-            String off_hand_item = off_hand.getItem().toString();
-            if(off_hand_item.equals("air") || off_hand.getHoverName() == null) return 0;
-            else return off_hand.getCount();
-        } else {
-            if(main_hand_item.equals("air") || main_hand.getHoverName() == null) return 0;
-            else return main_hand.getCount();
-        }
+        ItemStack off_hand = CLIENT.player.getItemInHand(InteractionHand.OFF_HAND);
+        if(!main_hand.isEmpty()) return main_hand.getCount();
+        else if(!off_hand.isEmpty() && SimplyStatus.userConfig.getBoolean("VIEW_ITEM_OFF_HAND", false)) return off_hand.getCount();
+        else return 0;
     }
     public static String getHealth(){
+        if(CLIENT.player == null) return "";
         return SimplyStatus.DF.format(CLIENT.player.getHealth()/2);
     }
     public static String getMaxHealth(){
+        if(CLIENT.player == null) return "";
         return SimplyStatus.DF.format(CLIENT.player.getMaxHealth()/2);
     }
     public static String getPercentHealth(){
+        if(CLIENT.player == null) return "";
         return SimplyStatus.DF.format((CLIENT.player.getHealth()*100)/CLIENT.player.getMaxHealth());
     }
     public static String getArmor(){
+        if(CLIENT.player == null) return "";
         return SimplyStatus.DF.format(CLIENT.player.getArmorValue()/2);
     }
     public static String getX(){
+        if(CLIENT.player == null) return "";
         return SimplyStatus.DF.format(CLIENT.player.position().x);
     }
     public static String getY(){
+        if(CLIENT.player == null) return "";
         return SimplyStatus.DF.format(CLIENT.player.position().y);
     }
     public static String getZ(){
+        if(CLIENT.player == null) return "";
         return SimplyStatus.DF.format(CLIENT.player.position().z);
     }
     public static String getDirection(boolean oneSymbol){
+        if(CLIENT.player == null) return "";
         Direction direction = CLIENT.player.getDirection();
         return switch (direction) {
             case NORTH -> oneSymbol ? "N" : SimplyStatus.localization.getLocalization("north", false);

@@ -125,17 +125,13 @@ public class StarScript {
             return ss.run(script, sb);
         }
         catch (StarscriptError error) {
-            error.printStackTrace();
+            SimplyStatus.log(error.getMessage(), Level.ERROR);
             return null;
         }
     }
     public static String run(Script script, StringBuilder sb) {
         Section section = runSection(script, sb);
         return section != null ? section.toString() : null;
-    }
-
-    public static Section runSection(Script script) {
-        return runSection(script, new StringBuilder());
     }
     public static String run(Script script) {
         return run(script, new StringBuilder());

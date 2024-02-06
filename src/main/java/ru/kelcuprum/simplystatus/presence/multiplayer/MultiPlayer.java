@@ -7,10 +7,12 @@ import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.info.World;
 
+import java.util.Objects;
+
 public class MultiPlayer {
     public MultiPlayer(){
         RichPresence.Builder presence = new RichPresence.Builder();
-        SimplyStatus.serverConfig = new Config(String.format("config/SimplyStatus/servers/%s.json", Minecraft.getInstance().getCurrentServer().ip.replace(":", "_")));
+        SimplyStatus.serverConfig = new Config(String.format("config/SimplyStatus/servers/%s.json", Objects.requireNonNull(Minecraft.getInstance().getCurrentServer()).ip.replace(":", "_")));
         SimplyStatus.serverConfig.load();
         SimplyStatus.updateContentPresenceByConfigs(presence, true);
         presence.setDetails(Player.getState());

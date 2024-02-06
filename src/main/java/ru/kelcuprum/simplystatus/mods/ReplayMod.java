@@ -2,8 +2,8 @@ package ru.kelcuprum.simplystatus.mods;
 
 import com.replaymod.replay.ReplayHandler;
 import com.replaymod.replay.ReplayModReplay;
-
-import java.io.IOException;
+import org.apache.logging.log4j.Level;
+import ru.kelcuprum.simplystatus.SimplyStatus;
 
 public class ReplayMod {
     public String name = "";
@@ -19,7 +19,7 @@ public class ReplayMod {
             address = handler.getReplayFile().getMetaData().getServerName();
             date = handler.getReplayFile().getMetaData().getDate();
         } catch(Exception e){
-            e.printStackTrace();
+            SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
         }
     }
 }

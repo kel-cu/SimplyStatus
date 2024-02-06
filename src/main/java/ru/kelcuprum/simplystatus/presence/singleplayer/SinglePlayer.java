@@ -11,9 +11,8 @@ public class SinglePlayer {
         SimplyStatus.updateContentPresenceByConfigs(presence);
         presence.setDetails(Player.getState());
         presence.setState(SimplyStatus.localization.getLocalization("player.world.state", true));
-        String world = World.getCodeName();
         if(SimplyStatus.userConfig.getBoolean("ENABLE_WORLD", true)){
-            if(world.endsWith("overworld") && SimplyStatus.userConfig.getBoolean("ENABLE_TIME_CYCLE", true)) World.getTime(presence);
+            if(World.getCodeName().endsWith("overworld") && SimplyStatus.userConfig.getBoolean("ENABLE_TIME_CYCLE", true)) World.getTime(presence);
             else {
                 presence.setLargeImage(World.getAssets(), World.getName());
             }

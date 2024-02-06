@@ -2,7 +2,6 @@ package ru.kelcuprum.simplystatus.presence;
 
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.localization.StarScript;
 
 public class Unknown {
     /**

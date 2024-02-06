@@ -23,6 +23,7 @@ import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.alinlib.config.Localization;
 import ru.kelcuprum.simplystatus.config.AssetsConfig;
 import ru.kelcuprum.simplystatus.config.ModConfig;
+import ru.kelcuprum.simplystatus.gui.config.MainConfigs;
 import ru.kelcuprum.simplystatus.info.Game;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.localization.StarScript;
@@ -38,6 +39,7 @@ import ru.kelcuprum.simplystatus.presence.singleplayer.Loading;
 import ru.kelcuprum.simplystatus.presence.singleplayer.SinglePlayer;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -67,7 +69,7 @@ public class SimplyStatus implements ClientModInitializer {
     public static Long TIME_STARTED_CLIENT;
     // Logs
     public static final Logger LOG = LogManager.getLogger("SimplyStatus");
-    public static void log(String message) {log(message, Level.INFO);};
+    public static void log(String message) {log(message, Level.INFO);}
     public static void log(String message, Level level){ LOG.log(level, "["+LOG.getName()+"] "+message);}
     // Mods is present
     public static Boolean alinlib = FabricLoader.getInstance().getModContainer("alinlib").isPresent();
@@ -94,7 +96,7 @@ public class SimplyStatus implements ClientModInitializer {
             new ModConfig();
         } catch (Exception e) {
             log("The default configuration of the mod was not loaded, no launch possible!", Level.ERROR);
-            e.printStackTrace();
+            log(e.getLocalizedMessage(), Level.ERROR);
             return;
         }
         useAnotherID = userConfig.getBoolean("USE_ANOTHER_ID", false);
@@ -103,9 +105,7 @@ public class SimplyStatus implements ClientModInitializer {
         StarScript.init();
         registerApplications();
         registerKeyBinds();
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            log(String.format("Client %s is up and running!", client.getLaunchedVersion()));
-        });
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> log(String.format("Client %s is up and running!", client.getLaunchedVersion())));
         ClientLifecycleEvents.CLIENT_STOPPING.register(client1 -> {
             log("Client stopped");
             client.close();
@@ -181,7 +181,7 @@ public class SimplyStatus implements ClientModInitializer {
                     if(lastException != null) lastException = null;
                 } catch(Exception ex){
                     if(lastException == null || !lastException.equals(ex.getMessage())){
-                        ex.printStackTrace();
+                        log(ex.getLocalizedMessage(), Level.ERROR);
                         RichPresence.Builder presence = new RichPresence.Builder()
                                 .setDetails("There was an error, look in the console")
                                 .setState("And report the bug on GitHub")
@@ -226,9 +226,9 @@ public class SimplyStatus implements ClientModInitializer {
             String info = mod.isSelfTalk ? localization.getLocalization("mod.voice", false) : mod.isOnePlayer ? localization.getLocalization("mod.voice.one", false) : localization.getLocalization("mod.voice.more", false);
             presence.setSmallImage(ASSETS.voice, localization.getParsedText(info));
         } else if(userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused)) {
-            presence.setSmallImage(new Music().artist.isBlank() ? ASSETS.music : new Music().cover, new Music().artistIsNull ? localization.getLocalization("mod.music.noauthor", true) : localization.getLocalization("mod.music", true));
-        } else if(isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (serverConfig.getString("ICON_URL", "").length() != 0))){
-            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Minecraft.getInstance().getCurrentServer().ip), localization.getParsedText("{player.scene}"));
+            presence.setSmallImage(new Music().cover == null ? ASSETS.music : new Music().cover, new Music().artistIsNull ? localization.getLocalization("mod.music.noauthor", true) : localization.getLocalization("mod.music", true));
+        } else if(isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))){
+            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Objects.requireNonNull(Minecraft.getInstance().getCurrentServer()).ip), localization.getParsedText("{player.scene}"));
         } else if(userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
             presence.setSmallImage(Player.getURLAvatar(), Player.getName());
         }
@@ -254,8 +254,8 @@ public class SimplyStatus implements ClientModInitializer {
                 assert client.player != null;
                 while (openConfigKeyBind.consumeClick()) {
                     final Screen current = client.screen;
-//                    Screen configScreen = YACLConfigScreen.buildScreen(current);
-//                    client.setScreen(configScreen);
+                    Screen configScreen = new MainConfigs().build(current);
+                    client.setScreen(configScreen);
                 }
             });
         } else log("Configuration hotkey has not been registered, no desired mod found");
@@ -267,7 +267,7 @@ public class SimplyStatus implements ClientModInitializer {
         if(versions.length >= 2){
             if(versions[1].startsWith("dev") || versions[1].startsWith("alpha")) isDevBuild = true;
             if(versions[1].startsWith("beta") || versions[1].startsWith("pre")) isBetaBuild = true;
-        };
+        }
         if(isDevBuild) {
             log("ЭТОТ МОД НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНЫМ [ПРОДУКТОМ/УСЛУГОЙ/СОБЫТИЕМ И т.п.] MINECRAFT. НЕ ОДОБРЕНО И НЕ СВЯЗАНО С КОМПАНИЕЙ MOJANG ИЛИ MICROSOFT", Level.WARN);
             log("Warning!", Level.WARN);
@@ -294,7 +294,7 @@ public class SimplyStatus implements ClientModInitializer {
                 try {
                     SimplyStatus.client.connect();
                 } catch (Exception ex){
-                    ex.printStackTrace();
+                    log(ex.getLocalizedMessage(), Level.ERROR);
                 }
                 SimplyStatus.lastPresence = null;
             }
@@ -309,7 +309,7 @@ public class SimplyStatus implements ClientModInitializer {
             try {
                 SimplyStatus.client.connect();
             } catch (Exception ex){
-                ex.printStackTrace();
+                log(ex.getLocalizedMessage(), Level.ERROR);
             }
             SimplyStatus.lastPresence = null;
         }
