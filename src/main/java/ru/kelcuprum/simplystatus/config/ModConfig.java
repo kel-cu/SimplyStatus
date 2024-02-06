@@ -13,11 +13,11 @@ public class ModConfig {
     /**
      * Базовое ID RPC мода
      */
-    public static String baseID;
+    public static String baseID = "";
     /**
      * ID с другим названием в духе Minecraft
      */
-    public static String mineID;
+    public static String mineID = "";
     /**
      * default иконки для GUI конфигов
      */
@@ -63,13 +63,13 @@ public class ModConfig {
                         }
                     }
                 }
-                case "assets_list" -> assetsList = jsonArrayToStringArray(config.get("assets_list").getAsJsonArray());
+                case "assetsnames" -> assetsList = jsonArrayToStringArray(config.get("assetsnames").getAsJsonArray());
             }
         }
-        if(baseID == null) throw new Exception("Не найден baseID, который требуется для запуска мода!");
+        if(baseID.isBlank()) throw new Exception("Не найден baseID, который требуется для запуска мода!");
         if(assets == null) throw new Exception("Не найден набор иконок, который требуется для запуска мода!");
         if(defaultAssets == null) throw new Exception("Не найдены стандартные иконки, который требуется для запуска мода!");
-        if(defaultUrlsAssets == null) throw new Exception("Не найдены стандартные ссылки на иконки, который требуется для запуска мода!");
+        if(defaultUrlsAssets == null) throw new Exception("Не найдены стандартные ссылки на иконки, которые требуются для запуска мода!");
         MOD_CONFIG_STRING = config.toString();
     }
     public String[] jsonArrayToStringArray(JsonArray jsonArray) {
