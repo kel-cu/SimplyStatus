@@ -1,7 +1,6 @@
 package ru.kelcuprum.simplystatus.info;
 
 import com.jagrosh.discordipc.entities.RichPresence;
-import net.minecraft.client.Minecraft;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 
 import java.text.DateFormat;
@@ -9,11 +8,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
+
 public class World {
-    static Minecraft CLIENT = Minecraft.getInstance();
     public static String getTimeType(){
-        if(CLIENT.level == null) return "";
-        long currentTime = CLIENT.level.getDayTime() % 24000;
+        if(MINECRAFT.level == null) return "";
+        long currentTime = MINECRAFT.level.getDayTime() % 24000;
         if (currentTime < 6000 && currentTime > 0) {
             return SimplyStatus.localization.getLocalization("time.morning", false);
         } else if (currentTime < 12000 && currentTime > 6000) {
@@ -27,8 +27,8 @@ public class World {
         }
     }
     public static String getTime(){
-        if(CLIENT.level == null) return "";
-        long daytime = CLIENT.level.getDayTime()+6000;
+        if(MINECRAFT.level == null) return "";
+        long daytime = MINECRAFT.level.getDayTime()+6000;
 
         int hours=(int) (daytime / 1000)%24;
         int minutes = (int) ((daytime % 1000)*60/1000);
@@ -48,8 +48,8 @@ public class World {
 
     }
     public static void getTime(RichPresence.Builder presence){
-        if(CLIENT.level == null) return;
-        long currentTime = CLIENT.level.getDayTime() % 24000;
+        if(MINECRAFT.level == null) return;
+        long currentTime = MINECRAFT.level.getDayTime() % 24000;
         if (currentTime < 6000 && currentTime > 0) {
             presence.setLargeImage(SimplyStatus.ASSETS.morning, SimplyStatus.localization.getLocalization("time.morning", true));
         } else if (currentTime < 12000 && currentTime > 6000) {
@@ -64,8 +64,8 @@ public class World {
         }
     }
     public static String getCodeName(){
-        if(CLIENT.level == null) return "";
-        return CLIENT.level.dimension().location().toString();
+        if(MINECRAFT.level == null) return "";
+        return MINECRAFT.level.dimension().location().toString();
     }
     public static String getAssets(){
         return switch (getCodeName()){
@@ -86,10 +86,10 @@ public class World {
         };
     }
     public static String getScene(){
-        if(CLIENT.getCurrentServer() != null && !CLIENT.isSingleplayer())
+        if(MINECRAFT.getCurrentServer() != null && !MINECRAFT.isSingleplayer())
             return SimplyStatus.serverConfig.getBoolean("USE_CUSTOM_NAME", false) ? SimplyStatus.serverConfig.getString("CUSTOM_NAME", "Custom name") :
-                    SimplyStatus.serverConfig.getBoolean("SHOW_NAME", true) ? CLIENT.getCurrentServer().name :
-                        SimplyStatus.serverConfig.getBoolean("SHOW_ADDRESS", false) ? CLIENT.getCurrentServer().ip :
+                    SimplyStatus.serverConfig.getBoolean("SHOW_NAME", true) ? MINECRAFT.getCurrentServer().name :
+                        SimplyStatus.serverConfig.getBoolean("SHOW_ADDRESS", false) ? MINECRAFT.getCurrentServer().ip :
                                 SimplyStatus.localization.getLocalization("address.hidden", false);
         else return SimplyStatus.localization.getLocalization("singleplayer", false);
     }

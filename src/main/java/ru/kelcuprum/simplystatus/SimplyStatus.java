@@ -56,6 +56,7 @@ public class SimplyStatus implements ClientModInitializer {
     public static Localization localization = new Localization("simplystatus.presence","config/SimplyStatus/lang");
     public static AssetsConfig ASSETS = ModConfig.defaultAssets;
     // Another shit
+    public static Minecraft MINECRAFT = Minecraft.getInstance();
     public static String[] apiNames = {
             "CraftHead",
             "Alina API: 2D",

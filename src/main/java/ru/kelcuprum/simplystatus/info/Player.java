@@ -1,31 +1,31 @@
 package ru.kelcuprum.simplystatus.info;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.mods.Voice;
 
+import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
+
 public class Player {
     static boolean lastMessageDeath = false;
     static String lastTextDeath = "";
-    static Minecraft CLIENT = Minecraft.getInstance();
     public static String getName(){
-        if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED_DISCORD) return CLIENT.getUser().getName();
+        if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED_DISCORD) return MINECRAFT.getUser().getName();
         else return SimplyStatus.USER.getName();
     }
     public static String getURLAvatar(){
-        if(CLIENT.getUser().getType().name().equalsIgnoreCase("msa") || CLIENT.getUser().getType().name().equalsIgnoreCase("mojang")){
+        if(MINECRAFT.getUser().getType().name().equalsIgnoreCase("msa") || MINECRAFT.getUser().getType().name().equalsIgnoreCase("mojang")){
             switch (SimplyStatus.userConfig.getNumber("USE_API_RENDER", 0).intValue()){
                 case 1 -> {
-                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+CLIENT.getUser().getName()+"&api=0&sendfile=true";
+                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+MINECRAFT.getUser().getName()+"&api=0&sendfile=true";
                 }
                 case 2 -> {
-                    return "https://api.kelcuprum.ru/skin/render?name="+CLIENT.getUser().getName()+"&api=0&head=true&sendfile=true";
+                    return "https://api.kelcuprum.ru/skin/render?name="+MINECRAFT.getUser().getName()+"&api=0&head=true&sendfile=true";
                 }
                 default -> {
-                    return "https://crafthead.net/helm/"+CLIENT.getUser().getProfileId()+"/512";
+                    return "https://crafthead.net/helm/"+MINECRAFT.getUser().getProfileId()+"/512";
                 }
             }
         } else {
@@ -34,8 +34,8 @@ public class Player {
         }
     }
     public static String getState(){
-        if(CLIENT.player == null) return "";
-        if(CLIENT.player.isDeadOrDying()){
+        if(MINECRAFT.player == null) return "";
+        if(MINECRAFT.player.isDeadOrDying()){
             double randomNumber = Math.floor(Math.random() * 2);
             if(!lastMessageDeath){
                 String message;
@@ -51,11 +51,11 @@ public class Player {
         } else if(!SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true) || (getItemName().isBlank() && SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true))){
             if(lastMessageDeath) lastMessageDeath = false;
             if(SimplyStatus.userConfig.getBoolean("VIEW_STATISTICS", true)){
-                if(CLIENT.player.isSleeping()) return SimplyStatus.localization.getLocalization("player.sleep", true);
-                else if(CLIENT.player.isCrouching()) return SimplyStatus.localization.getLocalization("player.sneak", true);
-                else if(CLIENT.player.isOnFire()) return SimplyStatus.localization.getLocalization("player.on.fire", true);
-                else if(CLIENT.player.isInLava()) return SimplyStatus.localization.getLocalization("player.on.lava", true);
-                else if(CLIENT.player.isUnderWater()) return SimplyStatus.localization.getLocalization("player.on.water", true);
+                if(MINECRAFT.player.isSleeping()) return SimplyStatus.localization.getLocalization("player.sleep", true);
+                else if(MINECRAFT.player.isCrouching()) return SimplyStatus.localization.getLocalization("player.sneak", true);
+                else if(MINECRAFT.player.isOnFire()) return SimplyStatus.localization.getLocalization("player.on.fire", true);
+                else if(MINECRAFT.player.isInLava()) return SimplyStatus.localization.getLocalization("player.on.lava", true);
+                else if(MINECRAFT.player.isUnderWater()) return SimplyStatus.localization.getLocalization("player.on.water", true);
                 else if(SimplyStatus.isVoiceModsEnable && SimplyStatus.userConfig.getBoolean("VIEW_VOICE_SPEAK", false)) {
                     Voice mod = new Voice();
                     if(mod.isSpeak){
@@ -74,52 +74,52 @@ public class Player {
         }
     }
     public static String getItemName(){
-        if(CLIENT.player == null) return "";
-        ItemStack main_hand = CLIENT.player.getItemInHand(InteractionHand.MAIN_HAND);
-        ItemStack off_hand = CLIENT.player.getItemInHand(InteractionHand.OFF_HAND);
+        if(MINECRAFT.player == null) return "";
+        ItemStack main_hand = MINECRAFT.player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack off_hand = MINECRAFT.player.getItemInHand(InteractionHand.OFF_HAND);
         if(!main_hand.isEmpty()) return main_hand.getHoverName().getString();
         else if(!off_hand.isEmpty() && SimplyStatus.userConfig.getBoolean("VIEW_ITEM_OFF_HAND", false)) return off_hand.getHoverName().getString();
         else return "";
     }
     public static int getItemCount(){
-        if(CLIENT.player == null) return 0;
-        ItemStack main_hand = CLIENT.player.getItemInHand(InteractionHand.MAIN_HAND);
-        ItemStack off_hand = CLIENT.player.getItemInHand(InteractionHand.OFF_HAND);
+        if(MINECRAFT.player == null) return 0;
+        ItemStack main_hand = MINECRAFT.player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack off_hand = MINECRAFT.player.getItemInHand(InteractionHand.OFF_HAND);
         if(!main_hand.isEmpty()) return main_hand.getCount();
         else if(!off_hand.isEmpty() && SimplyStatus.userConfig.getBoolean("VIEW_ITEM_OFF_HAND", false)) return off_hand.getCount();
         else return 0;
     }
     public static String getHealth(){
-        if(CLIENT.player == null) return "";
-        return SimplyStatus.DF.format(CLIENT.player.getHealth()/2);
+        if(MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(MINECRAFT.player.getHealth()/2);
     }
     public static String getMaxHealth(){
-        if(CLIENT.player == null) return "";
-        return SimplyStatus.DF.format(CLIENT.player.getMaxHealth()/2);
+        if(MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(MINECRAFT.player.getMaxHealth()/2);
     }
     public static String getPercentHealth(){
-        if(CLIENT.player == null) return "";
-        return SimplyStatus.DF.format((CLIENT.player.getHealth()*100)/CLIENT.player.getMaxHealth());
+        if(MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format((MINECRAFT.player.getHealth()*100)/MINECRAFT.player.getMaxHealth());
     }
     public static String getArmor(){
-        if(CLIENT.player == null) return "";
-        return SimplyStatus.DF.format(CLIENT.player.getArmorValue()/2);
+        if(MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(MINECRAFT.player.getArmorValue()/2);
     }
     public static String getX(){
-        if(CLIENT.player == null) return "";
-        return SimplyStatus.DF.format(CLIENT.player.position().x);
+        if(MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(MINECRAFT.player.position().x);
     }
     public static String getY(){
-        if(CLIENT.player == null) return "";
-        return SimplyStatus.DF.format(CLIENT.player.position().y);
+        if(MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(MINECRAFT.player.position().y);
     }
     public static String getZ(){
-        if(CLIENT.player == null) return "";
-        return SimplyStatus.DF.format(CLIENT.player.position().z);
+        if(MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(MINECRAFT.player.position().z);
     }
     public static String getDirection(boolean oneSymbol){
-        if(CLIENT.player == null) return "";
-        Direction direction = CLIENT.player.getDirection();
+        if(MINECRAFT.player == null) return "";
+        Direction direction = MINECRAFT.player.getDirection();
         return switch (direction) {
             case NORTH -> oneSymbol ? "N" : SimplyStatus.localization.getLocalization("north", false);
             case SOUTH -> oneSymbol ? "S" : SimplyStatus.localization.getLocalization("south", false);
@@ -129,7 +129,7 @@ public class Player {
         };
     }
     public static long getPing() {
-        if (CLIENT.getCurrentServer() == null) return 0;
-        return CLIENT.getCurrentServer().ping;
+        if (MINECRAFT.getCurrentServer() == null) return 0;
+        return MINECRAFT.getCurrentServer().ping;
     }
 }

@@ -27,10 +27,11 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
+import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
+
 public class StarScript {
     public static Starscript ss = new Starscript();
 
-    static Minecraft mc = Minecraft.getInstance();
 
     public static void init() {
         StandardLib.init(ss);
@@ -39,7 +40,7 @@ public class StarScript {
         ss.set("minecraft", new ValueMap()
                 .set("version", SharedConstants.getCurrentVersion().getName())
                 .set("loader", Minecraft.getInstance().getVersionType())
-                .set("fps", () -> Value.number(mc.getFps()))
+                .set("fps", () -> Value.number(MINECRAFT.getFps()))
         );
         ss.set("time", () -> Value.string(LocalTime.now().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))));
         // Discord
@@ -53,35 +54,35 @@ public class StarScript {
         ss.set("player", new ValueMap()
                 .set("ping", () -> Value.number(Player.getPing()))
                 .set("name", () -> Value.string(Player.getName()))
-                .set("health", () -> Value.string(mc.player != null ? Player.getHealth() : ""))
-                .set("health_max", () -> Value.string(mc.player != null ? Player.getMaxHealth() : ""))
-                .set("health_percent", () -> Value.string(mc.player != null ? Player.getPercentHealth() : ""))
-                .set("armor", () -> Value.string(mc.player != null ? Player.getArmor() : ""))
-                .set("direction", () -> Value.string(mc.player != null ? Player.getDirection(false) : ""))
-                .set("direction_symbol", () -> Value.string(mc.player != null ? Player.getDirection(true) : ""))
-                .set("hunger", () -> Value.number(mc.player != null ? mc.player.getFoodData().getFoodLevel() : 0))
+                .set("health", () -> Value.string(MINECRAFT.player != null ? Player.getHealth() : ""))
+                .set("health_max", () -> Value.string(MINECRAFT.player != null ? Player.getMaxHealth() : ""))
+                .set("health_percent", () -> Value.string(MINECRAFT.player != null ? Player.getPercentHealth() : ""))
+                .set("armor", () -> Value.string(MINECRAFT.player != null ? Player.getArmor() : ""))
+                .set("direction", () -> Value.string(MINECRAFT.player != null ? Player.getDirection(false) : ""))
+                .set("direction_symbol", () -> Value.string(MINECRAFT.player != null ? Player.getDirection(true) : ""))
+                .set("hunger", () -> Value.number(MINECRAFT.player != null ? MINECRAFT.player.getFoodData().getFoodLevel() : 0))
                 .set("pos", new ValueMap()
                         .set("x", () -> Value.string(Player.getX()))
                         .set("y", () -> Value.string(Player.getY()))
                         .set("z", () -> Value.string(Player.getZ()))
                 )
 
-                .set("item", () -> Value.string(mc.player != null ? Player.getItemName() : ""))
-                .set("item_count", () -> Value.number(mc.player != null ? Player.getItemCount() : 0))
+                .set("item", () -> Value.string(MINECRAFT.player != null ? Player.getItemName() : ""))
+                .set("item_count", () -> Value.number(MINECRAFT.player != null ? Player.getItemCount() : 0))
 
                 .set("xp", new ValueMap()
-                        .set("level", () -> Value.number(mc.player != null ? mc.player.experienceLevel : 0))
-                        .set("progress", () -> Value.number(mc.player != null ? mc.player.experienceProgress : 0))
-                        .set("total", () -> Value.number(mc.player != null ? mc.player.totalExperience : 0))
+                        .set("level", () -> Value.number(MINECRAFT.player != null ? MINECRAFT.player.experienceLevel : 0))
+                        .set("progress", () -> Value.number(MINECRAFT.player != null ? MINECRAFT.player.experienceProgress : 0))
+                        .set("total", () -> Value.number(MINECRAFT.player != null ? MINECRAFT.player.totalExperience : 0))
                 )
                 .set("scene", () -> Value.string(World.getScene()))
         );
         // World
         ss.set("world", new ValueMap()
-                .set("name", () -> Value.string(mc.level != null ? World.getName() : ""))
-                .set("time_type", () -> Value.string(mc.level != null ? World.getTimeType() : ""))
-                .set("time", () -> Value.string(mc.level != null ? World.getTime() : ""))
-                .set("difficulty", () -> Value.string(mc.level != null ? mc.level.getDifficulty().getDisplayName().getString() : ""))
+                .set("name", () -> Value.string(MINECRAFT.level != null ? World.getName() : ""))
+                .set("time_type", () -> Value.string(MINECRAFT.level != null ? World.getTimeType() : ""))
+                .set("time", () -> Value.string(MINECRAFT.level != null ? World.getTime() : ""))
+                .set("difficulty", () -> Value.string(MINECRAFT.level != null ? MINECRAFT.level.getDifficulty().getDisplayName().getString() : ""))
         );
         if(SimplyStatus.isVoiceModsEnable){
             ss.set("voice", new ValueMap()
