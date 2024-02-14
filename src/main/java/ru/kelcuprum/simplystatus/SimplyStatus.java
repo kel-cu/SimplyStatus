@@ -24,7 +24,7 @@ import ru.kelcuprum.alinlib.config.Localization;
 import ru.kelcuprum.simplystatus.config.AssetsConfig;
 import ru.kelcuprum.simplystatus.config.ModConfig;
 import ru.kelcuprum.simplystatus.gui.config.MainConfigs;
-import ru.kelcuprum.simplystatus.info.Game;
+import ru.kelcuprum.simplystatus.info.Client;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.localization.StarScript;
 import ru.kelcuprum.simplystatus.mods.Music;
@@ -53,7 +53,7 @@ public class SimplyStatus implements ClientModInitializer {
     // User Configurations
     public static Config userConfig = new Config("config/SimplyStatus/config.json");
     public static Config serverConfig = new Config("config/SimplyStatus/servers/default.json");
-    public static Localization localization = new Localization("simplystatus.presence","config/SimplyStatus/lang");
+    public static Localization localization = new Localization("simplystatus.presence", "config/SimplyStatus/lang");
     public static AssetsConfig ASSETS = ModConfig.defaultAssets;
     // Another shit
     public static Minecraft MINECRAFT = Minecraft.getInstance();
@@ -70,10 +70,16 @@ public class SimplyStatus implements ClientModInitializer {
     public static Long TIME_STARTED_CLIENT;
     // Logs
     public static final Logger LOG = LogManager.getLogger("SimplyStatus");
-    public static void log(String message) {log(message, Level.INFO);}
-    public static void log(String message, Level level){ LOG.log(level, "["+LOG.getName()+"] "+message);}
+
+    public static void log(String message) {
+        log(message, Level.INFO);
+    }
+
+    public static void log(String message, Level level) {
+        LOG.log(level, "[" + LOG.getName() + "] " + message);
+    }
+
     // Mods is present
-    public static Boolean alinlib = FabricLoader.getInstance().getModContainer("alinlib").isPresent();
     public static Boolean replayMod = FabricLoader.getInstance().getModContainer("replaymod").isPresent();
     public static Boolean waterPlayer = FabricLoader.getInstance().getModContainer("waterplayer").isPresent();
     public static Boolean svc = FabricLoader.getInstance().getModContainer("voicechat").isPresent();
@@ -112,21 +118,24 @@ public class SimplyStatus implements ClientModInitializer {
             client.close();
         });
     }
-    private void registerApplications(){
+
+    private void registerApplications() {
         APPLICATION_ID = userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
-        if(userConfig.getBoolean("USE_CUSTOM_APP_ID", false)&& !userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID).isBlank()) APPLICATION_ID = userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
+        if (userConfig.getBoolean("USE_CUSTOM_APP_ID", false) && !userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID).isBlank())
+            APPLICATION_ID = userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
         customID = APPLICATION_ID;
         client = new IPCClient(Long.parseLong(APPLICATION_ID));
         setupListener();
         try {
             client.connect();
-        } catch (Exception ex){
+        } catch (Exception ex) {
             log(ex.getLocalizedMessage(), Level.ERROR);
         }
         start();
     }
-    public static void setupListener(){
-        client.setListener(new IPCListener(){
+
+    public static void setupListener() {
+        client.setListener(new IPCListener() {
             @Override
             public void onPacketSent(IPCClient ipcClient, Packet packet) {
 
@@ -153,8 +162,7 @@ public class SimplyStatus implements ClientModInitializer {
             }
 
             @Override
-            public void onReady(IPCClient client)
-            {
+            public void onReady(IPCClient client) {
                 log("The mod has been connected to Discord", Level.DEBUG);
                 USER = client.getCurrentUser();
                 CONNECTED_DISCORD = true;
@@ -173,15 +181,16 @@ public class SimplyStatus implements ClientModInitializer {
             }
         });
     }
-    private void start(){
+
+    private void start() {
         TIMER.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 try {
-                    if(CONNECTED_DISCORD) updatePresence();
-                    if(lastException != null) lastException = null;
-                } catch(Exception ex){
-                    if(lastException == null || !lastException.equals(ex.getMessage())){
+                    if (CONNECTED_DISCORD) updatePresence();
+                    if (lastException != null) lastException = null;
+                } catch (Exception ex) {
+                    if (lastException == null || !lastException.equals(ex.getMessage())) {
                         log(ex.getLocalizedMessage(), Level.ERROR);
                         RichPresence.Builder presence = new RichPresence.Builder()
                                 .setDetails("There was an error, look in the console")
@@ -194,112 +203,120 @@ public class SimplyStatus implements ClientModInitializer {
             }
         }, 500, 500);
     }
-    private void updatePresence(){
+
+    private void updatePresence() {
         ASSETS = new AssetsConfig();
-        if(userConfig.getBoolean("USE_CUSTOM_APP_ID", false)) ASSETS = ModConfig.defaultUrlsAssets;
-        if(userConfig.getBoolean("USE_CUSTOM_ASSETS", false)) ASSETS.loadUserAssets();
+        if (userConfig.getBoolean("USE_CUSTOM_APP_ID", false)) ASSETS = ModConfig.defaultUrlsAssets;
+        if (userConfig.getBoolean("USE_CUSTOM_ASSETS", false)) ASSETS.loadUserAssets();
         Minecraft CLIENT = Minecraft.getInstance();
-        if(userConfig.getBoolean("ENABLE_RPC", true)){
-            if(CLIENT.level == null || CLIENT.player == null){
-                switch(Game.getState()){
+        if (userConfig.getBoolean("ENABLE_RPC", true)) {
+            if (CLIENT.level == null || CLIENT.player == null) {
+                switch (Client.getState()) {
                     case 1 -> new Loading();
                     case 2 -> new Connect();
                     case 3 -> new Disconnect();
                     default -> new MainMenu();
                 }
             } else {
-                if(CLIENT.isSingleplayer() || CLIENT.hasSingleplayerServer()) new SinglePlayer();
-                else if(CLIENT.getCurrentServer() != null) new MultiPlayer();
-                else if(SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
+                if (CLIENT.isSingleplayer() || CLIENT.hasSingleplayerServer()) new SinglePlayer();
+                else if (CLIENT.getCurrentServer() != null) new MultiPlayer();
+                else if (SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
                 else new Unknown();
             }
         } else {
             updateDiscordPresence(null);
         }
     }
-    public static void updateContentPresenceByConfigs(RichPresence.Builder presence) { updateContentPresenceByConfigs(presence, false); }
-    public static void updateContentPresenceByConfigs(RichPresence.Builder presence, boolean isServer){
 
-        if(SimplyStatus.userConfig.getBoolean("SHOW_GAME_TIME", true)) presence.setStartTimestamp(SimplyStatus.TIME_STARTED_CLIENT);
+    public static void updateContentPresenceByConfigs(RichPresence.Builder presence) {
+        updateContentPresenceByConfigs(presence, false);
+    }
+
+    public static void updateContentPresenceByConfigs(RichPresence.Builder presence, boolean isServer) {
+
+        if (SimplyStatus.userConfig.getBoolean("SHOW_GAME_TIME", true))
+            presence.setStartTimestamp(SimplyStatus.TIME_STARTED_CLIENT);
         ///
-        if(userConfig.getBoolean("VIEW_VOICE_SPEAK", false) && (isVoiceModsEnable && new Voice().isSpeak)) {
+        if (userConfig.getBoolean("VIEW_VOICE_SPEAK", false) && (isVoiceModsEnable && new Voice().isSpeak)) {
             Voice mod = new Voice();
             String info = mod.isSelfTalk ? localization.getLocalization("mod.voice", false) : mod.isOnePlayer ? localization.getLocalization("mod.voice.one", false) : localization.getLocalization("mod.voice.more", false);
             presence.setSmallImage(ASSETS.voice, localization.getParsedText(info));
-        } else if(userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused)) {
-            presence.setSmallImage(new Music().cover == null ? ASSETS.music : new Music().cover, new Music().artistIsNull ? localization.getLocalization("mod.music.noauthor", true) : localization.getLocalization("mod.music", true));
-        } else if(isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))){
+        } else if (userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused)) {
+            presence.setSmallImage(ASSETS.music, localization.getLocalization(new Music().artistIsNull ? "mod.music.noauthor" : "mod.music", true));
+        } else if (isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))) {
             presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Objects.requireNonNull(Minecraft.getInstance().getCurrentServer()).ip), localization.getParsedText("{player.scene}"));
-        } else if(userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
+        } else if (userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
             presence.setSmallImage(Player.getURLAvatar(), Player.getName());
         }
     }
-    public static void updateDiscordPresence(RichPresence presence){
-        if(presence == null && ModConfig.debugPresence) LOG.info("Presence is null!");
-        if(lastPresence == null || !lastPresence.equals(presence)){
+
+    public static void updateDiscordPresence(RichPresence presence) {
+        if (presence == null && ModConfig.debugPresence) LOG.info("Presence is null!");
+        if (lastPresence == null || !lastPresence.equals(presence)) {
             lastPresence = presence;
-            if(CONNECTED_DISCORD) client.sendRichPresence(presence);
-            if(ModConfig.debugPresence) LOG.info("Update presence");
+            if (CONNECTED_DISCORD) client.sendRichPresence(presence);
+            if (ModConfig.debugPresence) LOG.info("Update presence");
         }
     }
-    private void registerKeyBinds(){
-        if(alinlib){
-            KeyMapping openConfigKeyBind;
-            openConfigKeyBind = KeyBindingHelper.registerKeyBinding(new KeyMapping(
-                    "simplystatus.key.openConfig",
-                    InputConstants.Type.KEYSYM,
-                    GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
-                    "simplystatus.name"
-            ));
-            ClientTickEvents.END_CLIENT_TICK.register(client -> {
-                assert client.player != null;
-                while (openConfigKeyBind.consumeClick()) {
-                    final Screen current = client.screen;
-                    Screen configScreen = new MainConfigs().build(current);
-                    client.setScreen(configScreen);
-                }
-            });
-        } else log("Configuration hotkey has not been registered, no desired mod found");
+
+    private void registerKeyBinds() {
+        KeyMapping openConfigKeyBind;
+        openConfigKeyBind = KeyBindingHelper.registerKeyBinding(new KeyMapping(
+                "simplystatus.key.openConfig",
+                InputConstants.Type.KEYSYM,
+                GLFW.GLFW_KEY_UNKNOWN, // The keycode of the key
+                "simplystatus.name"
+        ));
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            assert client.player != null;
+            while (openConfigKeyBind.consumeClick()) {
+                final Screen current = client.screen;
+                Screen configScreen = new MainConfigs().build(current);
+                client.setScreen(configScreen);
+            }
+        });
     }
-    private void checkVersion(){
-        if(FabricLoader.getInstance().getModContainer("simplystatus").isEmpty()) return;
+
+    private void checkVersion() {
+        if (FabricLoader.getInstance().getModContainer("simplystatus").isEmpty()) return;
         version = FabricLoader.getInstance().getModContainer("simplystatus").get().getMetadata().getVersion().getFriendlyString();
         String[] versions = version.split("-");
-        if(versions.length >= 2){
-            if(versions[1].startsWith("dev") || versions[1].startsWith("alpha")) isDevBuild = true;
-            if(versions[1].startsWith("beta") || versions[1].startsWith("pre")) isBetaBuild = true;
+        if (versions.length >= 2) {
+            if (versions[1].startsWith("dev") || versions[1].startsWith("alpha")) isDevBuild = true;
+            if (versions[1].startsWith("beta") || versions[1].startsWith("pre")) isBetaBuild = true;
         }
-        if(isDevBuild) {
+        if (isDevBuild) {
             log("ЭТОТ МОД НЕ ЯВЛЯЕТСЯ ОФИЦИАЛЬНЫМ [ПРОДУКТОМ/УСЛУГОЙ/СОБЫТИЕМ И т.п.] MINECRAFT. НЕ ОДОБРЕНО И НЕ СВЯЗАНО С КОМПАНИЕЙ MOJANG ИЛИ MICROSOFT", Level.WARN);
             log("Warning!", Level.WARN);
             log("This version of the mod is not stable, in case of bugs, please contact https://github.com/simply-kel/SimplyStatus", Level.WARN);
             log(String.format("Running version: %s", version), Level.WARN);
-        } else if(isBetaBuild){
+        } else if (isBetaBuild) {
             log("Warning!", Level.WARN);
             log("This version of the mod is for testing by the public, in case of bugs, please contact https://github.com/simply-kel/SimplyStatus", Level.WARN);
         }
     }
-    public static void reconnectApp(){
-        if(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false) && !SimplyStatus.customID.equals(SimplyStatus.userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID))){
+
+    public static void reconnectApp() {
+        if (SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false) && !SimplyStatus.customID.equals(SimplyStatus.userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID))) {
             SimplyStatus.useCustomID = true;
             String APPLICATION_ID = SimplyStatus.userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
-            if(APPLICATION_ID.isBlank()){
+            if (APPLICATION_ID.isBlank()) {
                 APPLICATION_ID = ModConfig.baseID;
                 SimplyStatus.userConfig.setString("CUSTOM_APP_ID", APPLICATION_ID);
             }
-            if(!SimplyStatus.customID.equals(APPLICATION_ID)) {
+            if (!SimplyStatus.customID.equals(APPLICATION_ID)) {
                 SimplyStatus.customID = APPLICATION_ID;
                 SimplyStatus.client.close();
                 SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
                 SimplyStatus.setupListener();
                 try {
                     SimplyStatus.client.connect();
-                } catch (Exception ex){
+                } catch (Exception ex) {
                     log(ex.getLocalizedMessage(), Level.ERROR);
                 }
                 SimplyStatus.lastPresence = null;
             }
-        } else if((SimplyStatus.useAnotherID != SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false)) || (SimplyStatus.useCustomID != SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false))){
+        } else if ((SimplyStatus.useAnotherID != SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false)) || (SimplyStatus.useCustomID != SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false))) {
             SimplyStatus.useAnotherID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false);
             SimplyStatus.useCustomID = SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
             SimplyStatus.customID = "";
@@ -309,7 +326,7 @@ public class SimplyStatus implements ClientModInitializer {
             SimplyStatus.setupListener();
             try {
                 SimplyStatus.client.connect();
-            } catch (Exception ex){
+            } catch (Exception ex) {
                 log(ex.getLocalizedMessage(), Level.ERROR);
             }
             SimplyStatus.lastPresence = null;

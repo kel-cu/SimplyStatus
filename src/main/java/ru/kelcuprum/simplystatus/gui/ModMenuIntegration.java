@@ -16,11 +16,6 @@ public class ModMenuIntegration implements ModMenuApi {
         return this::setScreen;
     }
     public Screen setScreen(Screen currentScreen){
-        if(SimplyStatus.alinlib){
-            return new MainConfigs().build(currentScreen);
-        } else {
-            return null;
-        }
+        return new MainConfigs().build(currentScreen);
     }
-
 }

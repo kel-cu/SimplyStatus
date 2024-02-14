@@ -2,6 +2,7 @@ package ru.kelcuprum.simplystatus.info;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.mods.Voice;
@@ -95,11 +96,11 @@ public class Player {
     }
     public static String getMaxHealth(){
         if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format(MINECRAFT.player.getMaxHealth()/2);
+        return SimplyStatus.DF.format(MINECRAFT.player.getAttributeValue(Attributes.MAX_HEALTH)/2);
     }
     public static String getPercentHealth(){
         if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format((MINECRAFT.player.getHealth()*100)/MINECRAFT.player.getMaxHealth());
+        return SimplyStatus.DF.format((MINECRAFT.player.getHealth()*100)/MINECRAFT.player.getAttributeValue(Attributes.MAX_HEALTH));
     }
     public static String getArmor(){
         if(MINECRAFT.player == null) return "";

@@ -1,7 +1,6 @@
 {
   "simplystatus.name": "SimplyStatus",
   "simplystatus.key.openConfig": "Открыть конфигурацию",
-  "simplystatus.message.clothConfigNotFound": "§7SimplyStatus§r » Установите мод §7Cloth Config или YetAnotherConfigLib§r для показа окна конфигурации. =-=",
 
   "simplystatus.config.client": "Клиент",
   "simplystatus.config.client.enable_rpc": "Включен RPC",
@@ -15,43 +14,21 @@
   "simplystatus.config.client.view_statistics": "Показывать статистику",
   "simplystatus.config.client.view_player_name": "Показать никнейм",
 
-  "simplystatus.config.client.enable_rpc.description": "Показывает статус в Discord",
-  "simplystatus.config.client.use_minecraft_id.description": "Меняет ID приложения на другой для смены названия",
-  "simplystatus.config.client.assets.description": "Набор иконок:\n§lDefault§r - Стандартный мода\n§lBedrock§r - Стиль Bedrock Edition\n§lOld§r - Старая версия иконок мода\n§lCringe§r - :/\n§lCraftPresence§r - Стилистика мода СraftPresence\n§lStones§r - камень",
-  "simplystatus.config.client.api.description": "API для рендеринга аватаров.\n*Alina API - Это публичный API разработчика мода.",
-  "simplystatus.config.client.show_avatar_player.description": "Показывает ваш скин в виде иконки, при условии что у вас есть лицензия игры. Иначе будет отображаться аватарка Discord",
-  "simplystatus.config.client.show_game_started.description": "Показывает время игры когда вы запустили игру",
-  "simplystatus.config.client.view_item_off_hand.description": "Показывает предмет которую вы держите во второй руке, при условии что у первой ничего нет",
-  "simplystatus.config.client.view_statistics.description": "Показывает статистику игрока в виде здоровья, брони и опыта",
-  "simplystatus.config.client.view_player_name.description": "Показывает ваш никнейм из игры, иначе будет выводить никнейм дискорда",
-
   "simplystatus.config.addons": "Дополнения",
   "simplystatus.config.addons.modifications": "Модификации",
   "simplystatus.config.addons.view_voice_speak": "Показать активность войса",
   "simplystatus.config.addons.view_replay_mod": "ReplayMod",
   "simplystatus.config.addons.view_music_listener": "Показывать музыку",
 
-  "simplystatus.config.addons.view_voice_speak.description": "Показывает в статусе что вы разговаривайте в войс\nМоды: Plasmo Voice, Simple Voice Chat",
-  "simplystatus.config.addons.view_replay_mod.description": "Показывает в каком реплее вы находитесь",
-  "simplystatus.config.addons.view_music_listener.description": "Показывает музыку которую вы слушаете.\nМоды: Music Player Fabric, KelUtils - Музыка",
-
   "simplystatus.config.addons.indicators": "Показатели",
   "simplystatus.config.addons.show_items": "Показывать предметы",
   "simplystatus.config.addons.enable_time_cycle": "Включить показ времени",
   "simplystatus.config.addons.enable_world": "Включить показ мира",
 
-  "simplystatus.config.addons.show_items.description": "Показывает в статусе предмет который вы держите в руке",
-  "simplystatus.config.addons.enable_time_cycle.description": "Показывает иконку времени в Верхнем мире",
-  "simplystatus.config.addons.enable_world.description": "Показывает иконку мира в котором вы находитесь",
-
   "simplystatus.config.addons.custom": "Кастомизация",
   "simplystatus.config.addons.use_custom_assets": "Использовать кастомные иконки",
   "simplystatus.config.addons.use_custom_app_id": "Использовать кастомный app ID",
   "simplystatus.config.addons.custom_app_id": "Кастомное ID приложения",
-
-  "simplystatus.config.addons.use_custom_assets.description": "Я художник - Я так вижу",
-  "simplystatus.config.addons.use_custom_app_id.description": "Использовать своё приложение Discord",
-  "simplystatus.config.addons.custom_app_id.description": "Ваш ID приложения Discord",
 
   "simplystatus.config.mods": "Моды",
   "simplystatus.config.replaymod": "ReplayMod",
@@ -78,12 +55,6 @@
   "simplystatus.config.server.custom_name": "Кастомное название",
   "simplystatus.config.server.show_icon": "Показать иконку",
   "simplystatus.config.server.icon_url": "Ссылка иконки",
-
-  "simplystatus.config.server.show_address.description": "Показывает адрес сервера, либо название",
-  "simplystatus.config.server.show_name.description": "Показывает название сервера из списка серверов",
-  "simplystatus.config.server.show_custom_name.description": "Своё название сервера, если из списка серверов не подходит",
-  "simplystatus.config.server.show_icon.description": "Показывает иконку сервера иконку сервера",
-  "simplystatus.config.server.icon_url.description": "Ссылка на иконку сервера, учтите - ссылки дискорда не работают!",
 
   "simplystatus.config.assets": "Иконки",
   "simplystatus.config.assets.logo": "Лого",
