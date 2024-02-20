@@ -1,0 +1,30 @@
+modLoader = "javafml"
+loaderVersion = "*"
+issueTrackerURL = "https://github.com/simply-kel/alinlib/issues"
+license="MIT"
+
+[[mods]]
+displayTest = "IGNORE_ALL_VERSION"
+modId = "alinlib"
+version = "${version}"
+displayURL = "https://modrinth.com/mod/alinlib"
+displayName = "AlinLib"
+updateJSONURL = "https://api.modrinth.com/updates/alinlib/forge_updates.json"
+authors = "Im_Kel (Kel Cuprum)"
+credits = "dima_dencep"
+description = "A library to facilitate mod development by Kel Cuprum"
+logoFile = "assets/alinlib/icon_forge.png"
+
+[[dependencies.alinlib]]
+modId = "neoforge"
+type = "required"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.alinlib]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.20,)"
+ordering = "NONE"
+side = "BOTH"
