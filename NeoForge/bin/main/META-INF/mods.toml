@@ -1,0 +1,36 @@
+modLoader = "javafml"
+loaderVersion = "*"
+issueTrackerURL = "https://github.com/simply-kel/simplystatus/issues"
+license="MIT"
+
+[[mods]]
+displayTest = "IGNORE_ALL_VERSION"
+modId = "simplystatus"
+version = "${version}"
+displayURL = "https://modrinth.com/mod/simplystatus"
+displayName = "SimplyStatus"
+updateJSONURL = "https://api.modrinth.com/updates/simplystatus/forge_updates.json"
+authors = "Im_Kel (Kel Cuprum)"
+description = "Simple, customizable Discord game status"
+logoFile = "assets/simplystatus/logo.png"
+
+[[dependencies.simplystatus]]
+modId = "neoforge"
+type = "required"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.simplystatus]]
+modId = "alinlib"
+type = "required"
+versionRange = "*"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.simplystatus]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.20.2,)"
+ordering = "NONE"
+side = "BOTH"

@@ -7,3 +7,8 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+include 'Common'
+include 'Fabric'
+include 'NeoForge'
+
