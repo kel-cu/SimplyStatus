@@ -91,6 +91,6 @@ public class World {
                     SimplyStatus.serverConfig.getBoolean("SHOW_NAME", true) ? MINECRAFT.getCurrentServer().name :
                         SimplyStatus.serverConfig.getBoolean("SHOW_ADDRESS", false) ? MINECRAFT.getCurrentServer().ip :
                                 SimplyStatus.localization.getLocalization("address.hidden", false);
-        else return SimplyStatus.localization.getLocalization("singleplayer", false);
+        else return SimplyStatus.userConfig.getBoolean("SINGLEPLAYER.WORLD_NAME", false) ? MINECRAFT.getSingleplayerServer().getWorldData().getLevelName() : SimplyStatus.localization.getLocalization("singleplayer", false);
     }
 }

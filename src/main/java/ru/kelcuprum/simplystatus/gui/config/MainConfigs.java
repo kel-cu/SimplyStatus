@@ -1,6 +1,7 @@
 package ru.kelcuprum.simplystatus.gui.config;
 
 import net.minecraft.client.Minecraft;
+import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.components.buttons.ButtonConfigBoolean;
 import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
 import net.minecraft.client.gui.screens.Screen;
@@ -23,9 +24,12 @@ public class MainConfigs {
                 .addPanelWidget(new Button(10,90, designType, Component.translatable("simplystatus.config.server"), (s) -> Minecraft.getInstance().setScreen(new ServerConfigs().build(parent))).setActive(Minecraft.getInstance().getCurrentServer() != null))
                 .addPanelWidget(new Button(10,115, designType, Component.translatable("simplystatus.config.assets"), (s) -> Minecraft.getInstance().setScreen(new AssetsConfigs().build(parent))).setActive(customAssetsEnable))
                 .addPanelWidget(new Button(10,140, designType, Component.translatable("simplystatus.config.addons"), (s) -> Minecraft.getInstance().setScreen(new AddonsConfigs().build(parent))))
-                .addPanelWidget(new Button(10,165, designType, Component.translatable("simplystatus.config.mods"), (s) -> Minecraft.getInstance().setScreen(new ModsConfigs().build(parent))).setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod))
+                .addPanelWidget(new Button(10,165, designType, Component.translatable("simplystatus.config.mods"), (s) -> Minecraft.getInstance().setScreen(new ModsConfigs().build(parent))).setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
                 //
-                .addWidget(new TextBox(140, 5, Component.translatable("simplystatus.config.client"), true));
+
+        if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new Button(10,190, designType, Component.translatable("simplystatus.support"), (s) -> Minecraft.getInstance().setScreen(new ThanksScreen().build(parent))));
+
+        builder.addWidget(new TextBox(140, 5, Component.translatable("simplystatus.config.client"), true));
         if(!ModConfig.mineID.isBlank()) builder.addWidget(new ButtonConfigBoolean(140, 30, designType, SimplyStatus.userConfig, "USE_ANOTHER_ID", false, Component.translatable("simplystatus.config.client.use_minecraft_id")))
                 .addWidget(new Button(140, 55, designType, Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()));
         if(!customAssetsEnable) builder.addWidget(new SelectorStringButton(140, 80, designType, ModConfig.assetsList, SimplyStatus.userConfig, "USE_ASSETS", ModConfig.assetsList[0], Component.translatable("simplystatus.config.client.assets")));

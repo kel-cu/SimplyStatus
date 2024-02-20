@@ -40,7 +40,7 @@ dependencies {
     modImplementation "maven.modrinth:replaymod:${project.replaymod}"
     modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
     modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
-    modImplementation "ru.kelcuprum.alinlib:AlinLib:${project.alinlib}"
+    modImplementation "ru.kelcuprum.alinlib:AlinLib-fabric:${project.alinlib}"
     modImplementation "ru.kelcuprum.waterplayer:WaterPlayer:${project.waterplayer}"
     include(implementation("meteordevelopment:starscript:0.2.2"))
 

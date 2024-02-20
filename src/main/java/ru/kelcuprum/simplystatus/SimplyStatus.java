@@ -1,5 +1,6 @@
 package ru.kelcuprum.simplystatus;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.jagrosh.discordipc.IPCClient;
 import com.jagrosh.discordipc.IPCListener;
@@ -7,6 +8,7 @@ import com.jagrosh.discordipc.entities.Packet;
 import com.jagrosh.discordipc.entities.RichPresence;
 import com.jagrosh.discordipc.entities.User;
 import com.mojang.blaze3d.platform.InputConstants;
+import kotlinx.serialization.json.Json;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -15,10 +17,12 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.util.GsonHelper;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
+import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.alinlib.config.Localization;
 import ru.kelcuprum.simplystatus.config.AssetsConfig;
@@ -38,10 +42,17 @@ import ru.kelcuprum.simplystatus.presence.multiplayer.MultiPlayer;
 import ru.kelcuprum.simplystatus.presence.singleplayer.Loading;
 import ru.kelcuprum.simplystatus.presence.singleplayer.SinglePlayer;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.text.DecimalFormat;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static ru.kelcuprum.alinlib.WebAPI.getJsonArray;
 
 public class SimplyStatus implements ClientModInitializer {
     private static final Timer TIMER = new Timer();
@@ -50,6 +61,7 @@ public class SimplyStatus implements ClientModInitializer {
     public static String version = "0.0.0";
     public static boolean isDevBuild = false;
     public static boolean isBetaBuild = false;
+    public static String[] thanks = {};
     // User Configurations
     public static Config userConfig = new Config("config/SimplyStatus/config.json");
     public static Config serverConfig = new Config("config/SimplyStatus/servers/default.json");
@@ -112,7 +124,15 @@ public class SimplyStatus implements ClientModInitializer {
         StarScript.init();
         registerApplications();
         registerKeyBinds();
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> log(String.format("Client %s is up and running!", client.getLaunchedVersion())));
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
+            log(String.format("Client %s is up and running!", client.getLaunchedVersion()));
+            try {
+                JsonArray data = getJsonArray("https://api.kelcuprum.ru/boosty/thanks");
+                thanks = ModConfig.jsonArrayToStringArray(data);
+            } catch (Exception e){
+                log(e.getLocalizedMessage(), Level.ERROR);
+            }
+        });
         ClientLifecycleEvents.CLIENT_STOPPING.register(client1 -> {
             log("Client stopped");
             client.close();

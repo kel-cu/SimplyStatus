@@ -3,6 +3,7 @@ package ru.kelcuprum.simplystatus.gui.config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.InterfaceUtils;
 import ru.kelcuprum.alinlib.gui.components.buttons.ButtonConfigBoolean;
 import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
@@ -21,9 +22,11 @@ public class ModsConfigs {
                 .addPanelWidget(new Button(10,90, designType, Component.translatable("simplystatus.config.server"), (s) -> Minecraft.getInstance().setScreen(new ServerConfigs().build(parent))).setActive(Minecraft.getInstance().getCurrentServer() != null))
                 .addPanelWidget(new Button(10,115, designType, Component.translatable("simplystatus.config.assets"), (s) -> Minecraft.getInstance().setScreen(new AssetsConfigs().build(parent))).setActive(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false)))
                 .addPanelWidget(new Button(10,140, designType, Component.translatable("simplystatus.config.addons"), (s) -> Minecraft.getInstance().setScreen(new AddonsConfigs().build(parent))))
-                .addPanelWidget(new Button(10,165, designType, Component.translatable("simplystatus.config.mods"), (s) -> Minecraft.getInstance().setScreen(new ModsConfigs().build(parent))).setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod))
+                .addPanelWidget(new Button(10,165, designType, Component.translatable("simplystatus.config.mods"), (s) -> Minecraft.getInstance().setScreen(new ModsConfigs().build(parent))).setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
                 //
-                .addWidget(new TextBox(140, 5, Component.translatable("simplystatus.config.mods"), true));
+        if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new Button(10,190, designType, Component.translatable("simplystatus.support"), (s) -> Minecraft.getInstance().setScreen(new ThanksScreen().build(parent))));
+
+        builder.addWidget(new TextBox(140, 5, Component.translatable("simplystatus.config.mods"), true));
 
         if(SimplyStatus.isVoiceModsEnable) builder.addWidget(new CategoryBox(140, -20, Component.translatable("simplystatus.config.voice"))
                 .addValue(new ButtonConfigBoolean(140, -20, designType, SimplyStatus.userConfig, "VIEW_VOICE_SPEAK", true, Component.translatable("simplystatus.config.addons.view_voice_speak")))

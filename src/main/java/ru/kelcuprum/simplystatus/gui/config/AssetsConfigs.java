@@ -3,6 +3,7 @@ package ru.kelcuprum.simplystatus.gui.config;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.InterfaceUtils;
 import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
 import ru.kelcuprum.alinlib.gui.components.editbox.base.EditBoxString;
@@ -14,14 +15,17 @@ import ru.kelcuprum.simplystatus.SimplyStatus;
 public class AssetsConfigs {
     private final InterfaceUtils.DesignType designType = InterfaceUtils.DesignType.FLAT;
     public Screen build(Screen parent){
-        return new ConfigScreenBuilder(parent, Component.translatable("simplystatus.name"), designType)
+        ConfigScreenBuilder builder = new ConfigScreenBuilder(parent, Component.translatable("simplystatus.name"), designType)
                 .addPanelWidget(new Button(10,40, designType, Component.translatable("simplystatus.config.client"), (s) -> Minecraft.getInstance().setScreen(new MainConfigs().build(parent))))
                 .addPanelWidget(new Button(10,65, designType, Component.translatable("simplystatus.config.localization"), (s) -> Minecraft.getInstance().setScreen(new LocalizationsConfigs().build(parent))))
                 .addPanelWidget(new Button(10,90, designType, Component.translatable("simplystatus.config.server"), (s) -> Minecraft.getInstance().setScreen(new ServerConfigs().build(parent))).setActive(Minecraft.getInstance().getCurrentServer() != null))
                 .addPanelWidget(new Button(10,115, designType, Component.translatable("simplystatus.config.assets"), (s) -> Minecraft.getInstance().setScreen(new AssetsConfigs().build(parent))).setActive(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false)))
                 .addPanelWidget(new Button(10,140, designType, Component.translatable("simplystatus.config.addons"), (s) -> Minecraft.getInstance().setScreen(new AddonsConfigs().build(parent))))
-                .addPanelWidget(new Button(10,165, designType, Component.translatable("simplystatus.config.mods"), (s) -> Minecraft.getInstance().setScreen(new ModsConfigs().build(parent))).setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod))
-                .addWidget(new TextBox(140, 5, Component.translatable("simplystatus.config.assets"), true))
+                .addPanelWidget(new Button(10,165, designType, Component.translatable("simplystatus.config.mods"), (s) -> Minecraft.getInstance().setScreen(new ModsConfigs().build(parent))).setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
+
+        if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new Button(10,190, designType, Component.translatable("simplystatus.support"), (s) -> Minecraft.getInstance().setScreen(new ThanksScreen().build(parent))));
+
+        builder.addWidget(new TextBox(140, 5, Component.translatable("simplystatus.config.assets"), true))
                 .addWidget(new CategoryBox(140, 30, Component.translatable("simplystatus.config.assets.title.menu"))
                         .addValue(new EditBoxString(140, 55, SimplyStatus.ASSETS.logo, designType,
                                 Component.translatable("simplystatus.config.assets.logo"), newVal -> SimplyStatus.ASSETS.setValue("logo", newVal)))
@@ -59,7 +63,7 @@ public class AssetsConfigs {
                                 Component.translatable("simplystatus.config.assets.unknown_world"), newVal -> SimplyStatus.ASSETS.setValue("unknown_world", newVal)))
                         .addValue(new EditBoxString(140, 480, SimplyStatus.ASSETS.unknown, designType,
                                 Component.translatable("simplystatus.config.assets.unknown"), newVal -> SimplyStatus.ASSETS.setValue("unknown", newVal)))
-                )
-                .build();
+                );
+        return builder.build();
     }
 }

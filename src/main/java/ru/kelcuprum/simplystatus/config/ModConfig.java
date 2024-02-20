@@ -72,7 +72,7 @@ public class ModConfig {
         if(defaultUrlsAssets == null) throw new Exception("Не найдены стандартные ссылки на иконки, которые требуются для запуска мода!");
         MOD_CONFIG_STRING = config.toString();
     }
-    public String[] jsonArrayToStringArray(JsonArray jsonArray) {
+    public static String[] jsonArrayToStringArray(JsonArray jsonArray) {
         int arraySize = jsonArray.size();
         String[] stringArray = new String[arraySize];
 
