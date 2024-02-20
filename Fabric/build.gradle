@@ -1,19 +1,64 @@
 plugins {
-    id 'java'
+    id "com.github.johnrengelman.shadow"
+}
+archivesBaseName = rootProject.archives_base_name + "-fabric"
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
 }
 
-group = 'ru.kelcuprum.simplystatus'
-version = '2.1.0-beta.2'
-
-repositories {
-    mavenCentral()
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
+    modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+    common(project(path: ":Common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":Common", configuration: "transformProductionFabric")) { transitive false }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier.set "dev-shadow"
+}
+
+remapJar {
+
+    inputFile.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier.set null
+}
+
+jar {
+    archiveClassifier.set "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":Common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
 }
 
 test {
     useJUnitPlatform()
+}
+
+processResources {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+    inputs.property "version", project.version
+
+    from "${project.rootDir}/LICENSE"
+
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+
 }

@@ -1,19 +1,20 @@
-plugins {
-    id 'java'
+archivesBaseName = rootProject.archives_base_name + "-common"
+architectury {
+    common("neoforge", "fabric")
 }
-
-group = 'ru.kelcuprum.simplystatus'
-version = '2.1.0-beta.2'
-
-repositories {
-    mavenCentral()
-}
-
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
+    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
 }
 
-test {
-    useJUnitPlatform()
+jar {
+    from rootProject.file("LICENSE")
+}
+
+publishing {
+    publications {
+        mavenCommon(MavenPublication) {
+            artifactId = rootProject.archives_base_name
+            from components.java
+        }
+    }
 }

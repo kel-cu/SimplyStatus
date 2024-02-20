@@ -29,8 +29,6 @@ dependencies {
         officialMojangMappings()
         parchment "org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_version}@zip"
     }
-    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
     // Discord Integration
     include(implementation("com.kohlschutter.junixsocket:junixsocket-common:2.7.0"))
     include(implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.7.0"))

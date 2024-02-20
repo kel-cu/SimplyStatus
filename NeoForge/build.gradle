@@ -1,19 +1,59 @@
 plugins {
-    id 'java'
+    id "com.github.johnrengelman.shadow"
+}
+archivesBaseName = rootProject.archives_base_name + "-neoforge"
+
+architectury {
+    platformSetupLoomIde()
+    neoForge()
 }
 
-group = 'ru.kelcuprum.simplystatus'
-version = '2.1.0-beta.2'
-
-repositories {
-    mavenCentral()
+configurations {
+    common
+    shadowCommon
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentNeoForge.extendsFrom common
 }
 
 dependencies {
-    testImplementation platform('org.junit:junit-bom:5.9.1')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-}
+    neoForge "net.neoforged:neoforge:${rootProject.forge_version}"
 
+    common(project(path: ":Common", configuration: "namedElements")) { transitive false }
+    shadowCommon(project(path: ":Common", configuration: "transformProductionNeoForge")) { transitive = false }
+}
 test {
     useJUnitPlatform()
 }
+
+processResources {
+    inputs.property "version", project.version
+
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
+    }
+}
+
+shadowJar {
+    exclude "fabric.mod.json"
+
+    configurations = [project.configurations.shadowCommon]
+    archiveClassifier.set "dev-shadow"
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+    dependsOn shadowJar
+    archiveClassifier.set null
+}
+
+jar {
+    archiveClassifier.set "dev"
+}
+
+sourcesJar {
+    def commonSources = project(":Common").sourcesJar
+    dependsOn commonSources
+    from commonSources.archiveFile.map { zipTree(it) }
+}
+
