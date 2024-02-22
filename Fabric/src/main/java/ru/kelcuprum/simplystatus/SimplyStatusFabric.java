@@ -12,6 +12,8 @@ public class SimplyStatusFabric implements ClientModInitializer {
         SimplyStatus.waterPlayer = FabricLoader.getInstance().getModContainer("waterplayer").isPresent();
         SimplyStatus.svc = FabricLoader.getInstance().getModContainer("voicechat").isPresent();
         SimplyStatus.plasmo = FabricLoader.getInstance().getModContainer("plasmovoice").isPresent();
+        SimplyStatus.isVoiceModsEnable = (SimplyStatus.svc || SimplyStatus.plasmo);
+        SimplyStatus.isMusicModsEnable = SimplyStatus.waterPlayer;
         SimplyStatus.onInitializeClient();
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
             SimplyStatus.startClient();

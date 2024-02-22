@@ -30,7 +30,6 @@ import ru.kelcuprum.simplystatus.presence.singleplayer.Loading;
 import ru.kelcuprum.simplystatus.presence.singleplayer.SinglePlayer;
 
 import java.text.DecimalFormat;
-import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -242,7 +241,7 @@ public class SimplyStatus {
         } else if (userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused)) {
             presence.setSmallImage(ASSETS.music, localization.getLocalization(new Music().artistIsNull ? "mod.music.noauthor" : "mod.music", true));
         } else if (isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))) {
-            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Objects.requireNonNull(Minecraft.getInstance().getCurrentServer()).ip), localization.getParsedText("{player.scene}"));
+            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", MINECRAFT.getCurrentServer().ip), localization.getParsedText("{player.scene}"));
         } else if (userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
             presence.setSmallImage(Player.getURLAvatar(), Player.getName());
         }

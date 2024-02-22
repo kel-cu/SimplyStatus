@@ -1,6 +1,8 @@
-.gradle
-.idea
-build
-run
-.github
-SimplyStatus.iml
+**/.gradle
+**/.idea
+**/.vscode
+**/build
+**/run
+**/bin
+**/.github
+**/SimplyStatus.iml
