@@ -8,7 +8,8 @@
     "Old",
     "Cringe",
     "CraftPresence",
-    "Stones"
+    "Stones",
+    "World Machine"
   ],
   "assets": {
     "default": {
@@ -130,6 +131,26 @@
 
       "unknown_world": "https://assets.kelcuprum.ru/other/error.png",
       "unknown": "https://assets.kelcuprum.ru/other/error.png"
+    },
+    "world machine": {
+      "logo": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en.png",
+
+      "day": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en4.png",
+      "night": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en_yawn.png",
+      "morning": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en5.png",
+      "evening": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en6.png",
+
+      "world": "https://raw.githubusercontent.com/simply-kel/SimplyStatus-Icons/main/default/overworld.png",
+      "world_nether": "https://raw.githubusercontent.com/simply-kel/SimplyStatus-Icons/main/default/nether.png",
+      "world_the_end": "https://raw.githubusercontent.com/simply-kel/SimplyStatus-Icons/main/default/end.png",
+      "world_moon": "https://raw.githubusercontent.com/simply-kel/SimplyStatus-Icons/main/default/end.png",
+
+      "music": "https://raw.githubusercontent.com/simply-kel/SimplyStatus-Icons/main/default/music.png",
+      "replaymod": "https://raw.githubusercontent.com/simply-kel/SimplyStatus-Icons/main/default/replaymod_logo.png",
+      "voice": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en2.png",
+
+      "unknown_world": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en_what.png",
+      "unknown": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en_what2.png"
     },
     "error": {
       "logo": "https://assets.kelcuprum.ru/other/error.png",

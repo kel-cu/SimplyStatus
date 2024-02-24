@@ -20,13 +20,14 @@ import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.localization.StarScript;
 import ru.kelcuprum.simplystatus.mods.Music;
 import ru.kelcuprum.simplystatus.mods.Voice;
+import ru.kelcuprum.simplystatus.presence.singleplayer.Loading;
+import ru.kelcuprum.simplystatus.presence.LoadingGame;
 import ru.kelcuprum.simplystatus.presence.MainMenu;
 import ru.kelcuprum.simplystatus.presence.ReplayMod;
 import ru.kelcuprum.simplystatus.presence.Unknown;
 import ru.kelcuprum.simplystatus.presence.multiplayer.Connect;
 import ru.kelcuprum.simplystatus.presence.multiplayer.Disconnect;
 import ru.kelcuprum.simplystatus.presence.multiplayer.MultiPlayer;
-import ru.kelcuprum.simplystatus.presence.singleplayer.Loading;
 import ru.kelcuprum.simplystatus.presence.singleplayer.SinglePlayer;
 
 import java.text.DecimalFormat;
@@ -47,6 +48,7 @@ public class SimplyStatus {
     public static AssetsConfig ASSETS = ModConfig.defaultAssets;
     // Another shit
     public static Minecraft MINECRAFT = Minecraft.getInstance();
+    public static double isPEnable = Math.random();
     public static String[] apiNames = {
             "CraftHead",
             "Alina API: 2D",
@@ -209,9 +211,10 @@ public class SimplyStatus {
         if (userConfig.getBoolean("ENABLE_RPC", true)) {
             if (CLIENT.level == null || CLIENT.player == null) {
                 switch (Client.getState()) {
-                    case 1 -> new Loading();
-                    case 2 -> new Connect();
-                    case 3 -> new Disconnect();
+                    case 1 -> new LoadingGame();
+                    case 2 -> new Loading();
+                    case 3 -> new Connect();
+                    case 4 -> new Disconnect();
                     default -> new MainMenu();
                 }
             } else {
