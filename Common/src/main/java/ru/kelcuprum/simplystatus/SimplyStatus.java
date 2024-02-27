@@ -195,7 +195,7 @@ public class SimplyStatus {
                         RichPresence.Builder presence = new RichPresence.Builder()
                                 .setDetails("There was an error, look in the console")
                                 .setState("And report the bug on GitHub")
-                                .setLargeImage("unknown_world");
+                                .setLargeImage(ASSETS.unknown);
                         client.sendRichPresence(presence.build());
                         lastException = ex.getMessage();
                     }

@@ -11,7 +11,7 @@ public class Loading {
     public Loading(){
         RichPresence.Builder presence = new RichPresence.Builder();
         presence.setState(SimplyStatus.localization.getLocalization("world.loading", true));
-        presence.setSmallImage(SimplyStatus.ASSETS.logo);
+        presence.setLargeImage(SimplyStatus.ASSETS.logo);
         SimplyStatus.updateDiscordPresence(presence.build());
     }
 }
