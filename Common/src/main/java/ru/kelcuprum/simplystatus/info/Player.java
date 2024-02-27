@@ -25,6 +25,9 @@ public class Player {
                 case 2 -> {
                     return "https://api.kelcuprum.ru/skin/render?name="+MINECRAFT.getUser().getName()+"&api=0&head=true&sendfile=true";
                 }
+                case 3 -> {
+                    return SimplyStatus.USER.getAvatarUrl();
+                }
                 default -> {
                     return "https://crafthead.net/helm/"+MINECRAFT.getUser().getProfileId()+"/512";
                 }

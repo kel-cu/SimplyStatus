@@ -36,10 +36,11 @@ public class MainConfigs {
         if(!customAssetsEnable) builder.addWidget(new SelectorStringButton(140, 80, designType, ModConfig.assetsList, SimplyStatus.userConfig, "USE_ASSETS", ModConfig.assetsList[0], Component.translatable("simplystatus.config.client.assets")));
         builder.addWidget(new SelectorIntegerButton(140, 105, designType, SimplyStatus.apiNames, SimplyStatus.userConfig, "USE_API_RENDER", 0, Component.translatable("simplystatus.config.client.api")))
                 .addWidget(new ButtonConfigBoolean(140, 130, designType, SimplyStatus.userConfig, "SHOW_GAME_TIME", true, Component.translatable("simplystatus.config.client.show_game_started")))
-                .addWidget(new ButtonConfigBoolean(140, 155, designType, SimplyStatus.userConfig, "SHOW_AVATAR_PLAYER", true, Component.translatable("simplystatus.config.client.show_avatar_player")))
-                .addWidget(new ButtonConfigBoolean(140, 180, designType, SimplyStatus.userConfig, "VIEW_ITEM_OFF_HAND", false, Component.translatable("simplystatus.config.client.view_item_off_hand")))
-                .addWidget(new ButtonConfigBoolean(140, 205, designType, SimplyStatus.userConfig, "VIEW_STATISTICS", true, Component.translatable("simplystatus.config.client.view_statistics")))
-                .addWidget(new ButtonConfigBoolean(140, 230, designType, SimplyStatus.userConfig, "VIEW_PLAYER_NAME", true, Component.translatable("simplystatus.config.client.view_player_name")));
+                .addWidget(new ButtonConfigBoolean(140, 155, designType, SimplyStatus.userConfig, "SINGLEPLAYER.WORLD_NAME", false, Component.translatable("simplystatus.config.client.singleplayer.world_name")))
+                .addWidget(new ButtonConfigBoolean(140, 180, designType, SimplyStatus.userConfig, "SHOW_AVATAR_PLAYER", true, Component.translatable("simplystatus.config.client.show_avatar_player")))
+                .addWidget(new ButtonConfigBoolean(140, 205, designType, SimplyStatus.userConfig, "VIEW_ITEM_OFF_HAND", false, Component.translatable("simplystatus.config.client.view_item_off_hand")))
+                .addWidget(new ButtonConfigBoolean(140, 230, designType, SimplyStatus.userConfig, "VIEW_STATISTICS", true, Component.translatable("simplystatus.config.client.view_statistics")))
+                .addWidget(new ButtonConfigBoolean(140, 255, designType, SimplyStatus.userConfig, "VIEW_PLAYER_NAME", true, Component.translatable("simplystatus.config.client.view_player_name")));
         return builder.build();
     }
 }

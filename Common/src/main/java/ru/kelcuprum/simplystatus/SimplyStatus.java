@@ -52,7 +52,8 @@ public class SimplyStatus {
     public static String[] apiNames = {
             "CraftHead",
             "Alina API: 2D",
-            "Alina API: 3D"
+            "Alina API: 3D",
+            "Discord"
     };
     public static boolean useAnotherID = false;
     public static boolean useCustomID = false;
@@ -293,6 +294,14 @@ public class SimplyStatus {
                 log(ex.getLocalizedMessage(), Level.ERROR);
             }
             SimplyStatus.lastPresence = null;
+        } else if(!SimplyStatus.CONNECTED_DISCORD){
+            SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
+            SimplyStatus.setupListener();
+            try {
+                SimplyStatus.client.connect();
+            } catch (Exception ex) {
+                log(ex.getLocalizedMessage(), Level.ERROR);
+            }
         }
     }
 }
