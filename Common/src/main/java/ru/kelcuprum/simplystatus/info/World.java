@@ -82,7 +82,7 @@ public class World {
             case "minecraft:the_end" -> SimplyStatus.localization.getLocalization("world.the_end", false);
             case "minecraft:the_nether" -> SimplyStatus.localization.getLocalization("world.nether", false);
             case "minecraft:overworld" -> SimplyStatus.localization.getLocalization("world.overworld", false);
-            default -> SimplyStatus.localization.getLocalization("world.unknown", false);
+            default -> SimplyStatus.localization.getLocalization("unknown.world", false);
         };
     }
     public static String getScene(){
