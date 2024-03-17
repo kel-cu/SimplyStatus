@@ -36,7 +36,7 @@ public class ModsConfigs {
                 .addValue(new EditBoxLocalization(140, -20, designType, SimplyStatus.localization, "mod.voice.players.more", Component.translatable("simplystatus.config.localization.mod.voice.players.more")))
         );
         if(SimplyStatus.isMusicModsEnable) builder.addWidget(new CategoryBox(140, -20, Component.translatable("simplystatus.config.music"))
-                .addValue(new ButtonConfigBoolean(140, -20, designType, SimplyStatus.userConfig, "VIEW_MUSIC_LISTENER", true, Component.translatable("simplystatus.config.addons.view_music_listener")))
+                .addValue(new ButtonConfigBoolean(140, -20, designType, SimplyStatus.userConfig, "VIEW_MUSIC_LISTENER", false, Component.translatable("simplystatus.config.addons.view_music_listener")))
                 .addValue(new EditBoxLocalization(140, -20, designType, SimplyStatus.localization, "mod.music", Component.translatable("simplystatus.config.localization.mod.music")))
                 .addValue(new EditBoxLocalization(140, -20, designType, SimplyStatus.localization, "mod.music.menu", Component.translatable("simplystatus.config.localization.mod.music.menu")))
                 .addValue(new EditBoxLocalization(140, -20, designType, SimplyStatus.localization, "mod.music.noauthor", Component.translatable("simplystatus.config.localization.mod.music.noauthor")))
