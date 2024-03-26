@@ -34,7 +34,7 @@ public class MainConfigs {
         if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
 
         builder.addWidget(new TextBox(Component.translatable("simplystatus.config.client"), true));
-        if(!ModConfig.mineID.isBlank()) builder.addWidget(new ButtonConfigBoolean(designType, SimplyStatus.userConfig, "USE_ANOTHER_ID", false, Component.translatable("simplystatus.config.client.use_minecraft_id")))
+        if(!ModConfig.mineID.isBlank()) builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.use_minecraft_id"), false).setConfig(SimplyStatus.userConfig, "USE_ANOTHER_ID").build())
                 .addWidget(new ButtonBuilder(Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()).build());
         if(!customAssetsEnable) builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.assets")).setList(ModConfig.assetsList).setValue(ModConfig.assetsList[0]).setConfig(SimplyStatus.userConfig, "USE_ASSETS").build());
         builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.api")).setList(SimplyStatus.apiNames).setValue(0).setConfig(SimplyStatus.userConfig, "USE_API_RENDER").build())
