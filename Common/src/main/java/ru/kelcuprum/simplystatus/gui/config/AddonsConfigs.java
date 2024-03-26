@@ -4,6 +4,9 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.InterfaceUtils;
+import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBooleanBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.buttons.ButtonConfigBoolean;
 import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
 import ru.kelcuprum.alinlib.gui.components.editbox.EditBoxConfigString;
@@ -20,26 +23,26 @@ public class AddonsConfigs {
 
     public Screen build(Screen parent) {
         ConfigScreenBuilder builder = new ConfigScreenBuilder(parent, Component.translatable("simplystatus.name"), designType)
-                .addPanelWidget(new Button(10, 40, designType, Component.translatable("simplystatus.config.client"), (s) -> MINECRAFT.setScreen(new MainConfigs().build(parent))))
-                .addPanelWidget(new Button(10, 65, designType, Component.translatable("simplystatus.config.localization"), (s) -> MINECRAFT.setScreen(new LocalizationsConfigs().build(parent))))
-                .addPanelWidget(new Button(10, 90, designType, Component.translatable("simplystatus.config.server"), (s) -> MINECRAFT.setScreen(new ServerConfigs().build(parent))).setActive(MINECRAFT.getCurrentServer() != null))
-                .addPanelWidget(new Button(10, 115, designType, Component.translatable("simplystatus.config.assets"), (s) -> MINECRAFT.setScreen(new AssetsConfigs().build(parent))).setActive(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false)))
-                .addPanelWidget(new Button(10, 140, designType, Component.translatable("simplystatus.config.addons"), (s) -> MINECRAFT.setScreen(new AddonsConfigs().build(parent))))
-                .addPanelWidget(new Button(10, 165, designType, Component.translatable("simplystatus.config.mods"), (s) -> MINECRAFT.setScreen(new ModsConfigs().build(parent))).setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.client"), (s) -> MINECRAFT.setScreen(new MainConfigs().build(parent))).build())
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.localization"), (s) -> MINECRAFT.setScreen(new LocalizationsConfigs().build(parent))).build())
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.server"), (s) -> MINECRAFT.setScreen(new ServerConfigs().build(parent))).build().setActive(MINECRAFT.getCurrentServer() != null))
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.assets"), (s) -> MINECRAFT.setScreen(new AssetsConfigs().build(parent))).build().setActive(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false)))
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.addons"), (s) -> MINECRAFT.setScreen(new AddonsConfigs().build(parent))).build())
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.mods"), (s) -> MINECRAFT.setScreen(new ModsConfigs().build(parent))).build().setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
 
-        if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new Button(10,190, designType, Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))));
+        if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
 
-        builder.addWidget(new TextBox(140, 5, Component.translatable("simplystatus.config.addons"), true))
-                .addWidget(new CategoryBox(140, 30, Component.translatable("simplystatus.config.addons.indicators"))
-                        .addValue(new ButtonConfigBoolean(140, 55, designType, SimplyStatus.userConfig, "SHOW_ITEMS", true, Component.translatable("simplystatus.config.addons.show_items")))
-                        .addValue(new ButtonConfigBoolean(140, 80, designType, SimplyStatus.userConfig, "ENABLE_TIME_CYCLE", true, Component.translatable("simplystatus.config.addons.enable_time_cycle")))
-                        .addValue(new ButtonConfigBoolean(140, 105, designType, SimplyStatus.userConfig, "ENABLE_WORLD", true, Component.translatable("simplystatus.config.addons.enable_world")))
+        builder.addWidget(new TextBox(Component.translatable("simplystatus.config.addons"), true))
+                .addWidget(new CategoryBox(Component.translatable("simplystatus.config.addons.indicators"))
+                        .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.show_items"), true).setConfig(SimplyStatus.userConfig, "SHOW_ITEMS").build())
+                        .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.enable_time_cycle"), true).setConfig(SimplyStatus.userConfig, "ENABLE_TIME_CYCLE").build())
+                        .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.enable_world"), true).setConfig(SimplyStatus.userConfig, "ENABLE_WORLD").build())
                 )
-                .addWidget(new CategoryBox(140, 130, Component.translatable("simplystatus.config.addons.custom"))
-                        .addValue(new ButtonConfigBoolean(140, 155, designType, SimplyStatus.userConfig, "USE_CUSTOM_ASSETS", false, Component.translatable("simplystatus.config.addons.use_custom_assets")))
-                        .addValue(new ButtonConfigBoolean(140, 180, designType, SimplyStatus.userConfig, "USE_CUSTOM_APP_ID", false, Component.translatable("simplystatus.config.addons.use_custom_app_id")))
-                        .addValue(new EditBoxConfigString(140, 205, false, designType, SimplyStatus.userConfig, "CUSTOM_APP_ID", ModConfig.baseID, Component.translatable("simplystatus.config.addons.custom_app_id")))
-                        .addValue(new Button(140, 230, designType, Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()))
+                .addWidget(new CategoryBox(Component.translatable("simplystatus.config.addons.custom"))
+                        .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.use_custom_assets"), false).setConfig(SimplyStatus.userConfig, "USE_CUSTOM_ASSETS").build())
+                        .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.use_custom_app_id"), false).setConfig(SimplyStatus.userConfig, "USE_CUSTOM_APP_ID").build())
+                        .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.addons.custom_app_id")).setValue(ModConfig.baseID).setConfig(SimplyStatus.userConfig, "CUSTOM_APP_ID").build())
+                        .addValue(new ButtonBuilder(Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()).build())
                 );
         return builder.build();
     }

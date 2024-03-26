@@ -154,9 +154,9 @@
   "simplystatus.presence.player.world.state": "{player.name} • {player.scene}",
   "simplystatus.presence.date.time": "HH:mm",
 
-  "simplystatus.presence.mod.voice": "{discord.name} разговаривает c собой",
-  "simplystatus.presence.mod.voice.players.one": "{discord.name} разговаривает с %listener%",
-  "simplystatus.presence.mod.voice.players.more": "{discord.name} разговаривает с игроками",
+  "simplystatus.presence.mod.voice": "{player.name} разговаривает c собой",
+  "simplystatus.presence.mod.voice.players.one": "{player.name} разговаривает с %listener%",
+  "simplystatus.presence.mod.voice.players.more": "{player.name} разговаривает с игроками",
 
   "simplystatus.presence.mod.music": "«{music.author}» {music.title}",
   "simplystatus.presence.mod.music.menu": "🔊 «{music.author}» {music.title}",

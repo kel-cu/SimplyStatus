@@ -8,6 +8,8 @@ import net.minecraft.network.chat.Style;
 import org.apache.logging.log4j.Level;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.InterfaceUtils;
+import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBooleanBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
 import ru.kelcuprum.alinlib.gui.components.buttons.ButtonConfigBoolean;
 import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
@@ -29,24 +31,24 @@ public class ThanksScreen {
             SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
         }
         ConfigScreenBuilder builder = new ConfigScreenBuilder(parent, Component.translatable("simplystatus.name"), designType)
-                .addPanelWidget(new Button(10,40, designType, Component.translatable("simplystatus.config.client"), (s) -> MINECRAFT.setScreen(new MainConfigs().build(parent))))
-                .addPanelWidget(new Button(10,65, designType, Component.translatable("simplystatus.config.localization"), (s) -> MINECRAFT.setScreen(new LocalizationsConfigs().build(parent))))
-                .addPanelWidget(new Button(10,90, designType, Component.translatable("simplystatus.config.server"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).setActive(MINECRAFT.getCurrentServer() != null))
-                .addPanelWidget(new Button(10,115, designType, Component.translatable("simplystatus.config.assets"), (s) -> MINECRAFT.setScreen(new AssetsConfigs().build(parent))).setActive(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false)))
-                .addPanelWidget(new Button(10,140, designType, Component.translatable("simplystatus.config.addons"), (s) -> MINECRAFT.setScreen(new AddonsConfigs().build(parent))))
-                .addPanelWidget(new Button(10,165, designType, Component.translatable("simplystatus.config.mods"), (s) -> MINECRAFT.setScreen(new ModsConfigs().build(parent))).setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.client"), (s) -> MINECRAFT.setScreen(new MainConfigs().build(parent))).build())
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.localization"), (s) -> MINECRAFT.setScreen(new LocalizationsConfigs().build(parent))).build())
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.server"), (s) -> MINECRAFT.setScreen(new ServerConfigs().build(parent))).build().setActive(MINECRAFT.getCurrentServer() != null))
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.assets"), (s) -> MINECRAFT.setScreen(new AssetsConfigs().build(parent))).build().setActive(SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false)))
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.addons"), (s) -> MINECRAFT.setScreen(new AddonsConfigs().build(parent))).build())
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.mods"), (s) -> MINECRAFT.setScreen(new ModsConfigs().build(parent))).build().setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
                 //
-        if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new Button(10,190, designType, Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))));
+        if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
 
-        builder.addWidget(new TextBox(140, 5, Component.translatable("simplystatus.support"), true));
-        builder.addWidget(new TextBox(140, 30, Component.translatable("simplystatus.support.url"), false, (s) -> {
+        builder.addWidget(new TextBox(Component.translatable("simplystatus.support"), true));
+        builder.addWidget(new TextBox(Component.translatable("simplystatus.support.url"), false, (s) -> {
             Util.getPlatform().openUri("https://kelcuprum.ru/r/boo");
         }));
-        builder.addWidget(new TextBox(140, 55, Component.translatable("simplystatus.support.special_thanks"), false));
+        builder.addWidget(new TextBox(Component.translatable("simplystatus.support.special_thanks"), false));
         for(String dobryack : SimplyStatus.thanks){
-            builder.addWidget(new TextBox(140, -20, Component.literal("- "+dobryack).setStyle(Style.EMPTY.withBold(true)), false));
+            builder.addWidget(new TextBox(Component.literal("- "+dobryack).setStyle(Style.EMPTY.withBold(true)), false));
         }
-        builder.addWidget(new ButtonConfigBoolean(140, -20, designType, AlinLib.bariumConfig, "FRIEND", true, Component.translatable("simplystatus.support.friend"))
+        builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.support.friend"),true).setConfig(AlinLib.bariumConfig, "FRIENDS").build()
                         .setDescription(Component.translatable("simplystatus.support.friend.description")));
         return builder.build();
     }
