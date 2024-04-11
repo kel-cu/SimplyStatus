@@ -81,6 +81,7 @@
 
   "simplystatus.config.localization": "Локализация",
   "simplystatus.config.localization.mainmenu": "Главное меню",
+  "simplystatus.config.localization.mainmenu.icon": "Главное меню (Текст иконки)",
   "simplystatus.config.localization.mainmenu.state": "Информация игры",
   "simplystatus.config.localization.death.one": "Сообщение смерти #1",
   "simplystatus.config.localization.death.two": "Сообщение смерти #2",
@@ -122,6 +123,7 @@
   "simplystatus.config.localization.title.unknown": "Неизвестность",
 
   "simplystatus.presence.mainmenu": "{player.name} в меню",
+  "simplystatus.presence.mainmenu.icon": "Главное меню",
   "simplystatus.presence.mainmenu.state": "Minecraft {minecraft.version}",
   "simplystatus.presence.death.one": "{player.name} нет в живых :(",
   "simplystatus.presence.death.two": "Игрок умер",

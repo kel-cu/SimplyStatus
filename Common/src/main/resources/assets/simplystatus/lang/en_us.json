@@ -81,6 +81,7 @@
 
   "simplystatus.config.localization": "Localization",
   "simplystatus.config.localization.mainmenu": "Main menu",
+  "simplystatus.config.localization.mainmenu.icon": "Main menu (Icon text)",
   "simplystatus.config.localization.mainmenu.state": "Main menu state",
   "simplystatus.config.localization.death.one": "Death message #1",
   "simplystatus.config.localization.death.two": "Death message #2",
@@ -122,6 +123,7 @@
   "simplystatus.config.localization.title.unknown": "Unknown",
 
   "simplystatus.presence.mainmenu": "{player.name} in the main menu",
+  "simplystatus.presence.mainmenu.icon": "The main menu",
   "simplystatus.presence.mainmenu.state": "Minecraft {minecraft.version}",
   "simplystatus.presence.death.one": "{player.name} is not alive :(",
   "simplystatus.presence.death.two": "The player is dead",

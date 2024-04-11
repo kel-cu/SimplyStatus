@@ -7,7 +7,7 @@ import ru.kelcuprum.simplystatus.mods.Music;
 public class MainMenu {
     public MainMenu(){
         RichPresence.Builder presence = new RichPresence.Builder();
-        presence.setLargeImage(SimplyStatus.ASSETS.logo);
+        presence.setLargeImage(SimplyStatus.ASSETS.logo, SimplyStatus.localization.getLocalization("mainmenu.icon", true));
         if(SimplyStatus.localization.getLocalization("mainmenu", false).equals("simplystatus.presence.mainmenu")) presence.setState("Resources unready!");
         else  {
             presence.setDetails(SimplyStatus.localization.getLocalization("mainmenu", true));

@@ -31,6 +31,7 @@ public class LocalizationsConfigs {
         builder.addWidget(new TextBox(Component.translatable("simplystatus.config.localization"), true))
                 .addWidget(new CategoryBox(Component.translatable("simplystatus.config.localization.title.menu"))
                         .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mainmenu")).setLocalization(SimplyStatus.localization, "mainmenu").build())
+                        .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mainmenu.icon")).setLocalization(SimplyStatus.localization, "mainmenu.icon").build())
                         .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mainmenu.state")).setLocalization(SimplyStatus.localization, "mainmenu.state").build())
                 )
                 .addWidget(new CategoryBox(Component.translatable("simplystatus.config.localization.title.singleplayer"))
