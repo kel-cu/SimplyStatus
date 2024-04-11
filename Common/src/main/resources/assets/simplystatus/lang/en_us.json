@@ -170,9 +170,9 @@
 
   "modmenu.descriptionTranslation.simplystatus": "Simple, customizable Discord game status",
 
-  "simplystatus.support": "Support me!",
-  "simplystatus.support.url": "To support me, go to boosty.to/simply_kel",
-  "simplystatus.support.special_thanks": "And to them, thank you so much for your support!",
-  "simplystatus.support.friend": "Shall we be friends?",
-  "simplystatus.support.friend.description": "If you're a person who doesn't give a shit if the author gets a penny for his agony over this shitty code. Then you can safely knock out the fucking \"Support me\" button, don't think of me as a person, and earn your pennies on mod-packs or forks, if you make them, of course. Or you just can't because of restrictions to support"
+  "simplystatus.support": "Support Kel!",
+  "simplystatus.support.url": "To support me, go to kelcu.ru/boo",
+  "simplystatus.support.special_thanks": "To whoever has been supportive, thank you so much!",
+  "simplystatus.support.friend": "Monetary support button",
+  "simplystatus.support.friend.description": "If you do not wish or are not able to financially support the creator of the modification for his work on this and other projects, you can remove the \"Support Kel!\" button. However, if you have the means and you really like the modification, consider supporting him!"
 }
