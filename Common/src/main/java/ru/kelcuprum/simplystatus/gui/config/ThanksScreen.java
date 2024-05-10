@@ -10,8 +10,6 @@ import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.InterfaceUtils;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBooleanBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
-import ru.kelcuprum.alinlib.gui.components.buttons.ButtonConfigBoolean;
-import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
@@ -41,12 +39,10 @@ public class ThanksScreen {
         if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
 
         builder.addWidget(new TextBox(Component.translatable("simplystatus.support"), true));
-        builder.addWidget(new TextBox(Component.translatable("simplystatus.support.url"), false, (s) -> {
-            Util.getPlatform().openUri("https://kelcuprum.ru/r/boo");
-        }));
+        builder.addWidget(new TextBox(Component.translatable("simplystatus.support.url"), false, (s) -> Util.getPlatform().openUri("https://kelcuprum.ru/r/boo")));
         builder.addWidget(new TextBox(Component.translatable("simplystatus.support.special_thanks"), false));
-        for(String dobryack : SimplyStatus.thanks){
-            builder.addWidget(new TextBox(Component.literal("- "+dobryack).setStyle(Style.EMPTY.withBold(true)), false));
+        for(String pwgood3 : SimplyStatus.thanks){
+            builder.addWidget(new TextBox(Component.literal("- "+pwgood3).setStyle(Style.EMPTY.withBold(true)), false));
         }
         builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.support.friend"),true).setConfig(AlinLib.bariumConfig, "FRIENDS").build()
                         .setDescription(Component.translatable("simplystatus.support.friend.description")));

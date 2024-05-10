@@ -234,6 +234,9 @@ public class SimplyStatus {
     }
 
     public static void updateContentPresenceByConfigs(RichPresence.Builder presence, boolean isServer) {
+        updateContentPresenceByConfigs(presence, isServer, false);
+    }
+    public static void updateContentPresenceByConfigs(RichPresence.Builder presence, boolean isServer, boolean isMenu) {
 
         if (SimplyStatus.userConfig.getBoolean("SHOW_GAME_TIME", true))
             presence.setStartTimestamp(SimplyStatus.TIME_STARTED_CLIENT);
@@ -242,7 +245,7 @@ public class SimplyStatus {
             Voice mod = new Voice();
             String info = mod.isSelfTalk ? localization.getLocalization("mod.voice", false) : mod.isOnePlayer ? localization.getLocalization("mod.voice.one", false) : localization.getLocalization("mod.voice.more", false);
             presence.setSmallImage(ASSETS.voice, localization.getParsedText(info));
-        } else if (userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused)) {
+        } else if (userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused) && !isMenu) {
             presence.setSmallImage(ASSETS.music, localization.getLocalization(new Music().artistIsNull ? "mod.music.noauthor" : "mod.music", true));
         } else if (isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))) {
             presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", MINECRAFT.getCurrentServer().ip), localization.getParsedText("{player.scene}"));

@@ -14,7 +14,7 @@ public class MainMenu {
             if(SimplyStatus.localization.getLocalization("mainmenu.state", true).equals("simplystatus.presence.mainmenu.state"))  presence.setDetails("Please wait...");
             else presence.setState(SimplyStatus.localization.getLocalization("mainmenu.state", true));
         }
-        SimplyStatus.updateContentPresenceByConfigs(presence);
+        SimplyStatus.updateContentPresenceByConfigs(presence, false, true);
 
         if(SimplyStatus.isMusicModsEnable){
             Music music = new Music();
