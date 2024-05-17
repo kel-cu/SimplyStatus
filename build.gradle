@@ -1,7 +1,7 @@
 plugins {
-    id "com.github.johnrengelman.shadow" version "8.1.1" apply false
-    id "architectury-plugin" version "3.4-SNAPSHOT"
-    id "dev.architectury.loom" version "1.4-SNAPSHOT" apply false
+    id "io.github.goooler.shadow" version "8.1.7" apply false
+    id "architectury-plugin" version "3.+"
+    id "dev.architectury.loom" version "1.6+" apply false
     id "io.github.p03w.machete" version "2.+" apply false
 }
 
@@ -24,7 +24,7 @@ subprojects {
         // Discord Integration
         include(implementation("com.kohlschutter.junixsocket:junixsocket-common:2.7.0"))
         include(implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.7.0"))
-        include(implementation("com.jagrosh.discordipc:DiscordIPC:0.6.0"))
+        include(implementation("com.jagrosh.discordipc:DiscordIPC:0.8.8"))
         // Mods libs
         modImplementation "maven.modrinth:replaymod:${project.replaymod}"
         modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
@@ -72,7 +72,7 @@ allprojects {
 
     tasks.withType(JavaCompile).configureEach {
         options.encoding = "UTF-8"
-        options.release.set(17)
+        options.release.set(21)
     }
 
     java {

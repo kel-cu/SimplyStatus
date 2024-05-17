@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.kelcuprum.alinlib.api.events.client.ClientLifecycleEvents;
 import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.alinlib.config.Localization;
 import ru.kelcuprum.simplystatus.config.AssetsConfig;
@@ -100,6 +101,8 @@ public class SimplyStatus {
         useAnotherID = userConfig.getBoolean("USE_ANOTHER_ID", false);
         useCustomID = userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
         TIME_STARTED_CLIENT = System.currentTimeMillis() / 1000;
+        ClientLifecycleEvents.CLIENT_STARTED.register(client -> SimplyStatus.startClient());
+        ClientLifecycleEvents.CLIENT_STOPPING.register(client1 -> SimplyStatus.stopClient());
         StarScript.init();
         registerApplications();
     }

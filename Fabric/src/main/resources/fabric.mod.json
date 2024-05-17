@@ -5,7 +5,10 @@
   "name": "SimplyStatus",
   "description": "Simple, customizable Discord game status",
   "authors": [
-    "Im_Kel"
+    "Kel Cuprum"
+  ],
+  "contributors": [
+    "Deflecta (Russian Localization)", "GRUI_72 (Good ideas)"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/simplystatus",

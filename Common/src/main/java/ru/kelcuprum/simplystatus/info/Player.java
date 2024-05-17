@@ -14,7 +14,7 @@ public class Player {
     static String lastTextDeath = "";
     public static String getName(){
         if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED_DISCORD) return MINECRAFT.getUser().getName();
-        else return SimplyStatus.USER.getName();
+        else return SimplyStatus.USER.getNickname();
     }
     public static String getURLAvatar(){
         if(MINECRAFT.getUser().getType().name().equalsIgnoreCase("msa") || MINECRAFT.getUser().getType().name().equalsIgnoreCase("mojang")){

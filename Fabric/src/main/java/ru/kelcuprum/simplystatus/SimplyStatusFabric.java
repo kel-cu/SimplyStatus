@@ -14,11 +14,5 @@ public class SimplyStatusFabric implements ClientModInitializer {
         SimplyStatus.isVoiceModsEnable = (SimplyStatus.svc || SimplyStatus.plasmo);
         SimplyStatus.isMusicModsEnable = SimplyStatus.waterPlayer;
         SimplyStatus.onInitializeClient();
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> {
-            SimplyStatus.startClient();
-        });
-        ClientLifecycleEvents.CLIENT_STOPPING.register(client1 -> {
-            SimplyStatus.stopClient();
-        });
     }
 }

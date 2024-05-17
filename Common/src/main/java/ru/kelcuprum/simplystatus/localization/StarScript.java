@@ -46,6 +46,7 @@ public class StarScript {
         // Discord
         ss.set("discord", new ValueMap()
                 .set("name", () -> Value.string(SimplyStatus.USER.getName()))
+                .set("nickname", () -> Value.string(SimplyStatus.USER.getNickname()))
                 .set("discriminator", () -> Value.string(SimplyStatus.USER.getDiscriminator()))
                 .set("id", () -> Value.string(SimplyStatus.USER.getId()))
                 .set("avatar", () -> Value.string(SimplyStatus.USER.getAvatarUrl()))
