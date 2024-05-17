@@ -16,7 +16,7 @@
     "issues": "https://github.com/simply-kel/SimplyStatus/issues",
     "email": "me@kelcuprum.ru"
   },
-  "license": "MIT",
+  "license": "PolyForm Strict License 1.0.0",
   "icon": "assets/simplystatus/logo.png",
   "environment": "client",
   "entrypoints": {
