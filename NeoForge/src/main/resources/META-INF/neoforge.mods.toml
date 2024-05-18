@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "*"
 issueTrackerURL = "https://github.com/simply-kel/simplystatus/issues"
-license="MIT"
+license="PolyForm Strict License 1.0.0"
 
 [[mods]]
 displayTest = "IGNORE_ALL_VERSION"

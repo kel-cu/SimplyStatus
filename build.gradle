@@ -31,7 +31,7 @@ subprojects {
         modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
         modImplementation "ru.kelcuprum.alinlib:AlinLib-common:${project.alinlib}"
         modImplementation "ru.kelcuprum.waterplayer:WaterPlayer:${project.waterplayer}"
-        include(implementation("meteordevelopment:starscript:0.2.2"))
+        implementation("meteordevelopment:starscript:0.2.2")
 
         subprojects.each {
             implementation project(path: ":${it.name}", configuration: 'namedElements')
