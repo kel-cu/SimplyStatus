@@ -24,7 +24,7 @@ subprojects {
         // Discord Integration
         include(implementation("com.kohlschutter.junixsocket:junixsocket-common:2.7.0"))
         include(implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.7.0"))
-        include(implementation("com.jagrosh.discordipc:DiscordIPC:0.8.8"))
+        include(implementation("com.jagrosh.discordipc:DiscordIPC:0.8.11"))
         // Mods libs
         modImplementation "maven.modrinth:replaymod:${project.replaymod}"
         modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
