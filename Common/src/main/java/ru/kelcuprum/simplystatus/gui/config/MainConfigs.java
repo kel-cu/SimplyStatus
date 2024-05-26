@@ -3,18 +3,18 @@ package ru.kelcuprum.simplystatus.gui.config;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBooleanBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.selector.SelectorBuilder;
-import ru.kelcuprum.alinlib.gui.components.buttons.ButtonConfigBoolean;
-import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import ru.kelcuprum.alinlib.gui.InterfaceUtils;
-import ru.kelcuprum.alinlib.gui.components.selector.SelectorIntegerButton;
-import ru.kelcuprum.alinlib.gui.components.selector.SelectorStringButton;
+import ru.kelcuprum.alinlib.gui.components.text.CategoryBox;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.ModConfig;
+
+import javax.swing.*;
 
 import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
 
@@ -43,7 +43,11 @@ public class MainConfigs {
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.show_avatar_player"), true).setConfig(SimplyStatus.userConfig, "SHOW_AVATAR_PLAYER").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.view_item_off_hand"), false).setConfig(SimplyStatus.userConfig, "VIEW_ITEM_OFF_HAND").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.view_statistics"), true).setConfig(SimplyStatus.userConfig, "VIEW_STATISTICS").build())
-                .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.view_player_name"), true).setConfig(SimplyStatus.userConfig, "VIEW_PLAYER_NAME").build());
+                .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.view_player_name"), true).setConfig(SimplyStatus.userConfig, "VIEW_PLAYER_NAME").build())
+                .addWidget(new CategoryBox(Component.translatable("simplystatus.config.client.button"))
+                        .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.button.enable"), false).setConfig(SimplyStatus.userConfig, "BUTTON.ENABLE").build())
+                        .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.client.button.label")).setValue("").setConfig(SimplyStatus.userConfig, "BUTTON.LABEL").build())
+                        .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.client.button.url")).setValue("").setConfig(SimplyStatus.userConfig, "BUTTON.URL").build()));
         return builder.build();
     }
 }

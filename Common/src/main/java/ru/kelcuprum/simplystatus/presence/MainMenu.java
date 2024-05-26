@@ -2,7 +2,7 @@ package ru.kelcuprum.simplystatus.presence;
 
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.mods.Music;
+import ru.kelcuprum.simplystatus.mods.WaterPlayerSupport;
 
 public class MainMenu {
     public MainMenu(){
@@ -17,7 +17,7 @@ public class MainMenu {
         SimplyStatus.updateContentPresenceByConfigs(presence, false, true);
 
         if(SimplyStatus.isMusicModsEnable){
-            Music music = new Music();
+            WaterPlayerSupport music = new WaterPlayerSupport();
             if(SimplyStatus.userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && !music.paused){
                 presence.setState(music.artistIsNull ? SimplyStatus.localization.getLocalization("mod.music.menu.noauthor", true) : SimplyStatus.localization.getLocalization("mod.music.menu", true));
             }

@@ -19,7 +19,7 @@ import ru.kelcuprum.simplystatus.config.ModConfig;
 import ru.kelcuprum.simplystatus.info.Client;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.localization.StarScript;
-import ru.kelcuprum.simplystatus.mods.Music;
+import ru.kelcuprum.simplystatus.mods.WaterPlayerSupport;
 import ru.kelcuprum.simplystatus.mods.Voice;
 import ru.kelcuprum.simplystatus.presence.singleplayer.Loading;
 import ru.kelcuprum.simplystatus.presence.LoadingGame;
@@ -32,6 +32,7 @@ import ru.kelcuprum.simplystatus.presence.multiplayer.MultiPlayer;
 import ru.kelcuprum.simplystatus.presence.singleplayer.SinglePlayer;
 
 import java.text.DecimalFormat;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -78,21 +79,22 @@ public class SimplyStatus {
     public static Boolean waterPlayer = false;
     public static Boolean svc = false;
     public static Boolean plasmo = false;
-    public static Boolean isVoiceModsEnable = (svc || plasmo);
-    public static Boolean isMusicModsEnable = waterPlayer;
+    public static Boolean isVoiceModsEnable = false;
+    public static Boolean isMusicModsEnable = false;
     // Discord
     public static RichPresence lastPresence;
     public static IPCClient client;
     public static User USER;
     public static String APPLICATION_ID;
     public static boolean CONNECTED_DISCORD = false;
+    public static ModConfig modConfig;
 
     public static void onInitializeClient() {
         userConfig.load();
         serverConfig.load();
         localization.setParser((s) -> StarScript.run(StarScript.compile(s)));
         try {
-            new ModConfig();
+            modConfig = new ModConfig();
         } catch (Exception e) {
             log("The default configuration of the mod was not loaded, no launch possible!", Level.ERROR);
             log(e.getLocalizedMessage(), Level.ERROR);
@@ -248,12 +250,24 @@ public class SimplyStatus {
             Voice mod = new Voice();
             String info = mod.isSelfTalk ? localization.getLocalization("mod.voice", false) : mod.isOnePlayer ? localization.getLocalization("mod.voice.one", false) : localization.getLocalization("mod.voice.more", false);
             presence.setSmallImage(ASSETS.voice, localization.getParsedText(info));
-        } else if (userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new Music().paused) && !isMenu) {
-            presence.setSmallImage(ASSETS.music, localization.getLocalization(new Music().artistIsNull ? "mod.music.noauthor" : "mod.music", true));
+        } else if (userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new WaterPlayerSupport().paused) && !isMenu) {
+            presence.setSmallImage(ASSETS.music, localization.getLocalization(new WaterPlayerSupport().artistIsNull ? "mod.music.noauthor" : "mod.music", true));
         } else if (isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))) {
-            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", MINECRAFT.getCurrentServer().ip), localization.getParsedText("{player.scene}"));
+            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Objects.requireNonNull(MINECRAFT.getCurrentServer()).ip), localization.getParsedText("{player.scene}"));
         } else if (userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
             presence.setSmallImage(Player.getURLAvatar(), Player.getName());
+        }
+
+        if(SimplyStatus.userConfig.getBoolean("BUTTON.ENABLE", false)){
+            JsonArray buttons = new JsonArray();
+            if(!SimplyStatus.userConfig.getString("BUTTON.LABEL", "").isBlank() && !SimplyStatus.userConfig.getString("BUTTON.URL", "").isBlank()){
+                JsonObject button = new JsonObject();
+                button.addProperty("label", SimplyStatus.userConfig.getString("BUTTON.LABEL", ""));
+                button.addProperty("url", SimplyStatus.userConfig.getString("BUTTON.URL", ""));
+                buttons.add(button);
+            }
+            SimplyStatus.log(buttons.toString());
+            presence.setButtons(buttons);
         }
     }
 

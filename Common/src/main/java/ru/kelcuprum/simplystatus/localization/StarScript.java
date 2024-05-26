@@ -17,7 +17,7 @@ import org.apache.logging.log4j.Level;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.info.World;
-import ru.kelcuprum.simplystatus.mods.Music;
+import ru.kelcuprum.simplystatus.mods.WaterPlayerSupport;
 import ru.kelcuprum.simplystatus.mods.ReplayMod;
 import ru.kelcuprum.simplystatus.mods.Voice;
 
@@ -92,9 +92,9 @@ public class StarScript {
         }
         if(SimplyStatus.isMusicModsEnable){
             ss.set("music", new ValueMap()
-                    .set("title", () -> Value.string(new Music().useFile ? new Music().file : new Music().title))
-                    .set("author", () -> Value.string(new Music().artistIsNull ? "" : new Music().artist))
-                    .set("uri", () -> Value.string(new Music().file))
+                    .set("title", () -> Value.string(new WaterPlayerSupport().useFile ? new WaterPlayerSupport().file : new WaterPlayerSupport().title))
+                    .set("author", () -> Value.string(new WaterPlayerSupport().artistIsNull ? "" : new WaterPlayerSupport().artist))
+                    .set("uri", () -> Value.string(new WaterPlayerSupport().file))
             );
         }
         if(SimplyStatus.replayMod){
