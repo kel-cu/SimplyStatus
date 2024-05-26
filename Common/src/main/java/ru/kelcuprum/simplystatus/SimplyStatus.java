@@ -266,7 +266,7 @@ public class SimplyStatus {
                 button.addProperty("url", SimplyStatus.userConfig.getString("BUTTON.URL", ""));
                 buttons.add(button);
             }
-            SimplyStatus.log(buttons.toString());
+//            SimplyStatus.log(buttons.toString());
             presence.setButtons(buttons);
         }
     }
