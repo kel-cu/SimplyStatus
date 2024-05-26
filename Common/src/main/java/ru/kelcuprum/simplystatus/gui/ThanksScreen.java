@@ -1,4 +1,4 @@
-package ru.kelcuprum.simplystatus.gui.config;
+package ru.kelcuprum.simplystatus.gui;
 
 import com.google.gson.JsonArray;
 import net.minecraft.Util;

@@ -2,6 +2,7 @@ package ru.kelcuprum.simplystatus.presence.singleplayer;
 
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
+import ru.kelcuprum.simplystatus.config.Assets;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.info.World;
 
@@ -16,7 +17,7 @@ public class SinglePlayer {
             else {
                 presence.setLargeImage(World.getAssets(), World.getName());
             }
-        } else presence.setLargeImage(SimplyStatus.ASSETS.logo);
+        } else presence.setLargeImage(Assets.getSelected().getIcon("logo"));
         SimplyStatus.updateDiscordPresence(presence.build());
     }
 }

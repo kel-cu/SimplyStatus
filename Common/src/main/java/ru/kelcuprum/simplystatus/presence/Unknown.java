@@ -2,6 +2,7 @@ package ru.kelcuprum.simplystatus.presence;
 
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
+import ru.kelcuprum.simplystatus.config.Assets;
 
 public class Unknown {
     /**
@@ -11,7 +12,7 @@ public class Unknown {
     public Unknown(){
         RichPresence.Builder presence = new RichPresence.Builder();
         presence.setState(SimplyStatus.localization.getLocalization("unknown", true));
-        presence.setLargeImage(SimplyStatus.ASSETS.unknown);
+        presence.setLargeImage(Assets.getSelected().getIcon("unknown"));
         SimplyStatus.updateDiscordPresence(presence.build());
     }
 }

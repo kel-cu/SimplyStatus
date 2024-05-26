@@ -2,6 +2,7 @@ package ru.kelcuprum.simplystatus.presence;
 
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
+import ru.kelcuprum.simplystatus.config.Assets;
 
 public class ReplayMod {
     /**
@@ -12,7 +13,7 @@ public class ReplayMod {
         RichPresence.Builder presence = new RichPresence.Builder()
             .setDetails(SimplyStatus.localization.getLocalization("mod.replaymod", true))
             .setState(SimplyStatus.localization.getLocalization("mod.replaymod.state", true))
-            .setLargeImage(SimplyStatus.ASSETS.replaymod);
+            .setLargeImage(Assets.getSelected().getIcon("replaymod"));
         SimplyStatus.updateContentPresenceByConfigs(presence);
         SimplyStatus.updateDiscordPresence(presence.build());
     }

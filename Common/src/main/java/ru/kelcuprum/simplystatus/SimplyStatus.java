@@ -14,7 +14,7 @@ import org.apache.logging.log4j.Logger;
 import ru.kelcuprum.alinlib.api.events.client.ClientLifecycleEvents;
 import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.alinlib.config.Localization;
-import ru.kelcuprum.simplystatus.config.AssetsConfig;
+import ru.kelcuprum.simplystatus.config.Assets;
 import ru.kelcuprum.simplystatus.config.ModConfig;
 import ru.kelcuprum.simplystatus.info.Client;
 import ru.kelcuprum.simplystatus.info.Player;
@@ -32,9 +32,7 @@ import ru.kelcuprum.simplystatus.presence.multiplayer.MultiPlayer;
 import ru.kelcuprum.simplystatus.presence.singleplayer.SinglePlayer;
 
 import java.text.DecimalFormat;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 import static ru.kelcuprum.alinlib.WebAPI.getJsonArray;
 
@@ -47,7 +45,8 @@ public class SimplyStatus {
     public static Config userConfig = new Config("config/SimplyStatus/config.json");
     public static Config serverConfig = new Config("config/SimplyStatus/servers/default.json");
     public static Localization localization = new Localization("simplystatus.presence", "config/SimplyStatus/lang");
-    public static AssetsConfig ASSETS = ModConfig.defaultAssets;
+    public static HashMap<String, Assets> assets = new HashMap<>();
+    public static ArrayList<String> assetsNames = new ArrayList<>();
     // Another shit
     public static Minecraft MINECRAFT = Minecraft.getInstance();
     public static double isPEnable = Math.random();
@@ -200,7 +199,7 @@ public class SimplyStatus {
                         RichPresence.Builder presence = new RichPresence.Builder()
                                 .setDetails("There was an error, look in the console")
                                 .setState("And report the bug on GitHub")
-                                .setLargeImage(ASSETS.unknown);
+                                .setLargeImage(Assets.getSelected().getIcon("unknown"));
                         client.sendRichPresence(presence.build());
                         lastException = ex.getMessage();
                     }
@@ -210,9 +209,9 @@ public class SimplyStatus {
     }
 
     private static void updatePresence() {
-        ASSETS = new AssetsConfig();
-        if (userConfig.getBoolean("USE_CUSTOM_APP_ID", false)) ASSETS = ModConfig.defaultUrlsAssets;
-        if (userConfig.getBoolean("USE_CUSTOM_ASSETS", false)) ASSETS.loadUserAssets();
+//        ASSETS = new AssetsConfig();
+//        if (userConfig.getBoolean("USE_CUSTOM_APP_ID", false)) ASSETS = ModConfig.defaultUrlsAssets;
+//        if (userConfig.getBoolean("USE_CUSTOM_ASSETS", false)) ASSETS.loadUserAssets();
         Minecraft CLIENT = Minecraft.getInstance();
         if (userConfig.getBoolean("ENABLE_RPC", true)) {
             if (CLIENT.level == null || CLIENT.player == null) {
@@ -249,9 +248,9 @@ public class SimplyStatus {
         if (userConfig.getBoolean("VIEW_VOICE_SPEAK", false) && (isVoiceModsEnable && new Voice().isSpeak)) {
             Voice mod = new Voice();
             String info = mod.isSelfTalk ? localization.getLocalization("mod.voice", false) : mod.isOnePlayer ? localization.getLocalization("mod.voice.one", false) : localization.getLocalization("mod.voice.more", false);
-            presence.setSmallImage(ASSETS.voice, localization.getParsedText(info));
+            presence.setSmallImage(Assets.getSelected().getIcon("voice"), localization.getParsedText(info));
         } else if (userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new WaterPlayerSupport().paused) && !isMenu) {
-            presence.setSmallImage(ASSETS.music, localization.getLocalization(new WaterPlayerSupport().artistIsNull ? "mod.music.noauthor" : "mod.music", true));
+            presence.setSmallImage(Assets.getSelected().getIcon("music"), localization.getLocalization(new WaterPlayerSupport().artistIsNull ? "mod.music.noauthor" : "mod.music", true));
         } else if (isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))) {
             presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Objects.requireNonNull(MINECRAFT.getCurrentServer()).ip), localization.getParsedText("{player.scene}"));
         } else if (userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {

@@ -4,7 +4,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import ru.kelcuprum.simplystatus.gui.config.MainConfigs;
+import ru.kelcuprum.simplystatus.gui.MainConfigs;
 
 @Mod("simplystatus")
 public class SimplyStatusForge {

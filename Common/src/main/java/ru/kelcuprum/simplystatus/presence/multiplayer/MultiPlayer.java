@@ -3,6 +3,7 @@ package ru.kelcuprum.simplystatus.presence.multiplayer;
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.simplystatus.SimplyStatus;
+import ru.kelcuprum.simplystatus.config.Assets;
 import ru.kelcuprum.simplystatus.info.Player;
 import ru.kelcuprum.simplystatus.info.World;
 import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
@@ -21,7 +22,7 @@ public class MultiPlayer {
             else {
                 presence.setLargeImage(World.getAssets(), World.getName());
             }
-        } else presence.setLargeImage(SimplyStatus.ASSETS.logo);
+        } else presence.setLargeImage(Assets.getSelected().getIcon("logo"));
         SimplyStatus.updateDiscordPresence(presence.build());
     }
 }

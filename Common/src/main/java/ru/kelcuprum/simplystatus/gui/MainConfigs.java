@@ -1,4 +1,4 @@
-package ru.kelcuprum.simplystatus.gui.config;
+package ru.kelcuprum.simplystatus.gui;
 
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBooleanBuilder;
@@ -12,9 +12,8 @@ import ru.kelcuprum.alinlib.gui.components.text.CategoryBox;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
+import ru.kelcuprum.simplystatus.config.Assets;
 import ru.kelcuprum.simplystatus.config.ModConfig;
-
-import javax.swing.*;
 
 import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
 
@@ -36,7 +35,7 @@ public class MainConfigs {
         builder.addWidget(new TextBox(Component.translatable("simplystatus.config.client"), true));
         if(!ModConfig.mineID.isBlank()) builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.use_minecraft_id"), false).setConfig(SimplyStatus.userConfig, "USE_ANOTHER_ID").build())
                 .addWidget(new ButtonBuilder(Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()).build());
-        if(!customAssetsEnable) builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.assets")).setList(ModConfig.assetsList).setValue(ModConfig.assetsList[0]).setConfig(SimplyStatus.userConfig, "USE_ASSETS").build());
+        if(!customAssetsEnable) builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.assets")).setList(Assets.getAssetsNames()).setValue(Assets.getAssetsNames()[0]).setConfig(SimplyStatus.userConfig, "USE_ASSETS").build());
         builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.api")).setList(SimplyStatus.apiNames).setValue(0).setConfig(SimplyStatus.userConfig, "USE_API_RENDER").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.show_game_started"), true).setConfig(SimplyStatus.userConfig, "SHOW_GAME_TIME").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.singleplayer.world_name"), false).setConfig(SimplyStatus.userConfig, "SINGLEPLAYER.WORLD_NAME").build())

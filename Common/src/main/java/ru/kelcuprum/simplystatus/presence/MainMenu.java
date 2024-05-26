@@ -2,12 +2,13 @@ package ru.kelcuprum.simplystatus.presence;
 
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
+import ru.kelcuprum.simplystatus.config.Assets;
 import ru.kelcuprum.simplystatus.mods.WaterPlayerSupport;
 
 public class MainMenu {
     public MainMenu(){
         RichPresence.Builder presence = new RichPresence.Builder();
-        presence.setLargeImage(SimplyStatus.ASSETS.logo, SimplyStatus.localization.getLocalization("mainmenu.icon", true));
+        presence.setLargeImage(Assets.getSelected().getIcon("logo"), SimplyStatus.localization.getLocalization("mainmenu.icon", true));
         if(SimplyStatus.localization.getLocalization("mainmenu", false).equals("simplystatus.presence.mainmenu")) presence.setState("Resources unready!");
         else  {
             presence.setDetails(SimplyStatus.localization.getLocalization("mainmenu", true));
