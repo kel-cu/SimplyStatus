@@ -99,6 +99,7 @@ public class SimplyStatus {
             log(e.getLocalizedMessage(), Level.ERROR);
             return;
         }
+        Assets.loadFiles();
         useAnotherID = userConfig.getBoolean("USE_ANOTHER_ID", false);
         useCustomID = userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
         TIME_STARTED_CLIENT = System.currentTimeMillis() / 1000;

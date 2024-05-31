@@ -1,5 +1,15 @@
 {
   "modmenu.descriptionTranslation.simplystatus": "Простой настраиваемый игровой статус Discord",
+  "simplystatus.assets.create": "Создать набор иконок",
+  "simplystatus.assets.create.filename": "ID набора иконок",
+  "simplystatus.assets.create.invalid_name": "Недопустимый формат ID",
+  "simplystatus.assets.title": "Название",
+  "simplystatus.assets.author": "Автор",
+  "simplystatus.assets.description": "Чтобы использовать этот набор иконок, измените параметр «Использовать иконки». Чтобы выбрать только ЭТО, выберите значение с таким именем: %s",
+  "simplystatus.assets.icons": "Иконки",
+  "simplystatus.assets.remove": "Удалить",
+  "simplystatus.assets.reload": "Перезагрузить",
+
   "simplystatus.config.addons": "Дополнения",
   "simplystatus.config.addons.custom": "Персонализация",
   "simplystatus.config.addons.custom_app_id": "Свой идентификатор приложения",

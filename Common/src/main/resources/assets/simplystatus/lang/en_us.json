@@ -2,6 +2,16 @@
   "simplystatus.name": "SimplyStatus",
   "simplystatus.key.openConfig": "Open Config",
 
+  "simplystatus.assets.create": "Create Assets",
+  "simplystatus.assets.create.filename": "ID Assets",
+  "simplystatus.assets.create.invalid_name": "Unavailable ID format",
+  "simplystatus.assets.title": "Name",
+  "simplystatus.assets.author": "Author",
+  "simplystatus.assets.description": "To use this set of assets, change the “Use Assets” setting. To select just THIS, then select the value with that name: %s",
+  "simplystatus.assets.icons": "Icons",
+  "simplystatus.assets.remove": "Remove",
+  "simplystatus.assets.reload": "Reload",
+
   "simplystatus.config.client": "Client",
   "simplystatus.config.client.enable_rpc": "Enable RPC",
   "simplystatus.config.reconnect": "Reconnect Application",
