@@ -16,8 +16,8 @@
 
   "simplystatus.config.client": "Client",
   "simplystatus.config.client.enable_rpc": "Enable RPC",
-  "simplystatus.config.reconnect": "Reconnect Application",
   "simplystatus.config.client.use_minecraft_id": "Change Title to Minecraft",
+  "simplystatus.config.reconnect": "Reconnect Application",
   "simplystatus.config.client.assets": "Assets",
   "simplystatus.config.client.api": "Head Render API",
   "simplystatus.config.client.singleplayer.world_name": "Show Titles of Singleplayer Worlds",
