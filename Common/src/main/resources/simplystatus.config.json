@@ -122,8 +122,7 @@
         "night": "https://cdn.7tv.app/emote/624ff25e31f87b16da0fa273/4x.gif",
         "evening": "https://cdn.7tv.app/emote/661ad4fb75ef6d87d687a856/4x.gif",
         "morning": "https://cdn.7tv.app/emote/60b770ca903b41b7b71a33f9/4x.gif"
-      },
-      "base": "default"
+      }
     }
   ]
 }
