@@ -31,7 +31,7 @@ public class ModsConfigs {
         builder.addWidget(new TextBox(Component.translatable("simplystatus.config.mods"), true));
 
         if(SimplyStatus.isVoiceModsEnable) builder.addWidget(new CategoryBox(Component.translatable("simplystatus.config.voice"))
-                .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.view_voice_speak"), true).setConfig(SimplyStatus.userConfig, "VIEW_VOICE_SPEAK").build())
+                .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.view_voice_speak"), false).setConfig(SimplyStatus.userConfig, "VIEW_VOICE_SPEAK").build())
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.voice")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.voice").build())
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.voice.players.one")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.voice.players.one").build())
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.voice.players.more")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.voice.players.more").build())

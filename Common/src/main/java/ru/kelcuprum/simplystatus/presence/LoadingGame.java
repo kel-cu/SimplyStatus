@@ -11,7 +11,7 @@ public class LoadingGame {
      */
     public LoadingGame(){
         RichPresence.Builder presence = new RichPresence.Builder();
-        presence.setDetails("Minecraft Loading Resources...");
+        presence.setDetails("Loading Resources...");
         presence.setLargeImage(Assets.getSelected().getIcon("logo"));
         if(SimplyStatus.isPEnable < 0.03) {
             presence.setLargeImage("https://cdn.kelcuprum.ru/simplystatus/what/wm/en_yawn.png");
