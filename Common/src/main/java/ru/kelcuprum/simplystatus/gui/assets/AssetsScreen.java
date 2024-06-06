@@ -42,7 +42,7 @@ public class AssetsScreen extends Screen {
     @Override
     protected void init() {
         assert this.minecraft != null;
-        isSelected = SimplyStatus.userConfig.getString("USE_ASSETS", Assets.getAssetsNames()[0]).equals(assets.name);
+        isSelected = SimplyStatus.userConfig.getString("USE_ASSETS", ModConfig.defaultAssets.id).equals(assets.id);
         initPanel();
         initContent();
     }
@@ -53,9 +53,7 @@ public class AssetsScreen extends Screen {
         addRenderableWidget(new TextBox(x, 15, size, 9, title, true));
 
         addRenderableWidget(new EditBoxString(x, 40, size, 20, false, assets.name, designType, Component.translatable("simplystatus.assets.title"), (s) -> {
-            if(isSelected) SimplyStatus.userConfig.setString("USE_ASSETS", s);
-            assets.setName(s);
-            if(descriptionBox != null) descriptionBox.setDescription(Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.name)));
+            assets.setName(s); if(descriptionBox != null) descriptionBox.setDescription(Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.name)));
         }));
 
         addRenderableWidget(new EditBoxString(x, 65, size, 20, false, assets.author, designType, Component.translatable("simplystatus.assets.author"), assets::setAuthor));
@@ -74,7 +72,7 @@ public class AssetsScreen extends Screen {
         addRenderableWidget(new Button(x, height - 30, size - 50, 20, designType, CommonComponents.GUI_BACK, (s) -> onClose()));
         addRenderableWidget(new ButtonSprite(x + size - 45, height - 30, 20, 20, designType, InterfaceUtils.Icons.DONT, Localization.getText("simplystatus.assets.remove"), (OnPress) -> {
             isDeleted = true;
-            if(isSelected) SimplyStatus.userConfig.setString("USE_ASSETS", ModConfig.defaultAssets.name);
+            if(isSelected) SimplyStatus.userConfig.setString("USE_ASSETS", ModConfig.defaultAssets.id);
             assets.delete();
             onClose();
         }));
@@ -152,12 +150,6 @@ public class AssetsScreen extends Screen {
         for (AbstractWidget widget : widgets) {
             widget.setWidth(width - 210);
             widget.setX(200);
-            this.addRenderableWidget(widget);
-        }
-    }
-
-    protected void addRenderableWidgets(@NotNull List<AbstractWidget> widgets) {
-        for (AbstractWidget widget : widgets) {
             this.addRenderableWidget(widget);
         }
     }
