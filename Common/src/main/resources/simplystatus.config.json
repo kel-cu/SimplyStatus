@@ -104,6 +104,26 @@
         "unknown_world": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en_what.png",
         "unknown": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en_what2.png"
       }
+    },
+    {
+      "id": "pw_twitch",
+      "name": "Twitch Emotes [@PWGood]",
+      "icons": {
+        "logo": "https://cdn.7tv.app/emote/65bb6e642eaebd68608594af/4x.gif",
+        "unknown_world": "https://cdn.7tv.app/emote/64cba95f921be539421404c5/4x.gif",
+        "unknown": "https://cdn.7tv.app/emote/65720d36947de514e3bbeab1/4x.gif",
+        "replaymod": "https://cdn.7tv.app/emote/626d49f5c90cd66bc6be47ae/4x.gif",
+        "music": "https://cdn.7tv.app/emote/628a39aae40c1f3cb646f162/4x.gif",
+        "voice": "https://cdn.7tv.app/emote/6353df860e9d805edc23e0ce/4x.gif",
+        "world_moon": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/end.png",
+        "world_nether": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/nether.png",
+        "world": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/overworld.png",
+        "day": "https://cdn.7tv.app/emote/64cd931ed3cf2f1c8cca5264/4x.gif",
+        "night": "https://cdn.7tv.app/emote/624ff25e31f87b16da0fa273/4x.gif",
+        "evening": "https://cdn.7tv.app/emote/661ad4fb75ef6d87d687a856/4x.gif",
+        "morning": "https://cdn.7tv.app/emote/60b770ca903b41b7b71a33f9/4x.gif"
+      },
+      "base": "default"
     }
   ]
 }
