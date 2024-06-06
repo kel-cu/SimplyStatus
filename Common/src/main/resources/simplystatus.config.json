@@ -1,6 +1,6 @@
 {
-  "baseID": "903288390072557648",
-  "mineID": "1004398909810016276",
+  "baseID": "1248154761551806528",
+  "mineID": "1248154871346102413",
   "debugPresence": false,
   "assets": [
     {
@@ -27,61 +27,38 @@
       "id": "bedrock",
       "name": "Bedrock",
       "icons": {
-        "logo": "logo_be",
-        "day": "day_be",
-        "night": "night_be",
-        "morning": "morning_be",
-        "evening": "evening_be",
-        "world": "overworld",
-        "world_nether": "nether",
-        "world_the_end": "end",
-        "world_moon": "end",
-        "music": "music",
-        "replaymod": "replaymod_logo",
-        "voice": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/microphone.png"
+        "logo": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/bedrock/logo.png",
+        "day": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/bedrock/day.png",
+        "night": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/bedrock/night.png",
+        "morning": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/bedrock/morning.png",
+        "evening": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/bedrock/evening.png"
       }
     },
     {
       "id": "old",
       "name": "Legacy",
       "icons": {
-        "logo": "logo",
         "day": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/old/day.png",
         "night": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/old/night.png",
         "morning": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/old/morning.png",
-        "evening": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/old/evening.png",
-        "world": "overworld",
-        "world_nether": "nether",
-        "world_the_end": "end",
-        "world_moon": "end",
-        "music": "music",
-        "replaymod": "replaymod_logo",
-        "voice": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/microphone.png"
+        "evening": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/old/evening.png"
       }
     },
     {
       "id": "cringe",
       "name": "Cringe icons",
       "icons": {
-        "logo": "logo",
-        "day": "day_update_2",
-        "night": "nigth_update_2",
-        "morning": "morning_update_2",
-        "evening": "evening_update_2",
         "world": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/cringe/overworld.png",
         "world_nether": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/cringe/nether.png",
         "world_the_end": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/cringe/end.png",
-        "world_moon": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/cringe/end.png",
-        "music": "music",
-        "replaymod": "replaymod_logo",
-        "voice": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/microphone.png"
+        "world_moon": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/cringe/end.png"
       }
     },
     {
       "id": "cp",
       "name": "CraftPresence",
       "icons": {
-        "logo": "overworld",
+        "logo": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/overworld.png",
         "day": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/craftpresence/day.png",
         "night": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/craftpresence/night.png",
         "morning": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/craftpresence/morning.png",
@@ -90,9 +67,6 @@
         "world_nether": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/craftpresence/nether.png",
         "world_the_end": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/craftpresence/end.png",
         "world_moon": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/craftpresence/moon.png",
-        "music": "music",
-        "replaymod": "replaymod_logo",
-        "voice": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/microphone.png",
         "unknown_world": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/craftpresence/unknown.png",
         "unknown": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/craftpresence/unknown.png"
       }
@@ -110,9 +84,6 @@
         "world_nether": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/stones/nether.webp",
         "world_the_end": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/stones/end.webp",
         "world_moon": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/stones/end.webp",
-        "music": "music",
-        "replaymod": "replaymod_logo",
-        "voice": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/microphone.png",
         "unknown_world": "https://assets.kelcuprum.ru/other/error.png",
         "unknown": "https://assets.kelcuprum.ru/other/error.png"
       }
@@ -130,9 +101,6 @@
         "world_nether": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/nether.png",
         "world_the_end": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/end.png",
         "world_moon": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/end.png",
-        "music": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/music.png",
-        "replaymod": "https://raw.githubusercontent.com/kel-cu/SimplyStatus-Icons/main/default/replaymod_logo.png",
-        "voice": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en2.png",
         "unknown_world": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en_what.png",
         "unknown": "https://cdn.kelcuprum.ru/simplystatus/what/wm/en_what2.png"
       }

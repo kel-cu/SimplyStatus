@@ -36,7 +36,6 @@ public class AddonsConfigs {
                         .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.enable_world"), true).setConfig(SimplyStatus.userConfig, "ENABLE_WORLD").build())
                 )
                 .addWidget(new CategoryBox(Component.translatable("simplystatus.config.addons.custom"))
-                        .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.use_custom_assets"), false).setConfig(SimplyStatus.userConfig, "USE_CUSTOM_ASSETS").build())
                         .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.use_custom_app_id"), false).setConfig(SimplyStatus.userConfig, "USE_CUSTOM_APP_ID").build())
                         .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.addons.custom_app_id")).setValue(ModConfig.baseID).setConfig(SimplyStatus.userConfig, "CUSTOM_APP_ID").build())
                         .addValue(new ButtonBuilder(Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()).build())
