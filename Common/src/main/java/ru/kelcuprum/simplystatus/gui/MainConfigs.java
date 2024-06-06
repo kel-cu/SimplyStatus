@@ -19,8 +19,8 @@ import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
 
 public class MainConfigs {
     private final InterfaceUtils.DesignType designType = InterfaceUtils.DesignType.FLAT;
-    public Screen build(Screen parent){
-        boolean customAssetsEnable = SimplyStatus.userConfig.getBoolean("USE_CUSTOM_ASSETS", false) || SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
+
+    public Screen build(Screen parent) {
         ConfigScreenBuilder builder = new ConfigScreenBuilder(parent, Component.translatable("simplystatus.name"), designType)
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.client"), (s) -> MINECRAFT.setScreen(new MainConfigs().build(parent))).build())
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.localization"), (s) -> MINECRAFT.setScreen(new LocalizationsConfigs().build(parent))).build())
@@ -28,14 +28,19 @@ public class MainConfigs {
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.assets"), (s) -> MINECRAFT.setScreen(new AssetsConfigs().build(parent))).build())
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.addons"), (s) -> MINECRAFT.setScreen(new AddonsConfigs().build(parent))).build())
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.mods"), (s) -> MINECRAFT.setScreen(new ModsConfigs().build(parent))).build().setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
-                //
+        //
 
-        if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
+        if (AlinLib.bariumConfig.getBoolean("FRIEND", true))
+            builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
 
         builder.addWidget(new TextBox(Component.translatable("simplystatus.config.client"), true));
-        if(!ModConfig.mineID.isBlank()) builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.use_minecraft_id"), false).setConfig(SimplyStatus.userConfig, "USE_ANOTHER_ID").build())
-                .addWidget(new ButtonBuilder(Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()).build());
-        if(!customAssetsEnable) builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.assets")).setList(Assets.getAssetsNames()).setValue(Assets.getAssetsNames()[0]).setConfig(SimplyStatus.userConfig, "USE_ASSETS").build());
+        if (!ModConfig.mineID.isBlank())
+            builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.use_minecraft_id"), false).setConfig(SimplyStatus.userConfig, "USE_ANOTHER_ID").build())
+                    .addWidget(new ButtonBuilder(Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()).build());
+        builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.assets"), selectorButton -> SimplyStatus.userConfig.setString("USE_ASSETS", Assets.getByName(selectorButton.getList()[selectorButton.getPosition()]).id))
+                .setList(Assets.getAssetsNames())
+                .setValue(Assets.getPositionOnAssetsNames(Assets.getSelected().name))
+                .build());
         builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.api")).setList(SimplyStatus.apiNames).setValue(0).setConfig(SimplyStatus.userConfig, "USE_API_RENDER").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.show_game_started"), true).setConfig(SimplyStatus.userConfig, "SHOW_GAME_TIME").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.singleplayer.world_name"), false).setConfig(SimplyStatus.userConfig, "SINGLEPLAYER.WORLD_NAME").build())

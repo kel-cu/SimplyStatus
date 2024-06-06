@@ -5,10 +5,12 @@
   "simplystatus.assets.create": "Create Assets",
   "simplystatus.assets.create.filename": "ID Assets",
   "simplystatus.assets.create.invalid_name": "Unavailable ID format",
+  "simplystatus.assets.create.id_not_correct": "This ID already exists",
   "simplystatus.assets.title": "Name",
   "simplystatus.assets.author": "Author",
   "simplystatus.assets.description": "To use this set of assets, change the “Use Assets” setting. To select just THIS, then select the value with that name: %s",
   "simplystatus.assets.icons": "Icons",
+  "simplystatus.assets.base": "Basis",
   "simplystatus.assets.remove": "Remove",
   "simplystatus.assets.reload": "Reload",
 
@@ -54,6 +56,8 @@
   "simplystatus.config.server.icon_url": "Icon URL",
 
   "simplystatus.config.assets": "Assets",
+  "simplystatus.config.assets.button_name": "%1$s by %2$s (%3$s)",
+
   "simplystatus.config.assets.logo": "Logo",
   "simplystatus.config.assets.day": "Day",
   "simplystatus.config.assets.night": "Night",
@@ -82,7 +86,7 @@
   "simplystatus.config.localization.mod.replaymod.state": "Scene",
   "simplystatus.config.localization.mod.replaymod.date_format": "Date format",
 
-  "simplystatus.config.music": "Music Player",
+  "simplystatus.config.music": "WaterPlayer",
   "simplystatus.config.localization.mod.music.menu": "Music listen on main menu",
   "simplystatus.config.localization.mod.music": "Music listen in small icon",
   "simplystatus.config.localization.mod.music.menu.noauthor": "Music listen on main menu (No Author)",

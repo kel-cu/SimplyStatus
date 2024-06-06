@@ -41,6 +41,12 @@ public class CreateAssetsScreen extends Screen {
                 new ToastBuilder().setIcon(Items.CRAFTING_TABLE).setTitle(Component.translatable("simplystatus.name")).setMessage(Component.translatable("simplystatus.assets.create.invalid_name")).buildAndShow(AlinLib.MINECRAFT.getToasts());
                 return;
             }
+            for(String id : SimplyStatus.assetsNames){
+                if(id.equals(fileName)){
+                    new ToastBuilder().setIcon(Items.CRAFTING_TABLE).setTitle(Component.translatable("simplystatus.name")).setMessage(Component.translatable("simplystatus.assets.create.id_not_correct")).buildAndShow(AlinLib.MINECRAFT.getToasts());
+                    return;
+                }
+            }
             assert this.minecraft != null;
             String path = "config/SimplyStatus/assets/"+fileName+".json";
             Path file = Path.of(path);
@@ -52,6 +58,7 @@ public class CreateAssetsScreen extends Screen {
             }
             Assets assets = new Assets(new File(path));
             assets.setDefaultAssets(ModConfig.defaultAssets);
+            Assets.registerAsset(assets);
             this.minecraft.setScreen(new AssetsScreen(parent, assets));
         }));
     }

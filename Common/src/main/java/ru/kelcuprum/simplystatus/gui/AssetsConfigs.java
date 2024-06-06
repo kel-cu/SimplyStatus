@@ -2,7 +2,6 @@ package ru.kelcuprum.simplystatus.gui;
 
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
-import org.apache.logging.log4j.Level;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
@@ -11,9 +10,6 @@ import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.Assets;
 import ru.kelcuprum.simplystatus.gui.assets.AssetsScreen;
 import ru.kelcuprum.simplystatus.gui.assets.CreateAssetsScreen;
-
-import java.io.File;
-import java.util.Objects;
 
 import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
 
@@ -36,35 +32,17 @@ public class AssetsConfigs {
         builder.addWidget(new TextBox(Component.translatable("simplystatus.config.assets"), true))
                 .setOnTick((s) -> {
                     int size = 0;
-                    File assets = SimplyStatus.MINECRAFT.gameDirectory.toPath().resolve("config/SimplyStatus/assets").toFile();
-                    if (assets.exists() && assets.isDirectory()) {
-                        for (File assetsFile : Objects.requireNonNull(assets.listFiles())) {
-                            if (assetsFile.isFile() && assetsFile.getName().endsWith(".json")) {
-                                try {
-                                    new Assets(assetsFile);
-                                    size++;
-                                } catch (Exception e) {
-                                    SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
-                                }
-                            }
-                        }
+                    for(String id : SimplyStatus.assetsNames){
+                        Assets assets = Assets.getByID(id);
+                        if(assets.file != null) size++;
                     }
                     if(isLoaded && (assetsSize != size)) AlinLib.MINECRAFT.setScreen(this.build(parent));
                 });
-
-        File assets = SimplyStatus.MINECRAFT.gameDirectory.toPath().resolve("config/SimplyStatus/assets").toFile();
-        if (assets.exists() && assets.isDirectory()) {
-            for (File assetsFile : Objects.requireNonNull(assets.listFiles())) {
-                if (assetsFile.isFile() && assetsFile.getName().endsWith(".json")) {
-                    try {
-                        Assets assetsObject = new Assets(assetsFile);
-                        String id = assetsObject.id;
-                        assetsSize++;
-                        builder.addWidget(new ButtonBuilder(Component.literal(String.format("%s by %s (%s)", assetsObject.name, assetsObject.author, assetsObject.id)), (s) -> AlinLib.MINECRAFT.setScreen(new AssetsScreen(new AssetsConfigs().build(parent), Assets.getByID(id)))).build());
-                    } catch (Exception e) {
-                        SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
-                    }
-                }
+        for(String id : SimplyStatus.assetsNames){
+            Assets assets = Assets.getByID(id);
+            if(assets.file != null) {
+                builder.addWidget(new ButtonBuilder(Component.translatable("simplystatus.config.assets.button_name", assets.name, assets.author, assets.id), (s) -> AlinLib.MINECRAFT.setScreen(new AssetsScreen(new AssetsConfigs().build(parent), Assets.getByID(id)))).build());
+                assetsSize++;
             }
         }
         isLoaded = true;

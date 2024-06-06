@@ -15,12 +15,13 @@ import java.util.Objects;
 public class Assets {
     public String id;
     public String name;
+    public String base;
     public String author;
 
     protected JsonObject data;
     protected JsonObject icons;
     protected Assets defaultAssets;
-    protected File file;
+    public File file;
     public Assets(File file){
         this.file = file;
         final Path assets = file.toPath();
@@ -41,13 +42,15 @@ public class Assets {
             if(file != null){
                 data = new JsonObject();
                 data.addProperty("id", file.getName().replace(".json", ""));
-                data.addProperty("name", "Example name");
+                data.addProperty("name", file.getName().replace(".json", ""));
+                if(defaultAssets != null) data.addProperty("base", defaultAssets.id);
                 data.add("icons", new JsonObject());
             } else throw new RuntimeException(String.format("The facility does not meet the criteria. JSON: %S", data.toString()));
         }
         this.id = data.get("id").getAsString();
         this.name = data.get("name").getAsString();
         this.icons = data.getAsJsonObject("icons");
+        if(!isJsonNull(data, "base") && data.getAsJsonPrimitive("base").isString()) this.base = data.get("base").getAsString();
         this.author = isJsonNull(data, "author") ? AlinLib.MINECRAFT.getGameProfile().getName() : data.get("author").getAsString();
     }
 
@@ -60,12 +63,34 @@ public class Assets {
         return failed;
     }
 
+    public Assets setBaseAssets(String id){
+        this.base = id;
+        this.data.addProperty("base", id);
+        return this;
+    }
+
+    public Assets getBaseAssets(){
+        Assets baseAssets = null;
+        if(base != null) baseAssets = Assets.getByID(base);
+        else if(!isJsonNull(data, "base") && data.getAsJsonPrimitive("base").isString()){
+            base = data.get("base").getAsString();
+            baseAssets = Assets.getByID(base);
+        }
+        if(baseAssets != null) baseAssets.setDefaultAssets(ModConfig.defaultAssets);
+        return baseAssets;
+    }
     public void setDefaultAssets(Assets defaultAssets) {
         this.defaultAssets = defaultAssets;
     }
 
     public String getIcon(String id){
-        String icon = defaultAssets == null ? "https://cdn.kelcuprum.ru/other/error.png" : defaultAssets.getIcon(id);
+        String icon = defaultAssets == null ? "https://cdn.kelcuprum.ru/other/error.png" : defaultAssets.getIconFromData(id);
+        if(!isJsonNull(icons, id) && icons.getAsJsonPrimitive(id).isString()) icon = getIconFromData(id);
+        else if(getBaseAssets() != null && !getBaseAssets().name.equals(name)) icon = getBaseAssets().getIcon(id);
+        return icon;
+    }
+    public String getIconFromData(String id){
+        String icon = "https://cdn.kelcuprum.ru/other/error.png";
         if(!isJsonNull(icons, id) && icons.getAsJsonPrimitive(id).isString()) icon = icons.get(id).getAsString();
         return icon;
     }
@@ -102,11 +127,12 @@ public class Assets {
         return this;
     }
 
-    public Assets delete(){
-        if(file == null) return this;
+    public void delete(){
+        if(file == null) return;
+        SimplyStatus.assetsNames.remove(getPositionOnAssetsNames(this.name));
+        SimplyStatus.assets.remove(this.id, this);
         file.delete();
         file = null;
-        return this;
     }
 
     public static boolean isJsonNull(JsonObject json, String id) {
@@ -118,21 +144,71 @@ public class Assets {
     }
 
     public static void registerAsset(Assets assets){
-        if(SimplyStatus.assets.get(assets.id) == null) {
+        if(assets.file == null) {
+            SimplyStatus.modAssets.put(assets.id, assets);
+            SimplyStatus.assets.put(assets.id, assets);
             SimplyStatus.assetsNames.add(assets.id);
-            SimplyStatus.log(String.format("Register %s by id %s", assets.name, assets.id));
+            SimplyStatus.log(String.format("[Mod] Registration of %s by id %s", assets.name, assets.id));
+        } else {
+            if(SimplyStatus.modAssets.get(assets.id) == null) {
+                if(SimplyStatus.assets.get(assets.id) == null) {
+                    SimplyStatus.assetsNames.add(assets.id);
+                }
+                SimplyStatus.assets.put(assets.id, assets);
+                SimplyStatus.log(String.format("[File] Registration of %s by id %s", assets.name, assets.id));
+            } else SimplyStatus.log(String.format("[File] Registration of %s by id %s failed, conflict of internal assets", assets.name, assets.id));
         }
-        SimplyStatus.assets.put(assets.id, assets);
     }
 
     public static String[] getAssetsNames(){
         String[] list = new String[SimplyStatus.assetsNames.size()];
         int i = 0;
         for(String id : SimplyStatus.assetsNames){
-            list[i] = SimplyStatus.assets.get(id).name;
+            list[i] = SimplyStatus.assets.getOrDefault(id, ModConfig.defaultAssets).name;
             i++;
         }
         return list;
+    }
+    public static String[] getAssetsNames(String name){
+        String[] list = new String[SimplyStatus.assetsNames.size()-1];
+        int i = 0;
+        for(String id : SimplyStatus.assetsNames){
+            if(!SimplyStatus.assets.getOrDefault(id, ModConfig.defaultAssets).name.equals(name)) {
+                list[i] = SimplyStatus.assets.getOrDefault(id, ModConfig.defaultAssets).name;
+                i++;
+            }
+        }
+        return list;
+    }
+
+    public static int getPositionOnAssetsNames(String name){
+        int i = 0;
+        for(String id : getAssetsNames()){
+            if(id.equals(name)) break;
+            else i++;
+        }
+        return i;
+    }
+
+    public static int getPositionOnAssetsNames(String name, String withoutName){
+        int i = 0;
+        for(String id : getAssetsNames(withoutName)){
+            if(id.equals(name)) break;
+            else i++;
+        }
+        return i;
+    }
+
+    public static Assets getByName(String name){
+        Assets assets = ModConfig.defaultAssets;
+        for(String id : SimplyStatus.assetsNames){
+            Assets assetsById = getByID(id);
+            if(Objects.equals(assetsById.name, name)){
+                assets=assetsById;
+            };
+        }
+        assets.setDefaultAssets(ModConfig.defaultAssets);
+        return assets;
     }
 
     public static Assets getByID(String id){
@@ -142,16 +218,8 @@ public class Assets {
     }
 
     public static Assets getSelected(){
-        String name = SimplyStatus.userConfig.getString("USE_ASSETS", getAssetsNames()[0]);
-        Assets assets = ModConfig.defaultAssets;
-        for(String id : SimplyStatus.assetsNames){
-            Assets assetsByID = SimplyStatus.assets.get(id);
-            if(Objects.equals(assetsByID.name, name)){
-                assets = assetsByID;
-                return assets;
-            }
-        }
-        return assets;
+        String id = SimplyStatus.userConfig.getString("USE_ASSETS", ModConfig.defaultAssets.id);
+        return getByID(id);
     }
     public static void loadFiles(){
         File assets = SimplyStatus.MINECRAFT.gameDirectory.toPath().resolve("config/SimplyStatus/assets").toFile();

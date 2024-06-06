@@ -46,6 +46,7 @@ public class SimplyStatus {
     public static Config serverConfig = new Config("config/SimplyStatus/servers/default.json");
     public static Localization localization = new Localization("simplystatus.presence", "config/SimplyStatus/lang");
     public static HashMap<String, Assets> assets = new HashMap<>();
+    public static HashMap<String, Assets> modAssets = new HashMap<>();
     public static ArrayList<String> assetsNames = new ArrayList<>();
     // Another shit
     public static Minecraft MINECRAFT = Minecraft.getInstance();
