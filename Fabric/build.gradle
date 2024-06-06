@@ -31,6 +31,7 @@ shadowJar {
 }
 
 remapJar {
+    injectAccessWidener = false
 
     inputFile.set shadowJar.archiveFile
     dependsOn shadowJar

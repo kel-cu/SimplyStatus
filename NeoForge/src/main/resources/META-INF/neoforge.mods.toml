@@ -11,7 +11,7 @@ displayURL = "https://modrinth.com/mod/simplystatus"
 displayName = "SimplyStatus"
 updateJSONURL = "https://api.modrinth.com/updates/simplystatus/forge_updates.json"
 authors = "Kel Cuprum"
-credits = "Deflecta (Russian Localization), ImGRUI (Good ideas)"
+credits = "Deflecta (Russian Localization), ImGRUI (Good ideas, localizations)"
 description = "Simple, customizable Discord game status"
 logoFile = "assets/simplystatus/logo.png"
 

@@ -15,6 +15,7 @@ subprojects {
     loom {
         silentMojangMappingsLicense()
     }
+    configurations {shadowCommon}
     dependencies {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.layered() {
@@ -22,22 +23,16 @@ subprojects {
             parchment("org.parchmentmc.data:parchment-${rootProject.mc_parchment_version}:${rootProject.parchment_version}@zip")
         }
         // Discord Integration
-        include(implementation("com.kohlschutter.junixsocket:junixsocket-common:2.7.0"))
-        include(implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.7.0"))
-        include(implementation("com.jagrosh.discordipc:DiscordIPC:0.8.11"))
+        shadowCommon(implementation("com.kohlschutter.junixsocket:junixsocket-common:2.7.0"))
+        shadowCommon(implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.7.0"))
+        shadowCommon(implementation("com.jagrosh.discordipc:DiscordIPC:0.8.11"))
         // Mods libs
-        modImplementation "maven.modrinth:replaymod:${project.replaymod}"
-        modImplementation "maven.modrinth:plasmo-voice:${project.plasmovoice}"
-        modImplementation "maven.modrinth:simple-voice-chat:${project.svc}"
-        modImplementation "ru.kelcuprum.alinlib:AlinLib-common:${project.alinlib}"
-        modImplementation "ru.kelcuprum.waterplayer:WaterPlayer:${project.waterplayer}"
+        modApi "maven.modrinth:replaymod:${project.replaymod}"
+        modApi "maven.modrinth:plasmo-voice:${project.plasmovoice}"
+        modApi "maven.modrinth:simple-voice-chat:${project.svc}"
+        modApi "ru.kelcuprum.alinlib:AlinLib-common:${project.alinlib}"
+        modApi "ru.kelcuprum.waterplayer:WaterPlayer:${project.waterplayer}"
         implementation("meteordevelopment:starscript:0.2.2")
-
-        subprojects.each {
-            implementation project(path: ":${it.name}", configuration: 'namedElements')
-            implementation project(path: ":${it.name}", configuration: 'shade')
-            include project("${it.name}:")
-        }
     }
 
     machete {

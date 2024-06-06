@@ -3,17 +3,17 @@
   "id": "simplystatus",
   "version": "${version}",
   "name": "SimplyStatus",
-  "description": "Simple, customizable Discord game status",
+  "description": "Simple and customizable Discord game status",
   "authors": [
     "Kel Cuprum"
   ],
   "contributors": [
-    "Deflecta (Russian Localization)", "ImGRUI (Good ideas)"
+    "Deflecta (Russian Localization)", "ImGRUI (Good ideas, localizations)"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/simplystatus",
-    "sources": "https://github.com/simply-kel/SimplyStatus/",
-    "issues": "https://github.com/simply-kel/SimplyStatus/issues",
+    "sources": "https://github.com/kel-cu/SimplyStatus/",
+    "issues": "https://github.com/kel-cu/SimplyStatus/issues",
     "email": "me@kelcuprum.ru"
   },
   "license": "PolyForm Strict License 1.0.0",
@@ -30,7 +30,7 @@
   "mixins": [
   ],
   "depends": {
-    "fabricloader": ">=0.14.17",
+    "fabricloader": "*",
     "fabric": "*",
     "alinlib": "*",
     "minecraft": [">=1.20.2"]
@@ -44,7 +44,7 @@
     "modmenu": {
       "links": {
         "modmenu.modrinth": "https://modrinth.com/mod/simplystatus",
-        "modmenu.donate": "https://kelcuprum.ru/r/don"
+        "modmenu.donate": "https://kelcu.ru/don"
       }
     }
   }
