@@ -31,7 +31,7 @@ subprojects {
         modApi "maven.modrinth:plasmo-voice:${project.plasmovoice}"
         modApi "maven.modrinth:simple-voice-chat:${project.svc}"
         modApi "ru.kelcuprum.waterplayer:WaterPlayer:${project.waterplayer}"
-        implementation("meteordevelopment:starscript:0.2.2")
+        implementation("meteordevelopment:starscript:0.3.4")
     }
 
     machete {
