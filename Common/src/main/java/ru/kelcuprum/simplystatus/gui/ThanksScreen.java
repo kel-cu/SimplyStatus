@@ -7,7 +7,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import org.apache.logging.log4j.Level;
 import ru.kelcuprum.alinlib.AlinLib;
-import ru.kelcuprum.alinlib.gui.InterfaceUtils;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBooleanBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.MessageBox;
@@ -21,7 +20,6 @@ import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
 
 
 public class ThanksScreen {
-    private final InterfaceUtils.DesignType designType = InterfaceUtils.DesignType.FLAT;
     public Screen build(Screen parent){
         try {
             JsonArray data = getJsonArray("https://api.kelcuprum.ru/boosty/thanks");
@@ -29,7 +27,7 @@ public class ThanksScreen {
         } catch (Exception e){
             SimplyStatus.log(e.getLocalizedMessage(), Level.ERROR);
         }
-        ConfigScreenBuilder builder = new ConfigScreenBuilder(parent, Component.translatable("simplystatus.name"), designType)
+        ConfigScreenBuilder builder = new ConfigScreenBuilder(parent, Component.translatable("simplystatus.name"))
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.client"), (s) -> MINECRAFT.setScreen(new MainConfigs().build(parent))).build())
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.localization"), (s) -> MINECRAFT.setScreen(new LocalizationsConfigs().build(parent))).build())
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.server"), (s) -> MINECRAFT.setScreen(new ServerConfigs().build(parent))).build().setActive(MINECRAFT.getCurrentServer() != null))

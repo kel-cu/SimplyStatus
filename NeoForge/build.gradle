@@ -18,6 +18,7 @@ configurations {
 
 dependencies {
     neoForge "net.neoforged:neoforge:${rootProject.forge_version}"
+    modApi "ru.kelcuprum.alinlib:AlinLib-neoforge:${rootProject.alinlib_neo}"
 
     common(project(path: ":Common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":Common", configuration: "transformProductionNeoForge")) { transitive = false }

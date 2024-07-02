@@ -7,13 +7,11 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import ru.kelcuprum.alinlib.config.Localization;
-import ru.kelcuprum.alinlib.gui.InterfaceUtils;
+import ru.kelcuprum.alinlib.gui.Colors;
 import ru.kelcuprum.alinlib.gui.components.ConfigureScrolWidget;
+import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.selector.SelectorBuilder;
-import ru.kelcuprum.alinlib.gui.components.buttons.ButtonSprite;
-import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
-import ru.kelcuprum.alinlib.gui.components.editbox.base.EditBoxString;
 import ru.kelcuprum.alinlib.gui.components.text.CategoryBox;
 import ru.kelcuprum.alinlib.gui.components.text.DescriptionBox;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
@@ -24,7 +22,8 @@ import ru.kelcuprum.simplystatus.config.ModConfig;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ru.kelcuprum.alinlib.gui.InterfaceUtils.Icons.RESET;
+import static ru.kelcuprum.alinlib.gui.Icons.DONT;
+import static ru.kelcuprum.alinlib.gui.Icons.RESET;
 
 public class AssetsScreen extends Screen {
     private final Assets assets;
@@ -36,7 +35,6 @@ public class AssetsScreen extends Screen {
         this.assets = assets;
     }
 
-    private final InterfaceUtils.DesignType designType = InterfaceUtils.DesignType.FLAT;
     boolean isDeleted = false;
     boolean isSelected = false;
     @Override
@@ -52,11 +50,12 @@ public class AssetsScreen extends Screen {
         int size = 180;
         addRenderableWidget(new TextBox(x, 15, size, 9, title, true));
 
-        addRenderableWidget(new EditBoxString(x, 40, size, 20, false, assets.name, designType, Component.translatable("simplystatus.assets.title"), (s) -> {
+        addRenderableWidget(new EditBoxBuilder(Component.translatable("simplystatus.assets.title"), (s) -> {
             assets.setName(s); if(descriptionBox != null) descriptionBox.setDescription(Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.name)));
-        }));
+        }).setValue(assets.name).setPosition(x, 40).setSize(size, 20).build());
 
-        addRenderableWidget(new EditBoxString(x, 65, size, 20, false, assets.author, designType, Component.translatable("simplystatus.assets.author"), assets::setAuthor));
+        addRenderableWidget(new EditBoxBuilder(Component.translatable("simplystatus.assets.author"), assets::setAuthor)
+                .setValue(assets.author).setPosition(x, 65).setSize(size, 20).build());
         addRenderableWidget(new SelectorBuilder(Component.translatable("simplystatus.assets.base"), selectorButton -> {
             assets.setBaseAssets(Assets.getByName(selectorButton.getList()[selectorButton.getPosition()]).id);
             SimplyStatus.log(assets.getBaseAssets().name);
@@ -69,17 +68,17 @@ public class AssetsScreen extends Screen {
                 .build());
         descriptionBox = addRenderableWidget(new DescriptionBox(x, 115, size, height-150, Component.empty()).setDescription(Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.name))));
 //        addRenderableWidget(new TextBox(x, 90, size, 20, Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.id)), true));
-        addRenderableWidget(new Button(x, height - 30, size - 50, 20, designType, CommonComponents.GUI_BACK, (s) -> onClose()));
-        addRenderableWidget(new ButtonSprite(x + size - 45, height - 30, 20, 20, designType, InterfaceUtils.Icons.DONT, Localization.getText("simplystatus.assets.remove"), (OnPress) -> {
+        addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_BACK, (s) -> onClose()).setPosition(x, height - 30).setSize(size - 50, 20));
+        addRenderableWidget(new ButtonBuilder(Localization.getText("simplystatus.assets.remove"), (OnPress) -> {
             isDeleted = true;
             if(isSelected) SimplyStatus.userConfig.setString("USE_ASSETS", ModConfig.defaultAssets.id);
             assets.delete();
             onClose();
-        }));
-        addRenderableWidget(new ButtonSprite(x + size - 20, height - 30, 20, 20, designType, RESET, Localization.getText("simplystatus.assets.reload"), (OnPress) -> {
+        }).setIcon(DONT).setPosition(x+size-45, height-30).setSize(20,20).build());
+        addRenderableWidget(new ButtonBuilder(Localization.getText("simplystatus.assets.reload"), (OnPress) -> {
             assets.save();
             rebuildWidgets();
-        }));
+        }).setIcon(RESET).setPosition(x+size-20, height-30).setSize(20,20).build());
     }
 
     private ConfigureScrolWidget scroller;
@@ -157,7 +156,7 @@ public class AssetsScreen extends Screen {
     @Override
     public void renderBackground(GuiGraphics guiGraphics, int i, int j, float f) {
         super.renderBackground(guiGraphics, i, j, f);
-        InterfaceUtils.renderLeftPanel(guiGraphics, 190, height);
+        guiGraphics.fill(0, 0, 190, height, Colors.BLACK_ALPHA);
     }
 
     @Override

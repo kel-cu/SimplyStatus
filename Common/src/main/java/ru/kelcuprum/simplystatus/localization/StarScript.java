@@ -15,7 +15,7 @@ import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.Level;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.info.Player;
+import ru.kelcuprum.simplystatus.info.SimplyPlayer;
 import ru.kelcuprum.simplystatus.info.World;
 import ru.kelcuprum.simplystatus.mods.WaterPlayerSupport;
 import ru.kelcuprum.simplystatus.mods.ReplayMod;
@@ -53,23 +53,23 @@ public class StarScript {
         );
         // Player
         ss.set("player", new ValueMap()
-                .set("ping", () -> Value.number(Player.getPing()))
-                .set("name", () -> Value.string(Player.getName()))
-                .set("health", () -> Value.string(MINECRAFT.player != null ? Player.getHealth() : ""))
-                .set("health_max", () -> Value.string(MINECRAFT.player != null ? Player.getMaxHealth() : ""))
-                .set("health_percent", () -> Value.string(MINECRAFT.player != null ? Player.getPercentHealth() : ""))
-                .set("armor", () -> Value.string(MINECRAFT.player != null ? Player.getArmor() : ""))
-                .set("direction", () -> Value.string(MINECRAFT.player != null ? Player.getDirection(false) : ""))
-                .set("direction_symbol", () -> Value.string(MINECRAFT.player != null ? Player.getDirection(true) : ""))
+                .set("ping", () -> Value.number(SimplyPlayer.getPing()))
+                .set("name", () -> Value.string(SimplyPlayer.getName()))
+                .set("health", () -> Value.string(MINECRAFT.player != null ? SimplyPlayer.getHealth() : ""))
+                .set("health_max", () -> Value.string(MINECRAFT.player != null ? SimplyPlayer.getMaxHealth() : ""))
+                .set("health_percent", () -> Value.string(MINECRAFT.player != null ? SimplyPlayer.getPercentHealth() : ""))
+                .set("armor", () -> Value.string(MINECRAFT.player != null ? SimplyPlayer.getArmor() : ""))
+                .set("direction", () -> Value.string(MINECRAFT.player != null ? SimplyPlayer.getDirection(false) : ""))
+                .set("direction_symbol", () -> Value.string(MINECRAFT.player != null ? SimplyPlayer.getDirection(true) : ""))
                 .set("hunger", () -> Value.number(MINECRAFT.player != null ? MINECRAFT.player.getFoodData().getFoodLevel() : 0))
                 .set("pos", new ValueMap()
-                        .set("x", () -> Value.string(Player.getX()))
-                        .set("y", () -> Value.string(Player.getY()))
-                        .set("z", () -> Value.string(Player.getZ()))
+                        .set("x", () -> Value.string(SimplyPlayer.getX()))
+                        .set("y", () -> Value.string(SimplyPlayer.getY()))
+                        .set("z", () -> Value.string(SimplyPlayer.getZ()))
                 )
 
-                .set("item", () -> Value.string(MINECRAFT.player != null ? Player.getItemName() : ""))
-                .set("item_count", () -> Value.number(MINECRAFT.player != null ? Player.getItemCount() : 0))
+                .set("item", () -> Value.string(MINECRAFT.player != null ? SimplyPlayer.getItemName() : ""))
+                .set("item_count", () -> Value.number(MINECRAFT.player != null ? SimplyPlayer.getItemCount() : 0))
 
                 .set("xp", new ValueMap()
                         .set("level", () -> Value.number(MINECRAFT.player != null ? MINECRAFT.player.experienceLevel : 0))

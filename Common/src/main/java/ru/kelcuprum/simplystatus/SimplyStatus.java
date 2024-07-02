@@ -17,7 +17,7 @@ import ru.kelcuprum.alinlib.config.Localization;
 import ru.kelcuprum.simplystatus.config.Assets;
 import ru.kelcuprum.simplystatus.config.ModConfig;
 import ru.kelcuprum.simplystatus.info.Client;
-import ru.kelcuprum.simplystatus.info.Player;
+import ru.kelcuprum.simplystatus.info.SimplyPlayer;
 import ru.kelcuprum.simplystatus.localization.StarScript;
 import ru.kelcuprum.simplystatus.mods.WaterPlayerSupport;
 import ru.kelcuprum.simplystatus.mods.Voice;
@@ -256,7 +256,7 @@ public class SimplyStatus {
         } else if (isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))) {
             presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Objects.requireNonNull(MINECRAFT.getCurrentServer()).ip), localization.getParsedText("{player.scene}"));
         } else if (userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
-            presence.setSmallImage(Player.getURLAvatar(), Player.getName());
+            presence.setSmallImage(SimplyPlayer.getURLAvatar(), SimplyPlayer.getName());
         }
 
         if(SimplyStatus.userConfig.getBoolean("BUTTON.ENABLE", false)){

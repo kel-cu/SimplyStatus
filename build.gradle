@@ -30,7 +30,6 @@ subprojects {
         modApi "maven.modrinth:replaymod:${project.replaymod}"
         modApi "maven.modrinth:plasmo-voice:${project.plasmovoice}"
         modApi "maven.modrinth:simple-voice-chat:${project.svc}"
-        modApi "ru.kelcuprum.alinlib:AlinLib-common:${project.alinlib}"
         modApi "ru.kelcuprum.waterplayer:WaterPlayer:${project.waterplayer}"
         implementation("meteordevelopment:starscript:0.2.2")
     }

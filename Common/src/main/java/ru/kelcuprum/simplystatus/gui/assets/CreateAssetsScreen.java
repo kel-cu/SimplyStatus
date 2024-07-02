@@ -6,9 +6,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.Level;
 import ru.kelcuprum.alinlib.AlinLib;
-import ru.kelcuprum.alinlib.gui.InterfaceUtils;
-import ru.kelcuprum.alinlib.gui.components.buttons.base.Button;
-import ru.kelcuprum.alinlib.gui.components.editbox.base.EditBoxString;
+import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.toast.ToastBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
@@ -34,9 +33,11 @@ public class CreateAssetsScreen extends Screen {
         int y = height/2;
 
         addRenderableWidget(new TextBox(x-150, 20, 300, 20, title, true));
-        addRenderableWidget(new EditBoxString(x-150, y-10, 300, 20, false, "", InterfaceUtils.DesignType.FLAT, Component.translatable("simplystatus.assets.create.filename"), (s) -> fileName = s));
-        addRenderableWidget(new Button(x-150, y+15, 145, 20, InterfaceUtils.DesignType.FLAT, CommonComponents.GUI_CANCEL, (S) -> onClose()));
-        addRenderableWidget(new Button(x+5, y+15, 145, 20, InterfaceUtils.DesignType.FLAT, CommonComponents.GUI_CONTINUE, (s) -> {
+        addRenderableWidget(new EditBoxBuilder(Component.translatable("simplystatus.assets.create.filename"), (s) -> fileName = s)
+                .setPosition(x-150, y-10).setSize(300, 20).build());
+        addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_CANCEL, (S) -> onClose())
+                .setPosition(x-150, y+15).setSize(145, 20).build());
+        addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_CONTINUE, (s) -> {
             if(fileName == null || fileName.equals("null") || fileName.isBlank()){
                 new ToastBuilder().setIcon(Items.CRAFTING_TABLE).setTitle(Component.translatable("simplystatus.name")).setMessage(Component.translatable("simplystatus.assets.create.invalid_name")).buildAndShow(AlinLib.MINECRAFT.getToasts());
                 return;
@@ -60,7 +61,7 @@ public class CreateAssetsScreen extends Screen {
             assets.setDefaultAssets(ModConfig.defaultAssets);
             Assets.registerAsset(assets);
             this.minecraft.setScreen(new AssetsScreen(parent, assets));
-        }));
+        }).setPosition(x-5, y+15).setSize(145, 20).build());
     }
 
     public void onClose() {
