@@ -31,7 +31,8 @@ public class MainConfigs {
         if (AlinLib.bariumConfig.getBoolean("FRIEND", true))
             builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
 
-        builder.addWidget(new TextBox(Component.translatable("simplystatus.config.client"), true));
+        builder.addWidget(new TextBox(Component.translatable("simplystatus.config.client"), true))
+                .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.show_rpc"), true).setConfig(SimplyStatus.userConfig, "SHOW_RPC"));
         if (!ModConfig.mineID.isBlank())
             builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.use_minecraft_id"), false).setConfig(SimplyStatus.userConfig, "USE_ANOTHER_ID").build())
                     .addWidget(new ButtonBuilder(Component.translatable("simplystatus.config.reconnect"), (s) -> SimplyStatus.reconnectApp()).build());

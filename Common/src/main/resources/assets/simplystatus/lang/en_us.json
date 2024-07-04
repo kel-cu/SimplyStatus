@@ -15,7 +15,7 @@
   "simplystatus.assets.reload": "Reload",
 
   "simplystatus.config.client": "Client",
-  "simplystatus.config.client.enable_rpc": "Enable RPC",
+  "simplystatus.config.client.show_rpc": "Show RPC",
   "simplystatus.config.client.use_minecraft_id": "Change Title to Minecraft",
   "simplystatus.config.reconnect": "Reconnect Application",
   "simplystatus.config.client.assets": "Assets",

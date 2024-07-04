@@ -15,7 +15,7 @@
   "simplystatus.assets.reload": "Перезагрузить",
 
   "simplystatus.config.client": "Клиент",
-  "simplystatus.config.client.enable_rpc": "Включён RPC",
+  "simplystatus.config.client.show_rpc": "Показывать RPC",
   "simplystatus.config.client.use_minecraft_id": "Изменить название на Minecraft",
   "simplystatus.config.reconnect": "Переподключить приложение",
   "simplystatus.config.client.assets": "Набор иконок",

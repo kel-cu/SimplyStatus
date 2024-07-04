@@ -109,17 +109,19 @@ public class SimplyStatus {
         StarScript.init();
         registerApplications();
     }
+
     // -=-=-=-=-=-=-=-=-
-    public static void startClient(){
+    public static void startClient() {
         log(String.format("Client %s is up and running!", MINECRAFT.getLaunchedVersion()));
         try {
             JsonArray data = getJsonArray("https://api.kelcuprum.ru/boosty/thanks");
             thanks = ModConfig.jsonArrayToStringArray(data);
-        } catch (Exception e){
+        } catch (Exception e) {
             log(e.getLocalizedMessage(), Level.ERROR);
         }
     }
-    public static void stopClient(){
+
+    public static void stopClient() {
         log("Client stopped");
         client.close();
     }
@@ -193,6 +195,23 @@ public class SimplyStatus {
             @Override
             public void run() {
                 try {
+                    if (userConfig.getBoolean("SHOW_RPC", true)) {
+                        if (!lastShowStatus) {
+                            try {
+                                reconnectApp();
+                                lastShowStatus = true;
+                            } catch (Exception ex) {
+                                log(ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage());
+                                return;
+                            }
+                        }
+                    } else {
+                        if (lastShowStatus) {
+                            client.close();
+                            lastShowStatus = false;
+                            lastPresence = null;
+                        }
+                    }
                     if (CONNECTED_DISCORD) updatePresence();
                     if (lastException != null) lastException = null;
                 } catch (Exception ex) {
@@ -210,12 +229,11 @@ public class SimplyStatus {
         }, 500, 500);
     }
 
+    protected static boolean lastShowStatus = userConfig.getBoolean("SHOW_RPC", true);
+
     private static void updatePresence() {
-//        ASSETS = new AssetsConfig();
-//        if (userConfig.getBoolean("USE_CUSTOM_APP_ID", false)) ASSETS = ModConfig.defaultUrlsAssets;
-//        if (userConfig.getBoolean("USE_CUSTOM_ASSETS", false)) ASSETS.loadUserAssets();
         Minecraft CLIENT = Minecraft.getInstance();
-        if (userConfig.getBoolean("ENABLE_RPC", true)) {
+        if (userConfig.getBoolean("SHOW_RPC", true)) {
             if (CLIENT.level == null || CLIENT.player == null) {
                 switch (Client.getState()) {
                     case 1 -> new LoadingGame();
@@ -230,9 +248,7 @@ public class SimplyStatus {
                 else if (SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
                 else new Unknown();
             }
-        } else {
-            updateDiscordPresence(null);
-        }
+        } else updateDiscordPresence(null);
     }
 
     public static void updateContentPresenceByConfigs(RichPresence.Builder presence) {
@@ -242,6 +258,7 @@ public class SimplyStatus {
     public static void updateContentPresenceByConfigs(RichPresence.Builder presence, boolean isServer) {
         updateContentPresenceByConfigs(presence, isServer, false);
     }
+
     public static void updateContentPresenceByConfigs(RichPresence.Builder presence, boolean isServer, boolean isMenu) {
 
         if (SimplyStatus.userConfig.getBoolean("SHOW_GAME_TIME", true))
@@ -259,9 +276,9 @@ public class SimplyStatus {
             presence.setSmallImage(SimplyPlayer.getURLAvatar(), SimplyPlayer.getName());
         }
 
-        if(SimplyStatus.userConfig.getBoolean("BUTTON.ENABLE", false)){
+        if (SimplyStatus.userConfig.getBoolean("BUTTON.ENABLE", false)) {
             JsonArray buttons = new JsonArray();
-            if(!SimplyStatus.userConfig.getString("BUTTON.LABEL", "").isBlank() && !SimplyStatus.userConfig.getString("BUTTON.URL", "").isBlank()){
+            if (!SimplyStatus.userConfig.getString("BUTTON.LABEL", "").isBlank() && !SimplyStatus.userConfig.getString("BUTTON.URL", "").isBlank()) {
                 JsonObject button = new JsonObject();
                 button.addProperty("label", SimplyStatus.userConfig.getString("BUTTON.LABEL", ""));
                 button.addProperty("url", SimplyStatus.userConfig.getString("BUTTON.URL", ""));
@@ -276,53 +293,40 @@ public class SimplyStatus {
         if (presence == null && ModConfig.debugPresence) LOG.info("Presence is null!");
         if (lastPresence == null || !lastPresence.equals(presence)) {
             lastPresence = presence;
-            if (CONNECTED_DISCORD) client.sendRichPresence(presence);
+            try {
+                if (CONNECTED_DISCORD) client.sendRichPresence(presence);
+            } catch (Exception ex) {
+                log(ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), Level.ERROR);
+            }
             if (ModConfig.debugPresence) LOG.info("Update presence");
         }
     }
 
     public static void reconnectApp() {
+        if (SimplyStatus.CONNECTED_DISCORD) SimplyStatus.client.close();
         if (SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false) && !SimplyStatus.customID.equals(SimplyStatus.userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID))) {
             SimplyStatus.useCustomID = true;
-            String APPLICATION_ID = SimplyStatus.userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
+            APPLICATION_ID = SimplyStatus.userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
             if (APPLICATION_ID.isBlank()) {
                 APPLICATION_ID = ModConfig.baseID;
                 SimplyStatus.userConfig.setString("CUSTOM_APP_ID", APPLICATION_ID);
             }
             if (!SimplyStatus.customID.equals(APPLICATION_ID)) {
                 SimplyStatus.customID = APPLICATION_ID;
-                SimplyStatus.client.close();
-                SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
-                SimplyStatus.setupListener();
-                try {
-                    SimplyStatus.client.connect();
-                } catch (Exception ex) {
-                    log(ex.getLocalizedMessage(), Level.ERROR);
-                }
-                SimplyStatus.lastPresence = null;
             }
         } else if ((SimplyStatus.useAnotherID != SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false)) || (SimplyStatus.useCustomID != SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false))) {
             SimplyStatus.useAnotherID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false);
             SimplyStatus.useCustomID = SimplyStatus.userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
             SimplyStatus.customID = "";
-            String APPLICATION_ID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
-            SimplyStatus.client.close();
-            SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
-            SimplyStatus.setupListener();
-            try {
-                SimplyStatus.client.connect();
-            } catch (Exception ex) {
-                log(ex.getLocalizedMessage(), Level.ERROR);
-            }
-            SimplyStatus.lastPresence = null;
-        } else if(!SimplyStatus.CONNECTED_DISCORD){
-            SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
-            SimplyStatus.setupListener();
-            try {
-                SimplyStatus.client.connect();
-            } catch (Exception ex) {
-                log(ex.getLocalizedMessage(), Level.ERROR);
-            }
+            APPLICATION_ID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
+        }
+        SimplyStatus.lastPresence = null;
+        SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
+        SimplyStatus.setupListener();
+        try {
+            SimplyStatus.client.connect();
+        } catch (Exception ex) {
+            log(ex.getLocalizedMessage(), Level.ERROR);
         }
     }
 }
