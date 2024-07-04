@@ -32,7 +32,7 @@ public class ModConfig {
      * Использование default конфигов мода, чтобы не указывать в коде и не искать потом их везде
      * + Облеглчение работы ребят которые делают кастомы
      */
-    public ModConfig() throws Exception {
+    public static void load() throws Exception {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         InputStream stream = loader.getResourceAsStream("simplystatus.config.json");
         if (stream == null) throw new RuntimeException("stream is null!");

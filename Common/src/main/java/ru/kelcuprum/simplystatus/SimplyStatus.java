@@ -87,14 +87,13 @@ public class SimplyStatus {
     public static User USER;
     public static String APPLICATION_ID;
     public static boolean CONNECTED_DISCORD = false;
-    public static ModConfig modConfig;
 
     public static void onInitializeClient() {
         userConfig.load();
         serverConfig.load();
         localization.setParser((s) -> StarScript.run(StarScript.compile(s)));
         try {
-            modConfig = new ModConfig();
+            ModConfig.load();
         } catch (Exception e) {
             log("The default configuration of the mod was not loaded, no launch possible!", Level.ERROR);
             log(e.getLocalizedMessage(), Level.ERROR);
@@ -211,7 +210,6 @@ public class SimplyStatus {
                         if (lastShowStatus) {
                             client.close();
                             lastShowStatus = false;
-                            lastPresence = null;
                         }
                     }
                     if (CONNECTED_DISCORD) updatePresence();
@@ -291,18 +289,25 @@ public class SimplyStatus {
         }
     }
 
-    public static void updateDiscordPresence(RichPresence presence) {
-        if (presence == null && ModConfig.debugPresence) LOG.info("Presence is null!");
-        if (lastPresence == null || !lastPresence.equals(presence)) {
-            lastPresence = presence;
+    public static void updateDiscordPresence(RichPresence builder) {
+        if (builder == null && ModConfig.debugPresence) LOG.info("Presence is null!");
+        if (lastPresence == null || !lastPresence.toJson().toString().equalsIgnoreCase(builder.toJson().toString())) {
+            if (ModConfig.debugPresence) {
+                if (lastPresence != null) log(lastPresence.toJson().toString());
+                log(builder.toJson().toString());
+            }
+            lastPresence = builder;
             try {
-                if (CONNECTED_DISCORD) client.sendRichPresence(presence);
+                if (CONNECTED_DISCORD) client.sendRichPresence(builder);
             } catch (Exception ex) {
                 log(ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), Level.ERROR);
             }
             if (ModConfig.debugPresence) LOG.info("Update presence");
         }
     }
+//    public static boolean isRepeat(RichPresence presence){
+//        boolean i = false;
+//    }
 
     public static void reconnectApp() {
         if (SimplyStatus.CONNECTED_DISCORD) SimplyStatus.client.close();

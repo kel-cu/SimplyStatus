@@ -7,6 +7,7 @@ import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.selector.SelectorBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import ru.kelcuprum.alinlib.gui.components.editbox.EditBox;
 import ru.kelcuprum.alinlib.gui.components.text.CategoryBox;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
@@ -40,6 +41,10 @@ public class MainConfigs {
                 .setList(Assets.getAssetsNames())
                 .setValue(Assets.getPositionOnAssetsNames(Assets.getSelected().name))
                 .build());
+        EditBox title = new EditBoxBuilder(Component.translatable("simplystatus.config.client.button.label")).setValue("").setConfig(SimplyStatus.userConfig, "BUTTON.LABEL").build();
+        title.setMaxLength(64);
+        EditBox url = new EditBoxBuilder(Component.translatable("simplystatus.config.client.button.url")).setValue("").setConfig(SimplyStatus.userConfig, "BUTTON.URL").build();
+        url.setMaxLength(64);
         builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.api")).setList(SimplyStatus.apiNames).setValue(0).setConfig(SimplyStatus.userConfig, "USE_API_RENDER").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.show_game_started"), true).setConfig(SimplyStatus.userConfig, "SHOW_GAME_TIME").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.singleplayer.world_name"), false).setConfig(SimplyStatus.userConfig, "SINGLEPLAYER.WORLD_NAME").build())
@@ -49,8 +54,8 @@ public class MainConfigs {
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.view_player_name"), true).setConfig(SimplyStatus.userConfig, "VIEW_PLAYER_NAME").build())
                 .addWidget(new CategoryBox(Component.translatable("simplystatus.config.client.button"))
                         .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.button.enable"), false).setConfig(SimplyStatus.userConfig, "BUTTON.ENABLE").build())
-                        .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.client.button.label")).setValue("").setConfig(SimplyStatus.userConfig, "BUTTON.LABEL").build())
-                        .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.client.button.url")).setValue("").setConfig(SimplyStatus.userConfig, "BUTTON.URL").build()));
+                        .addValue(title)
+                        .addValue(url));
         return builder.build();
     }
 }
