@@ -132,12 +132,14 @@ public class SimplyStatus {
         if (userConfig.getBoolean("USE_CUSTOM_APP_ID", false) && !userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID).isBlank())
             APPLICATION_ID = userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
         customID = APPLICATION_ID;
-        client = new IPCClient(Long.parseLong(APPLICATION_ID));
-        setupListener();
-        try {
-            client.connect();
-        } catch (Exception ex) {
-            log(ex.getLocalizedMessage(), Level.ERROR);
+        if(userConfig.getBoolean("SHOW_RPC", true)) {
+            client = new IPCClient(Long.parseLong(APPLICATION_ID));
+            setupListener();
+            try {
+                client.connect();
+            } catch (Exception ex) {
+                log(ex.getLocalizedMessage(), Level.ERROR);
+            }
         }
         start();
     }
@@ -320,6 +322,7 @@ public class SimplyStatus {
             SimplyStatus.customID = "";
             APPLICATION_ID = SimplyStatus.userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
         }
+        if(!SimplyStatus.userConfig.getBoolean("SHOW_RPC", true)) return;
         SimplyStatus.lastPresence = null;
         SimplyStatus.client = new IPCClient(Long.parseLong(APPLICATION_ID));
         SimplyStatus.setupListener();
