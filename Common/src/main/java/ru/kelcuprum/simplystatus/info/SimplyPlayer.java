@@ -4,7 +4,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
-import ru.kelcuprum.alinlib.config.parser.info.Player;
+import ru.kelcuprum.alinlib.info.Player;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.mods.Voice;
 
@@ -18,7 +18,7 @@ public class SimplyPlayer {
         else return SimplyStatus.USER.getNickname();
     }
     public static String getURLAvatar(){
-        if(Player.getProfileType().equalsIgnoreCase("msa") || Player.getProfileType().equalsIgnoreCase("mojang")){
+        if(Player.isLicenseAccount()){
             switch (SimplyStatus.userConfig.getNumber("USE_API_RENDER", 0).intValue()){
                 case 1 -> {
                     return "https://api.kelcuprum.ru/skin/render/avatar?name="+MINECRAFT.getUser().getName()+"&api=0&sendfile=true";
