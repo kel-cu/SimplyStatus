@@ -40,9 +40,7 @@ public class ThanksScreen {
         builder.addWidget(new TextBox(Component.translatable("simplystatus.support"), true));
         builder.addWidget(new MessageBox(Component.translatable("simplystatus.support.url"), false, (s) -> Util.getPlatform().openUri("https://kelcuprum.ru/r/boo")));
         builder.addWidget(new MessageBox(Component.translatable("simplystatus.support.special_thanks")));
-        for(String pwgood3 : SimplyStatus.thanks){
-            builder.addWidget(new TextBox(Component.literal("- "+pwgood3).setStyle(Style.EMPTY.withBold(true)), false));
-        }
+        for(String pwgood3 : SimplyStatus.thanks) builder.addWidget(new TextBox(Component.literal("- "+pwgood3).setStyle(Style.EMPTY.withBold(true)), false));
         builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.support.friend"),true).setConfig(AlinLib.bariumConfig, "FRIENDS").build()
                         .setDescription(Component.translatable("simplystatus.support.friend.description")));
         return builder.build();
