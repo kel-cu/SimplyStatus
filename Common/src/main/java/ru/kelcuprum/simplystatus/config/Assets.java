@@ -3,6 +3,7 @@ package ru.kelcuprum.simplystatus.config;
 import com.google.gson.JsonObject;
 import net.minecraft.util.GsonHelper;
 import org.apache.logging.log4j.Level;
+import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.info.Player;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 
@@ -222,7 +223,7 @@ public class Assets {
         return getByID(id);
     }
     public static void loadFiles(){
-        File assets = SimplyStatus.MINECRAFT.gameDirectory.toPath().resolve("config/SimplyStatus/assets").toFile();
+        File assets = AlinLib.MINECRAFT.gameDirectory.toPath().resolve("config/SimplyStatus/assets").toFile();
         if(assets.exists() && assets.isDirectory()){
             for(File assetsFile : Objects.requireNonNull(assets.listFiles())){
                 if(assetsFile.isFile() && assetsFile.getName().endsWith(".json")){

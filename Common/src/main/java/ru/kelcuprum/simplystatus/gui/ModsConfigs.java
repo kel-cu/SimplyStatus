@@ -12,7 +12,7 @@ import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.ModConfig;
 
-import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
+import static ru.kelcuprum.alinlib.AlinLib.MINECRAFT;
 
 public class ModsConfigs {
     public Screen build(Screen parent){

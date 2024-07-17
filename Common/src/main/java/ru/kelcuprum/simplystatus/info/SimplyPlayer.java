@@ -4,33 +4,32 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ItemStack;
+import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.info.Player;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.mods.Voice;
-
-import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
 
 public class SimplyPlayer {
     static boolean lastMessageDeath = false;
     static String lastTextDeath = "";
     public static String getName(){
-        if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED_DISCORD) return MINECRAFT.getUser().getName();
+        if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED_DISCORD) return AlinLib.MINECRAFT.getUser().getName();
         else return SimplyStatus.USER.getNickname();
     }
     public static String getURLAvatar(){
         if(Player.isLicenseAccount()){
             switch (SimplyStatus.userConfig.getNumber("USE_API_RENDER", 0).intValue()){
                 case 1 -> {
-                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+MINECRAFT.getUser().getName()+"&api=0&sendfile=true";
+                    return "https://api.kelcuprum.ru/skin/render/avatar?name="+AlinLib.MINECRAFT.getUser().getName()+"&api=0&sendfile=true";
                 }
                 case 2 -> {
-                    return "https://api.kelcuprum.ru/skin/render?name="+MINECRAFT.getUser().getName()+"&api=0&head=true&sendfile=true";
+                    return "https://api.kelcuprum.ru/skin/render?name="+AlinLib.MINECRAFT.getUser().getName()+"&api=0&head=true&sendfile=true";
                 }
                 case 3 -> {
                     return SimplyStatus.USER.getAvatarUrl();
                 }
                 default -> {
-                    return "https://crafthead.net/helm/"+MINECRAFT.getUser().getProfileId()+"/512";
+                    return "https://crafthead.net/helm/"+AlinLib.MINECRAFT.getUser().getProfileId()+"/512";
                 }
             }
         } else {
@@ -39,8 +38,8 @@ public class SimplyPlayer {
         }
     }
     public static String getState(){
-        if(MINECRAFT.player == null) return "";
-        if(MINECRAFT.player.isDeadOrDying()){
+        if(AlinLib.MINECRAFT.player == null) return "";
+        if(AlinLib.MINECRAFT.player.isDeadOrDying()){
             double randomNumber = Math.floor(Math.random() * 2);
             if(!lastMessageDeath){
                 String message;
@@ -56,11 +55,11 @@ public class SimplyPlayer {
         } else if(!SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true) || (getItemName().isBlank() && SimplyStatus.userConfig.getBoolean("SHOW_ITEMS", true))){
             if(lastMessageDeath) lastMessageDeath = false;
             if(SimplyStatus.userConfig.getBoolean("VIEW_STATISTICS", true)){
-                if(MINECRAFT.player.isSleeping()) return SimplyStatus.localization.getLocalization("player.sleep", true);
-                else if(MINECRAFT.player.isCrouching()) return SimplyStatus.localization.getLocalization("player.sneak", true);
-                else if(MINECRAFT.player.isOnFire()) return SimplyStatus.localization.getLocalization("player.on.fire", true);
-                else if(MINECRAFT.player.isInLava()) return SimplyStatus.localization.getLocalization("player.on.lava", true);
-                else if(MINECRAFT.player.isUnderWater()) return SimplyStatus.localization.getLocalization("player.on.water", true);
+                if(AlinLib.MINECRAFT.player.isSleeping()) return SimplyStatus.localization.getLocalization("player.sleep", true);
+                else if(AlinLib.MINECRAFT.player.isCrouching()) return SimplyStatus.localization.getLocalization("player.sneak", true);
+                else if(AlinLib.MINECRAFT.player.isOnFire()) return SimplyStatus.localization.getLocalization("player.on.fire", true);
+                else if(AlinLib.MINECRAFT.player.isInLava()) return SimplyStatus.localization.getLocalization("player.on.lava", true);
+                else if(AlinLib.MINECRAFT.player.isUnderWater()) return SimplyStatus.localization.getLocalization("player.on.water", true);
                 else if(SimplyStatus.isVoiceModsEnable && SimplyStatus.userConfig.getBoolean("VIEW_VOICE_SPEAK", false)) {
                     Voice mod = new Voice();
                     if(mod.isSpeak){
@@ -79,52 +78,52 @@ public class SimplyPlayer {
         }
     }
     public static String getItemName(){
-        if(MINECRAFT.player == null) return "";
-        ItemStack main_hand = MINECRAFT.player.getItemInHand(InteractionHand.MAIN_HAND);
-        ItemStack off_hand = MINECRAFT.player.getItemInHand(InteractionHand.OFF_HAND);
+        if(AlinLib.MINECRAFT.player == null) return "";
+        ItemStack main_hand = AlinLib.MINECRAFT.player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack off_hand = AlinLib.MINECRAFT.player.getItemInHand(InteractionHand.OFF_HAND);
         if(!main_hand.isEmpty()) return main_hand.getHoverName().getString();
         else if(!off_hand.isEmpty() && SimplyStatus.userConfig.getBoolean("VIEW_ITEM_OFF_HAND", false)) return off_hand.getHoverName().getString();
         else return "";
     }
     public static int getItemCount(){
-        if(MINECRAFT.player == null) return 0;
-        ItemStack main_hand = MINECRAFT.player.getItemInHand(InteractionHand.MAIN_HAND);
-        ItemStack off_hand = MINECRAFT.player.getItemInHand(InteractionHand.OFF_HAND);
+        if(AlinLib.MINECRAFT.player == null) return 0;
+        ItemStack main_hand = AlinLib.MINECRAFT.player.getItemInHand(InteractionHand.MAIN_HAND);
+        ItemStack off_hand = AlinLib.MINECRAFT.player.getItemInHand(InteractionHand.OFF_HAND);
         if(!main_hand.isEmpty()) return main_hand.getCount();
         else if(!off_hand.isEmpty() && SimplyStatus.userConfig.getBoolean("VIEW_ITEM_OFF_HAND", false)) return off_hand.getCount();
         else return 0;
     }
     public static String getHealth(){
-        if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format(MINECRAFT.player.getHealth()/2);
+        if(AlinLib.MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(AlinLib.MINECRAFT.player.getHealth()/2);
     }
     public static String getMaxHealth(){
-        if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format(MINECRAFT.player.getAttributeValue(Attributes.MAX_HEALTH)/2);
+        if(AlinLib.MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(AlinLib.MINECRAFT.player.getAttributeValue(Attributes.MAX_HEALTH)/2);
     }
     public static String getPercentHealth(){
-        if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format((MINECRAFT.player.getHealth()*100)/MINECRAFT.player.getAttributeValue(Attributes.MAX_HEALTH));
+        if(AlinLib.MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format((AlinLib.MINECRAFT.player.getHealth()*100)/AlinLib.MINECRAFT.player.getAttributeValue(Attributes.MAX_HEALTH));
     }
     public static String getArmor(){
-        if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format(MINECRAFT.player.getArmorValue()/2);
+        if(AlinLib.MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(AlinLib.MINECRAFT.player.getArmorValue()/2);
     }
     public static String getX(){
-        if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format(MINECRAFT.player.position().x);
+        if(AlinLib.MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(AlinLib.MINECRAFT.player.position().x);
     }
     public static String getY(){
-        if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format(MINECRAFT.player.position().y);
+        if(AlinLib.MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(AlinLib.MINECRAFT.player.position().y);
     }
     public static String getZ(){
-        if(MINECRAFT.player == null) return "";
-        return SimplyStatus.DF.format(MINECRAFT.player.position().z);
+        if(AlinLib.MINECRAFT.player == null) return "";
+        return SimplyStatus.DF.format(AlinLib.MINECRAFT.player.position().z);
     }
     public static String getDirection(boolean oneSymbol){
-        if(MINECRAFT.player == null) return "";
-        Direction direction = MINECRAFT.player.getDirection();
+        if(AlinLib.MINECRAFT.player == null) return "";
+        Direction direction = AlinLib.MINECRAFT.player.getDirection();
         return switch (direction) {
             case NORTH -> oneSymbol ? "N" : SimplyStatus.localization.getLocalization("north", false);
             case SOUTH -> oneSymbol ? "S" : SimplyStatus.localization.getLocalization("south", false);
@@ -134,7 +133,7 @@ public class SimplyPlayer {
         };
     }
     public static long getPing() {
-        if (MINECRAFT.getCurrentServer() == null) return 0;
-        return MINECRAFT.getCurrentServer().ping;
+        if (AlinLib.MINECRAFT.getCurrentServer() == null) return 0;
+        return AlinLib.MINECRAFT.getCurrentServer().ping;
     }
 }

@@ -7,10 +7,10 @@ import com.jagrosh.discordipc.IPCListener;
 import com.jagrosh.discordipc.entities.Packet;
 import com.jagrosh.discordipc.entities.RichPresence;
 import com.jagrosh.discordipc.entities.User;
-import net.minecraft.client.Minecraft;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.api.events.client.ClientLifecycleEvents;
 import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.alinlib.config.Localization;
@@ -49,7 +49,6 @@ public class SimplyStatus {
     public static HashMap<String, Assets> modAssets = new HashMap<>();
     public static ArrayList<String> assetsNames = new ArrayList<>();
     // Another shit
-    public static Minecraft MINECRAFT = Minecraft.getInstance();
     public static double isPEnable = Math.random();
     public static String[] apiNames = {
             "CraftHead",
@@ -88,6 +87,8 @@ public class SimplyStatus {
     public static String APPLICATION_ID;
     public static boolean CONNECTED_DISCORD = false;
 
+    public static boolean GAME_STARTED = false;
+
     public static void onInitializeClient() {
         userConfig.load();
         serverConfig.load();
@@ -104,6 +105,7 @@ public class SimplyStatus {
         useCustomID = userConfig.getBoolean("USE_CUSTOM_APP_ID", false);
         TIME_STARTED_CLIENT = System.currentTimeMillis() / 1000;
         ClientLifecycleEvents.CLIENT_STARTED.register(client -> SimplyStatus.startClient());
+        ClientLifecycleEvents.CLIENT_FULL_STARTED.register(client -> SimplyStatus.GAME_STARTED = true);
         ClientLifecycleEvents.CLIENT_STOPPING.register(client1 -> SimplyStatus.stopClient());
         StarScript.init();
         registerApplications();
@@ -111,7 +113,7 @@ public class SimplyStatus {
 
     // -=-=-=-=-=-=-=-=-
     public static void startClient() {
-        log(String.format("Client %s is up and running!", MINECRAFT.getLaunchedVersion()));
+        log(String.format("Client %s is up and running!", AlinLib.MINECRAFT.getLaunchedVersion()));
         try {
             JsonArray data = getJsonArray("https://api.kelcuprum.ru/boosty/thanks");
             thanks = ModConfig.jsonArrayToStringArray(data);
@@ -232,9 +234,8 @@ public class SimplyStatus {
     protected static boolean lastShowStatus = userConfig.getBoolean("SHOW_RPC", true);
 
     private static void updatePresence() {
-        Minecraft CLIENT = Minecraft.getInstance();
         if (userConfig.getBoolean("SHOW_RPC", true)) {
-            if (CLIENT.level == null || CLIENT.player == null) {
+            if (AlinLib.MINECRAFT.level == null || AlinLib.MINECRAFT.player == null) {
                 switch (Client.getState()) {
                     case 1 -> new LoadingGame();
                     case 2 -> new Loading();
@@ -243,8 +244,8 @@ public class SimplyStatus {
                     default -> new MainMenu();
                 }
             } else {
-                if (CLIENT.isSingleplayer() || CLIENT.hasSingleplayerServer()) new SinglePlayer();
-                else if (CLIENT.getCurrentServer() != null) new MultiPlayer();
+                if (AlinLib.MINECRAFT.isSingleplayer() || AlinLib.MINECRAFT.hasSingleplayerServer()) new SinglePlayer();
+                else if (AlinLib.MINECRAFT.getCurrentServer() != null) new MultiPlayer();
                 else if (SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
                 else new Unknown();
             }
@@ -271,7 +272,7 @@ public class SimplyStatus {
         } else if (userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && (isMusicModsEnable && !new WaterPlayerSupport().paused) && !isMenu) {
             presence.setSmallImage(Assets.getSelected().getIcon("music"), localization.getLocalization(new WaterPlayerSupport().artistIsNull ? "mod.music.noauthor" : "mod.music", true));
         } else if (isServer && (serverConfig.getBoolean("SHOW_ICON", false) && (!serverConfig.getString("ICON_URL", "").isEmpty()))) {
-            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Objects.requireNonNull(MINECRAFT.getCurrentServer()).ip), localization.getParsedText("{player.scene}"));
+            presence.setSmallImage(serverConfig.getString("ICON_URL", "").replace("%address%", Objects.requireNonNull(AlinLib.MINECRAFT.getCurrentServer()).ip), localization.getParsedText("{player.scene}"));
         } else if (userConfig.getBoolean("SHOW_AVATAR_PLAYER", true)) {
             presence.setSmallImage(SimplyPlayer.getURLAvatar(), SimplyPlayer.getName());
         }
@@ -284,17 +285,17 @@ public class SimplyStatus {
                 button.addProperty("url", SimplyStatus.userConfig.getString("BUTTON.URL", ""));
                 buttons.add(button);
             }
-//            SimplyStatus.log(buttons.toString());
             presence.setButtons(buttons);
         }
     }
 
     public static void updateDiscordPresence(RichPresence builder) {
         if (builder == null && ModConfig.debugPresence) LOG.info("Presence is null!");
-        if (lastPresence == null || !lastPresence.toJson().toString().equalsIgnoreCase(builder.toJson().toString())) {
+
+        if (lastPresence == null || (builder != null && !lastPresence.toJson().toString().equalsIgnoreCase(builder.toJson().toString()))) {
             if (ModConfig.debugPresence) {
                 if (lastPresence != null) log(lastPresence.toJson().toString());
-                log(builder.toJson().toString());
+                if(builder != null) log(builder.toJson().toString());
             }
             lastPresence = builder;
             try {
@@ -305,9 +306,6 @@ public class SimplyStatus {
             if (ModConfig.debugPresence) LOG.info("Update presence");
         }
     }
-//    public static boolean isRepeat(RichPresence presence){
-//        boolean i = false;
-//    }
 
     public static void reconnectApp() {
         if (SimplyStatus.CONNECTED_DISCORD) SimplyStatus.client.close();

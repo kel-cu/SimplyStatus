@@ -10,7 +10,7 @@ import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 
-import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
+import static ru.kelcuprum.alinlib.AlinLib.MINECRAFT;
 
 public class ServerConfigs {
     public Screen build(Screen parent){

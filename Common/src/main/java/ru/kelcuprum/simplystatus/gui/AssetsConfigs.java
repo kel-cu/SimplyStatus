@@ -11,7 +11,7 @@ import ru.kelcuprum.simplystatus.config.Assets;
 import ru.kelcuprum.simplystatus.gui.assets.AssetsScreen;
 import ru.kelcuprum.simplystatus.gui.assets.CreateAssetsScreen;
 
-import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
+import static ru.kelcuprum.alinlib.AlinLib.MINECRAFT;
 
 public class AssetsConfigs {
     int assetsSize = 0;
@@ -46,7 +46,7 @@ public class AssetsConfigs {
             }
         }
         isLoaded = true;
-        builder.addWidget(new ButtonBuilder(Component.translatable("simplystatus.assets.create"), (s) -> SimplyStatus.MINECRAFT.setScreen(new CreateAssetsScreen(new AssetsConfigs().build(parent)))).build());
+        builder.addWidget(new ButtonBuilder(Component.translatable("simplystatus.assets.create"), (s) -> MINECRAFT.setScreen(new CreateAssetsScreen(new AssetsConfigs().build(parent)))).build());
 
 
         return builder.build();

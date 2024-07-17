@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.util.GsonHelper;
 import org.apache.commons.io.IOUtils;
-import ru.kelcuprum.simplystatus.SimplyStatus;
 
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;

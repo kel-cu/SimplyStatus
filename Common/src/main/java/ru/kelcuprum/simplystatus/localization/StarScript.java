@@ -27,7 +27,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
+import static ru.kelcuprum.alinlib.AlinLib.MINECRAFT;
 
 public class StarScript {
     public static Starscript ss = new Starscript();

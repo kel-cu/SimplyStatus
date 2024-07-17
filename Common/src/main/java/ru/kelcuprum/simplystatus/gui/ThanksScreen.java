@@ -15,8 +15,8 @@ import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.ModConfig;
 
+import static ru.kelcuprum.alinlib.AlinLib.MINECRAFT;
 import static ru.kelcuprum.alinlib.WebAPI.getJsonArray;
-import static ru.kelcuprum.simplystatus.SimplyStatus.MINECRAFT;
 
 
 public class ThanksScreen {

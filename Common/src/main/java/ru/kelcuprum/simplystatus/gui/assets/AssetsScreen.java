@@ -67,7 +67,6 @@ public class AssetsScreen extends Screen {
                 .setWidth(size)
                 .build());
         descriptionBox = addRenderableWidget(new DescriptionBox(x, 115, size, height-150, Component.empty()).setDescription(Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.name))));
-//        addRenderableWidget(new TextBox(x, 90, size, 20, Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.id)), true));
         addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_BACK, (s) -> onClose()).setPosition(x, height - 30).setSize(size - 50, 20).build());
         addRenderableWidget(new ButtonBuilder(Localization.getText("simplystatus.assets.remove"), (OnPress) -> {
             isDeleted = true;
