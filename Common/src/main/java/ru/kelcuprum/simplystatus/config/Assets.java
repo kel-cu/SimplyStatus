@@ -3,7 +3,7 @@ package ru.kelcuprum.simplystatus.config;
 import com.google.gson.JsonObject;
 import net.minecraft.util.GsonHelper;
 import org.apache.logging.log4j.Level;
-import ru.kelcuprum.alinlib.AlinLib;
+import ru.kelcuprum.alinlib.info.Player;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 
 import java.io.File;
@@ -51,7 +51,7 @@ public class Assets {
         this.name = data.get("name").getAsString();
         this.icons = data.getAsJsonObject("icons");
         if(!isJsonNull(data, "base") && data.getAsJsonPrimitive("base").isString()) this.base = data.get("base").getAsString();
-        this.author = isJsonNull(data, "author") ? AlinLib.MINECRAFT.getGameProfile().getName() : data.get("author").getAsString();
+        this.author = isJsonNull(data, "author") ? Player.getName() : data.get("author").getAsString();
     }
 
     private boolean isValidObject(JsonObject data){
