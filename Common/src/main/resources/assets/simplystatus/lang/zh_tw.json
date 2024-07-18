@@ -15,7 +15,7 @@
   "simplystatus.assets.reload": "重新載入",
 
   "simplystatus.config.client": "用戶端",
-  "simplystatus.config.client.enable_rpc": "啟用 RPC",
+  "simplystatus.config.client.show_rpc": "顯示 RPC",
   "simplystatus.config.client.use_minecraft_id": "將標題變更為 Minecraft",
   "simplystatus.config.reconnect": "重新連結應用程式",
   "simplystatus.config.client.assets": "資源",
