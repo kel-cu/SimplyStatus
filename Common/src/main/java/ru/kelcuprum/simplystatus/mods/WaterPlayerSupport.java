@@ -4,7 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.waterplayer.WaterPlayer;
-import ru.kelcuprum.waterplayer.frontend.localization.Music;
+import ru.kelcuprum.waterplayer.frontend.localization.MusicHelper;
 
 public class WaterPlayerSupport {
     public String artist = "";
@@ -27,10 +27,10 @@ public class WaterPlayerSupport {
         paused = false;
         AudioTrack track = manager.getPlayingTrack();
         if(track.getInfo().artworkUrl != null) cover = track.getInfo().artworkUrl;
-        artist = Music.getAuthor(track);
+        artist = MusicHelper.getAuthor(track);
         artistIsNull = artist.isBlank();
-        useFile = Music.isFile(track);
-        title = Music.getTitle(track);
+        useFile = MusicHelper.isFile(track);
+        title = MusicHelper.getTitle(track);
         file = useFile ? title : "";
 
     }
