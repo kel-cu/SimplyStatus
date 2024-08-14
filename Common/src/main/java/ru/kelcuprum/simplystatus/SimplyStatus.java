@@ -235,7 +235,12 @@ public class SimplyStatus {
 
     private static void updatePresence() {
         if (userConfig.getBoolean("SHOW_RPC", true)) {
-            if (AlinLib.MINECRAFT.level == null || AlinLib.MINECRAFT.player == null) {
+            if (AlinLib.MINECRAFT.level != null && AlinLib.MINECRAFT.player != null) {
+                if (AlinLib.MINECRAFT.isSingleplayer() || AlinLib.MINECRAFT.hasSingleplayerServer()) new SinglePlayer();
+                else if (AlinLib.MINECRAFT.getCurrentServer() != null) new MultiPlayer();
+                else if (SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
+                else new Unknown();
+            } else {
                 switch (Client.getState()) {
                     case 1 -> new LoadingGame();
                     case 2 -> new Loading();
@@ -243,11 +248,6 @@ public class SimplyStatus {
                     case 4 -> new Disconnect();
                     default -> new MainMenu();
                 }
-            } else {
-                if (AlinLib.MINECRAFT.isSingleplayer() || AlinLib.MINECRAFT.hasSingleplayerServer()) new SinglePlayer();
-                else if (AlinLib.MINECRAFT.getCurrentServer() != null) new MultiPlayer();
-                else if (SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
-                else new Unknown();
             }
         } else updateDiscordPresence(null);
     }
