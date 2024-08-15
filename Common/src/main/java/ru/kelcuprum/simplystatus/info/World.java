@@ -69,19 +69,19 @@ public class World {
     }
     public static String getAssets(){
         return switch (getCodeName()){
-            case "AlinLib.MINECRAFT:the_moon" -> Assets.getSelected().getIcon("world_moon");
-            case "AlinLib.MINECRAFT:the_end" -> Assets.getSelected().getIcon("world_the_end");
-            case "AlinLib.MINECRAFT:the_nether" -> Assets.getSelected().getIcon("world_nether");
-            case "AlinLib.MINECRAFT:overworld" -> Assets.getSelected().getIcon("world");
+            case "minecraft:the_moon" -> Assets.getSelected().getIcon("world_moon");
+            case "minecraft:the_end" -> Assets.getSelected().getIcon("world_the_end");
+            case "minecraft:the_nether" -> Assets.getSelected().getIcon("world_nether");
+            case "minecraft:overworld" -> Assets.getSelected().getIcon("world");
             default -> Assets.getSelected().getIcon("unknown_world");
         };
     }
     public static String getName(){
         return switch (getCodeName()) {
-            case "AlinLib.MINECRAFT:the_moon" -> SimplyStatus.localization.getLocalization("world.moon", false);
-            case "AlinLib.MINECRAFT:the_end" -> SimplyStatus.localization.getLocalization("world.the_end", false);
-            case "AlinLib.MINECRAFT:the_nether" -> SimplyStatus.localization.getLocalization("world.nether", false);
-            case "AlinLib.MINECRAFT:overworld" -> SimplyStatus.localization.getLocalization("world.overworld", false);
+            case "minecraft:the_moon" -> SimplyStatus.localization.getLocalization("world.moon", false);
+            case "minecraft:the_end" -> SimplyStatus.localization.getLocalization("world.the_end", false);
+            case "minecraft:the_nether" -> SimplyStatus.localization.getLocalization("world.nether", false);
+            case "minecraft:overworld" -> SimplyStatus.localization.getLocalization("world.overworld", false);
             default -> SimplyStatus.localization.getLocalization("unknown.world", false);
         };
     }
