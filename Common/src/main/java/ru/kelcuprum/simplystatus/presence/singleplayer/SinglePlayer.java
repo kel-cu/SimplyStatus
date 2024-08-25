@@ -1,23 +1,25 @@
 package ru.kelcuprum.simplystatus.presence.singleplayer;
 
+import com.jagrosh.discordipc.entities.ActivityType;
 import com.jagrosh.discordipc.entities.RichPresence;
+import ru.kelcuprum.alinlib.info.World;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.Assets;
-import ru.kelcuprum.simplystatus.info.SimplyPlayer;
-import ru.kelcuprum.simplystatus.info.World;
+import ru.kelcuprum.simplystatus.info.PresencePlayer;
+import ru.kelcuprum.simplystatus.info.PresenceWorld;
 
 public class SinglePlayer {
     public SinglePlayer(){
-        RichPresence.Builder presence = new RichPresence.Builder();
+        RichPresence.Builder presence = new RichPresence.Builder().setActivityType(ActivityType.Playing);
         SimplyStatus.updateContentPresenceByConfigs(presence);
-        presence.setDetails(SimplyPlayer.getState());
+        presence.setDetails(PresencePlayer.getState());
         presence.setState(SimplyStatus.localization.getLocalization("player.world.state", true));
         if(SimplyStatus.userConfig.getBoolean("ENABLE_WORLD", true)){
-            if(World.getCodeName().endsWith("overworld") && SimplyStatus.userConfig.getBoolean("ENABLE_TIME_CYCLE", true)) World.getTime(presence);
+            if(World.getCodeName().endsWith("overworld") && SimplyStatus.userConfig.getBoolean("ENABLE_TIME_CYCLE", true)) PresenceWorld.getTime(presence);
             else {
-                presence.setLargeImage(World.getAssets(), World.getName());
+                presence.setLargeImage(PresenceWorld.getAssets(), World.getName());
             }
         } else presence.setLargeImage(Assets.getSelected().getIcon("logo"));
-        SimplyStatus.updateDiscordPresence(presence.build());
+        SimplyStatus.sendPresence(presence.build());
     }
 }

@@ -177,11 +177,11 @@
   "simplystatus.presence.mod.voice.players.one": "{player.name} 跟 ${voice.listener} 對話",
   "simplystatus.presence.mod.voice.players.more": "{player.name} 跟多個玩家對話",
 
-  "simplystatus.presence.mod.music": "«{music.author}» {music.title}",
-  "simplystatus.presence.mod.music.menu": "🔊 «{music.author}» {music.title}",
+  "simplystatus.presence.mod.music": "«{waterplayer.track.author}» {waterplayer.track.title}",
+  "simplystatus.presence.mod.music.menu": "🔊 «{waterplayer.track.author}» {waterplayer.track.title}",
 
-  "simplystatus.presence.mod.music.noauthor": "{music.title}",
-  "simplystatus.presence.mod.music.menu.noauthor": "🔊 {music.title}",
+  "simplystatus.presence.mod.music.noauthor": "{waterplayer.track.title}",
+  "simplystatus.presence.mod.music.menu.noauthor": "🔊 {waterplayer.track.title}",
 
   "simplystatus.presence.mod.replaymod": "重播自 {replay.date}",
   "simplystatus.presence.mod.replaymod.state": "{replay.name}",

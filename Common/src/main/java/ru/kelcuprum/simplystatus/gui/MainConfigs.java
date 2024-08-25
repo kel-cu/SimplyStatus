@@ -45,7 +45,12 @@ public class MainConfigs {
         title.setMaxLength(64);
         EditBox url = new EditBoxBuilder(Component.translatable("simplystatus.config.client.button.url")).setValue("").setConfig(SimplyStatus.userConfig, "BUTTON.URL").build();
         url.setMaxLength(64);
-        builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.api")).setList(SimplyStatus.apiNames).setValue(0).setConfig(SimplyStatus.userConfig, "USE_API_RENDER").build())
+        builder.addWidget(new SelectorBuilder(Component.translatable("simplystatus.config.client.api")).setList(new String[]{
+                        "CraftHead",
+                        "Alina API: 2D",
+                        "Alina API: 3D",
+                        "Discord"
+                }).setValue(0).setConfig(SimplyStatus.userConfig, "USE_API_RENDER").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.show_game_started"), true).setConfig(SimplyStatus.userConfig, "SHOW_GAME_TIME").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.singleplayer.world_name"), false).setConfig(SimplyStatus.userConfig, "SINGLEPLAYER.WORLD_NAME").build())
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.show_avatar_player"), true).setConfig(SimplyStatus.userConfig, "SHOW_AVATAR_PLAYER").build())

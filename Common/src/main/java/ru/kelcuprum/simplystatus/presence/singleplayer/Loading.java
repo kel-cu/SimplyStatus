@@ -1,5 +1,6 @@
 package ru.kelcuprum.simplystatus.presence.singleplayer;
 
+import com.jagrosh.discordipc.entities.ActivityType;
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.Assets;
@@ -10,9 +11,9 @@ public class Loading {
      * Причины:
      */
     public Loading(){
-        RichPresence.Builder presence = new RichPresence.Builder();
+        RichPresence.Builder presence = new RichPresence.Builder().setActivityType(ActivityType.Playing);
         presence.setState(SimplyStatus.localization.getLocalization("world.loading", true));
         presence.setLargeImage(Assets.getSelected().getIcon("logo"));
-        SimplyStatus.updateDiscordPresence(presence.build());
+        SimplyStatus.sendPresence(presence.build());
     }
 }

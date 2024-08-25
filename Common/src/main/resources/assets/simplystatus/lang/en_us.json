@@ -177,11 +177,11 @@
   "simplystatus.presence.mod.voice.players.one": "{player.name} talks to ${voice.listener}",
   "simplystatus.presence.mod.voice.players.more": "{player.name} talks to the players",
 
-  "simplystatus.presence.mod.music": "«{music.author}» {music.title}",
-  "simplystatus.presence.mod.music.menu": "🔊 «{music.author}» {music.title}",
+  "simplystatus.presence.mod.music": "«{waterplayer.track.author}» {waterplayer.track.title}",
+  "simplystatus.presence.mod.music.menu": "🔊 «{waterplayer.track.author}» {waterplayer.track.title}",
 
-  "simplystatus.presence.mod.music.noauthor": "{music.title}",
-  "simplystatus.presence.mod.music.menu.noauthor": "🔊 {music.title}",
+  "simplystatus.presence.mod.music.noauthor": "{waterplayer.track.title}",
+  "simplystatus.presence.mod.music.menu.noauthor": "🔊 {waterplayer.track.title}",
 
   "simplystatus.presence.mod.replaymod": "Repeat from {replay.date}",
   "simplystatus.presence.mod.replaymod.state": "{replay.name}",

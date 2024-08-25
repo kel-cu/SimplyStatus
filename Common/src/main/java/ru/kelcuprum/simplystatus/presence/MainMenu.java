@@ -1,13 +1,14 @@
 package ru.kelcuprum.simplystatus.presence;
 
+import com.jagrosh.discordipc.entities.ActivityType;
 import com.jagrosh.discordipc.entities.RichPresence;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.Assets;
-import ru.kelcuprum.simplystatus.mods.WaterPlayerSupport;
 
 public class MainMenu {
     public MainMenu(){
         RichPresence.Builder presence = new RichPresence.Builder();
+        presence.setActivityType(ActivityType.Playing);
         presence.setLargeImage(Assets.getSelected().getIcon("logo"), SimplyStatus.localization.getLocalization("mainmenu.icon", true));
         if(SimplyStatus.localization.getLocalization("mainmenu", false).equals("simplystatus.presence.mainmenu")) presence.setState("Resources unready!");
         else  {
@@ -18,12 +19,11 @@ public class MainMenu {
         SimplyStatus.updateContentPresenceByConfigs(presence, false, true);
 
         if(SimplyStatus.isMusicModsEnable){
-            WaterPlayerSupport music = new WaterPlayerSupport();
-            if(SimplyStatus.userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && !music.paused){
-                presence.setState(music.artistIsNull ? SimplyStatus.localization.getLocalization("mod.music.menu.noauthor", true) : SimplyStatus.localization.getLocalization("mod.music.menu", true));
+            if(SimplyStatus.userConfig.getBoolean("VIEW_MUSIC_LISTENER", false) && !SimplyStatus.waterPlayerSupport.paused){
+                presence.setState(SimplyStatus.waterPlayerSupport.artistIsNull ? SimplyStatus.localization.getLocalization("mod.music.menu.noauthor", true) : SimplyStatus.localization.getLocalization("mod.music.menu", true));
             }
         }
 
-        SimplyStatus.updateDiscordPresence(presence.build());
+        SimplyStatus.sendPresence(presence.build());
     }
 }

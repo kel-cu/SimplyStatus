@@ -178,11 +178,11 @@
   "simplystatus.presence.mod.voice.players.one": "{player.name} разговаривает с %listener%",
   "simplystatus.presence.mod.voice.players.more": "{player.name} разговаривает с игроками",
 
-  "simplystatus.presence.mod.music": "«{music.author}» {music.title}",
-  "simplystatus.presence.mod.music.menu": "\uD83D\uDD0A «{music.author}» {music.title}",
+  "simplystatus.presence.mod.music": "«{waterplayer.track.author}» {waterplayer.track.title}",
+  "simplystatus.presence.mod.music.menu": "\uD83D\uDD0A «{waterplayer.track.author}» {waterplayer.track.title}",
 
-  "simplystatus.presence.mod.music.noauthor": "{music.title}",
-  "simplystatus.presence.mod.music.menu.noauthor": "\uD83D\uDD0A {music.title}",
+  "simplystatus.presence.mod.music.noauthor": "{waterplayer.track.title}",
+  "simplystatus.presence.mod.music.menu.noauthor": "\uD83D\uDD0A {waterplayer.track.title}",
 
   "simplystatus.presence.mod.replaymod": "Повтор от {replay.date}",
   "simplystatus.presence.mod.replaymod.state": "{replay.name}",

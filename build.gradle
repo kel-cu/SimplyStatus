@@ -1,7 +1,7 @@
 plugins {
     id "io.github.goooler.shadow" version "8.1.7" apply false
     id "architectury-plugin" version "3.+"
-    id "dev.architectury.loom" version "1.6+" apply false
+    id "dev.architectury.loom" version "1.7+" apply false
     id "io.github.p03w.machete" version "2.+" apply false
 }
 
@@ -20,12 +20,12 @@ subprojects {
         minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
         mappings loom.layered() {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.mc_parchment_version}:${rootProject.parchment_version}@zip")
+//            parchment("org.parchmentmc.data:parchment-${rootProject.mc_parchment_version}:${rootProject.parchment_version}@zip")
         }
         // Discord Integration
         shadowCommon(implementation("com.kohlschutter.junixsocket:junixsocket-common:2.7.0"))
         shadowCommon(implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.7.0"))
-        shadowCommon(implementation("com.jagrosh.discordipc:DiscordIPC:0.8.11"))
+        shadowCommon(implementation("io.github.CDAGaming:DiscordIPC:0.10.0"))
         // Mods libs
         modApi "maven.modrinth:replaymod:${project.replaymod}"
         modApi "maven.modrinth:plasmo-voice:${project.plasmovoice}"
@@ -53,6 +53,7 @@ allprojects {
 
     repositories {
         mavenCentral()
+        maven { url = "https://s01.oss.sonatype.org/content/repositories/releases" }
         maven { url = "https://maven.terraformersmc.com/releases" }
         maven { url = "https://maven.neoforged.net/releases/" } // NEOFORGE
         maven { url = "https://maven.meteordev.org/releases" }
