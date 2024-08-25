@@ -111,17 +111,17 @@ public class SimplyStatus {
             }
             if(SimplyStatus.replayMod){
                 parser.ss.set("replay", new ValueMap()
-                                        .set("date", () -> {
-                                            String strDateFormat = SimplyStatus.localization.getLocalization("mod.replaymod.date_format", false);
-                                            DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
-                                            return Value.string(dateFormat.format(new ru.kelcuprum.simplystatus.mods.ReplayMod().date));
-                                        })
-//                        .set("date", () -> Value.string(getReplayDateFormat()))
+                        .set("date", () -> Value.string(getReplayDateFormat()))
                         .set("name", () -> Value.string(SimplyStatus.userConfig.getBoolean("VIEW_REPLAY_MOD_SERVER_NAME", true) ? new ru.kelcuprum.simplystatus.mods.ReplayMod().name : new ru.kelcuprum.simplystatus.mods.ReplayMod().address))
                 );
             }
         });
         registerApplication();
+    }
+    public static String getReplayDateFormat(){
+        String strDateFormat = SimplyStatus.localization.getLocalization("mod.replaymod.date_format", false);
+        DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+        return dateFormat.format(new ru.kelcuprum.simplystatus.mods.ReplayMod().date);
     }
 
     public static long parseSeconds(long mills){
