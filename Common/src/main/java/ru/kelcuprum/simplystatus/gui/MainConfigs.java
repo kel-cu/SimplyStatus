@@ -1,19 +1,16 @@
 package ru.kelcuprum.simplystatus.gui;
 
 import ru.kelcuprum.alinlib.AlinLib;
-import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBooleanBuilder;
-import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.button.*;
 import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.selector.SelectorBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import ru.kelcuprum.alinlib.gui.components.editbox.EditBox;
-import ru.kelcuprum.alinlib.gui.components.text.CategoryBox;
-import ru.kelcuprum.alinlib.gui.components.text.TextBox;
+import ru.kelcuprum.alinlib.gui.components.text.*;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.config.Assets;
-import ru.kelcuprum.simplystatus.config.ModConfig;
+import ru.kelcuprum.simplystatus.config.*;
 
 import static ru.kelcuprum.alinlib.AlinLib.MINECRAFT;
 

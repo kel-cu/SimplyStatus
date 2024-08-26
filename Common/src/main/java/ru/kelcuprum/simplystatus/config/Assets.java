@@ -7,10 +7,8 @@ import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.info.Player;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.*;
+import java.nio.file.*;
 import java.util.Objects;
 
 public class Assets {

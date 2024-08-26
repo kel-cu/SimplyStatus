@@ -1,32 +1,19 @@
 package ru.kelcuprum.simplystatus;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.jagrosh.discordipc.IPCClient;
-import com.jagrosh.discordipc.IPCListener;
-import com.jagrosh.discordipc.entities.ActivityType;
-import com.jagrosh.discordipc.entities.Packet;
-import com.jagrosh.discordipc.entities.RichPresence;
-import com.jagrosh.discordipc.entities.User;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.meteordev.starscript.value.Value;
-import org.meteordev.starscript.value.ValueMap;
+import com.google.gson.*;
+import com.jagrosh.discordipc.*;
+import com.jagrosh.discordipc.entities.*;
+import org.apache.logging.log4j.*;
+import org.meteordev.starscript.value.*;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.api.events.alinlib.LocalizationEvents;
-import ru.kelcuprum.alinlib.api.events.client.ClientLifecycleEvents;
-import ru.kelcuprum.alinlib.api.events.client.ClientTickEvents;
-import ru.kelcuprum.alinlib.config.Config;
-import ru.kelcuprum.alinlib.config.Localization;
-import ru.kelcuprum.simplystatus.config.Assets;
-import ru.kelcuprum.simplystatus.config.ModConfig;
-import ru.kelcuprum.simplystatus.info.Client;
-import ru.kelcuprum.simplystatus.info.PresencePlayer;
-import ru.kelcuprum.simplystatus.info.PresenceWorld;
-import ru.kelcuprum.simplystatus.mods.WaterPlayerSupport;
-import ru.kelcuprum.simplystatus.mods.Voice;
+import ru.kelcuprum.alinlib.api.events.client.*;
+import ru.kelcuprum.alinlib.config.*;
+import ru.kelcuprum.simplystatus.config.*;
+import ru.kelcuprum.simplystatus.info.*;
+import ru.kelcuprum.simplystatus.mods.*;
 import ru.kelcuprum.simplystatus.presence.*;
+import ru.kelcuprum.simplystatus.presence.ReplayMod;
 import ru.kelcuprum.simplystatus.presence.singleplayer.*;
 import ru.kelcuprum.simplystatus.presence.multiplayer.*;
 
@@ -292,6 +279,7 @@ public class SimplyStatus {
             EMPTY = false;
             try {
                 if (CONNECTED) client.sendRichPresence(presence);
+                if(ModConfig.debugPresence) SimplyStatus.log(presence.toJson().toString());
                 lastPresence = presence;
             } catch (Exception ex) {
                 SimplyStatus.log(ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), Level.ERROR);

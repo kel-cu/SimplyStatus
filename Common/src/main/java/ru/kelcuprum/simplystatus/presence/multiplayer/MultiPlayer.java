@@ -1,14 +1,12 @@
 package ru.kelcuprum.simplystatus.presence.multiplayer;
 
-import com.jagrosh.discordipc.entities.ActivityType;
-import com.jagrosh.discordipc.entities.RichPresence;
+import com.jagrosh.discordipc.entities.*;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.alinlib.info.World;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.Assets;
-import ru.kelcuprum.simplystatus.info.PresencePlayer;
-import ru.kelcuprum.simplystatus.info.PresenceWorld;
+import ru.kelcuprum.simplystatus.info.*;
 
 public class MultiPlayer {
     public MultiPlayer(){

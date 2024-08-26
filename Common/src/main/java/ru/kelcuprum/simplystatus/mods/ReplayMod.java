@@ -1,7 +1,6 @@
 package ru.kelcuprum.simplystatus.mods;
 
-import com.replaymod.replay.ReplayHandler;
-import com.replaymod.replay.ReplayModReplay;
+import com.replaymod.replay.*;
 import org.apache.logging.log4j.Level;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 

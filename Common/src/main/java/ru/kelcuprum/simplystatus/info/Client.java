@@ -1,10 +1,6 @@
 package ru.kelcuprum.simplystatus.info;
 
-import net.minecraft.client.gui.screens.ConnectScreen;
-import net.minecraft.client.gui.screens.DisconnectedScreen;
-import net.minecraft.client.gui.screens.LevelLoadingScreen;
-import net.minecraft.client.gui.screens.ProgressScreen;
-import net.minecraft.client.gui.screens.ReceivingLevelScreen;
+import net.minecraft.client.gui.screens.*;
 import ru.kelcuprum.alinlib.AlinLib;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 

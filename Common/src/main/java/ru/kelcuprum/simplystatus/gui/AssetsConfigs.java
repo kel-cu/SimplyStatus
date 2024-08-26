@@ -8,8 +8,7 @@ import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.Assets;
-import ru.kelcuprum.simplystatus.gui.assets.AssetsScreen;
-import ru.kelcuprum.simplystatus.gui.assets.CreateAssetsScreen;
+import ru.kelcuprum.simplystatus.gui.assets.*;
 
 import static ru.kelcuprum.alinlib.AlinLib.MINECRAFT;
 

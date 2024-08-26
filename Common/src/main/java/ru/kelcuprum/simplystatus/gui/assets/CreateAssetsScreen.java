@@ -1,8 +1,7 @@
 package ru.kelcuprum.simplystatus.gui.assets;
 
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.*;
 import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.Level;
 import ru.kelcuprum.alinlib.AlinLib;
@@ -11,13 +10,10 @@ import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.TextBox;
 import ru.kelcuprum.alinlib.gui.toast.ToastBuilder;
 import ru.kelcuprum.simplystatus.SimplyStatus;
-import ru.kelcuprum.simplystatus.config.Assets;
-import ru.kelcuprum.simplystatus.config.ModConfig;
+import ru.kelcuprum.simplystatus.config.*;
 
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.io.*;
+import java.nio.file.*;
 
 public class CreateAssetsScreen extends Screen {
     private final Screen parent;

@@ -1,7 +1,6 @@
 package ru.kelcuprum.simplystatus.presence.multiplayer;
 
-import com.jagrosh.discordipc.entities.ActivityType;
-import com.jagrosh.discordipc.entities.RichPresence;
+import com.jagrosh.discordipc.entities.*;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.Assets;
 
