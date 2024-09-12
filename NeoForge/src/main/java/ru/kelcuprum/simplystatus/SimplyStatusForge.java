@@ -13,6 +13,7 @@ public class SimplyStatusForge {
         SimplyStatus.waterPlayer = ModList.get().isLoaded("waterplayer");
         SimplyStatus.svc = ModList.get().isLoaded("voicechat");
         SimplyStatus.plasmo = ModList.get().isLoaded("plasmovoice");
+        SimplyStatus.klashback = ModList.get().isLoaded("flashback");
         SimplyStatus.isVoiceModsEnable = (SimplyStatus.svc || SimplyStatus.plasmo);
         SimplyStatus.isMusicModsEnable = SimplyStatus.waterPlayer;
         SimplyStatus.onInitializeClient();
