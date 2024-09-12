@@ -85,6 +85,11 @@
   "simplystatus.config.localization.mod.replaymod.state": "Scene",
   "simplystatus.config.localization.mod.replaymod.date_format": "Date Format",
 
+  "simplystatus.config.flashback": "Flashback",
+  "simplystatus.config.localization.mod.flashback": "Replay Name",
+  "simplystatus.config.localization.mod.flashback.state": "Information",
+  "simplystatus.config.localization.mod.flashback.date_format": "Date Format",
+
   "simplystatus.config.music": "WaterPlayer",
   "simplystatus.config.localization.mod.music.menu": "Show Music in the Main Menu",
   "simplystatus.config.localization.mod.music": "Show Music in Small Icon",
@@ -183,9 +188,13 @@
   "simplystatus.presence.mod.music.noauthor": "{waterplayer.track.title}",
   "simplystatus.presence.mod.music.menu.noauthor": "🔊 {waterplayer.track.title}",
 
-  "simplystatus.presence.mod.replaymod": "Repeat from {replay.date}",
+  "simplystatus.presence.mod.replaymod": "Replay from {replay.date}",
   "simplystatus.presence.mod.replaymod.state": "{replay.name}",
   "simplystatus.presence.mod.replaymod.date_format": "MM/dd/yy, hh:mm",
+
+  "simplystatus.presence.mod.flashback": "{flashback.replay.name}",
+  "simplystatus.presence.mod.flashback.state": "Replay from {flashback.replay.date}",
+  "simplystatus.presence.mod.flashback.date_format": "MM/dd/yy, hh:mm",
 
   "modmenu.descriptionTranslation.simplystatus": "Simple and customizable Discord game status.",
 

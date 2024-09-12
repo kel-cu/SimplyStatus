@@ -53,6 +53,7 @@ public class SimplyStatus {
     public static Boolean waterPlayer = false;
     public static Boolean svc = false;
     public static Boolean plasmo = false;
+    public static Boolean klashback = false;
     public static Boolean isVoiceModsEnable = false;
     public static Boolean isMusicModsEnable = false;
     // Discord
@@ -99,20 +100,57 @@ public class SimplyStatus {
             if(SimplyStatus.replayMod){
                 parser.ss.set("replay", new ValueMap()
                         .set("date", () -> Value.string(getReplayDateFormat()))
-                        .set("name", () -> Value.string(SimplyStatus.userConfig.getBoolean("VIEW_REPLAY_MOD_SERVER_NAME", true) ? new ru.kelcuprum.simplystatus.mods.ReplayMod().name : new ru.kelcuprum.simplystatus.mods.ReplayMod().address))
+                        .set("name", () -> Value.string(SimplyStatus.userConfig.getBoolean("VIEW_REPLAY_MOD_SERVER_NAME", true) ? new ReplayModComp().name : new ReplayModComp().address))
+                );
+            }
+            if(SimplyStatus.klashback){
+                parser.ss.set("flashback.replay", new ValueMap()
+                        .set("date", () -> Value.string(getReplayDateFormat$flashback()))
+                        .set("name", () -> Value.string(new FlashbackComp().name))
                 );
             }
         });
         registerApplication();
+        start();
     }
     public static String getReplayDateFormat(){
         String strDateFormat = SimplyStatus.localization.getLocalization("mod.replaymod.date_format", false);
         DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
-        return dateFormat.format(new ru.kelcuprum.simplystatus.mods.ReplayMod().date);
+        return dateFormat.format(new ReplayModComp().date);
+    }
+    public static String getReplayDateFormat$flashback(){
+        String strDateFormat = SimplyStatus.localization.getLocalization("mod.flashback.date_format", false);
+        DateFormat dateFormat = new SimpleDateFormat(strDateFormat);
+        return dateFormat.format(new FlashbackComp().date);
     }
 
     public static long parseSeconds(long mills){
         return (mills-(mills % 1000)) /1000;
+    }
+
+    //
+
+    private static final Timer TIMER = new Timer();
+    private static void start() {
+        TIMER.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                try{
+                    updatePresence();
+                } catch (Exception ex) {
+                    if (lastException == null || !lastException.equals(ex.getMessage())) {
+                        lastException = ex.getMessage();
+                        log(ex.getLocalizedMessage(), Level.ERROR);
+                        RichPresence.Builder presence = new RichPresence.Builder()
+                                .setActivityType(ActivityType.Competing)
+                                .setDetails("There was an error, look in the console")
+                                .setState("And report the bug on GitHub")
+                                .setLargeImage(Assets.getSelected().getIcon("unknown"));
+                        if(CONNECTED) sendPresence(presence.build());
+                    }
+                }
+            }
+        }, 250, 250);
     }
 
     // -=-=-=-=-=-=-=-=-
@@ -138,22 +176,6 @@ public class SimplyStatus {
         } catch (Exception ex) {
             log(ex.getLocalizedMessage(), Level.ERROR);
         }
-        ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
-            try{
-                updatePresence();
-            } catch (Exception ex) {
-                if (lastException == null || !lastException.equals(ex.getMessage())) {
-                    lastException = ex.getMessage();
-                    log(ex.getLocalizedMessage(), Level.ERROR);
-                    RichPresence.Builder presence = new RichPresence.Builder()
-                            .setActivityType(ActivityType.Competing)
-                            .setDetails("There was an error, look in the console")
-                            .setState("And report the bug on GitHub")
-                            .setLargeImage(Assets.getSelected().getIcon("unknown"));
-                    if(CONNECTED) sendPresence(presence.build());
-                }
-            }
-        });
     }
 
     public static void exitApplication() {
@@ -215,9 +237,10 @@ public class SimplyStatus {
         if (userConfig.getBoolean("SHOW_RPC", true)) {
             if(waterPlayer) waterPlayerSupport.update();
             if (AlinLib.MINECRAFT.level != null && AlinLib.MINECRAFT.player != null) {
-                if (AlinLib.MINECRAFT.isSingleplayer() || AlinLib.MINECRAFT.hasSingleplayerServer()) new SinglePlayer();
+                if (SimplyStatus.replayMod && ReplayModComp.isInReplay() && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
+                else if (SimplyStatus.klashback && FlashbackComp.isInReplay() && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new Flashback();
+                else if (AlinLib.MINECRAFT.isSingleplayer() || AlinLib.MINECRAFT.hasSingleplayerServer()) new SinglePlayer();
                 else if (AlinLib.MINECRAFT.getCurrentServer() != null) new MultiPlayer();
-                else if (SimplyStatus.replayMod && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new ReplayMod();
                 else new Unknown();
             } else {
                 switch (Client.getState()) {

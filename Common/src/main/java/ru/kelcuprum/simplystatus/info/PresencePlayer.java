@@ -9,7 +9,7 @@ public class PresencePlayer {
     static boolean lastMessageDeath = false;
     static String lastTextDeath = "";
     public static String getName(){
-        if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED) return Player.getName();
+        if(SimplyStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SimplyStatus.CONNECTED || SimplyStatus.USER == null) return Player.getName();
         else return SimplyStatus.USER.getNickname();
     }
     public static String getURLAvatar(){

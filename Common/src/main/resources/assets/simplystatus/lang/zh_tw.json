@@ -187,6 +187,10 @@
   "simplystatus.presence.mod.replaymod.state": "{replay.name}",
   "simplystatus.presence.mod.replaymod.date_format": "yyyy/MM/dd hh:mm",
 
+  "simplystatus.presence.mod.flashback": "{flashback.replay.name}",
+  "simplystatus.presence.mod.flashback.state": "重播自 {flashback.replay.date}",
+  "simplystatus.presence.mod.flashback.date_format": "yyyy/MM/dd hh:mm",
+
   "modmenu.descriptionTranslation.simplystatus": "簡單且可自訂的 Discord 遊戲狀態。",
 
   "simplystatus.support": "支持 Kel！",

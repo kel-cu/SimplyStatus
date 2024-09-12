@@ -86,6 +86,11 @@
   "simplystatus.config.localization.mod.replaymod.state": "Сцена",
   "simplystatus.config.localization.mod.replaymod.date_format": "Формат даты",
 
+  "simplystatus.config.flashback": "Flashback",
+  "simplystatus.config.localization.mod.flashback": "Название реплея",
+  "simplystatus.config.localization.mod.flashback.state": "Информация",
+  "simplystatus.config.localization.mod.flashback.date_format": "Формат даты",
+
   "simplystatus.config.music": "WaterPlayer",
   "simplystatus.config.localization.mod.music.menu": "Прослушиваемый трек в меню",
   "simplystatus.config.localization.mod.music": "Прослушиваемый трек в иконке",
@@ -187,6 +192,10 @@
   "simplystatus.presence.mod.replaymod": "Повтор от {replay.date}",
   "simplystatus.presence.mod.replaymod.state": "{replay.name}",
   "simplystatus.presence.mod.replaymod.date_format": "dd.MM.yy, hh:mm",
+
+  "simplystatus.presence.mod.flashback": "{flashback.replay.name}",
+  "simplystatus.presence.mod.flashback.state": "Повтор от {flashback.replay.date}",
+  "simplystatus.presence.mod.flashback.date_format": "dd.MM.yy, hh:mm",
 
   "modmenu.descriptionTranslation.simplystatus": "Простой и настраиваемый игровой статус Discord.",
 

@@ -31,6 +31,7 @@ subprojects {
         modApi "maven.modrinth:plasmo-voice:${project.plasmovoice}"
         modApi "maven.modrinth:simple-voice-chat:${project.svc}"
         modApi "maven.modrinth:waterplayer:${project.waterplayer}"
+        modApi "maven.modrinth:flashback:${project.flashback}"
         implementation("meteordevelopment:starscript:0.3.4")
     }
 

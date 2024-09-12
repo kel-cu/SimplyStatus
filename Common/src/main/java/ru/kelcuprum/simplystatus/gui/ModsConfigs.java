@@ -20,7 +20,7 @@ public class ModsConfigs {
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.server"), (s) -> MINECRAFT.setScreen(new ServerConfigs().build(parent))).build().setActive(MINECRAFT.getCurrentServer() != null))
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.assets"), (s) -> MINECRAFT.setScreen(new AssetsConfigs().build(parent))).build())
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.addons"), (s) -> MINECRAFT.setScreen(new AddonsConfigs().build(parent))).build())
-                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.mods"), (s) -> MINECRAFT.setScreen(new ModsConfigs().build(parent))).build().setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod));
+                .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.mods"), (s) -> MINECRAFT.setScreen(new ModsConfigs().build(parent))).build().setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod  || SimplyStatus.klashback));
                 //
         if(AlinLib.bariumConfig.getBoolean("FRIEND", true)) builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
 
@@ -39,13 +39,18 @@ public class ModsConfigs {
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.music.noauthor")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.music.noauthor").build())
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.music.menu.noauthor")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.music.menu.noauthor").build())
         );
+        if(SimplyStatus.klashback || SimplyStatus.replayMod) builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.view_replay_mod"), true).setConfig(SimplyStatus.userConfig, "VIEW_REPLAY_MOD").build());
+        if(SimplyStatus.klashback) builder.addWidget(new CategoryBox(Component.translatable("simplystatus.config.flashback"))
+                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.flashback")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.flashback").build())
+                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.flashback.state")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.flashback.state").build())
+                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.flashback.date_format")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.flashback.date_format").build())
+        );
         if(SimplyStatus.replayMod) builder.addWidget(new CategoryBox(Component.translatable("simplystatus.config.replaymod"))
-                .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.addons.view_replay_mod"), true).setConfig(SimplyStatus.userConfig, "VIEW_REPLAY_MOD").build())
                 .addValue(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.server.show_name"), true).setConfig(SimplyStatus.userConfig, "VIEW_REPLAY_MOD_SERVER_NAME").build())
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.replaymod")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.replaymod").build())
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.replaymod.state")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.replaymod.state").build())
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.localization.mod.replaymod.date_format")).setValue(ModConfig.baseID).setLocalization(SimplyStatus.localization, "mod.replaymod.date_format").build())
-            );
+        );
         return builder.build();
     }
 }
