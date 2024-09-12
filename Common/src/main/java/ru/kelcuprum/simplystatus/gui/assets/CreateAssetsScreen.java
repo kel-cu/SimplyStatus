@@ -34,7 +34,7 @@ public class CreateAssetsScreen extends Screen {
         addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_CANCEL, (S) -> onClose())
                 .setPosition(x-150, y+15).setSize(145, 20).build());
         addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_CONTINUE, (s) -> {
-            if(fileName == null || fileName.equals("null") || fileName.isBlank()){
+            if(fileName == null || fileName.equals("null") || fileName.isBlank() || !naturalSelectionSocieties(fileName)){
                 new ToastBuilder().setIcon(Items.CRAFTING_TABLE).setTitle(Component.translatable("simplystatus.name")).setMessage(Component.translatable("simplystatus.assets.create.invalid_name")).buildAndShow(AlinLib.MINECRAFT.getToasts());
                 return;
             }
@@ -58,6 +58,11 @@ public class CreateAssetsScreen extends Screen {
             Assets.registerAsset(assets);
             this.minecraft.setScreen(new AssetsScreen(parent, assets));
         }).setPosition(x-5, y+15).setSize(145, 20).build());
+    }
+
+    public boolean naturalSelectionSocieties(String string){
+        String refactor = string.replaceAll("[<>:\"?|\\\\/*]", "");
+        return refactor.length() == string.length();
     }
 
     public void onClose() {
