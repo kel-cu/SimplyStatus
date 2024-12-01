@@ -11,6 +11,7 @@ import ru.kelcuprum.alinlib.gui.components.ConfigureScrolWidget;
 import ru.kelcuprum.alinlib.gui.components.builder.button.ButtonBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.selector.SelectorBuilder;
+import ru.kelcuprum.alinlib.gui.components.builder.text.TextBuilder;
 import ru.kelcuprum.alinlib.gui.components.text.*;
 import ru.kelcuprum.simplystatus.SimplyStatus;
 import ru.kelcuprum.simplystatus.config.*;
@@ -44,7 +45,7 @@ public class AssetsScreen extends Screen {
     public void initPanel() {
         int x = 5;
         int size = 180;
-        addRenderableWidget(new TextBox(x, 15, size, 9, title, true));
+        addRenderableWidget(new TextBuilder(title).setSize(size, 9).setPosition(x, 15).build());
 
         addRenderableWidget(new EditBoxBuilder(Component.translatable("simplystatus.assets.title"), (s) -> {
             assets.setName(s); if(descriptionBox != null) descriptionBox.setDescription(Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.name)));
@@ -93,7 +94,7 @@ public class AssetsScreen extends Screen {
             }
         }));
         int x = 195;
-        addWidget(new TextBox(x, 5, width - 200, 20, Component.translatable("simplystatus.assets.icons"), true));
+        addWidget(new TextBuilder(Component.translatable("simplystatus.assets.icons")).setPosition(x, 5).setSize(width-200, 20).build());
         addWidget(new CategoryBox(Component.translatable("simplystatus.config.assets.title.menu"))
                 .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.logo"), newVal -> assets.setIcon("logo", newVal)).setValue(assets.getIcon("logo")).build())
         );

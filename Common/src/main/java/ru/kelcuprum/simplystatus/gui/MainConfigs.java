@@ -6,6 +6,7 @@ import ru.kelcuprum.alinlib.gui.components.builder.editbox.EditBoxBuilder;
 import ru.kelcuprum.alinlib.gui.components.builder.selector.SelectorBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import ru.kelcuprum.alinlib.gui.components.builder.text.TextBuilder;
 import ru.kelcuprum.alinlib.gui.components.editbox.EditBox;
 import ru.kelcuprum.alinlib.gui.components.text.*;
 import ru.kelcuprum.alinlib.gui.screens.ConfigScreenBuilder;
@@ -24,12 +25,7 @@ public class MainConfigs {
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.assets"), (s) -> MINECRAFT.setScreen(new AssetsConfigs().build(parent))).build())
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.addons"), (s) -> MINECRAFT.setScreen(new AddonsConfigs().build(parent))).build())
                 .addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.config.mods"), (s) -> MINECRAFT.setScreen(new ModsConfigs().build(parent))).build().setActive(SimplyStatus.isMusicModsEnable || SimplyStatus.isVoiceModsEnable || SimplyStatus.replayMod  || SimplyStatus.klashback));
-        //
-
-        if (AlinLib.bariumConfig.getBoolean("FRIEND", true))
-            builder.addPanelWidget(new ButtonBuilder(Component.translatable("simplystatus.support"), (s) -> MINECRAFT.setScreen(new ThanksScreen().build(parent))).build());
-
-        builder.addWidget(new TextBox(Component.translatable("simplystatus.config.client"), true))
+        builder.addWidget(new TextBuilder(Component.translatable("simplystatus.config.client")))
                 .addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.show_rpc"), true).setConfig(SimplyStatus.userConfig, "SHOW_RPC"));
         if (!ModConfig.mineID.isBlank())
             builder.addWidget(new ButtonBooleanBuilder(Component.translatable("simplystatus.config.client.use_minecraft_id"), false).setConfig(SimplyStatus.userConfig, "USE_ANOTHER_ID").build())
