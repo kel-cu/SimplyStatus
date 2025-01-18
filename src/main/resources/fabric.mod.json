@@ -21,7 +21,7 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "ru.kelcuprum.simplystatus.SimplyStatus"
+      "ru.kelcuprum.simplystatus.SailStatus"
     ],
     "modmenu": [
       "ru.kelcuprum.simplystatus.gui.ModMenuIntegration"
