@@ -1,0 +1,4 @@
+- Code-refucking
+- Correcting configuration screens
+- Cleanup code
+- Updated libs

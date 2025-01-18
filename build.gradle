@@ -1,82 +1,64 @@
 plugins {
+    id 'maven-publish'
+    id "com.modrinth.minotaur" version "2.+"
     id "io.github.goooler.shadow" version "8.1.7" apply false
-    id "architectury-plugin" version "3.+"
-    id "dev.architectury.loom" version "1.7+" apply false
+    id "dev.architectury.loom" version "1.7-SNAPSHOT" apply false
     id "io.github.p03w.machete" version "2.+" apply false
+
+    // https://github.com/ReplayMod/preprocessor
+    // https://github.com/Fallen-Breath/preprocessor
+    id 'com.replaymod.preprocess' version 'ce1aeb2b'
+
+    // https://github.com/Fallen-Breath/yamlang
+    id 'me.fallenbreath.yamlang' version '1.3.1' apply false
 }
 
-architectury {
-    minecraft = rootProject.minecraft_version
+preprocess {
+    def mc1214_fabric = createNode('1.21.4-fabric', 1_21_04, '')
+
+    mc1214_fabric.link(mc1214_fabric, null)
 }
 
-subprojects {
-    apply plugin: "dev.architectury.loom"
-    apply plugin: "io.github.p03w.machete"
-    loom {
-        silentMojangMappingsLicense()
-    }
-    configurations {shadowCommon}
-    dependencies {
-        minecraft "com.mojang:minecraft:${rootProject.minecraft_version}"
-        mappings loom.layered() {
-            officialMojangMappings()
-//            parchment("org.parchmentmc.data:parchment-${rootProject.mc_parchment_version}:${rootProject.parchment_version}@zip")
-        }
-        // Discord Integration
-        shadowCommon(implementation("com.kohlschutter.junixsocket:junixsocket-common:2.7.0"))
-        shadowCommon(implementation("com.kohlschutter.junixsocket:junixsocket-native-common:2.7.0"))
-        shadowCommon(implementation("io.github.CDAGaming:DiscordIPC:0.10.0"))
-        // Mods libs
-        modApi "maven.modrinth:replaymod:${project.replaymod}"
-        modApi "maven.modrinth:plasmo-voice:${project.plasmovoice}"
-        modApi "maven.modrinth:simple-voice-chat:${project.svc}"
-        modApi "maven.modrinth:waterplayer:${project.waterplayer}"
-        modApi "maven.modrinth:flashback:${project.flashback}"
-        implementation("meteordevelopment:starscript:0.3.4")
-    }
-
-    machete {
-        ignoredTasks.add("shadowJar")
-        ignoredTasks.add("jar")
-    }
-
-}
-
-
-allprojects {
-    apply plugin: "java"
-    apply plugin: "architectury-plugin"
-    apply plugin: "maven-publish"
-
-    archivesBaseName = rootProject.archives_base_name
-    version = rootProject.mod_version
-    group = rootProject.maven_group
-
+publishing {
     repositories {
-        mavenCentral()
-        maven { url = "https://s01.oss.sonatype.org/content/repositories/releases" }
-        maven { url = "https://maven.terraformersmc.com/releases" }
-        maven { url = "https://maven.neoforged.net/releases/" } // NEOFORGE
-        maven { url = "https://maven.meteordev.org/releases" }
-        maven { url = 'https://repo.kelcuprum.ru/snapshots' }
-        maven { url = 'https://repo.kelcuprum.ru/releases' }
-        maven { url = 'https://repo.kelcuprum.ru/forks' }
-        maven { url = 'https://repo.kelcuprum.ru/test' }
-        maven { url = "https://api.modrinth.com/maven" }
-        maven { url = "https://maven.parchmentmc.org" } // MAPPINGS
-        maven { url = "https://jitpack.io/" }
-    }
-
-    def targetJavaVersion = 17
-
-    tasks.withType(JavaCompile).configureEach {
-        it.options.encoding = "UTF-8"
-        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
-            it.options.release = targetJavaVersion
+        maven {
+            name = "Kel_Cuprum_Repository"
+            url = "https://repo.kelcuprum.ru/test"
+            credentials {
+                username = System.getenv("MAVEN_USERNAME")
+                password = System.getenv("MAVEN_PASSWORD")
+            }
         }
     }
+}
 
-    java {
-        withSourcesJar()
+tasks.register('modrinthAll') {
+    subprojects {
+        dependsOn project.tasks.named('modrinth').get()
+    }
+}
+
+tasks.register('buildAndGather') {
+    subprojects {
+        dependsOn project.tasks.named('build').get()
+    }
+    doFirst {
+        println 'Gathering builds'
+        def buildLibs = {
+            p -> p.buildDir.toPath().resolve('libs')
+        }
+        delete fileTree(buildLibs(rootProject)) {
+            include '*'
+        }
+        subprojects {
+            copy {
+                from(buildLibs(project)) {
+                    include '*.jar'
+                    exclude '*-dev.jar', '*-sources.jar', '*-all.jar'
+                }
+                into buildLibs(rootProject)
+                duplicatesStrategy DuplicatesStrategy.INCLUDE
+            }
+        }
     }
 }
