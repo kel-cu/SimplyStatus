@@ -31,7 +31,7 @@ public class ModConfig {
      */
     public static void load() throws Exception {
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        InputStream stream = loader.getResourceAsStream("simplystatus.config.json");
+        InputStream stream = loader.getResourceAsStream("sailstatus.config.json");
         if (stream == null) throw new RuntimeException("stream is null!");
         MOD_CONFIG_STRING = IOUtils.toString(stream, StandardCharsets.UTF_8);
         JsonObject config = GsonHelper.parse(MOD_CONFIG_STRING);

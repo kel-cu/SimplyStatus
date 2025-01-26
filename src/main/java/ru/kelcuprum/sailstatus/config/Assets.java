@@ -221,7 +221,7 @@ public class Assets {
         return getByID(id);
     }
     public static void loadFiles(){
-        File assets = AlinLib.MINECRAFT.gameDirectory.toPath().resolve("config/SimplyStatus/assets").toFile();
+        File assets = AlinLib.MINECRAFT.gameDirectory.toPath().resolve("config/SailStatus/assets").toFile();
         if(assets.exists() && assets.isDirectory()){
             for(File assetsFile : Objects.requireNonNull(assets.listFiles())){
                 if(assetsFile.isFile() && assetsFile.getName().endsWith(".json")){

@@ -27,7 +27,7 @@ public class AssetsScreen extends Screen {
     private final Screen parent;
 
     public AssetsScreen(Screen parent, Assets assets) {
-        super(Component.translatable("simplystatus.config.assets"));
+        super(Component.translatable("sailstatus.config.assets"));
         this.parent = parent;
         this.assets = assets;
     }
@@ -41,19 +41,19 @@ public class AssetsScreen extends Screen {
         initPanel();
         initContent();
     }
-    public DescriptionBox descriptionBox;
+    public TextBox descriptionBox;
     public void initPanel() {
         int x = 5;
         int size = 180;
         addRenderableWidget(new TextBuilder(title).setSize(size, 9).setPosition(x, 15).build());
 
-        addRenderableWidget(new EditBoxBuilder(Component.translatable("simplystatus.assets.title"), (s) -> {
-            assets.setName(s); if(descriptionBox != null) descriptionBox.setDescription(Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.name)));
+        addRenderableWidget(new EditBoxBuilder(Component.translatable("sailstatus.assets.title"), (s) -> {
+            assets.setName(s); if(descriptionBox != null) descriptionBox.setDescription(Localization.toText(String.format(Component.translatable("sailstatus.assets.description").getString(), assets.name)));
         }).setValue(assets.name).setPosition(x, 40).setSize(size, 20).build());
 
-        addRenderableWidget(new EditBoxBuilder(Component.translatable("simplystatus.assets.author"), assets::setAuthor)
+        addRenderableWidget(new EditBoxBuilder(Component.translatable("sailstatus.assets.author"), assets::setAuthor)
                 .setValue(assets.author).setPosition(x, 65).setSize(size, 20).build());
-        addRenderableWidget(new SelectorBuilder(Component.translatable("simplystatus.assets.base"), selectorButton -> {
+        addRenderableWidget(new SelectorBuilder(Component.translatable("sailstatus.assets.base"), selectorButton -> {
             assets.setBaseAssets(Assets.getByName(selectorButton.getList()[selectorButton.getPosition()]).id);
             SailStatus.log(assets.getBaseAssets().name);
             assets.save();
@@ -63,15 +63,15 @@ public class AssetsScreen extends Screen {
                 .setPosition(x, 90)
                 .setWidth(size)
                 .build());
-        descriptionBox = addRenderableWidget(new DescriptionBox(x, 115, size, height-150, Component.empty()).setDescription(Localization.toText(String.format(Component.translatable("simplystatus.assets.description").getString(), assets.name))));
+        descriptionBox = (TextBox) addRenderableWidget(new TextBuilder(Localization.toText(String.format(Component.translatable("sailstatus.assets.description").getString(), assets.name))).setType(TextBuilder.TYPE.BLOCKQUOTE).setPosition(x, 115).setWidth(size).build());
         addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_BACK, (s) -> onClose()).setPosition(x, height - 30).setSize(size - 50, 20).build());
-        addRenderableWidget(new ButtonBuilder(Localization.getText("simplystatus.assets.remove"), (OnPress) -> {
+        addRenderableWidget(new ButtonBuilder(Localization.getText("sailstatus.assets.remove"), (OnPress) -> {
             isDeleted = true;
             if(isSelected) SailStatus.userConfig.setString("USE_ASSETS", ModConfig.defaultAssets.id);
             assets.delete();
             onClose();
         }).setIcon(DONT).setPosition(x+size-45, height-30).setSize(20,20).build());
-        addRenderableWidget(new ButtonBuilder(Localization.getText("simplystatus.assets.reload"), (OnPress) -> {
+        addRenderableWidget(new ButtonBuilder(Localization.getText("sailstatus.assets.reload"), (OnPress) -> {
             assets.save();
             rebuildWidgets();
         }).setIcon(RESET).setPosition(x+size-20, height-30).setSize(20,20).build());
@@ -82,7 +82,7 @@ public class AssetsScreen extends Screen {
 
     public void initContent() {
         widgets = new ArrayList<>();
-        this.scroller = addRenderableWidget(new ConfigureScrolWidget(this.width - 8, 0, 4, this.height, Component.empty(), scroller -> {
+        this.scroller = addRenderableWidget(new ConfigureScrolWidget(this.width - 4, 0, 4, this.height, Component.empty(), scroller -> {
             scroller.innerHeight = 5;
             for (AbstractWidget widget : widgets) {
                 if (widget.visible) {
@@ -94,30 +94,30 @@ public class AssetsScreen extends Screen {
             }
         }));
         int x = 195;
-        addWidget(new TextBuilder(Component.translatable("simplystatus.assets.icons")).setPosition(x, 5).setSize(width-200, 20).build());
-        addWidget(new CategoryBox(Component.translatable("simplystatus.config.assets.title.menu"))
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.logo"), newVal -> assets.setIcon("logo", newVal)).setValue(assets.getIcon("logo")).build())
+        addWidget(new TextBuilder(Component.translatable("sailstatus.assets.icons")).setPosition(x, 5).setSize(width-200, 20).build());
+        addWidget(new CategoryBox(Component.translatable("sailstatus.config.assets.title.menu"))
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.logo"), newVal -> assets.setIcon("logo", newVal)).setValue(assets.getIcon("logo")).build())
         );
-        addWidget(new CategoryBox(Component.translatable("simplystatus.config.assets.title.time"))
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.day"), newVal -> assets.setIcon("day", newVal)).setValue(assets.getIcon("day")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.night"), newVal -> assets.setIcon("night", newVal)).setValue(assets.getIcon("night")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.evening"), newVal -> assets.setIcon("evening", newVal)).setValue(assets.getIcon("evening")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.morning"), newVal -> assets.setIcon("morning", newVal)).setValue(assets.getIcon("morning")).build())
+        addWidget(new CategoryBox(Component.translatable("sailstatus.config.assets.title.time"))
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.day"), newVal -> assets.setIcon("day", newVal)).setValue(assets.getIcon("day")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.night"), newVal -> assets.setIcon("night", newVal)).setValue(assets.getIcon("night")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.evening"), newVal -> assets.setIcon("evening", newVal)).setValue(assets.getIcon("evening")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.morning"), newVal -> assets.setIcon("morning", newVal)).setValue(assets.getIcon("morning")).build())
         );
-        addWidget(new CategoryBox(Component.translatable("simplystatus.config.assets.title.worlds"))
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.world"), newVal -> assets.setIcon("world", newVal)).setValue(assets.getIcon("world")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.world_nether"), newVal -> assets.setIcon("world_nether", newVal)).setValue(assets.getIcon("world_nether")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.world_the_end"), newVal -> assets.setIcon("world_the_end", newVal)).setValue(assets.getIcon("world_the_end")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.world_moon"), newVal -> assets.setIcon("world_moon", newVal)).setValue(assets.getIcon("world_moon")).build())
+        addWidget(new CategoryBox(Component.translatable("sailstatus.config.assets.title.worlds"))
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.world"), newVal -> assets.setIcon("world", newVal)).setValue(assets.getIcon("world")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.world_nether"), newVal -> assets.setIcon("world_nether", newVal)).setValue(assets.getIcon("world_nether")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.world_the_end"), newVal -> assets.setIcon("world_the_end", newVal)).setValue(assets.getIcon("world_the_end")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.world_moon"), newVal -> assets.setIcon("world_moon", newVal)).setValue(assets.getIcon("world_moon")).build())
         );
-        addWidget(new CategoryBox(Component.translatable("simplystatus.config.assets.title.modification"))
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.voice"), newVal -> assets.setIcon("voice", newVal)).setValue(assets.getIcon("voice")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.music"), newVal -> assets.setIcon("music", newVal)).setValue(assets.getIcon("music")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.replaymod"), newVal -> assets.setIcon("replaymod", newVal)).setValue(assets.getIcon("replaymod")).build())
+        addWidget(new CategoryBox(Component.translatable("sailstatus.config.assets.title.modification"))
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.voice"), newVal -> assets.setIcon("voice", newVal)).setValue(assets.getIcon("voice")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.music"), newVal -> assets.setIcon("music", newVal)).setValue(assets.getIcon("music")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.replaymod"), newVal -> assets.setIcon("replaymod", newVal)).setValue(assets.getIcon("replaymod")).build())
         );
-        addWidget(new CategoryBox(Component.translatable("simplystatus.config.assets.title.unknown"))
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.unknown_world"), newVal -> assets.setIcon("unknown_world", newVal)).setValue(assets.getIcon("unknown_world")).build())
-                .addValue(new EditBoxBuilder(Component.translatable("simplystatus.config.assets.unknown"), newVal -> assets.setIcon("unknown", newVal)).setValue(assets.getIcon("unknown")).build())
+        addWidget(new CategoryBox(Component.translatable("sailstatus.config.assets.title.unknown"))
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.unknown_world"), newVal -> assets.setIcon("unknown_world", newVal)).setValue(assets.getIcon("unknown_world")).build())
+                .addValue(new EditBoxBuilder(Component.translatable("sailstatus.config.assets.unknown"), newVal -> assets.setIcon("unknown", newVal)).setValue(assets.getIcon("unknown")).build())
         );
     }
 

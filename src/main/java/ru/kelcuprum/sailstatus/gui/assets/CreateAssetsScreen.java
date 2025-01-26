@@ -18,7 +18,7 @@ public class CreateAssetsScreen extends Screen {
     private final Screen parent;
     private String fileName;
     public CreateAssetsScreen(Screen parent) {
-        super(Component.translatable("simplystatus.assets.create"));
+        super(Component.translatable("sailstatus.assets.create"));
         this.parent = parent;
     }
 
@@ -28,23 +28,23 @@ public class CreateAssetsScreen extends Screen {
         int y = height/2;
 
         addRenderableWidget(new TextBuilder(title).setPosition(x-150, 20).setSize(300, 20).build());
-        addRenderableWidget(new EditBoxBuilder(Component.translatable("simplystatus.assets.create.filename"), (s) -> fileName = s)
+        addRenderableWidget(new EditBoxBuilder(Component.translatable("sailstatus.assets.create.filename"), (s) -> fileName = s)
                 .setPosition(x-150, y-10).setSize(300, 20).build());
         addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_CANCEL, (S) -> onClose())
                 .setPosition(x-150, y+15).setSize(145, 20).build());
         addRenderableWidget(new ButtonBuilder(CommonComponents.GUI_CONTINUE, (s) -> {
             if(fileName == null || fileName.equals("null") || fileName.isBlank() || !naturalSelectionSocieties(fileName)){
-                new ToastBuilder().setIcon(Items.CRAFTING_TABLE).setTitle(Component.translatable("simplystatus.name")).setMessage(Component.translatable("simplystatus.assets.create.invalid_name")).buildAndShow();
+                new ToastBuilder().setIcon(Items.CRAFTING_TABLE).setTitle(Component.translatable("sailstatus.name")).setMessage(Component.translatable("sailstatus.assets.create.invalid_name")).buildAndShow();
                 return;
             }
             for(String id : SailStatus.assetsNames){
                 if(id.equals(fileName)){
-                    new ToastBuilder().setIcon(Items.CRAFTING_TABLE).setTitle(Component.translatable("simplystatus.name")).setMessage(Component.translatable("simplystatus.assets.create.id_not_correct")).buildAndShow();
+                    new ToastBuilder().setIcon(Items.CRAFTING_TABLE).setTitle(Component.translatable("sailstatus.name")).setMessage(Component.translatable("sailstatus.assets.create.id_not_correct")).buildAndShow();
                     return;
                 }
             }
             assert this.minecraft != null;
-            String path = "config/SimplyStatus/assets/"+fileName+".json";
+            String path = "config/SailStatus/assets/"+fileName+".json";
             Path file = Path.of(path);
             try {
                 Files.createDirectories(file.getParent());
@@ -56,7 +56,7 @@ public class CreateAssetsScreen extends Screen {
             assets.setDefaultAssets(ModConfig.defaultAssets);
             Assets.registerAsset(assets);
             this.minecraft.setScreen(new AssetsScreen(parent, assets));
-        }).setPosition(x-5, y+15).setSize(145, 20).build());
+        }).setPosition(x+5, y+15).setSize(145, 20).build());
     }
 
     public boolean naturalSelectionSocieties(String string){

@@ -1,4 +1,4 @@
-package ru.kelcuprum.sailstatus.presence.multiplayer;
+package ru.kelcuprum.sailstatus.presence.menu;
 
 import com.jagrosh.discordipc.entities.*;
 import ru.kelcuprum.sailstatus.SailStatus;

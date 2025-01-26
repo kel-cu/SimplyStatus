@@ -7,7 +7,7 @@ import ru.kelcuprum.sailstatus.mods.Voice;
 
 public class PresencePlayer {
     static boolean lastMessageDeath = false;
-    static String lastTextDeath = "";
+    public static String lastTextDeath = "";
     public static String getName(){
         if(SailStatus.userConfig.getBoolean("VIEW_PLAYER_NAME", true) || !SailStatus.CONNECTED || SailStatus.USER == null) return Player.getName();
         else return SailStatus.USER.getNickname();
@@ -27,20 +27,8 @@ public class PresencePlayer {
     }
     public static String getState(){
         if(AlinLib.MINECRAFT.player == null) return "";
-        if(AlinLib.MINECRAFT.player.isDeadOrDying()){
-            double randomNumber = Math.floor(Math.random() * 2);
-            if(!lastMessageDeath){
-                String message;
-                if(randomNumber == 0) message = SailStatus.localization.getLocalization("death.one", true);
-                else if(randomNumber == 1) message = SailStatus.localization.getLocalization("death.two", true);
-                else message = SailStatus.localization.getLocalization("death.three", true);
-                lastTextDeath = message;
-                lastMessageDeath = true;
-                return message;
-            } else {
-                return lastTextDeath;
-            }
-        } else if(!SailStatus.userConfig.getBoolean("SHOW_ITEMS", true) || (Player.getItemName().isBlank() && SailStatus.userConfig.getBoolean("SHOW_ITEMS", true))){
+        if(AlinLib.MINECRAFT.player.isDeadOrDying()) return lastTextDeath;
+        else if(!SailStatus.userConfig.getBoolean("SHOW_ITEMS", true) || (Player.getItemName().isBlank() && SailStatus.userConfig.getBoolean("SHOW_ITEMS", true))){
             if(lastMessageDeath) lastMessageDeath = false;
             if(SailStatus.userConfig.getBoolean("VIEW_STATISTICS", true)){
                 if(AlinLib.MINECRAFT.player.isSleeping()) return SailStatus.localization.getLocalization("player.sleep", true);

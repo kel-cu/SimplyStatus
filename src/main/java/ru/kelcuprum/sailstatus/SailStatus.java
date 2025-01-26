@@ -5,6 +5,7 @@ import com.jagrosh.discordipc.*;
 import com.jagrosh.discordipc.entities.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.resources.ResourceLocation;
 import org.apache.logging.log4j.*;
 import org.meteordev.starscript.value.*;
 import ru.kelcuprum.alinlib.AlinLib;
@@ -15,9 +16,15 @@ import ru.kelcuprum.sailstatus.config.*;
 import ru.kelcuprum.sailstatus.info.*;
 import ru.kelcuprum.sailstatus.mods.*;
 import ru.kelcuprum.sailstatus.presence.*;
-import ru.kelcuprum.sailstatus.presence.ReplayMod;
-import ru.kelcuprum.sailstatus.presence.singleplayer.*;
-import ru.kelcuprum.sailstatus.presence.multiplayer.*;
+import ru.kelcuprum.sailstatus.presence.ingame.MultiPlayer;
+import ru.kelcuprum.sailstatus.presence.ingame.SaveWorld;
+import ru.kelcuprum.sailstatus.presence.ingame.SinglePlayer;
+import ru.kelcuprum.sailstatus.presence.menu.Connect;
+import ru.kelcuprum.sailstatus.presence.menu.Disconnect;
+import ru.kelcuprum.sailstatus.presence.menu.Loading;
+import ru.kelcuprum.sailstatus.presence.menu.MainMenu;
+import ru.kelcuprum.sailstatus.presence.mods.Flashback;
+import ru.kelcuprum.sailstatus.presence.mods.ReplayMod;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -25,18 +32,18 @@ import java.util.*;
 
 public class SailStatus implements ClientModInitializer {
     // User Configurations
-    public static Config userConfig = new Config("config/SimplyStatus/config.json");
-    public static Config serverConfig = new Config("config/SimplyStatus/servers/default.json");
-    public static Localization localization = new Localization("simplystatus.presence", "config/SimplyStatus/lang");
+    public static Config userConfig = new Config("config/SailStatus/config.json");
+    public static Config serverConfig = new Config("config/SailStatus/servers/default.json");
+    public static Localization localization = new Localization("sailstatus.presence", "config/SailStatus/lang");
     public static HashMap<String, Assets> assets = new HashMap<>();
     public static HashMap<String, Assets> modAssets = new HashMap<>();
     public static ArrayList<String> assetsNames = new ArrayList<>();
     // Another shit
     public static double isPEnable = Math.random();
     private static String lastException;
-    public static Long TIME_STARTED_CLIENT;
+    public static Long TIME_STARTED_CLIENT = 0L;
     // Logs
-    public static final Logger LOG = LogManager.getLogger("SimplyStatus");
+    public static final Logger LOG = LogManager.getLogger("SailStatus");
 
     public static void log(String message) {
         log(message, Level.INFO);
@@ -84,9 +91,11 @@ public class SailStatus implements ClientModInitializer {
             return;
         }
         Assets.loadFiles();
-        TIME_STARTED_CLIENT = parseSeconds(System.currentTimeMillis());
-        ClientLifecycleEvents.CLIENT_STARTED.register(client -> startClient());
-        ClientLifecycleEvents.CLIENT_FULL_STARTED.register(client -> GAME_STARTED = true);
+        ClientLifecycleEvents.CLIENT_FULL_STARTED.register(client -> {
+            TIME_STARTED_CLIENT = parseSeconds(System.currentTimeMillis());
+            GAME_STARTED = true;
+            startClient();
+        });
         ClientLifecycleEvents.CLIENT_STOPPING.register(client1 -> exitApplication());
         LocalizationEvents.DEFAULT_PARSER_INIT.register((parser) -> {
             parser.ss.set("player.scene", () -> Value.string(PresenceWorld.getScene()));
@@ -116,8 +125,6 @@ public class SailStatus implements ClientModInitializer {
                 );
             }
         });
-        registerApplication();
-        start();
     }
     public static String getReplayDateFormat(){
         String strDateFormat = SailStatus.localization.getLocalization("mod.replaymod.date_format", false);
@@ -161,26 +168,33 @@ public class SailStatus implements ClientModInitializer {
 
     // -=-=-=-=-=-=-=-=-
     public static void startClient() {
+        registerApplication();
+        start();
         log(String.format("Client %s is up and running!", AlinLib.MINECRAFT.getLaunchedVersion()));
     }
     // -=-=-=-=-=-=-=-=-
 
     private static void registerApplication() {
-        APPLICATION_ID = userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
-        if (userConfig.getBoolean("USE_CUSTOM_APP_ID", false) && !userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID).isBlank())
-            APPLICATION_ID = userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
-        client = new IPCClient(Long.parseLong(APPLICATION_ID));
-        setupListener();
-        try {
-            client.connect();
-        } catch (Exception ex) {
-            log(ex.getLocalizedMessage(), Level.ERROR);
-        }
+        if(!CONNECTED) {
+            APPLICATION_ID = userConfig.getBoolean("USE_ANOTHER_ID", false) ? ModConfig.mineID : ModConfig.baseID;
+            if (userConfig.getBoolean("USE_CUSTOM_APP_ID", false) && !userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID).isBlank())
+                APPLICATION_ID = userConfig.getString("CUSTOM_APP_ID", ModConfig.baseID);
+            client = new IPCClient(Long.parseLong(APPLICATION_ID));
+            setupListener();
+            try {
+                client.connect();
+            } catch (Exception ex) {
+                log(ex.getLocalizedMessage(), Level.ERROR);
+            }
+        } else log("The client is already running");
     }
 
     public static void exitApplication() {
-        log("Client stopped");
-        client.close();
+        if(CONNECTED) {
+            log("Client stopped");
+            CONNECTED = false;
+            client.close();
+        }
     }
 
     public static void setupListener() {
@@ -231,8 +245,6 @@ public class SailStatus implements ClientModInitializer {
         });
     }
 
-
-
     private static void updatePresence() {
         if (userConfig.getBoolean("SHOW_RPC", true)) {
             if(waterPlayer) waterPlayerSupport.update();
@@ -241,10 +253,17 @@ public class SailStatus implements ClientModInitializer {
                 else if (SailStatus.klashback && FlashbackComp.isInReplay() && userConfig.getBoolean("VIEW_REPLAY_MOD", true)) new Flashback();
                 else if (AlinLib.MINECRAFT.isSingleplayer() || AlinLib.MINECRAFT.hasSingleplayerServer()) new SinglePlayer();
                 else if (AlinLib.MINECRAFT.getCurrentServer() != null) new MultiPlayer();
-                else new Unknown();
+                else switch (Client.getState()) {
+                        case 1 -> new LoadingResources();
+                        case 2 -> new Loading();
+                        case 3 -> new Connect();
+                        case 4 -> new Disconnect();
+                        case 5 -> new SaveWorld();
+                        default -> new Unknown();
+                    }
             } else {
                 switch (Client.getState()) {
-                    case 1 -> new LoadingGame();
+                    case 1 -> new LoadingResources();
                     case 2 -> new Loading();
                     case 3 -> new Connect();
                     case 4 -> new Disconnect();
@@ -302,7 +321,6 @@ public class SailStatus implements ClientModInitializer {
             EMPTY = false;
             try {
                 if (CONNECTED) client.sendRichPresence(presence);
-                if(ModConfig.debugPresence) SailStatus.log(presence.toJson().toString());
                 lastPresence = presence;
             } catch (Exception ex) {
                 SailStatus.log(ex.getMessage() == null ? ex.getClass().getName() : ex.getMessage(), Level.ERROR);
@@ -314,5 +332,13 @@ public class SailStatus implements ClientModInitializer {
         exitApplication();
         lastPresence = null;
         registerApplication();
+    }
+
+    public interface ICONS {
+        ResourceLocation MULTIPLAYER = ResourceLocation.fromNamespaceAndPath("sailstatus", "textures/gui/multiplayer.png");
+        ResourceLocation ASSETS = ResourceLocation.fromNamespaceAndPath("sailstatus", "textures/gui/assets.png");
+        ResourceLocation MONITOR = ResourceLocation.fromNamespaceAndPath("sailstatus", "textures/gui/monitor.png");
+        ResourceLocation ACCESSIBILITY = ResourceLocation.fromNamespaceAndPath("sailstatus", "textures/gui/accessibility.png");
+        ResourceLocation LANGUAGE = ResourceLocation.fromNamespaceAndPath("sailstatus", "textures/gui/language.png");
     }
 }

@@ -1,4 +1,4 @@
-## SimplyStatus
+## SailStatus
 Этот мод предназначен для статуса игры **Minecraft** в **[Discord](https://discord.com/company)**.<br>
 С обширной вариацией кастомизации, в виде локализации и изменения иконок.<br>
 Также можно изменить ID приложения Discord.

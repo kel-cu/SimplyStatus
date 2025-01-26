@@ -1,19 +1,15 @@
-package ru.kelcuprum.sailstatus.presence.multiplayer;
+package ru.kelcuprum.sailstatus.presence.ingame;
 
 import com.jagrosh.discordipc.entities.*;
-import ru.kelcuprum.alinlib.AlinLib;
-import ru.kelcuprum.alinlib.config.Config;
 import ru.kelcuprum.alinlib.info.World;
 import ru.kelcuprum.sailstatus.SailStatus;
 import ru.kelcuprum.sailstatus.config.Assets;
 import ru.kelcuprum.sailstatus.info.*;
 
-public class MultiPlayer {
-    public MultiPlayer(){
+public class SinglePlayer {
+    public SinglePlayer(){
         RichPresence.Builder presence = new RichPresence.Builder().setActivityType(ActivityType.Playing);
-        SailStatus.serverConfig = new Config(String.format("config/SimplyStatus/servers/%s.json", AlinLib.MINECRAFT.getCurrentServer().ip.replace(":", "_")));
-        SailStatus.serverConfig.load();
-        SailStatus.updateContentPresenceByConfigs(presence, true);
+        SailStatus.updateContentPresenceByConfigs(presence);
         presence.setDetails(PresencePlayer.getState());
         presence.setState(SailStatus.localization.getLocalization("player.world.state", true));
         if(SailStatus.userConfig.getBoolean("ENABLE_WORLD", true)){

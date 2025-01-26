@@ -1,4 +1,4 @@
-package ru.kelcuprum.sailstatus.presence;
+package ru.kelcuprum.sailstatus.presence.mods;
 
 import com.jagrosh.discordipc.entities.ActivityType;
 import com.jagrosh.discordipc.entities.RichPresence;

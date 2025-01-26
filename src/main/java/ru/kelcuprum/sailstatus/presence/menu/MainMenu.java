@@ -1,4 +1,4 @@
-package ru.kelcuprum.sailstatus.presence;
+package ru.kelcuprum.sailstatus.presence.menu;
 
 import com.jagrosh.discordipc.entities.*;
 import ru.kelcuprum.sailstatus.SailStatus;
@@ -9,10 +9,10 @@ public class MainMenu {
         RichPresence.Builder presence = new RichPresence.Builder();
         presence.setActivityType(ActivityType.Playing);
         presence.setLargeImage(Assets.getSelected().getIcon("logo"), SailStatus.localization.getLocalization("mainmenu.icon", true));
-        if(SailStatus.localization.getLocalization("mainmenu", false).equals("simplystatus.presence.mainmenu")) presence.setState("Resources unready!");
+        if(SailStatus.localization.getLocalization("mainmenu", false).equals("sailstatus.presence.mainmenu")) presence.setState("Resources unready!");
         else  {
             presence.setDetails(SailStatus.localization.getLocalization("mainmenu", true));
-            if(SailStatus.localization.getLocalization("mainmenu.state", true).equals("simplystatus.presence.mainmenu.state"))  presence.setDetails("Please wait...");
+            if(SailStatus.localization.getLocalization("mainmenu.state", true).equals("sailstatus.presence.mainmenu.state"))  presence.setDetails("Please wait...");
             else presence.setState(SailStatus.localization.getLocalization("mainmenu.state", true));
         }
         SailStatus.updateContentPresenceByConfigs(presence, false, true);
