@@ -1,11 +1,1 @@
-- SimplyStatus -> SailStatus [The icon is temporarily unavailable]
-- Code-refucking
-- Cleanup code
-- Updated libs
-- Correcting configuration screens
-- Fixed interface defects with AlinLib 2.1
-- Rewritten death messages
-- Status is now enabled when the game is fully launched [LoadingGame -> LoadingResources]
-- Added new state: SaveWorld
-- Changed icons for Disconnect, Loading
-- i forgot..
+- Added icon

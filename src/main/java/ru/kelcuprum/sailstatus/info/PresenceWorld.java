@@ -11,13 +11,13 @@ public class PresenceWorld {
         if(AlinLib.MINECRAFT.level == null) return;
         long currentTime = AlinLib.MINECRAFT.level.getDayTime() % 24000;
         if (currentTime < 6000 && currentTime > 0) {
-            presence.setLargeImage(Assets.getSelected().getIcon("morning"), SailStatus.localization.getLocalization("time.morning", true));
+            presence.setLargeImage(Assets.getSelected().getIcon("morning"), AlinLib.localization.getLocalization("time.morning", true));
         } else if (currentTime < 12000 && currentTime > 6000) {
-            presence.setLargeImage(Assets.getSelected().getIcon("day"), SailStatus.localization.getLocalization("time.day", true));
+            presence.setLargeImage(Assets.getSelected().getIcon("day"), AlinLib.localization.getLocalization("time.day", true));
         } else if (currentTime < 16500 && currentTime > 12000) {
-            presence.setLargeImage(Assets.getSelected().getIcon("evening"), SailStatus.localization.getLocalization("time.evening", true));
+            presence.setLargeImage(Assets.getSelected().getIcon("evening"), AlinLib.localization.getLocalization("time.evening", true));
         } else if (currentTime > 16500) {
-            presence.setLargeImage(Assets.getSelected().getIcon("night"), SailStatus.localization.getLocalization("time.night", true));
+            presence.setLargeImage(Assets.getSelected().getIcon("night"), AlinLib.localization.getLocalization("time.night", true));
         } else {
             presence.setLargeImage(Assets.getSelected().getIcon("world"), SailStatus.localization.getLocalization("world.overworld", true));
             presence.setSmallImage("", "");
